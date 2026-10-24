@@ -1,0 +1,626 @@
+{
+  "$defs": {
+    "DesignProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "independence": {
+          "default": "unknown",
+          "title": "Independence",
+          "type": "string"
+        },
+        "pairing": {
+          "default": "unknown",
+          "title": "Pairing",
+          "type": "string"
+        },
+        "sampling": {
+          "default": "unknown",
+          "title": "Sampling",
+          "type": "string"
+        },
+        "repeated_measures": {
+          "default": "unknown",
+          "title": "Repeated Measures",
+          "type": "string"
+        },
+        "goal": {
+          "title": "Goal",
+          "type": "string"
+        },
+        "response_types": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Response Types",
+          "type": "object"
+        }
+      },
+      "required": [
+        "goal",
+        "response_types"
+      ],
+      "title": "DesignProfile",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "origin": {
+          "enum": [
+            "computed",
+            "official_document",
+            "user",
+            "rule_inference",
+            "llm_inference",
+            "unknown"
+          ],
+          "title": "Origin",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "verified",
+            "unverified",
+            "unknown"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "origin",
+        "source",
+        "method",
+        "status"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "QualityProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "missing_cells": {
+          "title": "Missing Cells",
+          "type": "integer"
+        },
+        "missing_rate": {
+          "title": "Missing Rate",
+          "type": "number"
+        },
+        "missing_patterns": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Missing Patterns",
+          "type": "object"
+        },
+        "iqr_outlier_counts": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Iqr Outlier Counts",
+          "type": "object"
+        },
+        "constant_columns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Constant Columns",
+          "type": "array"
+        },
+        "all_missing_columns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "All Missing Columns",
+          "type": "array"
+        },
+        "warnings": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Warnings",
+          "type": "array"
+        }
+      },
+      "required": [
+        "missing_cells",
+        "missing_rate",
+        "missing_patterns",
+        "iqr_outlier_counts",
+        "constant_columns",
+        "all_missing_columns",
+        "warnings"
+      ],
+      "title": "QualityProfile",
+      "type": "object"
+    },
+    "RelationsProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "columns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Columns",
+          "type": "array"
+        },
+        "complete_rows": {
+          "title": "Complete Rows",
+          "type": "integer"
+        },
+        "correlation": {
+          "additionalProperties": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object"
+          },
+          "title": "Correlation",
+          "type": "object"
+        },
+        "covariance": {
+          "additionalProperties": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "type": "object"
+          },
+          "title": "Covariance",
+          "type": "object"
+        },
+        "centered_rank": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Centered Rank"
+        },
+        "effective_dimension_95": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Effective Dimension 95"
+        },
+        "condition_number": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Condition Number"
+        },
+        "singular": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Singular"
+        },
+        "group_sizes": {
+          "additionalProperties": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object"
+          },
+          "title": "Group Sizes",
+          "type": "object"
+        },
+        "method": {
+          "default": "Complete-case numeric subset; sample covariance; centered SVD",
+          "title": "Method",
+          "type": "string"
+        }
+      },
+      "required": [
+        "columns",
+        "complete_rows",
+        "correlation",
+        "covariance",
+        "centered_rank",
+        "effective_dimension_95",
+        "condition_number",
+        "singular",
+        "group_sizes"
+      ],
+      "title": "RelationsProfile",
+      "type": "object"
+    },
+    "SourceProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "file_name": {
+          "title": "File Name",
+          "type": "string"
+        },
+        "sha256": {
+          "title": "Sha256",
+          "type": "string"
+        },
+        "format": {
+          "enum": [
+            "csv",
+            "xlsx"
+          ],
+          "title": "Format",
+          "type": "string"
+        },
+        "extraction_method": {
+          "title": "Extraction Method",
+          "type": "string"
+        },
+        "sheet": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sheet"
+        },
+        "uncertainties": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Uncertainties",
+          "type": "array"
+        }
+      },
+      "required": [
+        "file_name",
+        "sha256",
+        "format",
+        "extraction_method"
+      ],
+      "title": "SourceProfile",
+      "type": "object"
+    },
+    "StructureProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "n": {
+          "minimum": 1,
+          "title": "N",
+          "type": "integer"
+        },
+        "p": {
+          "minimum": 1,
+          "title": "P",
+          "type": "integer"
+        },
+        "p_over_n": {
+          "title": "P Over N",
+          "type": "number"
+        },
+        "duplicate_rows": {
+          "title": "Duplicate Rows",
+          "type": "integer"
+        },
+        "candidate_keys": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Candidate Keys",
+          "type": "array"
+        },
+        "layout": {
+          "default": "unknown",
+          "title": "Layout",
+          "type": "string"
+        },
+        "time_order": {
+          "default": "unknown",
+          "title": "Time Order",
+          "type": "string"
+        },
+        "repeated_measures": {
+          "default": "unknown",
+          "title": "Repeated Measures",
+          "type": "string"
+        }
+      },
+      "required": [
+        "n",
+        "p",
+        "p_over_n",
+        "duplicate_rows",
+        "candidate_keys"
+      ],
+      "title": "StructureProfile",
+      "type": "object"
+    },
+    "VariableProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "dtype": {
+          "title": "Dtype",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "numeric",
+            "categorical",
+            "boolean",
+            "datetime"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "measurement_scale": {
+          "default": "unknown",
+          "title": "Measurement Scale",
+          "type": "string"
+        },
+        "n_unique": {
+          "title": "N Unique",
+          "type": "integer"
+        },
+        "missing_count": {
+          "title": "Missing Count",
+          "type": "integer"
+        },
+        "missing_rate": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Missing Rate",
+          "type": "number"
+        },
+        "nonfinite_count": {
+          "default": 0,
+          "title": "Nonfinite Count",
+          "type": "integer"
+        },
+        "minimum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum"
+        },
+        "maximum": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Maximum"
+        },
+        "mean": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mean"
+        },
+        "variance": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Variance"
+        },
+        "skewness": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Skewness"
+        },
+        "excess_kurtosis": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Excess Kurtosis"
+        },
+        "quantiles": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Quantiles",
+          "type": "object"
+        },
+        "zero_fraction": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Zero Fraction"
+        },
+        "evidence": {
+          "$ref": "#/$defs/Evidence"
+        }
+      },
+      "required": [
+        "name",
+        "dtype",
+        "kind",
+        "n_unique",
+        "missing_count",
+        "missing_rate",
+        "evidence"
+      ],
+      "title": "VariableProfile",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source": {
+      "$ref": "#/$defs/SourceProfile"
+    },
+    "structure": {
+      "$ref": "#/$defs/StructureProfile"
+    },
+    "variables": {
+      "items": {
+        "$ref": "#/$defs/VariableProfile"
+      },
+      "title": "Variables",
+      "type": "array"
+    },
+    "quality": {
+      "$ref": "#/$defs/QualityProfile"
+    },
+    "relations": {
+      "$ref": "#/$defs/RelationsProfile"
+    },
+    "design": {
+      "$ref": "#/$defs/DesignProfile"
+    },
+    "evidence": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "title": "Evidence",
+      "type": "object"
+    },
+    "unknowns": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unknowns",
+      "type": "array"
+    }
+  },
+  "required": [
+    "source",
+    "structure",
+    "variables",
+    "quality",
+    "relations",
+    "design",
+    "evidence",
+    "unknowns"
+  ],
+  "title": "DataProfile",
+  "type": "object"
+}

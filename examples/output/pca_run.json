@@ -1,0 +1,576 @@
+{
+  "run_id": "36f595e55ce747cfb14e670d4025fa28",
+  "started_at": "2026-10-24T23:51:04.432779+00:00",
+  "status": "success",
+  "events": [
+    {
+      "node": "read_table",
+      "status": "success",
+      "seconds": 0.007118699955753982
+    },
+    {
+      "node": "task_understanding",
+      "status": "success",
+      "seconds": 6.989995017647743e-05
+    },
+    {
+      "node": "data_structure",
+      "status": "success",
+      "seconds": 0.006021399982273579
+    },
+    {
+      "node": "distribution_quality_relations",
+      "status": "success",
+      "seconds": 0.00507149996701628
+    },
+    {
+      "node": "profile_validation",
+      "status": "success",
+      "seconds": 0.004355600103735924
+    },
+    {
+      "node": "statistical_knowledge",
+      "status": "success",
+      "seconds": 0.000660400022752583
+    },
+    {
+      "node": "retrieve",
+      "status": "success",
+      "seconds": 0.023497199988923967
+    },
+    {
+      "node": "execute_validate",
+      "status": "success",
+      "seconds": 0.0010863000061362982
+    }
+  ],
+  "python": "3.11.9",
+  "versions": {
+    "numpy": "2.4.6",
+    "pandas": "3.1.0",
+    "pydantic": "2.14.1",
+    "langgraph": "1.2.17",
+    "scikit-learn": "1.9.1",
+    "openpyxl": "3.1.5"
+  },
+  "configuration": {
+    "goal": "主成分分析",
+    "roles": {
+      "task_type": null,
+      "targets": [],
+      "predictors": [
+        "x1",
+        "x2",
+        "x3"
+      ],
+      "groups": []
+    },
+    "sheet": 0,
+    "encoder": "tfidf_char_lexical_smoke_only",
+    "alpha": 1.0,
+    "penalty_lambda": 0.5,
+    "mode": "C"
+  },
+  "usage": {
+    "llm_calls": 0,
+    "api_calls": 0,
+    "tokens": 0,
+    "api_cost_usd": 0,
+    "retries": 0,
+    "note": "No API calls. Local model compute/download costs are not measured."
+  },
+  "task": {
+    "schema_version": "0.1.0",
+    "research_goal": "主成分分析",
+    "task_type": "pca",
+    "target_variables": [],
+    "predictor_variables": [
+      "x1",
+      "x2",
+      "x3"
+    ],
+    "group_variables": [],
+    "expected_output": [
+      "profiles",
+      "method ranking",
+      "validated analysis when supported"
+    ],
+    "constraints": [],
+    "unknowns": [
+      "study_design"
+    ],
+    "evidence": {
+      "research_goal": {
+        "schema_version": "0.1.0",
+        "origin": "user",
+        "source": "CLI goal",
+        "method": "verbatim",
+        "status": "verified",
+        "note": ""
+      },
+      "task_type": {
+        "schema_version": "0.1.0",
+        "origin": "rule_inference",
+        "source": "research_goal",
+        "method": "keyword baseline",
+        "status": "unverified",
+        "note": ""
+      },
+      "variable_roles": {
+        "schema_version": "0.1.0",
+        "origin": "user",
+        "source": "CLI variable flags",
+        "method": "explicit variable names",
+        "status": "verified",
+        "note": ""
+      }
+    }
+  },
+  "profile": {
+    "schema_version": "0.1.0",
+    "source": {
+      "schema_version": "0.1.0",
+      "file_name": "pca.csv",
+      "sha256": "1cbad5d80c3bcf724ffcadac6a7d6ffe3bdb009134116af31f50c3eb403c0387",
+      "format": "csv",
+      "extraction_method": "pandas local table reader",
+      "sheet": null,
+      "uncertainties": [
+        "Inferred dtypes do not establish measurement scales or study design."
+      ]
+    },
+    "structure": {
+      "schema_version": "0.1.0",
+      "n": 8,
+      "p": 3,
+      "p_over_n": 0.375,
+      "duplicate_rows": 0,
+      "candidate_keys": [
+        "x1",
+        "x2",
+        "x3"
+      ],
+      "layout": "unknown",
+      "time_order": "unknown",
+      "repeated_measures": "unknown"
+    },
+    "variables": [
+      {
+        "schema_version": "0.1.0",
+        "name": "x1",
+        "dtype": "int64",
+        "kind": "numeric",
+        "measurement_scale": "unknown",
+        "n_unique": 8,
+        "missing_count": 0,
+        "missing_rate": 0.0,
+        "nonfinite_count": 0,
+        "minimum": 1.0,
+        "maximum": 8.0,
+        "mean": 4.5,
+        "variance": 6.0,
+        "skewness": 0.0,
+        "excess_kurtosis": -1.2,
+        "quantiles": {
+          "0.25": 2.75,
+          "0.5": 4.5,
+          "0.75": 6.25
+        },
+        "zero_fraction": 0.0,
+        "evidence": {
+          "schema_version": "0.1.0",
+          "origin": "computed",
+          "source": "sha256:1cbad5d80c3bcf724ffcadac6a7d6ffe3bdb009134116af31f50c3eb403c0387",
+          "method": "pandas; finite observations; sample variance ddof=1; adjusted skew/kurtosis",
+          "status": "verified",
+          "note": ""
+        }
+      },
+      {
+        "schema_version": "0.1.0",
+        "name": "x2",
+        "dtype": "int64",
+        "kind": "numeric",
+        "measurement_scale": "unknown",
+        "n_unique": 8,
+        "missing_count": 0,
+        "missing_rate": 0.0,
+        "nonfinite_count": 0,
+        "minimum": 1.0,
+        "maximum": 8.0,
+        "mean": 4.5,
+        "variance": 6.0,
+        "skewness": 0.0,
+        "excess_kurtosis": -1.2,
+        "quantiles": {
+          "0.25": 2.75,
+          "0.5": 4.5,
+          "0.75": 6.25
+        },
+        "zero_fraction": 0.0,
+        "evidence": {
+          "schema_version": "0.1.0",
+          "origin": "computed",
+          "source": "sha256:1cbad5d80c3bcf724ffcadac6a7d6ffe3bdb009134116af31f50c3eb403c0387",
+          "method": "pandas; finite observations; sample variance ddof=1; adjusted skew/kurtosis",
+          "status": "verified",
+          "note": ""
+        }
+      },
+      {
+        "schema_version": "0.1.0",
+        "name": "x3",
+        "dtype": "int64",
+        "kind": "numeric",
+        "measurement_scale": "unknown",
+        "n_unique": 8,
+        "missing_count": 0,
+        "missing_rate": 0.0,
+        "nonfinite_count": 0,
+        "minimum": 2.0,
+        "maximum": 9.0,
+        "mean": 5.5,
+        "variance": 6.0,
+        "skewness": 0.0,
+        "excess_kurtosis": -1.2,
+        "quantiles": {
+          "0.25": 3.75,
+          "0.5": 5.5,
+          "0.75": 7.25
+        },
+        "zero_fraction": 0.0,
+        "evidence": {
+          "schema_version": "0.1.0",
+          "origin": "computed",
+          "source": "sha256:1cbad5d80c3bcf724ffcadac6a7d6ffe3bdb009134116af31f50c3eb403c0387",
+          "method": "pandas; finite observations; sample variance ddof=1; adjusted skew/kurtosis",
+          "status": "verified",
+          "note": ""
+        }
+      }
+    ],
+    "quality": {
+      "schema_version": "0.1.0",
+      "missing_cells": 0,
+      "missing_rate": 0.0,
+      "missing_patterns": {
+        "<complete>": 8
+      },
+      "iqr_outlier_counts": {
+        "x1": 0,
+        "x2": 0,
+        "x3": 0
+      },
+      "constant_columns": [],
+      "all_missing_columns": [],
+      "warnings": [
+        "IQR flags are descriptive; they do not justify removing observations.",
+        "Numeric dtype does not distinguish identifiers, ordinal codes and continuous measurements.",
+        "Marginal distributions do not verify regression residual assumptions."
+      ]
+    },
+    "relations": {
+      "schema_version": "0.1.0",
+      "columns": [
+        "x1",
+        "x2",
+        "x3"
+      ],
+      "complete_rows": 8,
+      "correlation": {
+        "x1": {
+          "x1": 1.0,
+          "x2": 0.8333333333333334,
+          "x3": 0.8809523809523809
+        },
+        "x2": {
+          "x1": 0.8333333333333334,
+          "x2": 1.0,
+          "x3": 0.6666666666666666
+        },
+        "x3": {
+          "x1": 0.8809523809523809,
+          "x2": 0.6666666666666666,
+          "x3": 1.0
+        }
+      },
+      "covariance": {
+        "x1": {
+          "x1": 6.0,
+          "x2": 5.0,
+          "x3": 5.285714285714286
+        },
+        "x2": {
+          "x1": 5.0,
+          "x2": 6.0,
+          "x3": 4.0
+        },
+        "x3": {
+          "x1": 5.285714285714286,
+          "x2": 4.0,
+          "x3": 6.0
+        }
+      },
+      "centered_rank": 3,
+      "effective_dimension_95": 2,
+      "condition_number": 5.941271366849419,
+      "singular": false,
+      "group_sizes": {},
+      "method": "Complete-case numeric subset; sample covariance; centered SVD"
+    },
+    "design": {
+      "schema_version": "0.1.0",
+      "independence": "unknown",
+      "pairing": "unknown",
+      "sampling": "unknown",
+      "repeated_measures": "unknown",
+      "goal": "pca",
+      "response_types": {}
+    },
+    "evidence": {
+      "source": {
+        "schema_version": "0.1.0",
+        "origin": "computed",
+        "source": "sha256:1cbad5d80c3bcf724ffcadac6a7d6ffe3bdb009134116af31f50c3eb403c0387",
+        "method": "SHA256 and local reader metadata",
+        "status": "verified",
+        "note": ""
+      },
+      "structure": {
+        "schema_version": "0.1.0",
+        "origin": "computed",
+        "source": "sha256:1cbad5d80c3bcf724ffcadac6a7d6ffe3bdb009134116af31f50c3eb403c0387",
+        "method": "shape, duplicated, nunique; key candidates are uniqueness only",
+        "status": "verified",
+        "note": ""
+      },
+      "quality": {
+        "schema_version": "0.1.0",
+        "origin": "computed",
+        "source": "sha256:1cbad5d80c3bcf724ffcadac6a7d6ffe3bdb009134116af31f50c3eb403c0387",
+        "method": "missing masks and Tukey 1.5 IQR descriptive flags",
+        "status": "verified",
+        "note": ""
+      },
+      "relations": {
+        "schema_version": "0.1.0",
+        "origin": "computed",
+        "source": "sha256:1cbad5d80c3bcf724ffcadac6a7d6ffe3bdb009134116af31f50c3eb403c0387",
+        "method": "Complete-case numeric subset; sample covariance; centered SVD",
+        "status": "verified",
+        "note": ""
+      },
+      "design": {
+        "schema_version": "0.1.0",
+        "origin": "unknown",
+        "source": "study protocol not supplied",
+        "method": "not inferred",
+        "status": "unknown",
+        "note": ""
+      }
+    },
+    "unknowns": [
+      "measurement_scales",
+      "independence",
+      "pairing",
+      "sampling",
+      "repeated_measures",
+      "missingness_mechanism"
+    ]
+  },
+  "retrieval": {
+    "schema_version": "0.1.0",
+    "status": "ranked",
+    "encoder": "tfidf_char_lexical_smoke_only",
+    "mode": "C",
+    "alpha": 1.0,
+    "penalty_lambda": 0.5,
+    "ranked": [
+      {
+        "schema_version": "0.1.0",
+        "knowledge_id": "stats::prcomp",
+        "cosine": 0.23503152863010912,
+        "hard_failures": [],
+        "penalties": [],
+        "unknowns": [
+          "Study design and independence have not been verified.",
+          "Scaling and feature selection need scientific justification; PCA needs no marginal normality assumption."
+        ],
+        "penalty_total": 0.0,
+        "score": 0.23503152863010912,
+        "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html"
+      }
+    ],
+    "excluded": [
+      {
+        "schema_version": "0.1.0",
+        "knowledge_id": "stats::lm",
+        "cosine": 0.1780026613495125,
+        "hard_failures": [
+          "Task pca is outside stats::lm's supported tasks."
+        ],
+        "penalties": [],
+        "unknowns": [
+          "Study design and independence have not been verified.",
+          "Linearity, homoscedasticity and residual distribution require model-specific diagnostics."
+        ],
+        "penalty_total": 0.0,
+        "score": 0.1780026613495125,
+        "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html"
+      },
+      {
+        "schema_version": "0.1.0",
+        "knowledge_id": "stats::kmeans",
+        "cosine": 0.09304013326031833,
+        "hard_failures": [
+          "Task pca is outside stats::kmeans's supported tasks."
+        ],
+        "penalties": [],
+        "unknowns": [
+          "Study design and independence have not been verified."
+        ],
+        "penalty_total": 0.0,
+        "score": 0.09304013326031833,
+        "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html"
+      },
+      {
+        "schema_version": "0.1.0",
+        "knowledge_id": "stats::manova",
+        "cosine": 0.0804164296312124,
+        "hard_failures": [
+          "Task pca is outside stats::manova's supported tasks."
+        ],
+        "penalties": [],
+        "unknowns": [
+          "Study design and independence have not been verified.",
+          "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
+        ],
+        "penalty_total": 0.0,
+        "score": 0.0804164296312124,
+        "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/manova.html"
+      },
+      {
+        "schema_version": "0.1.0",
+        "knowledge_id": "MASS::lda",
+        "cosine": 0.178367067011918,
+        "hard_failures": [
+          "Task pca is outside MASS::lda's supported tasks."
+        ],
+        "penalties": [],
+        "unknowns": [
+          "Study design and independence have not been verified.",
+          "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
+        ],
+        "penalty_total": 0.0,
+        "score": 0.178367067011918,
+        "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lda.html"
+      }
+    ]
+  },
+  "execution": {
+    "schema_version": "0.1.0",
+    "status": "success",
+    "method": "stats::prcomp",
+    "backend": "python_trusted_templates",
+    "inputs": [
+      "x1",
+      "x2",
+      "x3"
+    ],
+    "metrics": {
+      "explained_variance": [
+        2.590696833288521,
+        0.3359096300384515,
+        0.07339353667302742
+      ],
+      "explained_variance_ratio": [
+        0.8635656110961736,
+        0.11196987667948381,
+        0.02446451222434247
+      ],
+      "loadings": [
+        [
+          0.6062102442695286,
+          -0.0761055935968914,
+          0.7916546458942457
+        ],
+        [
+          0.5559348087424932,
+          0.7523696076833866,
+          -0.35337863809629844
+        ],
+        [
+          0.568722804335404,
+          -0.6543301246753142,
+          -0.49840391227523667
+        ]
+      ],
+      "scores": [
+        [
+          -1.781863792719314,
+          -0.25844535845538086,
+          -0.465296415440897
+        ],
+        [
+          -1.9935190447308175,
+          -0.3295397882720554,
+          0.20563401041933208
+        ],
+        [
+          -1.2973365556284124,
+          0.8279802064461097,
+          0.2994995367225134
+        ],
+        [
+          -0.5802713571689455,
+          -0.31163084256137913,
+          0.15653978199527607
+        ],
+        [
+          0.8072307924474229,
+          0.6187844486950891,
+          -0.300806006884538
+        ],
+        [
+          1.0651564430106695,
+          -0.560851051648406,
+          -0.09602699157564665
+        ],
+        [
+          1.761338932113075,
+          0.596668943069759,
+          -0.0021614652724656147
+        ],
+        [
+          2.0192645826763216,
+          -0.5829665572737361,
+          0.2026175500364258
+        ]
+      ],
+      "components_for_95_percent": 2
+    },
+    "diagnostics": {
+      "n": 8,
+      "p": 3,
+      "center": [
+        4.5,
+        4.5,
+        5.5
+      ],
+      "scale_ddof1": [
+        2.449489742783178,
+        2.449489742783178,
+        2.449489742783178
+      ],
+      "reconstruction_max_abs_error": 1.1102230246251565e-15
+    },
+    "limitations": [
+      "Python SVD equivalent to centered, scaled PCA; no R runtime was invoked.",
+      "Exploratory summary only; study design and feature meaning are not verified."
+    ],
+    "validation_passed": true,
+    "message": "PCA reconstruction and variance accounting checked."
+  },
+  "knowledge_sha256": "c0cb5679e024952c64a875cdf64fc9b105f31f6f34c5aaa5dfd4be3360828346",
+  "elapsed_seconds": 0.09014690003823489
+}

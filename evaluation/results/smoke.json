@@ -1,0 +1,363 @@
+{
+  "scope": "synthetic lexical smoke test; not semantic-retrieval or statistical-validity evidence",
+  "encoder": "tfidf_char_lexical_smoke_only",
+  "k": 3,
+  "alpha": 1,
+  "penalty_lambda": 0.5,
+  "cases_sha256": "e621b8ee640c1e4dc7b60d2c7e4b1c660651922dee32f6536f4b0df76c7b09c6",
+  "case_count": 7,
+  "summary": {
+    "A": {
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "selection_accuracy": 0.7142857142857143,
+      "incompatible_recommendation_rate": 1.0
+    },
+    "B": {
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "selection_accuracy": 1.0,
+      "incompatible_recommendation_rate": 0.0
+    },
+    "C": {
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "selection_accuracy": 1.0,
+      "incompatible_recommendation_rate": 0.0
+    }
+  },
+  "results": [
+    {
+      "case": "pca_clean",
+      "mode": "A",
+      "relevant": [
+        "stats::prcomp"
+      ],
+      "ranked": [
+        "stats::prcomp",
+        "stats::lm",
+        "MASS::lda",
+        "stats::kmeans",
+        "stats::manova"
+      ],
+      "seconds": 0.0241497999522835,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "pca_clean",
+      "mode": "B",
+      "relevant": [
+        "stats::prcomp"
+      ],
+      "ranked": [
+        "stats::prcomp"
+      ],
+      "seconds": 0.004583700094372034,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "pca_clean",
+      "mode": "C",
+      "relevant": [
+        "stats::prcomp"
+      ],
+      "ranked": [
+        "stats::prcomp"
+      ],
+      "seconds": 0.004806799930520356,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "ols_clean",
+      "mode": "A",
+      "relevant": [
+        "stats::lm"
+      ],
+      "ranked": [
+        "stats::lm",
+        "MASS::lda",
+        "stats::prcomp",
+        "stats::manova",
+        "stats::kmeans"
+      ],
+      "seconds": 0.004218199988827109,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "ols_clean",
+      "mode": "B",
+      "relevant": [
+        "stats::lm"
+      ],
+      "ranked": [
+        "stats::lm"
+      ],
+      "seconds": 0.00403589999768883,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "ols_clean",
+      "mode": "C",
+      "relevant": [
+        "stats::lm"
+      ],
+      "ranked": [
+        "stats::lm"
+      ],
+      "seconds": 0.003962199902161956,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "cluster_clean",
+      "mode": "A",
+      "relevant": [
+        "stats::kmeans"
+      ],
+      "ranked": [
+        "stats::kmeans",
+        "stats::lm",
+        "MASS::lda",
+        "stats::prcomp",
+        "stats::manova"
+      ],
+      "seconds": 0.004161000018939376,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "cluster_clean",
+      "mode": "B",
+      "relevant": [
+        "stats::kmeans"
+      ],
+      "ranked": [
+        "stats::kmeans"
+      ],
+      "seconds": 0.003751400043256581,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "cluster_clean",
+      "mode": "C",
+      "relevant": [
+        "stats::kmeans"
+      ],
+      "ranked": [
+        "stats::kmeans"
+      ],
+      "seconds": 0.003879799973219633,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "manova_signature",
+      "mode": "A",
+      "relevant": [
+        "stats::manova"
+      ],
+      "ranked": [
+        "stats::manova",
+        "MASS::lda",
+        "stats::lm",
+        "stats::prcomp",
+        "stats::kmeans"
+      ],
+      "seconds": 0.00430389994289726,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "manova_signature",
+      "mode": "B",
+      "relevant": [
+        "stats::manova"
+      ],
+      "ranked": [
+        "stats::manova"
+      ],
+      "seconds": 0.0039975999388843775,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "manova_signature",
+      "mode": "C",
+      "relevant": [
+        "stats::manova"
+      ],
+      "ranked": [
+        "stats::manova"
+      ],
+      "seconds": 0.003687000018544495,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "lda_signature",
+      "mode": "A",
+      "relevant": [
+        "MASS::lda"
+      ],
+      "ranked": [
+        "MASS::lda",
+        "stats::lm",
+        "stats::prcomp",
+        "stats::kmeans",
+        "stats::manova"
+      ],
+      "seconds": 0.004016299964860082,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "lda_signature",
+      "mode": "B",
+      "relevant": [
+        "MASS::lda"
+      ],
+      "ranked": [
+        "MASS::lda"
+      ],
+      "seconds": 0.0036491999635472894,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "lda_signature",
+      "mode": "C",
+      "relevant": [
+        "MASS::lda"
+      ],
+      "ranked": [
+        "MASS::lda"
+      ],
+      "seconds": 0.0037415000842884183,
+      "recall_at_k": 1.0,
+      "mrr": 1.0,
+      "ndcg_at_k": 1.0,
+      "top1_correct": true
+    },
+    {
+      "case": "pca_infinite",
+      "mode": "A",
+      "relevant": [],
+      "ranked": [
+        "stats::prcomp",
+        "stats::lm",
+        "MASS::lda",
+        "stats::kmeans",
+        "stats::manova"
+      ],
+      "seconds": 0.004427999956533313,
+      "recall_at_k": null,
+      "mrr": null,
+      "ndcg_at_k": null,
+      "top1_correct": false
+    },
+    {
+      "case": "pca_infinite",
+      "mode": "B",
+      "relevant": [],
+      "ranked": [],
+      "seconds": 0.0036885999143123627,
+      "recall_at_k": null,
+      "mrr": null,
+      "ndcg_at_k": null,
+      "top1_correct": true
+    },
+    {
+      "case": "pca_infinite",
+      "mode": "C",
+      "relevant": [],
+      "ranked": [],
+      "seconds": 0.0035404000664129853,
+      "recall_at_k": null,
+      "mrr": null,
+      "ndcg_at_k": null,
+      "top1_correct": true
+    },
+    {
+      "case": "pca_text",
+      "mode": "A",
+      "relevant": [],
+      "ranked": [
+        "stats::prcomp",
+        "stats::lm",
+        "MASS::lda",
+        "stats::kmeans",
+        "stats::manova"
+      ],
+      "seconds": 0.004104000050574541,
+      "recall_at_k": null,
+      "mrr": null,
+      "ndcg_at_k": null,
+      "top1_correct": false
+    },
+    {
+      "case": "pca_text",
+      "mode": "B",
+      "relevant": [],
+      "ranked": [],
+      "seconds": 0.003775999997742474,
+      "recall_at_k": null,
+      "mrr": null,
+      "ndcg_at_k": null,
+      "top1_correct": true
+    },
+    {
+      "case": "pca_text",
+      "mode": "C",
+      "relevant": [],
+      "ranked": [],
+      "seconds": 0.0036103000165894628,
+      "recall_at_k": null,
+      "mrr": null,
+      "ndcg_at_k": null,
+      "top1_correct": true
+    }
+  ],
+  "limitations": [
+    "One candidate per task: cannot establish benefit of soft penalties within a task.",
+    "Labels are authored signature checks, not independently reviewed statistical gold labels.",
+    "MANOVA/LDA cases do not certify applicability without design/class information.",
+    "No DARE comparison, LLM costs or multi-agent improvement measured."
+  ]
+}

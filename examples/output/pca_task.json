@@ -1,0 +1,47 @@
+{
+  "schema_version": "0.1.0",
+  "research_goal": "主成分分析",
+  "task_type": "pca",
+  "target_variables": [],
+  "predictor_variables": [
+    "x1",
+    "x2",
+    "x3"
+  ],
+  "group_variables": [],
+  "expected_output": [
+    "profiles",
+    "method ranking",
+    "validated analysis when supported"
+  ],
+  "constraints": [],
+  "unknowns": [
+    "study_design"
+  ],
+  "evidence": {
+    "research_goal": {
+      "schema_version": "0.1.0",
+      "origin": "user",
+      "source": "CLI goal",
+      "method": "verbatim",
+      "status": "verified",
+      "note": ""
+    },
+    "task_type": {
+      "schema_version": "0.1.0",
+      "origin": "rule_inference",
+      "source": "research_goal",
+      "method": "keyword baseline",
+      "status": "unverified",
+      "note": ""
+    },
+    "variable_roles": {
+      "schema_version": "0.1.0",
+      "origin": "user",
+      "source": "CLI variable flags",
+      "method": "explicit variable names",
+      "status": "verified",
+      "note": ""
+    }
+  }
+}

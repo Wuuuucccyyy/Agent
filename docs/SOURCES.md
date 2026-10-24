@@ -1,0 +1,20 @@
+# 来源与核验范围
+
+核对日期：2026-10-24。用户工作手册是范围依据，文字摘录见 [WORKBOOK](WORKBOOK.md)。本轮未修改原始 Word 文件。
+
+| 画像 | 官方参考 | 核对范围 |
+|---|---|---|
+| stats::prcomp | https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html | SVD、中心化/缩放、输出、样本方差分母与常数列缩放限制 |
+| stats::lm | https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html | 公式、最小二乘、缺失策略、奇异拟合选项 |
+| stats::kmeans | https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html | 数值输入、中心配置、聚类输出与收敛提示 |
+| stats::manova | https://stat.ethz.ch/R-manual/R-devel/library/stats/html/manova.html | 多元响应、aov 包装和 summary 路径；未完整核对所有多元检验假设 |
+| MASS::lda | https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lda.html | grouping、缺失处理、类内常数和协方差奇异边界 |
+
+R-devel 是可变文档来源。stats 页面显示 4.6.0；这不表示本地安装过 R 4.6.0。MASS 包版本未固定。知识库中的 `official_docs_reviewed` 表示人工核对参考页，未做 R 运行验证；解释性假设、项目简化签名和替代项另记 rule_inference/unverified。正式实验前需要固定发行版文档及包版本并增加逐字段证据。
+
+工程接口依据：
+
+- LangGraph StateGraph：https://docs.langchain.com/oss/python/langgraph/graph-api
+- Sentence Transformers 查询/文档编码：https://sbert.net/docs/package_reference/sentence_transformer/model.html
+
+DARE 目前仅保留手册中的待核验事项，尚未确认准确的论文、仓库和评估资源，因此没有对照结果或优越性声明。

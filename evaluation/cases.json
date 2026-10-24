@@ -1,0 +1,9 @@
+[
+  {"id":"pca_clean","file":"pca.csv","goal":"主成分分析降维 PCA","task":"pca","predictors":["x1","x2","x3"],"relevant":["stats::prcomp"],"basis":"Explicit PCA task and finite numeric features"},
+  {"id":"ols_clean","file":"regression.csv","goal":"线性回归 regression","task":"regression","predictors":["x1","x2"],"targets":["y"],"relevant":["stats::lm"],"basis":"Explicit numeric-response linear regression task"},
+  {"id":"cluster_clean","file":"pca.csv","goal":"K-means clustering 聚类","task":"clustering","predictors":["x1","x2","x3"],"relevant":["stats::kmeans"],"basis":"Numeric clustering task; k selection remains unknown"},
+  {"id":"manova_signature","file":"regression.csv","goal":"MANOVA 多元方差分析","task":"manova","predictors":["x1"],"targets":["x2","y"],"relevant":["stats::manova"],"basis":"Signature retrieval only; grouping and statistical assumptions remain unverified"},
+  {"id":"lda_signature","file":"pca.csv","goal":"LDA 判别分析","task":"discriminant","predictors":["x1","x2"],"relevant":["MASS::lda"],"basis":"Signature retrieval only; class labels and covariance remain unverified"},
+  {"id":"pca_infinite","file":"pca.csv","goal":"PCA 主成分分析","task":"pca","predictors":["x1","x2"],"mutation":"infinite","relevant":[],"basis":"Selected infinite input must be repaired before recommendation"},
+  {"id":"pca_text","file":"pca.csv","goal":"PCA 主成分分析","task":"pca","predictors":["x1","x2"],"mutation":"categorical","relevant":[],"basis":"Selected categorical predictor violates the numeric PCA signature"}
+]

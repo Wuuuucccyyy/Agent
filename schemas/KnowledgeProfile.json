@@ -1,0 +1,189 @@
+{
+  "$defs": {
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "origin": {
+          "enum": [
+            "computed",
+            "official_document",
+            "user",
+            "rule_inference",
+            "llm_inference",
+            "unknown"
+          ],
+          "title": "Origin",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "verified",
+            "unverified",
+            "unknown"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "origin",
+        "source",
+        "method",
+        "status"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "id": {
+      "title": "Id",
+      "type": "string"
+    },
+    "package": {
+      "title": "Package",
+      "type": "string"
+    },
+    "function_name": {
+      "title": "Function Name",
+      "type": "string"
+    },
+    "task_types": {
+      "items": {
+        "enum": [
+          "pca",
+          "regression",
+          "clustering",
+          "manova",
+          "discriminant",
+          "unknown"
+        ],
+        "type": "string"
+      },
+      "title": "Task Types",
+      "type": "array"
+    },
+    "summary": {
+      "title": "Summary",
+      "type": "string"
+    },
+    "input_types": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Input Types",
+      "type": "array"
+    },
+    "input_constraints": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Input Constraints",
+      "type": "array"
+    },
+    "output_types": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Output Types",
+      "type": "array"
+    },
+    "assumptions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Assumptions",
+      "type": "array"
+    },
+    "missing_data_handling": {
+      "title": "Missing Data Handling",
+      "type": "string"
+    },
+    "failure_conditions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Failure Conditions",
+      "type": "array"
+    },
+    "alternatives": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Alternatives",
+      "type": "array"
+    },
+    "source_url": {
+      "title": "Source Url",
+      "type": "string"
+    },
+    "package_version": {
+      "title": "Package Version",
+      "type": "string"
+    },
+    "verification_status": {
+      "enum": [
+        "official_docs_reviewed",
+        "unverified"
+      ],
+      "title": "Verification Status",
+      "type": "string"
+    },
+    "retrieved_on": {
+      "title": "Retrieved On",
+      "type": "string"
+    },
+    "evidence": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "title": "Evidence",
+      "type": "object"
+    }
+  },
+  "required": [
+    "id",
+    "package",
+    "function_name",
+    "task_types",
+    "summary",
+    "input_types",
+    "input_constraints",
+    "output_types",
+    "assumptions",
+    "missing_data_handling",
+    "failure_conditions",
+    "alternatives",
+    "source_url",
+    "package_version",
+    "verification_status",
+    "retrieved_on",
+    "evidence"
+  ],
+  "title": "KnowledgeProfile",
+  "type": "object"
+}

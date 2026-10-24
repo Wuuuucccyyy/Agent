@@ -1,0 +1,89 @@
+{
+  "schema_version": "0.1.0",
+  "status": "ranked",
+  "encoder": "tfidf_char_lexical_smoke_only",
+  "mode": "C",
+  "alpha": 1.0,
+  "penalty_lambda": 0.5,
+  "ranked": [
+    {
+      "schema_version": "0.1.0",
+      "knowledge_id": "stats::prcomp",
+      "cosine": 0.23503152863010912,
+      "hard_failures": [],
+      "penalties": [],
+      "unknowns": [
+        "Study design and independence have not been verified.",
+        "Scaling and feature selection need scientific justification; PCA needs no marginal normality assumption."
+      ],
+      "penalty_total": 0.0,
+      "score": 0.23503152863010912,
+      "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html"
+    }
+  ],
+  "excluded": [
+    {
+      "schema_version": "0.1.0",
+      "knowledge_id": "stats::lm",
+      "cosine": 0.1780026613495125,
+      "hard_failures": [
+        "Task pca is outside stats::lm's supported tasks."
+      ],
+      "penalties": [],
+      "unknowns": [
+        "Study design and independence have not been verified.",
+        "Linearity, homoscedasticity and residual distribution require model-specific diagnostics."
+      ],
+      "penalty_total": 0.0,
+      "score": 0.1780026613495125,
+      "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html"
+    },
+    {
+      "schema_version": "0.1.0",
+      "knowledge_id": "stats::kmeans",
+      "cosine": 0.09304013326031833,
+      "hard_failures": [
+        "Task pca is outside stats::kmeans's supported tasks."
+      ],
+      "penalties": [],
+      "unknowns": [
+        "Study design and independence have not been verified."
+      ],
+      "penalty_total": 0.0,
+      "score": 0.09304013326031833,
+      "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html"
+    },
+    {
+      "schema_version": "0.1.0",
+      "knowledge_id": "stats::manova",
+      "cosine": 0.0804164296312124,
+      "hard_failures": [
+        "Task pca is outside stats::manova's supported tasks."
+      ],
+      "penalties": [],
+      "unknowns": [
+        "Study design and independence have not been verified.",
+        "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
+      ],
+      "penalty_total": 0.0,
+      "score": 0.0804164296312124,
+      "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/manova.html"
+    },
+    {
+      "schema_version": "0.1.0",
+      "knowledge_id": "MASS::lda",
+      "cosine": 0.178367067011918,
+      "hard_failures": [
+        "Task pca is outside MASS::lda's supported tasks."
+      ],
+      "penalties": [],
+      "unknowns": [
+        "Study design and independence have not been verified.",
+        "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
+      ],
+      "penalty_total": 0.0,
+      "score": 0.178367067011918,
+      "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lda.html"
+    }
+  ]
+}

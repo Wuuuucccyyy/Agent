@@ -1,0 +1,136 @@
+{
+  "$defs": {
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "origin": {
+          "enum": [
+            "computed",
+            "official_document",
+            "user",
+            "rule_inference",
+            "llm_inference",
+            "unknown"
+          ],
+          "title": "Origin",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "verified",
+            "unverified",
+            "unknown"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "origin",
+        "source",
+        "method",
+        "status"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "research_goal": {
+      "minLength": 1,
+      "title": "Research Goal",
+      "type": "string"
+    },
+    "task_type": {
+      "default": "unknown",
+      "enum": [
+        "pca",
+        "regression",
+        "clustering",
+        "manova",
+        "discriminant",
+        "unknown"
+      ],
+      "title": "Task Type",
+      "type": "string"
+    },
+    "target_variables": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Target Variables",
+      "type": "array"
+    },
+    "predictor_variables": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Predictor Variables",
+      "type": "array"
+    },
+    "group_variables": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Group Variables",
+      "type": "array"
+    },
+    "expected_output": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Expected Output",
+      "type": "array"
+    },
+    "constraints": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Constraints",
+      "type": "array"
+    },
+    "unknowns": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unknowns",
+      "type": "array"
+    },
+    "evidence": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "title": "Evidence",
+      "type": "object"
+    }
+  },
+  "required": [
+    "research_goal"
+  ],
+  "title": "TaskProfile",
+  "type": "object"
+}

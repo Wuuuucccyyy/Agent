@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multimodal-stat-agent"
+version = "0.1.0"
+description = "Evidence-aware statistical profiling and constraint-aware method retrieval"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=1.26,<3", "pandas>=2.2,<4", "pydantic>=2.9,<3",
+  "openpyxl>=3.1,<4", "langgraph>=1,<2", "scikit-learn>=1.5,<2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+semantic = ["sentence-transformers>=5,<6"]
+
+[project.scripts]
+stat-agent = "stat_agent.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+stat_agent = ["knowledge/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

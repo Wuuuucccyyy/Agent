@@ -1,0 +1,512 @@
+{
+  "run_id": "f162d0d05b1e433283b2e6dac0e05d4e",
+  "started_at": "2026-10-24T23:51:10.849599+00:00",
+  "status": "success",
+  "events": [
+    {
+      "node": "read_table",
+      "status": "success",
+      "seconds": 0.00778440001886338
+    },
+    {
+      "node": "task_understanding",
+      "status": "success",
+      "seconds": 7.319997530430555e-05
+    },
+    {
+      "node": "data_structure",
+      "status": "success",
+      "seconds": 0.00607770006172359
+    },
+    {
+      "node": "distribution_quality_relations",
+      "status": "success",
+      "seconds": 0.005359899951145053
+    },
+    {
+      "node": "profile_validation",
+      "status": "success",
+      "seconds": 0.004072600044310093
+    },
+    {
+      "node": "statistical_knowledge",
+      "status": "success",
+      "seconds": 0.0006710999878123403
+    },
+    {
+      "node": "retrieve",
+      "status": "success",
+      "seconds": 0.023774800007231534
+    },
+    {
+      "node": "execute_validate",
+      "status": "success",
+      "seconds": 0.0010943999513983727
+    }
+  ],
+  "python": "3.11.9",
+  "versions": {
+    "numpy": "2.4.6",
+    "pandas": "3.1.0",
+    "pydantic": "2.14.1",
+    "langgraph": "1.2.17",
+    "scikit-learn": "1.9.1",
+    "openpyxl": "3.1.5"
+  },
+  "configuration": {
+    "goal": "线性回归",
+    "roles": {
+      "task_type": null,
+      "targets": [
+        "y"
+      ],
+      "predictors": [
+        "x1",
+        "x2"
+      ],
+      "groups": []
+    },
+    "sheet": 0,
+    "encoder": "tfidf_char_lexical_smoke_only",
+    "alpha": 1.0,
+    "penalty_lambda": 0.5,
+    "mode": "C"
+  },
+  "usage": {
+    "llm_calls": 0,
+    "api_calls": 0,
+    "tokens": 0,
+    "api_cost_usd": 0,
+    "retries": 0,
+    "note": "No API calls. Local model compute/download costs are not measured."
+  },
+  "task": {
+    "schema_version": "0.1.0",
+    "research_goal": "线性回归",
+    "task_type": "regression",
+    "target_variables": [
+      "y"
+    ],
+    "predictor_variables": [
+      "x1",
+      "x2"
+    ],
+    "group_variables": [],
+    "expected_output": [
+      "profiles",
+      "method ranking",
+      "validated analysis when supported"
+    ],
+    "constraints": [],
+    "unknowns": [
+      "study_design"
+    ],
+    "evidence": {
+      "research_goal": {
+        "schema_version": "0.1.0",
+        "origin": "user",
+        "source": "CLI goal",
+        "method": "verbatim",
+        "status": "verified",
+        "note": ""
+      },
+      "task_type": {
+        "schema_version": "0.1.0",
+        "origin": "rule_inference",
+        "source": "research_goal",
+        "method": "keyword baseline",
+        "status": "unverified",
+        "note": ""
+      },
+      "variable_roles": {
+        "schema_version": "0.1.0",
+        "origin": "user",
+        "source": "CLI variable flags",
+        "method": "explicit variable names",
+        "status": "verified",
+        "note": ""
+      }
+    }
+  },
+  "profile": {
+    "schema_version": "0.1.0",
+    "source": {
+      "schema_version": "0.1.0",
+      "file_name": "regression.csv",
+      "sha256": "da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+      "format": "csv",
+      "extraction_method": "pandas local table reader",
+      "sheet": null,
+      "uncertainties": [
+        "Inferred dtypes do not establish measurement scales or study design."
+      ]
+    },
+    "structure": {
+      "schema_version": "0.1.0",
+      "n": 8,
+      "p": 3,
+      "p_over_n": 0.375,
+      "duplicate_rows": 0,
+      "candidate_keys": [],
+      "layout": "unknown",
+      "time_order": "unknown",
+      "repeated_measures": "unknown"
+    },
+    "variables": [
+      {
+        "schema_version": "0.1.0",
+        "name": "x1",
+        "dtype": "int64",
+        "kind": "numeric",
+        "measurement_scale": "unknown",
+        "n_unique": 4,
+        "missing_count": 0,
+        "missing_rate": 0.0,
+        "nonfinite_count": 0,
+        "minimum": 0.0,
+        "maximum": 3.0,
+        "mean": 1.25,
+        "variance": 1.0714285714285714,
+        "skewness": 0.38643671323171835,
+        "excess_kurtosis": -0.44799999999999957,
+        "quantiles": {
+          "0.25": 0.75,
+          "0.5": 1.0,
+          "0.75": 2.0
+        },
+        "zero_fraction": 0.25,
+        "evidence": {
+          "schema_version": "0.1.0",
+          "origin": "computed",
+          "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+          "method": "pandas; finite observations; sample variance ddof=1; adjusted skew/kurtosis",
+          "status": "verified",
+          "note": ""
+        }
+      },
+      {
+        "schema_version": "0.1.0",
+        "name": "x2",
+        "dtype": "int64",
+        "kind": "numeric",
+        "measurement_scale": "unknown",
+        "n_unique": 4,
+        "missing_count": 0,
+        "missing_rate": 0.0,
+        "nonfinite_count": 0,
+        "minimum": 0.0,
+        "maximum": 3.0,
+        "mean": 1.0,
+        "variance": 1.1428571428571428,
+        "skewness": 0.9354143466934852,
+        "excess_kurtosis": 0.35,
+        "quantiles": {
+          "0.25": 0.0,
+          "0.5": 1.0,
+          "0.75": 1.25
+        },
+        "zero_fraction": 0.375,
+        "evidence": {
+          "schema_version": "0.1.0",
+          "origin": "computed",
+          "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+          "method": "pandas; finite observations; sample variance ddof=1; adjusted skew/kurtosis",
+          "status": "verified",
+          "note": ""
+        }
+      },
+      {
+        "schema_version": "0.1.0",
+        "name": "y",
+        "dtype": "int64",
+        "kind": "numeric",
+        "measurement_scale": "unknown",
+        "n_unique": 7,
+        "missing_count": 0,
+        "missing_rate": 0.0,
+        "nonfinite_count": 0,
+        "minimum": 1.0,
+        "maximum": 11.0,
+        "mean": 4.75,
+        "variance": 9.928571428571429,
+        "skewness": 1.0730987164280323,
+        "excess_kurtosis": 1.4167382640650068,
+        "quantiles": {
+          "0.25": 2.75,
+          "0.5": 4.5,
+          "0.75": 5.5
+        },
+        "zero_fraction": 0.0,
+        "evidence": {
+          "schema_version": "0.1.0",
+          "origin": "computed",
+          "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+          "method": "pandas; finite observations; sample variance ddof=1; adjusted skew/kurtosis",
+          "status": "verified",
+          "note": ""
+        }
+      }
+    ],
+    "quality": {
+      "schema_version": "0.1.0",
+      "missing_cells": 0,
+      "missing_rate": 0.0,
+      "missing_patterns": {
+        "<complete>": 8
+      },
+      "iqr_outlier_counts": {
+        "x1": 0,
+        "x2": 0,
+        "y": 1
+      },
+      "constant_columns": [],
+      "all_missing_columns": [],
+      "warnings": [
+        "IQR flags are descriptive; they do not justify removing observations.",
+        "Numeric dtype does not distinguish identifiers, ordinal codes and continuous measurements.",
+        "Marginal distributions do not verify regression residual assumptions."
+      ]
+    },
+    "relations": {
+      "schema_version": "0.1.0",
+      "columns": [
+        "x1",
+        "x2"
+      ],
+      "complete_rows": 8,
+      "correlation": {
+        "x1": {
+          "x1": 1.0,
+          "x2": 0.12909944487358063
+        },
+        "x2": {
+          "x1": 0.12909944487358063,
+          "x2": 1.0
+        }
+      },
+      "covariance": {
+        "x1": {
+          "x1": 1.0714285714285714,
+          "x2": 0.14285714285714285
+        },
+        "x2": {
+          "x1": 0.14285714285714285,
+          "x2": 1.1428571428571428
+        }
+      },
+      "centered_rank": 2,
+      "effective_dimension_95": 2,
+      "condition_number": 1.143159717915903,
+      "singular": false,
+      "group_sizes": {},
+      "method": "Complete-case numeric subset; sample covariance; centered SVD"
+    },
+    "design": {
+      "schema_version": "0.1.0",
+      "independence": "unknown",
+      "pairing": "unknown",
+      "sampling": "unknown",
+      "repeated_measures": "unknown",
+      "goal": "regression",
+      "response_types": {
+        "y": "numeric"
+      }
+    },
+    "evidence": {
+      "source": {
+        "schema_version": "0.1.0",
+        "origin": "computed",
+        "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+        "method": "SHA256 and local reader metadata",
+        "status": "verified",
+        "note": ""
+      },
+      "structure": {
+        "schema_version": "0.1.0",
+        "origin": "computed",
+        "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+        "method": "shape, duplicated, nunique; key candidates are uniqueness only",
+        "status": "verified",
+        "note": ""
+      },
+      "quality": {
+        "schema_version": "0.1.0",
+        "origin": "computed",
+        "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+        "method": "missing masks and Tukey 1.5 IQR descriptive flags",
+        "status": "verified",
+        "note": ""
+      },
+      "relations": {
+        "schema_version": "0.1.0",
+        "origin": "computed",
+        "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+        "method": "Complete-case numeric subset; sample covariance; centered SVD",
+        "status": "verified",
+        "note": ""
+      },
+      "design": {
+        "schema_version": "0.1.0",
+        "origin": "unknown",
+        "source": "study protocol not supplied",
+        "method": "not inferred",
+        "status": "unknown",
+        "note": ""
+      }
+    },
+    "unknowns": [
+      "measurement_scales",
+      "independence",
+      "pairing",
+      "sampling",
+      "repeated_measures",
+      "missingness_mechanism"
+    ]
+  },
+  "retrieval": {
+    "schema_version": "0.1.0",
+    "status": "ranked",
+    "encoder": "tfidf_char_lexical_smoke_only",
+    "mode": "C",
+    "alpha": 1.0,
+    "penalty_lambda": 0.5,
+    "ranked": [
+      {
+        "schema_version": "0.1.0",
+        "knowledge_id": "stats::lm",
+        "cosine": 0.3901632030715598,
+        "hard_failures": [],
+        "penalties": [],
+        "unknowns": [
+          "Study design and independence have not been verified.",
+          "Linearity, homoscedasticity and residual distribution require model-specific diagnostics."
+        ],
+        "penalty_total": 0.0,
+        "score": 0.3901632030715598,
+        "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html"
+      }
+    ],
+    "excluded": [
+      {
+        "schema_version": "0.1.0",
+        "knowledge_id": "stats::prcomp",
+        "cosine": 0.13965068248239904,
+        "hard_failures": [
+          "Task regression is outside stats::prcomp's supported tasks."
+        ],
+        "penalties": [],
+        "unknowns": [
+          "Study design and independence have not been verified.",
+          "Scaling and feature selection need scientific justification; PCA needs no marginal normality assumption."
+        ],
+        "penalty_total": 0.0,
+        "score": 0.13965068248239904,
+        "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html"
+      },
+      {
+        "schema_version": "0.1.0",
+        "knowledge_id": "stats::kmeans",
+        "cosine": 0.09504737075611205,
+        "hard_failures": [
+          "Task regression is outside stats::kmeans's supported tasks."
+        ],
+        "penalties": [],
+        "unknowns": [
+          "Study design and independence have not been verified."
+        ],
+        "penalty_total": 0.0,
+        "score": 0.09504737075611205,
+        "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html"
+      },
+      {
+        "schema_version": "0.1.0",
+        "knowledge_id": "stats::manova",
+        "cosine": 0.0949362166996654,
+        "hard_failures": [
+          "Task regression is outside stats::manova's supported tasks."
+        ],
+        "penalties": [],
+        "unknowns": [
+          "Study design and independence have not been verified.",
+          "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
+        ],
+        "penalty_total": 0.0,
+        "score": 0.0949362166996654,
+        "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/manova.html"
+      },
+      {
+        "schema_version": "0.1.0",
+        "knowledge_id": "MASS::lda",
+        "cosine": 0.22267379202247836,
+        "hard_failures": [
+          "Task regression is outside MASS::lda's supported tasks."
+        ],
+        "penalties": [],
+        "unknowns": [
+          "Study design and independence have not been verified.",
+          "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
+        ],
+        "penalty_total": 0.0,
+        "score": 0.22267379202247836,
+        "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lda.html"
+      }
+    ]
+  },
+  "execution": {
+    "schema_version": "0.1.0",
+    "status": "success",
+    "method": "stats::lm",
+    "backend": "python_trusted_templates",
+    "inputs": [
+      "x1",
+      "x2",
+      "y"
+    ],
+    "metrics": {
+      "coefficients": {
+        "intercept": 1.999999999999998,
+        "x1": 3.0000000000000013,
+        "x2": -1.000000000000002
+      },
+      "r_squared": 1.0,
+      "sse": 9.668476469615026e-29,
+      "predictions": [
+        1.999999999999998,
+        4.999999999999999,
+        0.999999999999996,
+        3.9999999999999973,
+        6.999999999999998,
+        2.999999999999995,
+        11.000000000000002,
+        4.999999999999994
+      ],
+      "residuals": [
+        1.9984014443252818e-15,
+        8.881784197001252e-16,
+        3.9968028886505635e-15,
+        2.6645352591003757e-15,
+        1.7763568394002505e-15,
+        4.884981308350689e-15,
+        -1.7763568394002505e-15,
+        6.217248937900877e-15
+      ]
+    },
+    "diagnostics": {
+      "n": 8,
+      "design_rank": 3,
+      "residual_df": 5,
+      "normal_equation_max_abs_error": 3.68594044175552e-14,
+      "normal_equation_tolerance": 1.0488088481701517e-06,
+      "residual_mean": 2.581268532253489e-15
+    },
+    "limitations": [
+      "In-sample fit only, not predictive validation.",
+      "No p-values or causal claims: independence, heteroscedasticity and residual assumptions remain unchecked.",
+      "Python least squares template; R lm was not executed."
+    ],
+    "validation_passed": true,
+    "message": "OLS finite coefficients and least-squares orthogonality checked."
+  },
+  "knowledge_sha256": "c0cb5679e024952c64a875cdf64fc9b105f31f6f34c5aaa5dfd4be3360828346",
+  "elapsed_seconds": 0.0900707000400871
+}

@@ -1,0 +1,235 @@
+{
+  "schema_version": "0.1.0",
+  "source": {
+    "schema_version": "0.1.0",
+    "file_name": "regression.csv",
+    "sha256": "da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+    "format": "csv",
+    "extraction_method": "pandas local table reader",
+    "sheet": null,
+    "uncertainties": [
+      "Inferred dtypes do not establish measurement scales or study design."
+    ]
+  },
+  "structure": {
+    "schema_version": "0.1.0",
+    "n": 8,
+    "p": 3,
+    "p_over_n": 0.375,
+    "duplicate_rows": 0,
+    "candidate_keys": [],
+    "layout": "unknown",
+    "time_order": "unknown",
+    "repeated_measures": "unknown"
+  },
+  "variables": [
+    {
+      "schema_version": "0.1.0",
+      "name": "x1",
+      "dtype": "int64",
+      "kind": "numeric",
+      "measurement_scale": "unknown",
+      "n_unique": 4,
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "nonfinite_count": 0,
+      "minimum": 0.0,
+      "maximum": 3.0,
+      "mean": 1.25,
+      "variance": 1.0714285714285714,
+      "skewness": 0.38643671323171835,
+      "excess_kurtosis": -0.44799999999999957,
+      "quantiles": {
+        "0.25": 0.75,
+        "0.5": 1.0,
+        "0.75": 2.0
+      },
+      "zero_fraction": 0.25,
+      "evidence": {
+        "schema_version": "0.1.0",
+        "origin": "computed",
+        "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+        "method": "pandas; finite observations; sample variance ddof=1; adjusted skew/kurtosis",
+        "status": "verified",
+        "note": ""
+      }
+    },
+    {
+      "schema_version": "0.1.0",
+      "name": "x2",
+      "dtype": "int64",
+      "kind": "numeric",
+      "measurement_scale": "unknown",
+      "n_unique": 4,
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "nonfinite_count": 0,
+      "minimum": 0.0,
+      "maximum": 3.0,
+      "mean": 1.0,
+      "variance": 1.1428571428571428,
+      "skewness": 0.9354143466934852,
+      "excess_kurtosis": 0.35,
+      "quantiles": {
+        "0.25": 0.0,
+        "0.5": 1.0,
+        "0.75": 1.25
+      },
+      "zero_fraction": 0.375,
+      "evidence": {
+        "schema_version": "0.1.0",
+        "origin": "computed",
+        "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+        "method": "pandas; finite observations; sample variance ddof=1; adjusted skew/kurtosis",
+        "status": "verified",
+        "note": ""
+      }
+    },
+    {
+      "schema_version": "0.1.0",
+      "name": "y",
+      "dtype": "int64",
+      "kind": "numeric",
+      "measurement_scale": "unknown",
+      "n_unique": 7,
+      "missing_count": 0,
+      "missing_rate": 0.0,
+      "nonfinite_count": 0,
+      "minimum": 1.0,
+      "maximum": 11.0,
+      "mean": 4.75,
+      "variance": 9.928571428571429,
+      "skewness": 1.0730987164280323,
+      "excess_kurtosis": 1.4167382640650068,
+      "quantiles": {
+        "0.25": 2.75,
+        "0.5": 4.5,
+        "0.75": 5.5
+      },
+      "zero_fraction": 0.0,
+      "evidence": {
+        "schema_version": "0.1.0",
+        "origin": "computed",
+        "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+        "method": "pandas; finite observations; sample variance ddof=1; adjusted skew/kurtosis",
+        "status": "verified",
+        "note": ""
+      }
+    }
+  ],
+  "quality": {
+    "schema_version": "0.1.0",
+    "missing_cells": 0,
+    "missing_rate": 0.0,
+    "missing_patterns": {
+      "<complete>": 8
+    },
+    "iqr_outlier_counts": {
+      "x1": 0,
+      "x2": 0,
+      "y": 1
+    },
+    "constant_columns": [],
+    "all_missing_columns": [],
+    "warnings": [
+      "IQR flags are descriptive; they do not justify removing observations.",
+      "Numeric dtype does not distinguish identifiers, ordinal codes and continuous measurements.",
+      "Marginal distributions do not verify regression residual assumptions."
+    ]
+  },
+  "relations": {
+    "schema_version": "0.1.0",
+    "columns": [
+      "x1",
+      "x2"
+    ],
+    "complete_rows": 8,
+    "correlation": {
+      "x1": {
+        "x1": 1.0,
+        "x2": 0.12909944487358063
+      },
+      "x2": {
+        "x1": 0.12909944487358063,
+        "x2": 1.0
+      }
+    },
+    "covariance": {
+      "x1": {
+        "x1": 1.0714285714285714,
+        "x2": 0.14285714285714285
+      },
+      "x2": {
+        "x1": 0.14285714285714285,
+        "x2": 1.1428571428571428
+      }
+    },
+    "centered_rank": 2,
+    "effective_dimension_95": 2,
+    "condition_number": 1.143159717915903,
+    "singular": false,
+    "group_sizes": {},
+    "method": "Complete-case numeric subset; sample covariance; centered SVD"
+  },
+  "design": {
+    "schema_version": "0.1.0",
+    "independence": "unknown",
+    "pairing": "unknown",
+    "sampling": "unknown",
+    "repeated_measures": "unknown",
+    "goal": "regression",
+    "response_types": {
+      "y": "numeric"
+    }
+  },
+  "evidence": {
+    "source": {
+      "schema_version": "0.1.0",
+      "origin": "computed",
+      "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+      "method": "SHA256 and local reader metadata",
+      "status": "verified",
+      "note": ""
+    },
+    "structure": {
+      "schema_version": "0.1.0",
+      "origin": "computed",
+      "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+      "method": "shape, duplicated, nunique; key candidates are uniqueness only",
+      "status": "verified",
+      "note": ""
+    },
+    "quality": {
+      "schema_version": "0.1.0",
+      "origin": "computed",
+      "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+      "method": "missing masks and Tukey 1.5 IQR descriptive flags",
+      "status": "verified",
+      "note": ""
+    },
+    "relations": {
+      "schema_version": "0.1.0",
+      "origin": "computed",
+      "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+      "method": "Complete-case numeric subset; sample covariance; centered SVD",
+      "status": "verified",
+      "note": ""
+    },
+    "design": {
+      "schema_version": "0.1.0",
+      "origin": "unknown",
+      "source": "study protocol not supplied",
+      "method": "not inferred",
+      "status": "unknown",
+      "note": ""
+    }
+  },
+  "unknowns": [
+    "measurement_scales",
+    "independence",
+    "pairing",
+    "sampling",
+    "repeated_measures",
+    "missingness_mechanism"
+  ]
+}

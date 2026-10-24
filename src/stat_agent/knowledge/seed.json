@@ -1,0 +1,282 @@
+[
+  {
+    "schema_version": "0.1.0",
+    "id": "stats::prcomp",
+    "package": "stats",
+    "function_name": "prcomp",
+    "task_types": [
+      "pca"
+    ],
+    "summary": "Principal component analysis 主成分分析 降维 through SVD of centered and optionally scaled numeric data.",
+    "input_types": [
+      "numeric matrix"
+    ],
+    "input_constraints": [
+      "Numeric features; scale.=TRUE requires nonconstant features"
+    ],
+    "output_types": [
+      "sdev",
+      "rotation",
+      "x"
+    ],
+    "assumptions": [
+      "PCA is descriptive; feature scaling and interpretation require domain choices"
+    ],
+    "missing_data_handling": "Default matrix input should be complete; formula missing-value behavior depends on na.action.",
+    "failure_conditions": [
+      "Constant columns when unit-variance scaling is enabled"
+    ],
+    "alternatives": [
+      "stats::princomp"
+    ],
+    "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+    "package_version": "4.6.0 (R-devel documentation snapshot)",
+    "verification_status": "official_docs_reviewed",
+    "retrieved_on": "2026-10-24",
+    "evidence": {
+      "function_name,task_types,summary,input_types,output_types": {
+        "origin": "official_document",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+        "method": "Manual extraction from official reference; not tested in R",
+        "status": "verified"
+      },
+      "input_constraints,assumptions,failure_conditions,missing_data_handling": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+        "method": "Conservative baseline signature and diagnostic checklist informed by documentation",
+        "status": "unverified",
+        "note": "Baseline policy may be narrower than the R function. Statistical assumptions need independent review."
+      },
+      "alternatives": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+        "method": "Candidate alternatives only; not validated substitutions",
+        "status": "unverified"
+      }
+    }
+  },
+  {
+    "schema_version": "0.1.0",
+    "id": "stats::lm",
+    "package": "stats",
+    "function_name": "lm",
+    "task_types": [
+      "regression"
+    ],
+    "summary": "Linear regression 回归 with a formula and least-squares coefficients.",
+    "input_types": [
+      "formula and data.frame"
+    ],
+    "input_constraints": [
+      "Baseline supports one numeric response and numeric predictors; R supports a broader formula interface"
+    ],
+    "output_types": [
+      "coefficients",
+      "residuals",
+      "fitted.values",
+      "rank"
+    ],
+    "assumptions": [
+      "Inferential interpretation requires a justified error model and study design"
+    ],
+    "missing_data_handling": "na.action controls missing-data behavior.",
+    "failure_conditions": [
+      "Singular coefficients need special interpretation; singular.ok controls rejection"
+    ],
+    "alternatives": [
+      "stats::glm"
+    ],
+    "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html",
+    "package_version": "4.6.0 (R-devel documentation snapshot)",
+    "verification_status": "official_docs_reviewed",
+    "retrieved_on": "2026-10-24",
+    "evidence": {
+      "function_name,task_types,summary,input_types,output_types": {
+        "origin": "official_document",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html",
+        "method": "Manual extraction from official reference; not tested in R",
+        "status": "verified"
+      },
+      "input_constraints,assumptions,failure_conditions,missing_data_handling": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html",
+        "method": "Conservative baseline signature and diagnostic checklist informed by documentation",
+        "status": "unverified",
+        "note": "Baseline policy may be narrower than the R function. Statistical assumptions need independent review."
+      },
+      "alternatives": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html",
+        "method": "Candidate alternatives only; not validated substitutions",
+        "status": "unverified"
+      }
+    }
+  },
+  {
+    "schema_version": "0.1.0",
+    "id": "stats::kmeans",
+    "package": "stats",
+    "function_name": "kmeans",
+    "task_types": [
+      "clustering"
+    ],
+    "summary": "K-means clustering 聚类 of numeric observations into groups.",
+    "input_types": [
+      "numeric matrix"
+    ],
+    "input_constraints": [
+      "Numeric matrix; centers specify a count or distinct initial centers"
+    ],
+    "output_types": [
+      "cluster",
+      "centers",
+      "tot.withinss"
+    ],
+    "assumptions": [
+      "Distance and scaling choices require domain justification"
+    ],
+    "missing_data_handling": "Baseline requires complete finite numeric data.",
+    "failure_conditions": [
+      "Some starts or near-identical observations can cause convergence problems"
+    ],
+    "alternatives": [
+      "stats::hclust"
+    ],
+    "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html",
+    "package_version": "4.6.0 (R-devel documentation snapshot)",
+    "verification_status": "official_docs_reviewed",
+    "retrieved_on": "2026-10-24",
+    "evidence": {
+      "function_name,task_types,summary,input_types,output_types": {
+        "origin": "official_document",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html",
+        "method": "Manual extraction from official reference; not tested in R",
+        "status": "verified"
+      },
+      "input_constraints,assumptions,failure_conditions,missing_data_handling": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html",
+        "method": "Conservative baseline signature and diagnostic checklist informed by documentation",
+        "status": "unverified",
+        "note": "Baseline policy may be narrower than the R function. Statistical assumptions need independent review."
+      },
+      "alternatives": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html",
+        "method": "Candidate alternatives only; not validated substitutions",
+        "status": "unverified"
+      }
+    }
+  },
+  {
+    "schema_version": "0.1.0",
+    "id": "stats::manova",
+    "package": "stats",
+    "function_name": "manova",
+    "task_types": [
+      "manova"
+    ],
+    "summary": "Multivariate analysis of variance 多元方差分析 组间比较 through aov and a multivariate summary.",
+    "input_types": [
+      "formula and data.frame"
+    ],
+    "input_constraints": [
+      "Multiple numeric responses; specify explanatory variables and study design"
+    ],
+    "output_types": [
+      "manova model",
+      "summary"
+    ],
+    "assumptions": [
+      "Study design and within-group covariance diagnostics require review"
+    ],
+    "missing_data_handling": "Behavior follows underlying aov/lm formula handling.",
+    "failure_conditions": [
+      "Multivariate tests require further covariance and rank diagnostics"
+    ],
+    "alternatives": [
+      "stats::aov"
+    ],
+    "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/manova.html",
+    "package_version": "4.6.0 (R-devel documentation snapshot)",
+    "verification_status": "official_docs_reviewed",
+    "retrieved_on": "2026-10-24",
+    "evidence": {
+      "function_name,task_types,summary,input_types,output_types": {
+        "origin": "official_document",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/manova.html",
+        "method": "Manual extraction from official reference; not tested in R",
+        "status": "verified"
+      },
+      "input_constraints,assumptions,failure_conditions,missing_data_handling": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/manova.html",
+        "method": "Conservative baseline signature and diagnostic checklist informed by documentation",
+        "status": "unverified",
+        "note": "Baseline policy may be narrower than the R function. Statistical assumptions need independent review."
+      },
+      "alternatives": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/manova.html",
+        "method": "Candidate alternatives only; not validated substitutions",
+        "status": "unverified"
+      }
+    }
+  },
+  {
+    "schema_version": "0.1.0",
+    "id": "MASS::lda",
+    "package": "MASS",
+    "function_name": "lda",
+    "task_types": [
+      "discriminant"
+    ],
+    "summary": "Linear discriminant analysis 线性判别分析 with grouped observations and numeric predictors.",
+    "input_types": [
+      "numeric matrix and grouping factor"
+    ],
+    "input_constraints": [
+      "Explicit class labels and suitable within-group variation"
+    ],
+    "output_types": [
+      "prior",
+      "means",
+      "scaling"
+    ],
+    "assumptions": [
+      "Covariance and group distribution assumptions require diagnostic review"
+    ],
+    "missing_data_handling": "Default fails on missing values; na.omit can exclude rows.",
+    "failure_conditions": [
+      "Within-group constants or singular covariance can cause failure"
+    ],
+    "alternatives": [
+      "MASS::qda"
+    ],
+    "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lda.html",
+    "package_version": "not pinned; R-devel documentation snapshot",
+    "verification_status": "official_docs_reviewed",
+    "retrieved_on": "2026-10-24",
+    "evidence": {
+      "function_name,task_types,summary,input_types,output_types": {
+        "origin": "official_document",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lda.html",
+        "method": "Manual extraction from official reference; not tested in R",
+        "status": "verified"
+      },
+      "input_constraints,assumptions,failure_conditions,missing_data_handling": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lda.html",
+        "method": "Conservative baseline signature and diagnostic checklist informed by documentation",
+        "status": "unverified",
+        "note": "Baseline policy may be narrower than the R function. Statistical assumptions need independent review."
+      },
+      "alternatives": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lda.html",
+        "method": "Candidate alternatives only; not validated substitutions",
+        "status": "unverified"
+      }
+    }
+  }
+]

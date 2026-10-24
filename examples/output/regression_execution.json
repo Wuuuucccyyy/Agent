@@ -1,0 +1,55 @@
+{
+  "schema_version": "0.1.0",
+  "status": "success",
+  "method": "stats::lm",
+  "backend": "python_trusted_templates",
+  "inputs": [
+    "x1",
+    "x2",
+    "y"
+  ],
+  "metrics": {
+    "coefficients": {
+      "intercept": 1.999999999999998,
+      "x1": 3.0000000000000013,
+      "x2": -1.000000000000002
+    },
+    "r_squared": 1.0,
+    "sse": 9.668476469615026e-29,
+    "predictions": [
+      1.999999999999998,
+      4.999999999999999,
+      0.999999999999996,
+      3.9999999999999973,
+      6.999999999999998,
+      2.999999999999995,
+      11.000000000000002,
+      4.999999999999994
+    ],
+    "residuals": [
+      1.9984014443252818e-15,
+      8.881784197001252e-16,
+      3.9968028886505635e-15,
+      2.6645352591003757e-15,
+      1.7763568394002505e-15,
+      4.884981308350689e-15,
+      -1.7763568394002505e-15,
+      6.217248937900877e-15
+    ]
+  },
+  "diagnostics": {
+    "n": 8,
+    "design_rank": 3,
+    "residual_df": 5,
+    "normal_equation_max_abs_error": 3.68594044175552e-14,
+    "normal_equation_tolerance": 1.0488088481701517e-06,
+    "residual_mean": 2.581268532253489e-15
+  },
+  "limitations": [
+    "In-sample fit only, not predictive validation.",
+    "No p-values or causal claims: independence, heteroscedasticity and residual assumptions remain unchecked.",
+    "Python least squares template; R lm was not executed."
+  ],
+  "validation_passed": true,
+  "message": "OLS finite coefficients and least-squares orthogonality checked."
+}
