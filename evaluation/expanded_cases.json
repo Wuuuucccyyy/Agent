@@ -1,0 +1,258 @@
+[
+  {
+    "id": "v_pca_wide",
+    "split": "validation",
+    "scenario": "wide",
+    "seed": 11,
+    "n": 5,
+    "p": 8,
+    "task": "pca",
+    "goal": "样本少于变量，希望提取数值指标的主成分。",
+    "relevance": {
+      "stats::prcomp": 2
+    },
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Baseline signature compatibility and stated task; assumptions remain unknown."
+  },
+  {
+    "id": "v_pca_dependent",
+    "split": "validation",
+    "scenario": "dependent",
+    "seed": 12,
+    "n": 20,
+    "p": 3,
+    "task": "pca",
+    "goal": "指标存在冗余，希望稳定地计算主成分。",
+    "relevance": {
+      "stats::prcomp": 2,
+      "stats::princomp": 1
+    },
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Numerical stability preference; independent statistical review pending."
+  },
+  {
+    "id": "v_reg_dependent",
+    "split": "validation",
+    "scenario": "dependent",
+    "seed": 13,
+    "n": 24,
+    "p": 3,
+    "task": "regression",
+    "goal": "解释变量完全共线，希望通过收缩稳定预测连续响应。",
+    "relevance": {
+      "MASS::lm.ridge": 2
+    },
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Numerical stability preference; independent statistical review pending."
+  },
+  {
+    "id": "v_reg_regular",
+    "split": "validation",
+    "scenario": "regular",
+    "seed": 14,
+    "n": 24,
+    "p": 2,
+    "task": "regression",
+    "goal": "用所列数值变量解释并预测连续响应，比较线性模型。",
+    "relevance": {
+      "stats::lm": 2,
+      "MASS::lm.ridge": 1
+    },
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Baseline signature compatibility and stated task; assumptions remain unknown."
+  },
+  {
+    "id": "v_discriminant_small",
+    "split": "validation",
+    "scenario": "groups",
+    "seed": 15,
+    "n": 12,
+    "p": 7,
+    "task": "discriminant",
+    "goal": "根据数值特征区分类别，注意各类样本量。",
+    "relevance": {
+      "MASS::lda": 2
+    },
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Baseline signature compatibility and stated task; assumptions remain unknown."
+  },
+  {
+    "id": "v_clustering",
+    "split": "validation",
+    "scenario": "regular",
+    "seed": 16,
+    "n": 20,
+    "p": 2,
+    "task": "clustering",
+    "goal": "根据测量值发现对象的聚类结构。",
+    "relevance": {
+      "stats::kmeans": 2,
+      "stats::hclust": 2
+    },
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Baseline signature compatibility and stated task; assumptions remain unknown."
+  },
+  {
+    "id": "v_invalid_text",
+    "split": "validation",
+    "scenario": "text",
+    "seed": 17,
+    "n": 10,
+    "p": 2,
+    "task": "pca",
+    "goal": "对选择的指标进行主成分分析。",
+    "relevance": {},
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Baseline signature compatibility and stated task; assumptions remain unknown."
+  },
+  {
+    "id": "v_unknown",
+    "split": "validation",
+    "scenario": "regular",
+    "seed": 18,
+    "n": 10,
+    "p": 2,
+    "task": "unknown",
+    "goal": "请分析数据，尚未指定研究目标。",
+    "relevance": {},
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Baseline signature compatibility and stated task; assumptions remain unknown."
+  },
+  {
+    "id": "t_pca_wide",
+    "split": "test",
+    "scenario": "wide",
+    "seed": 101,
+    "n": 4,
+    "p": 12,
+    "task": "pca",
+    "goal": "希望用更少的成分概括这些数值指标。",
+    "relevance": {
+      "stats::prcomp": 2
+    },
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Baseline signature compatibility and stated task; assumptions remain unknown."
+  },
+  {
+    "id": "t_pca_dependent",
+    "split": "test",
+    "scenario": "dependent",
+    "seed": 102,
+    "n": 30,
+    "p": 5,
+    "task": "pca",
+    "goal": "部分变量是其他变量的线性组合，提取主成分。",
+    "relevance": {
+      "stats::prcomp": 2,
+      "stats::princomp": 1
+    },
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Numerical stability preference; independent statistical review pending."
+  },
+  {
+    "id": "t_reg_dependent",
+    "split": "test",
+    "scenario": "dependent",
+    "seed": 103,
+    "n": 40,
+    "p": 4,
+    "task": "regression",
+    "goal": "冗余解释变量共同预测连续结果，希望得到稳定的预测模型。",
+    "relevance": {
+      "MASS::lm.ridge": 2
+    },
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Numerical stability preference; independent statistical review pending."
+  },
+  {
+    "id": "t_reg_regular",
+    "split": "test",
+    "scenario": "regular",
+    "seed": 104,
+    "n": 20,
+    "p": 3,
+    "task": "regression",
+    "goal": "拟合数值结局与多个解释变量之间的线性关系。",
+    "relevance": {
+      "stats::lm": 2,
+      "MASS::lm.ridge": 1
+    },
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Baseline signature compatibility and stated task; assumptions remain unknown."
+  },
+  {
+    "id": "t_discriminant_small",
+    "split": "test",
+    "scenario": "groups",
+    "seed": 105,
+    "n": 20,
+    "p": 11,
+    "task": "discriminant",
+    "goal": "数值指标较多，使用已知类别建立判别模型。",
+    "relevance": {
+      "MASS::lda": 2
+    },
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Baseline signature compatibility and stated task; assumptions remain unknown."
+  },
+  {
+    "id": "t_clustering",
+    "split": "test",
+    "scenario": "regular",
+    "seed": 106,
+    "n": 30,
+    "p": 3,
+    "task": "clustering",
+    "goal": "寻找观测对象之间的相似组别。",
+    "relevance": {
+      "stats::kmeans": 2,
+      "stats::hclust": 2
+    },
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Baseline signature compatibility and stated task; assumptions remain unknown."
+  },
+  {
+    "id": "t_invalid_infinite",
+    "split": "test",
+    "scenario": "infinite",
+    "seed": 107,
+    "n": 10,
+    "p": 2,
+    "task": "regression",
+    "goal": "用这些解释变量预测数值响应。",
+    "relevance": {},
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Baseline signature compatibility and stated task; assumptions remain unknown."
+  },
+  {
+    "id": "t_manova",
+    "split": "test",
+    "scenario": "manova",
+    "seed": 108,
+    "n": 24,
+    "p": 2,
+    "task": "manova",
+    "goal": "比较分组对两个数值响应的联合关系。",
+    "relevance": {
+      "stats::manova": 2
+    },
+    "label_origin": "developer_authored_diagnostic",
+    "human_review_status": "pending",
+    "basis": "Baseline signature compatibility and stated task; assumptions remain unknown."
+  }
+]

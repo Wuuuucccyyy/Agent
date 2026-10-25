@@ -1,5 +1,7 @@
 # 首轮验证记录
 
+当前 v0.2.0 的真实 DeepSeek、固定 Embedding、扩展候选和画像评估见 [STAGE2_VALIDATION](STAGE2_VALIDATION.md)。下文为 v0.1 / v0.1.1 历史记录，其中“尚未验证”描述对应当时状态。
+
 日期：2026-10-24。环境：Windows、Python 3.11.9，实际依赖版本见 `requirements.lock.txt`。本记录描述本地实际运行，不将未验证的可选路径计为完成。
 
 ## 第二轮更新 0.1.1

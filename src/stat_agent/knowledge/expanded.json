@@ -1,0 +1,198 @@
+[
+  {
+    "schema_version": "0.1.0",
+    "id": "stats::princomp",
+    "package": "stats",
+    "function_name": "princomp",
+    "task_types": [
+      "pca"
+    ],
+    "summary": "Covariance or correlation eigenvector PCA 主成分分析，原始数据接口要求观测数不少于变量数。",
+    "input_types": [
+      "numeric matrix"
+    ],
+    "input_constraints": [
+      "Raw data requires n >= p; correlation PCA requires nonconstant columns."
+    ],
+    "output_types": [
+      "sdev",
+      "loadings",
+      "scores"
+    ],
+    "assumptions": [
+      "Scaling needs scientific justification."
+    ],
+    "missing_data_handling": "Formula interface follows na.action.",
+    "failure_conditions": [
+      "Too few observations for the raw-data interface."
+    ],
+    "alternatives": [
+      "stats::prcomp"
+    ],
+    "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/princomp.html",
+    "package_version": "4.6.0 (R-devel documentation snapshot)",
+    "retrieved_on": "2026-10-24",
+    "verification_status": "official_docs_reviewed",
+    "evidence": {
+      "function_name,summary,input_types,output_types": {
+        "origin": "official_document",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/princomp.html",
+        "method": "Official reference checked; R execution not performed",
+        "status": "verified"
+      },
+      "input_constraints,assumptions,failure_conditions,missing_data_handling,alternatives": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/princomp.html",
+        "method": "Conservative baseline signature informed by reference; needs statistical audit",
+        "status": "unverified"
+      }
+    }
+  },
+  {
+    "schema_version": "0.1.0",
+    "id": "MASS::lm.ridge",
+    "package": "MASS",
+    "function_name": "lm.ridge",
+    "task_types": [
+      "regression"
+    ],
+    "summary": "Ridge regression 岭回归，为数值响应的线性模型加入惩罚；收缩参数需要验证集选择。",
+    "input_types": [
+      "formula and data.frame"
+    ],
+    "input_constraints": [
+      "Numeric-response baseline; choose positive lambda when seeking regularization."
+    ],
+    "output_types": [
+      "coef",
+      "lambda",
+      "GCV"
+    ],
+    "assumptions": [
+      "Predictive validation and interpretation of shrinkage are required."
+    ],
+    "missing_data_handling": "na.action filters missing input.",
+    "failure_conditions": [
+      "Constant predictor scaling needs preprocessing."
+    ],
+    "alternatives": [
+      "stats::lm"
+    ],
+    "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lm.ridge.html",
+    "package_version": "7.3-65 (R-devel documentation snapshot)",
+    "retrieved_on": "2026-10-24",
+    "verification_status": "official_docs_reviewed",
+    "evidence": {
+      "function_name,summary,input_types,output_types": {
+        "origin": "official_document",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lm.ridge.html",
+        "method": "Official reference checked; R execution not performed",
+        "status": "verified"
+      },
+      "input_constraints,assumptions,failure_conditions,missing_data_handling,alternatives": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lm.ridge.html",
+        "method": "Conservative baseline signature informed by reference; needs statistical audit",
+        "status": "unverified"
+      }
+    }
+  },
+  {
+    "schema_version": "0.1.0",
+    "id": "stats::hclust",
+    "package": "stats",
+    "function_name": "hclust",
+    "task_types": [
+      "clustering"
+    ],
+    "summary": "Hierarchical agglomerative clustering 层次聚类，基于距离与连接方式生成树状结构。",
+    "input_types": [
+      "dissimilarity object"
+    ],
+    "input_constraints": [
+      "Convert selected numeric features to an explicit distance object before calling hclust."
+    ],
+    "output_types": [
+      "merge",
+      "height",
+      "order"
+    ],
+    "assumptions": [
+      "Choose a scientifically appropriate distance/linkage."
+    ],
+    "missing_data_handling": "Baseline requires complete inputs before distance construction.",
+    "failure_conditions": [
+      "Pairwise distances may exceed available memory."
+    ],
+    "alternatives": [
+      "stats::kmeans"
+    ],
+    "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/hclust.html",
+    "package_version": "4.6.0 (R-devel documentation snapshot)",
+    "retrieved_on": "2026-10-24",
+    "verification_status": "official_docs_reviewed",
+    "evidence": {
+      "function_name,summary,input_types,output_types": {
+        "origin": "official_document",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/hclust.html",
+        "method": "Official reference checked; R execution not performed",
+        "status": "verified"
+      },
+      "input_constraints,assumptions,failure_conditions,missing_data_handling,alternatives": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/hclust.html",
+        "method": "Conservative baseline signature informed by reference; needs statistical audit",
+        "status": "unverified"
+      }
+    }
+  },
+  {
+    "schema_version": "0.1.0",
+    "id": "MASS::qda",
+    "package": "MASS",
+    "function_name": "qda",
+    "task_types": [
+      "discriminant"
+    ],
+    "summary": "Quadratic discriminant analysis 二次判别分析，分别估计各组协方差以构造判别函数。",
+    "input_types": [
+      "numeric predictors and grouping factor"
+    ],
+    "input_constraints": [
+      "Class labels required; every within-group covariance must be nonsingular."
+    ],
+    "output_types": [
+      "prior",
+      "means",
+      "scaling"
+    ],
+    "assumptions": [
+      "Group distributions and covariance estimation need validation."
+    ],
+    "missing_data_handling": "Default fails on missing observations; na.omit may be specified.",
+    "failure_conditions": [
+      "Singular within-group covariance."
+    ],
+    "alternatives": [
+      "MASS::lda"
+    ],
+    "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/qda.html",
+    "package_version": "7.3-65 (R-devel documentation snapshot)",
+    "retrieved_on": "2026-10-24",
+    "verification_status": "official_docs_reviewed",
+    "evidence": {
+      "function_name,summary,input_types,output_types": {
+        "origin": "official_document",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/qda.html",
+        "method": "Official reference checked; R execution not performed",
+        "status": "verified"
+      },
+      "input_constraints,assumptions,failure_conditions,missing_data_handling,alternatives": {
+        "origin": "rule_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/qda.html",
+        "method": "Conservative baseline signature informed by reference; needs statistical audit",
+        "status": "unverified"
+      }
+    }
+  }
+]

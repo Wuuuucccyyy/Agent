@@ -1,0 +1,8 @@
+[
+  {"id":"ols_roles","goal":"用 x1 和 x2 建立普通最小二乘线性回归，因变量是 y。","columns":["x1","x2","y"],"expected":{"task_type":"regression","target_variables":["y"],"predictor_variables":["x1","x2"]}},
+  {"id":"pca_roles","goal":"请对 x1、x2、x3 做主成分分析，明确使用 stats::prcomp。","columns":["x1","x2","x3"],"expected":{"task_type":"pca","requested_method":"stats::prcomp","predictor_variables":["x1","x2","x3"]}},
+  {"id":"cluster_roles","goal":"对 length 和 width 进行 K-means 聚类。","columns":["length","width","id"],"expected":{"task_type":"clustering","predictor_variables":["length","width"]}},
+  {"id":"lda_roles","goal":"使用 MASS::lda，根据 x1 和 x2 预测类别 group。","columns":["x1","x2","group"],"expected":{"task_type":"discriminant","requested_method":"MASS::lda","group_variables":["group"],"predictor_variables":["x1","x2"]}},
+  {"id":"unsupported_logistic","goal":"使用逻辑回归，根据 x1 预测二元结局 y。","columns":["x1","y"],"expected":{"task_type":"unknown"}},
+  {"id":"ambiguous","goal":"帮我分析一下这些数据。","columns":["x1","x2","y"],"expected":{"task_type":"unknown"}}
+]

@@ -1,0 +1,927 @@
+{
+  "scope": "Two synthetic end-to-end acceptance examples; not an accuracy benchmark.",
+  "embedding_model": {
+    "configuration": {
+      "model_id": "intfloat/multilingual-e5-small",
+      "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+      "query_prefix": "query: ",
+      "document_prefix": "passage: ",
+      "dimensions": 384,
+      "max_tokens": 512,
+      "device": "cpu",
+      "files": [
+        "config.json",
+        "model.safetensors",
+        "modules.json",
+        "sentence_bert_config.json",
+        "1_Pooling/config.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "special_tokens_map.json",
+        "sentencepiece.bpe.model"
+      ],
+      "source": "https://huggingface.co/intfloat/multilingual-e5-small"
+    },
+    "manifest": {
+      "model_id": "intfloat/multilingual-e5-small",
+      "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+      "files": {
+        "config.json": {
+          "sha256": "69137736cab8b8903a07fe8afaafdda25aac55415a12a55d1bffa9f581abf959",
+          "bytes": 655
+        },
+        "model.safetensors": {
+          "sha256": "1a55775f53449dac10a2bcbc312469fac40b96d53198c407081a831f81c98477",
+          "bytes": 470641600
+        },
+        "modules.json": {
+          "sha256": "c6e29747481e8b5dd2b58401966aeac910de39092f90cda9a704b1545f902b04",
+          "bytes": 387
+        },
+        "sentence_bert_config.json": {
+          "sha256": "948201d8329907aae938fa62f9ceeed53f5694dacc2b87b9f3b78b37ee986529",
+          "bytes": 57
+        },
+        "1_Pooling/config.json": {
+          "sha256": "987f7a67a38fa564c849bb5d277c52ab9088a84368fc0be31a354125aebb12a0",
+          "bytes": 200
+        },
+        "tokenizer.json": {
+          "sha256": "0b44a9d7b51c3c62626640cda0e2c2f70fdacdc25bbbd68038369d14ebdf4c39",
+          "bytes": 17082730
+        },
+        "tokenizer_config.json": {
+          "sha256": "a1d6bc8734a6f635dc158508bef000f8e2e5a759c7d92f984b2c86e5ff53425b",
+          "bytes": 443
+        },
+        "special_tokens_map.json": {
+          "sha256": "d05497f1da52c5e09554c0cd874037a083e1dc1b9cfd48034d1c717f1afc07a7",
+          "bytes": 167
+        },
+        "sentencepiece.bpe.model": {
+          "sha256": "cfc8146abe2a0488e9e2a0c56de7952f7c11ab059eca145a0a727afce0db2865",
+          "bytes": 5069051
+        }
+      }
+    }
+  },
+  "runs": [
+    {
+      "application_version": "0.2.0",
+      "started_at": "2026-10-25T05:51:23.462757+00:00",
+      "status": "success",
+      "configuration": {
+        "goal": "使用 stats::prcomp 对 x1、x2、x3 做主成分分析。",
+        "roles": {},
+        "sheet": 0,
+        "encoder": "sentence_transformers:intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|query/passage",
+        "knowledge_library": "expanded",
+        "task_agent": "deepseek_task_understanding",
+        "alpha": 1.0,
+        "penalty_lambda": 0.5,
+        "mode": "C"
+      },
+      "task": {
+        "schema_version": "0.2.0",
+        "research_goal": "使用 stats::prcomp 对 x1、x2、x3 做主成分分析。",
+        "task_type": "pca",
+        "requested_method": "stats::prcomp",
+        "target_variables": [],
+        "predictor_variables": [
+          "x1",
+          "x2",
+          "x3"
+        ],
+        "group_variables": [],
+        "expected_output": [
+          "主成分载荷",
+          "方差解释比例",
+          "主成分得分"
+        ],
+        "constraints": [],
+        "unknowns": [
+          "study_design"
+        ],
+        "evidence": {
+          "task_type": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "requested_method": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "target_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "predictor_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "group_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "expected_output": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "constraints": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "unknowns": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "research_goal": {
+            "schema_version": "0.1.0",
+            "origin": "user",
+            "source": "user request",
+            "method": "verbatim",
+            "status": "verified",
+            "note": ""
+          }
+        }
+      },
+      "execution": {
+        "schema_version": "0.2.0",
+        "status": "success",
+        "method": "stats::prcomp",
+        "backend": "python_trusted_templates",
+        "inputs": [
+          "x1",
+          "x2",
+          "x3"
+        ],
+        "metrics": {
+          "explained_variance": [
+            2.590696833288521,
+            0.3359096300384515,
+            0.07339353667302742
+          ],
+          "explained_variance_ratio": [
+            0.8635656110961736,
+            0.11196987667948381,
+            0.02446451222434247
+          ],
+          "loadings": [
+            [
+              0.6062102442695286,
+              -0.0761055935968914,
+              0.7916546458942457
+            ],
+            [
+              0.5559348087424932,
+              0.7523696076833866,
+              -0.35337863809629844
+            ],
+            [
+              0.568722804335404,
+              -0.6543301246753142,
+              -0.49840391227523667
+            ]
+          ],
+          "scores": [
+            [
+              -1.781863792719314,
+              -0.25844535845538086,
+              -0.465296415440897
+            ],
+            [
+              -1.9935190447308175,
+              -0.3295397882720554,
+              0.20563401041933208
+            ],
+            [
+              -1.2973365556284124,
+              0.8279802064461097,
+              0.2994995367225134
+            ],
+            [
+              -0.5802713571689455,
+              -0.31163084256137913,
+              0.15653978199527607
+            ],
+            [
+              0.8072307924474229,
+              0.6187844486950891,
+              -0.300806006884538
+            ],
+            [
+              1.0651564430106695,
+              -0.560851051648406,
+              -0.09602699157564665
+            ],
+            [
+              1.761338932113075,
+              0.596668943069759,
+              -0.0021614652724656147
+            ],
+            [
+              2.0192645826763216,
+              -0.5829665572737361,
+              0.2026175500364258
+            ]
+          ],
+          "components_for_95_percent": 2
+        },
+        "diagnostics": {
+          "n": 8,
+          "p": 3,
+          "center": [
+            4.5,
+            4.5,
+            5.5
+          ],
+          "scale_ddof1": [
+            2.449489742783178,
+            2.449489742783178,
+            2.449489742783178
+          ],
+          "reconstruction_max_abs_error": 1.1102230246251565e-15
+        },
+        "limitations": [
+          "Python SVD equivalent to centered, scaled PCA; no R runtime was invoked.",
+          "Exploratory summary only; study design and feature meaning are not verified."
+        ],
+        "validation_passed": true,
+        "message": "PCA reconstruction and variance accounting checked."
+      },
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 248,
+        "output_tokens": 190,
+        "tokens": 1206,
+        "cache_read_input_tokens": 768,
+        "retries": 0,
+        "api_cost_usd": null,
+        "note": "Actual provider token counters; monetary cost not estimated without pinned pricing."
+      },
+      "llm": {
+        "provider": "DeepSeek",
+        "configured_model": "deepseek-v4-pro[1m]",
+        "requested_model": "deepseek-v4-pro",
+        "endpoint": "https://api.deepseek.com/anthropic",
+        "immutable_model_version": false,
+        "receipts": [
+          {
+            "requested_model": "deepseek-v4-pro",
+            "returned_model": "deepseek-v4-pro",
+            "request_sha256": "53b634d349c3adcd03ce839e58b55358bb3035ab221072f0eedf612d4efab913",
+            "response_sha256": "cbd00007563c7040087689adfdd2f3dd0d7a09064c9a8d22c3245c6bc69d63bc",
+            "seconds": 2.010103699984029,
+            "stop_reason": "tool_use"
+          }
+        ]
+      },
+      "knowledge_sha256": "1a36ce6d053ab12efa243220f7b1d220d701373bd3bdeaee2593c36bfcde8c53",
+      "elapsed_seconds": 2.525044000009075,
+      "events": [
+        {
+          "node": "read_table",
+          "status": "success",
+          "seconds": 0.019295399892143905
+        },
+        {
+          "node": "task_understanding",
+          "status": "success",
+          "seconds": 2.0402619999367744
+        },
+        {
+          "node": "data_structure",
+          "status": "success",
+          "seconds": 0.011986400000751019
+        },
+        {
+          "node": "distribution_quality_relations",
+          "status": "success",
+          "seconds": 0.06595600000582635
+        },
+        {
+          "node": "profile_validation",
+          "status": "success",
+          "seconds": 0.008517300011590123
+        },
+        {
+          "node": "statistical_knowledge",
+          "status": "success",
+          "seconds": 0.0018614999717101455
+        },
+        {
+          "node": "retrieve",
+          "status": "success",
+          "seconds": 0.3244337000651285
+        },
+        {
+          "node": "execute_validate",
+          "status": "success",
+          "outcome": "success",
+          "seconds": 0.004229499958455563
+        }
+      ],
+      "case": "pca",
+      "source_sha256": "1cbad5d80c3bcf724ffcadac6a7d6ffe3bdb009134116af31f50c3eb403c0387",
+      "retrieval": {
+        "schema_version": "0.1.0",
+        "status": "ranked",
+        "encoder": "sentence_transformers:intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|query/passage",
+        "mode": "C",
+        "alpha": 1.0,
+        "penalty_lambda": 0.5,
+        "ranked": [
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "stats::prcomp",
+            "cosine": 0.9224645262089104,
+            "hard_failures": [],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Scaling and feature selection need scientific justification; PCA needs no marginal normality assumption."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.9224645262089104,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html"
+          }
+        ],
+        "excluded": [
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "stats::lm",
+            "cosine": 0.8459917537919374,
+            "hard_failures": [
+              "Task pca is outside stats::lm's supported tasks.",
+              "User explicitly requested stats::prcomp; do not substitute stats::lm."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Linearity, homoscedasticity and residual distribution require model-specific diagnostics."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.8459917537919374,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "stats::kmeans",
+            "cosine": 0.8398410716525064,
+            "hard_failures": [
+              "Task pca is outside stats::kmeans's supported tasks.",
+              "User explicitly requested stats::prcomp; do not substitute stats::kmeans."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.8398410716525064,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "stats::manova",
+            "cosine": 0.8644591542610429,
+            "hard_failures": [
+              "Task pca is outside stats::manova's supported tasks.",
+              "User explicitly requested stats::prcomp; do not substitute stats::manova."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.8644591542610429,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/manova.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "MASS::lda",
+            "cosine": 0.8593316609343725,
+            "hard_failures": [
+              "Task pca is outside MASS::lda's supported tasks.",
+              "User explicitly requested stats::prcomp; do not substitute MASS::lda."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.8593316609343725,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lda.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "stats::princomp",
+            "cosine": 0.9165246256473653,
+            "hard_failures": [
+              "User explicitly requested stats::prcomp; do not substitute stats::princomp."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Choose covariance versus correlation scaling; the documented variance divisor differs from prcomp."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.9165246256473653,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/princomp.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "MASS::lm.ridge",
+            "cosine": 0.8479887557290144,
+            "hard_failures": [
+              "Task pca is outside MASS::lm.ridge's supported tasks.",
+              "User explicitly requested stats::prcomp; do not substitute MASS::lm.ridge."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "A positive ridge lambda must be selected on validation data; lambda=0 is not a remedy for singularity.",
+              "Ridge estimates are biased; prediction and coefficient interpretation require separate validation."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.8479887557290144,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lm.ridge.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "stats::hclust",
+            "cosine": 0.859940053824503,
+            "hard_failures": [
+              "Task pca is outside stats::hclust's supported tasks.",
+              "User explicitly requested stats::prcomp; do not substitute stats::hclust."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Numeric input requires an explicit distance construction and linkage choice before hclust."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.859940053824503,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/hclust.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "MASS::qda",
+            "cosine": 0.8725464909216719,
+            "hard_failures": [
+              "Task pca is outside MASS::qda's supported tasks.",
+              "User explicitly requested stats::prcomp; do not substitute MASS::qda."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Within-group covariance rank is not yet computed; group counts alone cannot establish QDA applicability.",
+              "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.8725464909216719,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/qda.html"
+          }
+        ]
+      }
+    },
+    {
+      "application_version": "0.2.0",
+      "started_at": "2026-10-25T05:51:26.013996+00:00",
+      "status": "success",
+      "configuration": {
+        "goal": "使用 stats::lm，以 y 为目标变量，x1 和 x2 为解释变量做线性回归。",
+        "roles": {},
+        "sheet": 0,
+        "encoder": "sentence_transformers:intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|query/passage",
+        "knowledge_library": "expanded",
+        "task_agent": "deepseek_task_understanding",
+        "alpha": 1.0,
+        "penalty_lambda": 0.5,
+        "mode": "C"
+      },
+      "task": {
+        "schema_version": "0.2.0",
+        "research_goal": "使用 stats::lm，以 y 为目标变量，x1 和 x2 为解释变量做线性回归。",
+        "task_type": "regression",
+        "requested_method": "stats::lm",
+        "target_variables": [
+          "y"
+        ],
+        "predictor_variables": [
+          "x1",
+          "x2"
+        ],
+        "group_variables": [],
+        "expected_output": [
+          "回归系数估计",
+          "模型拟合结果"
+        ],
+        "constraints": [],
+        "unknowns": [
+          "study_design"
+        ],
+        "evidence": {
+          "task_type": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "requested_method": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "target_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "predictor_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "group_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "expected_output": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "constraints": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "unknowns": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "research_goal": {
+            "schema_version": "0.1.0",
+            "origin": "user",
+            "source": "user request",
+            "method": "verbatim",
+            "status": "verified",
+            "note": ""
+          }
+        }
+      },
+      "execution": {
+        "schema_version": "0.2.0",
+        "status": "success",
+        "method": "stats::lm",
+        "backend": "python_trusted_templates",
+        "inputs": [
+          "x1",
+          "x2",
+          "y"
+        ],
+        "metrics": {
+          "intercept": 1.999999999999998,
+          "coefficients": {
+            "x1": 3.0000000000000013,
+            "x2": -1.000000000000002
+          },
+          "r_squared": 1.0,
+          "sse": 9.668476469615026e-29,
+          "predictions": [
+            1.999999999999998,
+            4.999999999999999,
+            0.999999999999996,
+            3.9999999999999973,
+            6.999999999999998,
+            2.999999999999995,
+            11.000000000000002,
+            4.999999999999994
+          ],
+          "residuals": [
+            1.9984014443252818e-15,
+            8.881784197001252e-16,
+            3.9968028886505635e-15,
+            2.6645352591003757e-15,
+            1.7763568394002505e-15,
+            4.884981308350689e-15,
+            -1.7763568394002505e-15,
+            6.217248937900877e-15
+          ]
+        },
+        "diagnostics": {
+          "n": 8,
+          "design_rank": 3,
+          "residual_df": 5,
+          "normal_equation_max_abs_error": 3.68594044175552e-14,
+          "normal_equation_tolerance": 1.0488088481701517e-06,
+          "residual_mean": 2.581268532253489e-15
+        },
+        "limitations": [
+          "In-sample fit only, not predictive validation.",
+          "No p-values or causal claims: independence, heteroscedasticity and residual assumptions remain unchecked.",
+          "Python least squares template; R lm was not executed."
+        ],
+        "validation_passed": true,
+        "message": "OLS finite coefficients and least-squares orthogonality checked."
+      },
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 252,
+        "output_tokens": 182,
+        "tokens": 1202,
+        "cache_read_input_tokens": 768,
+        "retries": 0,
+        "api_cost_usd": null,
+        "note": "Actual provider token counters; monetary cost not estimated without pinned pricing."
+      },
+      "llm": {
+        "provider": "DeepSeek",
+        "configured_model": "deepseek-v4-pro[1m]",
+        "requested_model": "deepseek-v4-pro",
+        "endpoint": "https://api.deepseek.com/anthropic",
+        "immutable_model_version": false,
+        "receipts": [
+          {
+            "requested_model": "deepseek-v4-pro",
+            "returned_model": "deepseek-v4-pro",
+            "request_sha256": "86245e3975f55145f4649cc6f9605aeb36f8a721b6ac02ff42550586d4636797",
+            "response_sha256": "d28f266f50c1dd593bcdf42d0c4e0b20b40680459dc19fb8fcec4a4529177282",
+            "seconds": 1.8966773999854922,
+            "stop_reason": "tool_use"
+          }
+        ]
+      },
+      "knowledge_sha256": "1a36ce6d053ab12efa243220f7b1d220d701373bd3bdeaee2593c36bfcde8c53",
+      "elapsed_seconds": 1.9875821999739856,
+      "events": [
+        {
+          "node": "read_table",
+          "status": "success",
+          "seconds": 0.001841900055296719
+        },
+        {
+          "node": "task_understanding",
+          "status": "success",
+          "seconds": 1.897659600013867
+        },
+        {
+          "node": "data_structure",
+          "status": "success",
+          "seconds": 0.007899300078861415
+        },
+        {
+          "node": "distribution_quality_relations",
+          "status": "success",
+          "seconds": 0.002952700015157461
+        },
+        {
+          "node": "profile_validation",
+          "status": "success",
+          "seconds": 0.003462199936620891
+        },
+        {
+          "node": "statistical_knowledge",
+          "status": "success",
+          "seconds": 0.001051100087352097
+        },
+        {
+          "node": "retrieve",
+          "status": "success",
+          "seconds": 0.03194610006175935
+        },
+        {
+          "node": "execute_validate",
+          "status": "success",
+          "outcome": "success",
+          "seconds": 0.002595100086182356
+        }
+      ],
+      "case": "regression",
+      "source_sha256": "da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+      "retrieval": {
+        "schema_version": "0.1.0",
+        "status": "ranked",
+        "encoder": "sentence_transformers:intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|query/passage",
+        "mode": "C",
+        "alpha": 1.0,
+        "penalty_lambda": 0.5,
+        "ranked": [
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "stats::lm",
+            "cosine": 0.8905740216471199,
+            "hard_failures": [],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Linearity, homoscedasticity and residual distribution require model-specific diagnostics."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.8905740216471199,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html"
+          }
+        ],
+        "excluded": [
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "stats::prcomp",
+            "cosine": 0.8652024046378861,
+            "hard_failures": [
+              "Task regression is outside stats::prcomp's supported tasks.",
+              "User explicitly requested stats::lm; do not substitute stats::prcomp."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Scaling and feature selection need scientific justification; PCA needs no marginal normality assumption."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.8652024046378861,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "stats::kmeans",
+            "cosine": 0.8536229230009773,
+            "hard_failures": [
+              "Task regression is outside stats::kmeans's supported tasks.",
+              "User explicitly requested stats::lm; do not substitute stats::kmeans."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.8536229230009773,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "stats::manova",
+            "cosine": 0.8739980561534808,
+            "hard_failures": [
+              "Task regression is outside stats::manova's supported tasks.",
+              "User explicitly requested stats::lm; do not substitute stats::manova."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.8739980561534808,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/manova.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "MASS::lda",
+            "cosine": 0.8777412809028999,
+            "hard_failures": [
+              "Task regression is outside MASS::lda's supported tasks.",
+              "User explicitly requested stats::lm; do not substitute MASS::lda."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.8777412809028999,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lda.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "stats::princomp",
+            "cosine": 0.871219610209216,
+            "hard_failures": [
+              "Task regression is outside stats::princomp's supported tasks.",
+              "User explicitly requested stats::lm; do not substitute stats::princomp."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Choose covariance versus correlation scaling; the documented variance divisor differs from prcomp."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.871219610209216,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/princomp.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "MASS::lm.ridge",
+            "cosine": 0.8878457483686272,
+            "hard_failures": [
+              "User explicitly requested stats::lm; do not substitute MASS::lm.ridge."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "A positive ridge lambda must be selected on validation data; lambda=0 is not a remedy for singularity.",
+              "Ridge estimates are biased; prediction and coefficient interpretation require separate validation."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.8878457483686272,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lm.ridge.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "stats::hclust",
+            "cosine": 0.8670494603292244,
+            "hard_failures": [
+              "Task regression is outside stats::hclust's supported tasks.",
+              "User explicitly requested stats::lm; do not substitute stats::hclust."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Numeric input requires an explicit distance construction and linkage choice before hclust."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.8670494603292244,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/hclust.html"
+          },
+          {
+            "schema_version": "0.1.0",
+            "knowledge_id": "MASS::qda",
+            "cosine": 0.87434358470816,
+            "hard_failures": [
+              "Task regression is outside MASS::qda's supported tasks.",
+              "User explicitly requested stats::lm; do not substitute MASS::qda."
+            ],
+            "penalties": [],
+            "unknowns": [
+              "Study design and independence have not been verified.",
+              "Within-group covariance rank is not yet computed; group counts alone cannot establish QDA applicability.",
+              "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
+            ],
+            "penalty_total": 0.0,
+            "score": 0.87434358470816,
+            "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/qda.html"
+          }
+        ]
+      }
+    }
+  ]
+}

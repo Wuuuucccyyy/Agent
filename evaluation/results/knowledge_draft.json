@@ -1,0 +1,151 @@
+{
+  "scope": "unverified LLM draft, not automatically imported into the curated library",
+  "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+  "source_sha256": "faf5e2e1152b5f347822dc866fae4a952ffa70a8ce7161bf8656dfdc04deeb1d",
+  "draft": {
+    "schema_version": "0.1.0",
+    "id": "stats::prcomp",
+    "package": "stats",
+    "function_name": "prcomp",
+    "task_types": [
+      "pca"
+    ],
+    "summary": "prcomp performs principal components analysis on a numeric or complex data matrix via singular value decomposition of the centered (and optionally scaled) data, returning an object of class prcomp with standard deviations, loadings, and optionally rotated data.",
+    "input_types": [
+      "numeric matrix",
+      "complex matrix",
+      "data frame",
+      "formula (no response variable)"
+    ],
+    "input_constraints": [
+      "formula must have no response variable and refer only to numeric variables",
+      "scale = TRUE cannot be used with zero or constant variables (for center = TRUE)",
+      "newdata must match column names or column count/order of original fit"
+    ],
+    "output_types": [
+      "sdev (standard deviations of principal components)",
+      "rotation (matrix of variable loadings/eigenvectors)",
+      "x (rotated data, if retx = TRUE)",
+      "center and scale values used"
+    ],
+    "assumptions": [
+      "Computation uses singular value decomposition of the data matrix, not eigen on the covariance matrix",
+      "Variances use divisor N - 1",
+      "Signs of rotation columns are arbitrary"
+    ],
+    "missing_data_handling": "Controlled by na.action; default from options, na.fail if unset, factory-fresh default na.omit. Formula method applies napredict to omitted values.",
+    "failure_conditions": [
+      "scale = TRUE with zero or constant variables (center = TRUE)",
+      "newdata columns do not match original fit names or count/order"
+    ],
+    "alternatives": [
+      "princomp (uses eigen on covariance matrix)",
+      "svd",
+      "eigen"
+    ],
+    "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+    "package_version": "R-devel reference; runtime not installed",
+    "verification_status": "unverified",
+    "retrieved_on": "2026-10-24",
+    "evidence": {
+      "task_types": {
+        "schema_version": "0.1.0",
+        "origin": "llm_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+        "method": "deepseek-v4-pro; text_sha256:a3633f1ac387813972be9d87f9622acc8566df82f7d45f483c408dc5c60fbfd4",
+        "status": "unverified",
+        "note": "Schema validation only; human verification required before library import."
+      },
+      "summary": {
+        "schema_version": "0.1.0",
+        "origin": "llm_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+        "method": "deepseek-v4-pro; text_sha256:a3633f1ac387813972be9d87f9622acc8566df82f7d45f483c408dc5c60fbfd4",
+        "status": "unverified",
+        "note": "Schema validation only; human verification required before library import."
+      },
+      "input_types": {
+        "schema_version": "0.1.0",
+        "origin": "llm_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+        "method": "deepseek-v4-pro; text_sha256:a3633f1ac387813972be9d87f9622acc8566df82f7d45f483c408dc5c60fbfd4",
+        "status": "unverified",
+        "note": "Schema validation only; human verification required before library import."
+      },
+      "input_constraints": {
+        "schema_version": "0.1.0",
+        "origin": "llm_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+        "method": "deepseek-v4-pro; text_sha256:a3633f1ac387813972be9d87f9622acc8566df82f7d45f483c408dc5c60fbfd4",
+        "status": "unverified",
+        "note": "Schema validation only; human verification required before library import."
+      },
+      "output_types": {
+        "schema_version": "0.1.0",
+        "origin": "llm_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+        "method": "deepseek-v4-pro; text_sha256:a3633f1ac387813972be9d87f9622acc8566df82f7d45f483c408dc5c60fbfd4",
+        "status": "unverified",
+        "note": "Schema validation only; human verification required before library import."
+      },
+      "assumptions": {
+        "schema_version": "0.1.0",
+        "origin": "llm_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+        "method": "deepseek-v4-pro; text_sha256:a3633f1ac387813972be9d87f9622acc8566df82f7d45f483c408dc5c60fbfd4",
+        "status": "unverified",
+        "note": "Schema validation only; human verification required before library import."
+      },
+      "missing_data_handling": {
+        "schema_version": "0.1.0",
+        "origin": "llm_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+        "method": "deepseek-v4-pro; text_sha256:a3633f1ac387813972be9d87f9622acc8566df82f7d45f483c408dc5c60fbfd4",
+        "status": "unverified",
+        "note": "Schema validation only; human verification required before library import."
+      },
+      "failure_conditions": {
+        "schema_version": "0.1.0",
+        "origin": "llm_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+        "method": "deepseek-v4-pro; text_sha256:a3633f1ac387813972be9d87f9622acc8566df82f7d45f483c408dc5c60fbfd4",
+        "status": "unverified",
+        "note": "Schema validation only; human verification required before library import."
+      },
+      "alternatives": {
+        "schema_version": "0.1.0",
+        "origin": "llm_inference",
+        "source": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html",
+        "method": "deepseek-v4-pro; text_sha256:a3633f1ac387813972be9d87f9622acc8566df82f7d45f483c408dc5c60fbfd4",
+        "status": "unverified",
+        "note": "Schema validation only; human verification required before library import."
+      }
+    }
+  },
+  "usage": {
+    "api_calls": 1,
+    "llm_calls": 1,
+    "input_tokens": 2471,
+    "output_tokens": 451,
+    "tokens": 2922,
+    "cache_read_input_tokens": 0,
+    "retries": 0
+  },
+  "model": {
+    "provider": "DeepSeek",
+    "configured_model": "deepseek-v4-pro[1m]",
+    "requested_model": "deepseek-v4-pro",
+    "endpoint": "https://api.deepseek.com/anthropic",
+    "immutable_model_version": false,
+    "receipts": [
+      {
+        "requested_model": "deepseek-v4-pro",
+        "returned_model": "deepseek-v4-pro",
+        "request_sha256": "4aa147fb17db93bd49b58daf362edc03d1db252fdf1dd16918c559edbb239353",
+        "response_sha256": "3661b25d65a79fc3946ca343ccc7e664e02842cff17c980ff80e1d7085ce58be",
+        "seconds": 5.218287399969995,
+        "stop_reason": "tool_use"
+      }
+    ]
+  }
+}

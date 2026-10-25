@@ -1,6 +1,6 @@
 # 架构与接口
 
-版本 0.1.0。设计依据为用户工作手册，优先交付可运行且能追溯来源的基线。LLM 和更多模态保留为后续接入点。
+版本 0.2.0。设计依据为用户工作手册，优先交付可运行且能追溯来源的基线。已增加可选 DeepSeek 任务理解与离线知识草稿提取，更多模态仍待实现。
 
 实现更新至 0.1.1，结构仍遵循首轮设计。差异：输入采用单次字节快照；完整行统计区分解释变量子集和分析所选全部变量；SVD 结果用于复算秩；缺失模式采用打包掩码计数及 JSON 数组键；编码器按完整、有序候选文本缓存一个知识库；查询摘要仅引用所选变量。输出格式迁移见 [BASELINE_REVIEW](BASELINE_REVIEW.md)。
 
@@ -30,13 +30,13 @@ flowchart TD
 
 | 组件 | 输入 | 输出 | 调用条件与边界 |
 |---|---|---|---|
-| TaskUnderstandingAgent | 目标文本、显式任务及变量角色 | TaskProfile | 每次在线任务；规则识别不确定时保留 unknown；未来通过 TaskInterpreter 协议接 LLM |
+| TaskUnderstandingAgent / DeepSeekTaskAgent | 目标文本、列名、显式任务及变量角色 | TaskProfile | 默认规则；可选结构化 LLM 输出，验证字段、方法与角色；不发送数据单元格 |
 | StructureAgent | DataFrame、来源 | VariableProfile 列表 | 表格读取成功后；数值计算只使用有限观测，缺失和无穷值分别计数 |
 | RelationsAgent | DataFrame、TaskProfile | RelationsProfile | 角色校验后；仅计算所选数值解释变量；记录完整行数，完整行不足则不推断矩阵性质 |
-| KnowledgeAgent | 随包分发的 JSON 种子库 | KnowledgeProfile 列表 | 离线人工提取结果的 Schema/ID 校验与导入；不伪装成自动抓取或 LLM 文档抽取 |
+| KnowledgeAgent / extract_draft | 五条种子或九条扩展库；独立的官方文档摘录入口 | KnowledgeProfile 列表或未核验草稿 | 导入库校验 Schema/ID；LLM 抽取草稿不自动进入推荐库 |
 | ProfileValidationAgent | 数据、来源、任务、变量与关系画像 | DataProfile | 检查角色冲突、变量数和 Schema，整合质量与七层画像；没有实现人工复核 UI |
 
-Agent 3 的分布统计由共享 `profiling` 工具计算，Agent 5 调用工具补齐质量层。职责按输入输出隔离，避免重复计算。未来若增加 LLM，只允许返回带 `llm_inference` 证据的语义字段，不覆盖程序统计事实。
+Agent 3 的分布统计由共享 `profiling` 工具计算，Agent 5 调用工具补齐质量层。职责按输入输出隔离，避免重复计算。LLM 只返回带 `llm_inference/unverified` 证据的语义字段，不覆盖程序统计事实。额外用户限制保留在 TaskProfile.constraints，当前模板不能解释时阻止执行；requested_method 防止显式方法被其他候选替换。
 
 ## 三类 Schema 与七层画像
 
@@ -60,4 +60,6 @@ DataProfile 对应来源、结构、变量、质量、多元关系、设计、�
 
 ## 持久化与复现
 
-每个 run 使用唯一 ID。日志记录节点成功/失败、耗时、依赖版本、输入 SHA256、知识库 SHA256、配置和 API 使用情况。当前 API 调用、Token 与 API 费用为零；不等于本地计算无成本。原始数据不自动提交 GitHub。运行失败也保存 run.json 和 SQLite 快照。
+每个 run 使用唯一 ID。日志记录节点成功/失败、耗时、依赖版本、输入 SHA256、知识库 SHA256、配置和 API 使用情况。默认模式 API 调用为零；DeepSeek 路径记录每次运行的真实请求数、缓存/非缓存输入与输出 Token、重试和请求/响应哈希，货币成本为未估算 null。密钥只读 CC Switch，不记录正文或凭据；拒绝凭据请求重定向。失败/限流最多重试一次，整个图仍无 checkpoint 恢复。
+
+固定语义模型配置位于 configs/embedding.json，记录 revision、前缀和维度；本地文件清单逐文件核验 SHA256，结果含模型清单。服务端 LLM 仅返回模型别名，记录 immutable_model_version=false，不宣称权重完全可复现。原始数据不自动提交 GitHub；失败也保存 run.json 和 SQLite 快照。

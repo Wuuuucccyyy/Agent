@@ -1,0 +1,11 @@
+{
+  "model_id": "intfloat/multilingual-e5-small",
+  "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+  "query_prefix": "query: ",
+  "document_prefix": "passage: ",
+  "dimensions": 384,
+  "max_tokens": 512,
+  "device": "cpu",
+  "files": ["config.json", "model.safetensors", "modules.json", "sentence_bert_config.json", "1_Pooling/config.json", "tokenizer.json", "tokenizer_config.json", "special_tokens_map.json", "sentencepiece.bpe.model"],
+  "source": "https://huggingface.co/intfloat/multilingual-e5-small"
+}

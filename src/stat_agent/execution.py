@@ -7,6 +7,8 @@ from .schemas import ExecutionResult, RetrievalResult, TaskProfile
 
 
 def execute(frame: pd.DataFrame, task: TaskProfile, ranking: RetrievalResult) -> ExecutionResult:
+    if task.constraints:
+        return ExecutionResult(status='blocked', message='User-specified constraints need an explicit execution policy; no preprocessing or analysis restriction is silently ignored.', limitations=list(task.constraints))
     if ranking.status != "ranked" or not ranking.ranked:
         return ExecutionResult(status="blocked", message="No compatible recommendation; resolve task or data constraints.")
     chosen = ranking.ranked[0]

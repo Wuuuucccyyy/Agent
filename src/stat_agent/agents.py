@@ -72,10 +72,15 @@ class RelationsAgent:
 class KnowledgeAgent:
     name = "statistical_knowledge"
 
-    def run(self) -> list[KnowledgeProfile]:
+    def run(self, library: str = "seed") -> list[KnowledgeProfile]:
         """Offline curated seed import. Automatic document/LLM extraction is future work."""
         raw = files("stat_agent").joinpath("knowledge/seed.json").read_text(encoding="utf-8")
         profiles = [KnowledgeProfile.model_validate(item) for item in json.loads(raw)]
+        if library == 'expanded':
+            extra = files('stat_agent').joinpath('knowledge/expanded.json').read_text(encoding='utf-8')
+            profiles.extend(KnowledgeProfile.model_validate(item) for item in json.loads(extra))
+        elif library != 'seed':
+            raise ValueError('Unknown knowledge library.')
         if len({p.id for p in profiles}) != len(profiles):
             raise ValueError("Duplicate knowledge IDs.")
         return profiles

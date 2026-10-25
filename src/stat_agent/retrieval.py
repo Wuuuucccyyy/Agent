@@ -1,5 +1,8 @@
 """Shared-space encoders, cosine retrieval and explainable statistical constraints."""
 from typing import Protocol
+import json
+import hashlib
+from pathlib import Path
 
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -46,25 +49,59 @@ class LexicalEncoder:
 
 class SentenceEncoder:
     """One pretrained model for both towers; caller pins model revision/path."""
-    def __init__(self, model: str, revision: str | None = None):
+    def __init__(self, model: str, revision: str | None = None, *, query_prefix=None, document_prefix=None,
+                 local_files_only=False, device=None):
         try:
             from sentence_transformers import SentenceTransformer
         except ImportError as exc:
             raise ValueError("Install the semantic extra: pip install -e '.[semantic]'") from exc
-        self.model = SentenceTransformer(model, revision=revision, trust_remote_code=False)
+        options = dict(revision=revision, trust_remote_code=False)
+        if local_files_only:
+            options['local_files_only'] = True
+        if device:
+            options['device'] = device
+        self.model = SentenceTransformer(model, **options)
         self.name = f"sentence_transformers:{model}@{revision or 'unpinned'}"
+        self.query_options = {'prompt': query_prefix} if query_prefix is not None else {}
+        self.document_options = {'prompt': document_prefix} if document_prefix is not None else {}
         self._documents = None
         self._matrix = None
 
     def encode_pair(self, query, documents):
         if not query.strip() or not documents or any(not d.strip() for d in documents):
             raise ValueError("Empty query/document.")
-        query_vector = self.model.encode_query([query], convert_to_numpy=True)
+        query_vector = self.model.encode_query([query], convert_to_numpy=True, **self.query_options)
         key = tuple(documents)
         if key != self._documents:
-            matrix = self.model.encode_document(documents, convert_to_numpy=True)
+            matrix = self.model.encode_document(documents, convert_to_numpy=True, **self.document_options)
             self._matrix, self._documents = np.asarray(matrix).copy(), key
         return query_vector, self._matrix.copy()
+
+
+def pinned_encoder(config_path: Path) -> SentenceEncoder:
+    config_path = config_path.resolve()
+    config = json.loads(config_path.read_text(encoding='utf-8'))
+    folder = config_path.parent.parent / '.cache/models' / config['revision']
+    if not (folder / 'manifest.json').exists():
+        raise ValueError('Pinned model is missing. Run python scripts/download_embedding.py first.')
+    manifest = json.loads((folder / 'manifest.json').read_text(encoding='utf-8'))
+    if manifest['revision'] != config['revision'] or manifest['model_id'] != config['model_id']:
+        raise ValueError('Model manifest does not match the pinned configuration.')
+    for name in config['files']:
+        with (folder / name).open('rb') as handle:
+            if hashlib.file_digest(handle, 'sha256').hexdigest() != manifest['files'][name]['sha256']:
+                raise ValueError('A pinned model file does not match its recorded checksum.')
+    import torch
+    torch.set_num_threads(4)
+    encoder = SentenceEncoder(str(folder), config['revision'], query_prefix=config['query_prefix'],
+        document_prefix=config['document_prefix'], local_files_only=True, device=config['device'])
+    encoder.name = f"sentence_transformers:{config['model_id']}@{config['revision']}|query/passage"
+    encoder.model_metadata = {'configuration': config, 'manifest': manifest}
+    dimension = (encoder.model.get_embedding_dimension() if hasattr(encoder.model, 'get_embedding_dimension')
+                 else encoder.model.get_sentence_embedding_dimension())
+    if dimension != config['dimensions']:
+        raise ValueError('Model embedding dimension differs from the pinned configuration.')
+    return encoder
 
 
 def query_text(task: TaskProfile, profile: DataProfile) -> str:
@@ -90,6 +127,8 @@ def constraints(task: TaskProfile, profile: DataProfile, item: KnowledgeProfile)
     unknowns = ["Study design and independence have not been verified."]
     if task.task_type not in item.task_types:
         hard.append(f"Task {task.task_type} is outside {item.id}'s supported tasks.")
+    if task.requested_method and task.requested_method != item.id:
+        hard.append(f'User explicitly requested {task.requested_method}; do not substitute {item.id}.')
     variables = {v.name: v for v in profile.variables}
     features = task.predictor_variables or profile.relations.columns
     selected = features + task.target_variables + task.group_variables
@@ -135,7 +174,30 @@ def constraints(task: TaskProfile, profile: DataProfile, item: KnowledgeProfile)
             penalties.append(Penalty(name="constant_features", severity=1, weight=0.5,
                 reason="Constant variables prevent unit-variance scaling; unscaled PCA may still be possible."))
         unknowns.append("Scaling and feature selection need scientific justification; PCA needs no marginal normality assumption.")
-    if item.id in {"MASS::lda", "stats::manova"}:
+    if item.id == 'stats::princomp':
+        if profile.relations.complete_rows < len(features):
+            hard.append('princomp raw-matrix interface requires at least as many observations as variables.')
+        if profile.relations.singular:
+            penalties.append(Penalty(name='covariance_numerics', severity=.5, weight=.5,
+                reason='Rank-deficient predictors; covariance eigendecomposition can be less numerically stable than direct SVD. This is a baseline preference, not a mathematical prohibition.'))
+        unknowns.append('Choose covariance versus correlation scaling; the documented variance divisor differs from prcomp.')
+    if item.id == 'MASS::lm.ridge':
+        unknowns.extend(['A positive ridge lambda must be selected on validation data; lambda=0 is not a remedy for singularity.',
+                         'Ridge estimates are biased; prediction and coefficient interpretation require separate validation.'])
+        if any(c in profile.quality.constant_columns for c in features):
+            hard.append('This ridge baseline signature scales predictors; remove constant predictors explicitly first.')
+    if item.id == 'stats::hclust':
+        unknowns.append('Numeric input requires an explicit distance construction and linkage choice before hclust.')
+        if profile.structure.n > 5000:
+            penalties.append(Penalty(name='pairwise_memory', severity=min(1., profile.structure.n / 50000), weight=.5,
+                reason='Pairwise distance storage grows quadratically; threshold is an uncalibrated baseline resource policy.'))
+    if item.id == 'MASS::qda':
+        unknowns.append('Within-group covariance rank is not yet computed; group counts alone cannot establish QDA applicability.')
+        for group in task.group_variables:
+            sizes = profile.relations.group_sizes.get(group, {})
+            if sizes and min(sizes.values()) <= len(features):
+                hard.append('At least one group has no more observations than predictors, preventing full within-group covariance rank in this QDA signature.')
+    if item.id in {"MASS::lda", "MASS::qda", "stats::manova"}:
         unknowns.append("Within-group covariance, group sample sizes and inferential assumptions need diagnostics.")
     return hard, penalties, unknowns
 

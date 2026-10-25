@@ -1,0 +1,692 @@
+{
+  "scope": "developer-authored synthetic acceptance, not independent human annotation",
+  "human_review_status": "pending",
+  "model": {
+    "provider": "DeepSeek",
+    "configured_model": "deepseek-v4-pro[1m]",
+    "requested_model": "deepseek-v4-pro",
+    "endpoint": "https://api.deepseek.com/anthropic",
+    "immutable_model_version": false,
+    "receipts": [
+      {
+        "requested_model": "deepseek-v4-pro",
+        "returned_model": "deepseek-v4-pro",
+        "request_sha256": "92133f0dc2f64ecd08eed82e7312ccad60392e0e1944e530864e411396426ff1",
+        "response_sha256": "4f0ee19ba29db25a1ea2236fdd834423fefa28c92e607c58fc2ca3871b638e8b",
+        "seconds": 3.0054091000929475,
+        "stop_reason": "tool_use"
+      },
+      {
+        "requested_model": "deepseek-v4-pro",
+        "returned_model": "deepseek-v4-pro",
+        "request_sha256": "589abb090d4e96ff9552d369b320300a89230acdbb5b4c1d0b1d3154da494a57",
+        "response_sha256": "3217cc21ac5c41ca8d87fd8f57f52902647206b611687d2267d5b0739af849f9",
+        "seconds": 2.670362400007434,
+        "stop_reason": "tool_use"
+      },
+      {
+        "requested_model": "deepseek-v4-pro",
+        "returned_model": "deepseek-v4-pro",
+        "request_sha256": "ba26edbefd97a77592e0602cdd2b588b487ff5869cf6f0ce8b5dbc47f4882695",
+        "response_sha256": "56323617071ad751c5b55c8a5fedf3f3f286514a5d014dc375f156b596ed8ce2",
+        "seconds": 1.738363099982962,
+        "stop_reason": "tool_use"
+      },
+      {
+        "requested_model": "deepseek-v4-pro",
+        "returned_model": "deepseek-v4-pro",
+        "request_sha256": "d3518f23b818348abf572fc58926c305f50154bf7949ded2531264dab37899c0",
+        "response_sha256": "e7510238965d01833b1a44d469563f60968490e83899e551524eb07cfd61231c",
+        "seconds": 1.8216459000250325,
+        "stop_reason": "tool_use"
+      },
+      {
+        "requested_model": "deepseek-v4-pro",
+        "returned_model": "deepseek-v4-pro",
+        "request_sha256": "6e1e89c9d758c30f14a2e095508eabdb7a7f656bc3b161118e541ca5ad945363",
+        "response_sha256": "0d7230dee3cc0e28d24baaeee7c52d2b9c8db3d910a302b0fc08e323044ab98d",
+        "seconds": 1.9805041999788955,
+        "stop_reason": "tool_use"
+      },
+      {
+        "requested_model": "deepseek-v4-pro",
+        "returned_model": "deepseek-v4-pro",
+        "request_sha256": "4b075a20eda74017447e8870459d413ab455df3e513b57f11c85c00f86dd079b",
+        "response_sha256": "c3d90137a656c53b4234c55d2d5052f7b1890ac14ee8ae7d220e194ca990051d",
+        "seconds": 2.348820300074294,
+        "stop_reason": "tool_use"
+      }
+    ]
+  },
+  "usage": {
+    "api_calls": 6,
+    "llm_calls": 6,
+    "input_tokens": 2987,
+    "output_tokens": 1126,
+    "tokens": 7185,
+    "cache_read_input_tokens": 3072,
+    "retries": 0
+  },
+  "cases_passed": 6,
+  "cases_total": 6,
+  "results": [
+    {
+      "id": "ols_roles",
+      "checks": {
+        "task_type": true,
+        "target_variables": true,
+        "predictor_variables": true
+      },
+      "passed": true,
+      "profile": {
+        "schema_version": "0.2.0",
+        "research_goal": "用 x1 和 x2 建立普通最小二乘线性回归，因变量是 y。",
+        "task_type": "regression",
+        "requested_method": "stats::lm",
+        "target_variables": [
+          "y"
+        ],
+        "predictor_variables": [
+          "x1",
+          "x2"
+        ],
+        "group_variables": [],
+        "expected_output": [
+          "回归系数",
+          "拟合模型"
+        ],
+        "constraints": [
+          "使用普通最小二乘法"
+        ],
+        "unknowns": [
+          "study_design"
+        ],
+        "evidence": {
+          "task_type": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "requested_method": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "target_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "predictor_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "group_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "expected_output": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "constraints": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "unknowns": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "research_goal": {
+            "schema_version": "0.1.0",
+            "origin": "user",
+            "source": "user request",
+            "method": "verbatim",
+            "status": "verified",
+            "note": ""
+          }
+        }
+      }
+    },
+    {
+      "id": "pca_roles",
+      "checks": {
+        "task_type": true,
+        "requested_method": true,
+        "predictor_variables": true
+      },
+      "passed": true,
+      "profile": {
+        "schema_version": "0.2.0",
+        "research_goal": "请对 x1、x2、x3 做主成分分析，明确使用 stats::prcomp。",
+        "task_type": "pca",
+        "requested_method": "stats::prcomp",
+        "target_variables": [],
+        "predictor_variables": [
+          "x1",
+          "x2",
+          "x3"
+        ],
+        "group_variables": [],
+        "expected_output": [
+          "主成分载荷",
+          "方差解释比例",
+          "主成分得分"
+        ],
+        "constraints": [],
+        "unknowns": [
+          "study_design"
+        ],
+        "evidence": {
+          "task_type": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "requested_method": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "target_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "predictor_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "group_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "expected_output": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "constraints": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "unknowns": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "research_goal": {
+            "schema_version": "0.1.0",
+            "origin": "user",
+            "source": "user request",
+            "method": "verbatim",
+            "status": "verified",
+            "note": ""
+          }
+        }
+      }
+    },
+    {
+      "id": "cluster_roles",
+      "checks": {
+        "task_type": true,
+        "predictor_variables": true
+      },
+      "passed": true,
+      "profile": {
+        "schema_version": "0.2.0",
+        "research_goal": "对 length 和 width 进行 K-means 聚类。",
+        "task_type": "clustering",
+        "requested_method": "stats::kmeans",
+        "target_variables": [],
+        "predictor_variables": [
+          "length",
+          "width"
+        ],
+        "group_variables": [],
+        "expected_output": [
+          "聚类结果（簇分配）"
+        ],
+        "constraints": [],
+        "unknowns": [
+          "聚类数 k 未指定",
+          "study_design"
+        ],
+        "evidence": {
+          "task_type": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "requested_method": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "target_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "predictor_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "group_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "expected_output": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "constraints": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "unknowns": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "research_goal": {
+            "schema_version": "0.1.0",
+            "origin": "user",
+            "source": "user request",
+            "method": "verbatim",
+            "status": "verified",
+            "note": ""
+          }
+        }
+      }
+    },
+    {
+      "id": "lda_roles",
+      "checks": {
+        "task_type": true,
+        "requested_method": true,
+        "group_variables": true,
+        "predictor_variables": true
+      },
+      "passed": true,
+      "profile": {
+        "schema_version": "0.2.0",
+        "research_goal": "使用 MASS::lda，根据 x1 和 x2 预测类别 group。",
+        "task_type": "discriminant",
+        "requested_method": "MASS::lda",
+        "target_variables": [],
+        "predictor_variables": [
+          "x1",
+          "x2"
+        ],
+        "group_variables": [
+          "group"
+        ],
+        "expected_output": [
+          "判别模型",
+          "分类结果"
+        ],
+        "constraints": [],
+        "unknowns": [
+          "study_design"
+        ],
+        "evidence": {
+          "task_type": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "requested_method": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "target_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "predictor_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "group_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "expected_output": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "constraints": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "unknowns": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "research_goal": {
+            "schema_version": "0.1.0",
+            "origin": "user",
+            "source": "user request",
+            "method": "verbatim",
+            "status": "verified",
+            "note": ""
+          }
+        }
+      }
+    },
+    {
+      "id": "unsupported_logistic",
+      "checks": {
+        "task_type": true
+      },
+      "passed": true,
+      "profile": {
+        "schema_version": "0.2.0",
+        "research_goal": "使用逻辑回归，根据 x1 预测二元结局 y。",
+        "task_type": "unknown",
+        "requested_method": null,
+        "target_variables": [
+          "y"
+        ],
+        "predictor_variables": [
+          "x1"
+        ],
+        "group_variables": [],
+        "expected_output": [],
+        "constraints": [],
+        "unknowns": [
+          "逻辑回归（二元结局）不在支持的方法列表中，无法执行",
+          "named_method_not_supported",
+          "study_design"
+        ],
+        "evidence": {
+          "task_type": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "requested_method": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "target_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "predictor_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "group_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "expected_output": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "constraints": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "unknowns": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "research_goal": {
+            "schema_version": "0.1.0",
+            "origin": "user",
+            "source": "user request",
+            "method": "verbatim",
+            "status": "verified",
+            "note": ""
+          }
+        }
+      }
+    },
+    {
+      "id": "ambiguous",
+      "checks": {
+        "task_type": true
+      },
+      "passed": true,
+      "profile": {
+        "schema_version": "0.2.0",
+        "research_goal": "帮我分析一下这些数据。",
+        "task_type": "unknown",
+        "requested_method": null,
+        "target_variables": [],
+        "predictor_variables": [],
+        "group_variables": [],
+        "expected_output": [],
+        "constraints": [],
+        "unknowns": [
+          "分析目标不明确，无法确定变量角色（x1、x2、y 中哪个是响应变量、预测变量或分组变量）",
+          "未指定期望的分析任务类型或具体方法",
+          "study_design"
+        ],
+        "evidence": {
+          "task_type": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "requested_method": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "target_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "predictor_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "group_variables": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "expected_output": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "constraints": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "unknowns": {
+            "schema_version": "0.1.0",
+            "origin": "llm_inference",
+            "source": "deepseek-v4-pro",
+            "method": "structured tool output plus schema/role validation",
+            "status": "unverified",
+            "note": ""
+          },
+          "research_goal": {
+            "schema_version": "0.1.0",
+            "origin": "user",
+            "source": "user request",
+            "method": "verbatim",
+            "status": "verified",
+            "note": ""
+          }
+        }
+      }
+    }
+  ]
+}

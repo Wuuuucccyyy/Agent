@@ -20,8 +20,10 @@ class Evidence(Contract):
 
 
 class TaskProfile(Contract):
+    schema_version: str = "0.2.0"
     research_goal: str = Field(min_length=1)
     task_type: TaskType = "unknown"
+    requested_method: str | None = None
     target_variables: list[str] = Field(default_factory=list)
     predictor_variables: list[str] = Field(default_factory=list)
     group_variables: list[str] = Field(default_factory=list)

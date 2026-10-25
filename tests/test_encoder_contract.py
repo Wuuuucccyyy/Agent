@@ -34,3 +34,26 @@ def test_shared_model_adapter_contract(monkeypatch):
     assert [c[0] for c in calls].count("documents") == 1
     encoder.encode_pair("another task", ["method 2", "method 1"])
     assert [c[0] for c in calls].count("documents") == 2
+
+
+def test_e5_query_document_prefixes_and_local_loading(monkeypatch):
+    calls = {}
+
+    class Model:
+        def __init__(self, name, **kwargs):
+            calls['init'] = kwargs
+        def encode_query(self, texts, **kwargs):
+            calls['query'] = kwargs
+            return np.array([[1., 0.]])
+        def encode_document(self, texts, **kwargs):
+            calls['document'] = kwargs
+            return np.array([[0., 1.]])
+
+    monkeypatch.setitem(sys.modules, 'sentence_transformers', SimpleNamespace(SentenceTransformer=Model))
+    encoder = SentenceEncoder('local-model', 'fixed-revision', query_prefix='query: ',
+        document_prefix='passage: ', local_files_only=True, device='cpu')
+    encoder.encode_pair('主成分', ['PCA'])
+    assert calls['query']['prompt'] == 'query: '
+    assert calls['document']['prompt'] == 'passage: '
+    assert calls['init']['local_files_only'] is True
+    assert calls['init']['trust_remote_code'] is False

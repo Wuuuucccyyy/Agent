@@ -1,0 +1,1810 @@
+{
+  "scope": "synthetic development diagnostic; human review pending; not a generalization benchmark",
+  "encoder": "tfidf_char_lexical_smoke_only",
+  "knowledge_count": 9,
+  "cases_sha256": "aaecdc69ac141d309ef907c17ed1c047e052427ca4e0c9d89813146c336b3ac3",
+  "data_hashes": {
+    "validation": [
+      "3e9ac9ea84176a451fbf458dd6eafec57a9db0685fba16a1e5a96c9053c9f233",
+      "6411cbbc68f7f7cfb3a70d023cbaa8c94a0269dbe2a9013a37aec1918fd0971c",
+      "6d4eb561da899d16922131fc82ecc8faa07bbf5d431cf9a17a2976762d29f6d5",
+      "abfcc2eda9877182fbfdc5ca95f84f047ca43370b0983f25501b1aac8838e528",
+      "cd8376345d23ec93b17848fb2b783c206431ddef1b76d331106f02d486eedeb8",
+      "f2009307e9feb749fa1757c82e3c5cae4b58136414ca7fd5c21a40dbc490e77a",
+      "fb6b4bb5173d98ffaa9f4d001908d6ff5feacf5cb7d85e03aaf059a5419b43a1",
+      "fbcafc1bea9938a0fe572c003ea0f9698d0a360a146b260ba9e1fae8f55c2dc6"
+    ],
+    "test": [
+      "200775bd909087739626f82f6f79567a0fd844d1ed6c84af4d97ae80c3e3f81b",
+      "343a9b08d9374a9cdc282d721a076afb25739f3be4eed71fed382cf38a1a9289",
+      "9e174cc6b0bfc386dba2ba7e73eb86b783cda2f2a6e33a44cfa5d9c729aa4048",
+      "a9d548b9f94dbd77ca7f61ceb31df2e9bbc0c0f5234ac50e6bfdcfbff6b7ffb3",
+      "aae02eb65f136ea93b7095718e54351e8520184d29b861a253703eeaff91be4e",
+      "b264f4dad729ed693804e3b2968821fa169678406bd48bfe94defb038abf4a9d",
+      "d84a586b053cabc2a17123925f4e7ef34bc7c47c3e2276ad1266fec770b4870e",
+      "f16d82afad24170c74386eacb8251a640724fe82ac2a65bda4b6be4f9ee3aa12"
+    ]
+  },
+  "validation_grid": [
+    {
+      "penalty_lambda": 0.0,
+      "objective": 1.9661179301650846,
+      "summary": {
+        "recall_at_3": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_3": 0.9661179301650845,
+        "selection_accuracy": 1.0,
+        "hard_violation_rate": 0.0,
+        "case_count": 8
+      }
+    },
+    {
+      "penalty_lambda": 0.1,
+      "objective": 1.9661179301650846,
+      "summary": {
+        "recall_at_3": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_3": 0.9661179301650845,
+        "selection_accuracy": 1.0,
+        "hard_violation_rate": 0.0,
+        "case_count": 8
+      }
+    },
+    {
+      "penalty_lambda": 0.25,
+      "objective": 1.9661179301650846,
+      "summary": {
+        "recall_at_3": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_3": 0.9661179301650845,
+        "selection_accuracy": 1.0,
+        "hard_violation_rate": 0.0,
+        "case_count": 8
+      }
+    },
+    {
+      "penalty_lambda": 0.5,
+      "objective": 1.9661179301650846,
+      "summary": {
+        "recall_at_3": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_3": 0.9661179301650845,
+        "selection_accuracy": 1.0,
+        "hard_violation_rate": 0.0,
+        "case_count": 8
+      }
+    },
+    {
+      "penalty_lambda": 1.0,
+      "objective": 1.9661179301650846,
+      "summary": {
+        "recall_at_3": 1.0,
+        "mrr": 1.0,
+        "ndcg_at_3": 0.9661179301650845,
+        "selection_accuracy": 1.0,
+        "hard_violation_rate": 0.0,
+        "case_count": 8
+      }
+    }
+  ],
+  "selected_penalty_lambda": 0.0,
+  "selection_rule": "validation NDCG@3 + selection accuracy - hard violation rate; smaller lambda on ties",
+  "elapsed_seconds": 0.3076339999679476,
+  "reports": {
+    "validation": {
+      "A": {
+        "summary": {
+          "recall_at_3": 0.75,
+          "mrr": 0.7638888888888888,
+          "ndcg_at_3": 0.7016374849257977,
+          "selection_accuracy": 0.625,
+          "hard_violation_rate": 0.375,
+          "case_count": 8
+        },
+        "cases": [
+          {
+            "case": "v_pca_wide",
+            "metrics": {
+              "recall_at_3": 0.0,
+              "mrr": 0.25,
+              "ndcg_at_3": 0.0,
+              "selection_correct": false,
+              "hard_violation": true
+            },
+            "ranked": [
+              {
+                "id": "MASS::lda",
+                "cosine": 0.20354912128928127,
+                "penalty": 0.0,
+                "score": 0.20354912128928127
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.18454606355328568,
+                "penalty": 0.25,
+                "score": 0.18454606355328568
+              },
+              {
+                "id": "stats::hclust",
+                "cosine": 0.17801783807025706,
+                "penalty": 0.0,
+                "score": 0.17801783807025706
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.1696342657590146,
+                "penalty": 0.0,
+                "score": 0.1696342657590146
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.13832183123399022,
+                "penalty": 0.0,
+                "score": 0.13832183123399022
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.13323608343448912,
+                "penalty": 1.0,
+                "score": 0.13323608343448912
+              },
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.11687539593380683,
+                "penalty": 0.0,
+                "score": 0.11687539593380683
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.11305955142758692,
+                "penalty": 0.0,
+                "score": 0.11305955142758692
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.10646387218376573,
+                "penalty": 0.0,
+                "score": 0.10646387218376573
+              }
+            ]
+          },
+          {
+            "case": "v_pca_dependent",
+            "metrics": {
+              "recall_at_3": 0.5,
+              "mrr": 0.3333333333333333,
+              "ndcg_at_3": 0.41311732856427996,
+              "selection_correct": false,
+              "hard_violation": true
+            },
+            "ranked": [
+              {
+                "id": "MASS::lda",
+                "cosine": 0.20980059443449245,
+                "penalty": 0.0,
+                "score": 0.20980059443449245
+              },
+              {
+                "id": "stats::hclust",
+                "cosine": 0.1834851853474932,
+                "penalty": 0.0,
+                "score": 0.1834851853474932
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.1748441337760471,
+                "penalty": 0.0,
+                "score": 0.1748441337760471
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.16453471694443622,
+                "penalty": 0.25,
+                "score": 0.16453471694443622
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.1425700206040971,
+                "penalty": 0.0,
+                "score": 0.1425700206040971
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.13732807750593534,
+                "penalty": 0.5,
+                "score": 0.13732807750593534
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.11653187665838319,
+                "penalty": 0.0,
+                "score": 0.11653187665838319
+              },
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.11652557225708843,
+                "penalty": 0.0,
+                "score": 0.11652557225708843
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.10973362856333821,
+                "penalty": 0.0,
+                "score": 0.10973362856333821
+              }
+            ]
+          },
+          {
+            "case": "v_reg_dependent",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.2476892459066416,
+                "penalty": 0.0,
+                "score": 0.2476892459066416
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.23789870059953278,
+                "penalty": 0.5,
+                "score": 0.23789870059953278
+              },
+              {
+                "id": "MASS::lda",
+                "cosine": 0.2278174813907047,
+                "penalty": 0.0,
+                "score": 0.2278174813907047
+              },
+              {
+                "id": "stats::hclust",
+                "cosine": 0.175492911121693,
+                "penalty": 0.0,
+                "score": 0.175492911121693
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.15791985124928237,
+                "penalty": 0.0,
+                "score": 0.15791985124928237
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.15601678678120856,
+                "penalty": 0.0,
+                "score": 0.15601678678120856
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.12619537136817746,
+                "penalty": 0.0,
+                "score": 0.12619537136817746
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.1234803589486675,
+                "penalty": 0.25,
+                "score": 0.1234803589486675
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.11122635375202179,
+                "penalty": 0.0,
+                "score": 0.11122635375202179
+              }
+            ]
+          },
+          {
+            "case": "v_reg_regular",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 0.7967075809905066,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.26210994365857243,
+                "penalty": 0.0,
+                "score": 0.26210994365857243
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.23169378762968454,
+                "penalty": 0.0,
+                "score": 0.23169378762968454
+              },
+              {
+                "id": "MASS::lda",
+                "cosine": 0.22461454385766894,
+                "penalty": 0.0,
+                "score": 0.22461454385766894
+              },
+              {
+                "id": "stats::hclust",
+                "cosine": 0.17091567619947098,
+                "penalty": 0.0,
+                "score": 0.17091567619947098
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.15380095975998975,
+                "penalty": 0.0,
+                "score": 0.15380095975998975
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.1519475313318382,
+                "penalty": 0.0,
+                "score": 0.1519475313318382
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.12618721131118715,
+                "penalty": 0.0,
+                "score": 0.12618721131118715
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.12025972395221218,
+                "penalty": 0.0,
+                "score": 0.12025972395221218
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.10832532973110198,
+                "penalty": 0.0,
+                "score": 0.10832532973110198
+              }
+            ]
+          },
+          {
+            "case": "v_discriminant_small",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lda",
+                "cosine": 0.3781984633611473,
+                "penalty": 0.0,
+                "score": 0.3781984633611473
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.31219611567024713,
+                "penalty": 0.0,
+                "score": 0.31219611567024713
+              },
+              {
+                "id": "stats::hclust",
+                "cosine": 0.17865757996191298,
+                "penalty": 0.0,
+                "score": 0.17865757996191298
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.1581517410341173,
+                "penalty": 0.0,
+                "score": 0.1581517410341173
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.13455666642822628,
+                "penalty": 0.0,
+                "score": 0.13455666642822628
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.132948926767412,
+                "penalty": 0.0,
+                "score": 0.132948926767412
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.13209454064356763,
+                "penalty": 0.0,
+                "score": 0.13209454064356763
+              },
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.11668277660844005,
+                "penalty": 0.0,
+                "score": 0.11668277660844005
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.10659155508202789,
+                "penalty": 0.0,
+                "score": 0.10659155508202789
+              }
+            ]
+          },
+          {
+            "case": "v_clustering",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::hclust",
+                "cosine": 0.32455807309248774,
+                "penalty": 0.0,
+                "score": 0.32455807309248774
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.22622508996150412,
+                "penalty": 0.0,
+                "score": 0.22622508996150412
+              },
+              {
+                "id": "MASS::lda",
+                "cosine": 0.20724221103485144,
+                "penalty": 0.0,
+                "score": 0.20724221103485144
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.14809965145275225,
+                "penalty": 0.0,
+                "score": 0.14809965145275225
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.14795356225291145,
+                "penalty": 0.0,
+                "score": 0.14795356225291145
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.14421428708594397,
+                "penalty": 0.0,
+                "score": 0.14421428708594397
+              },
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.12499715750898215,
+                "penalty": 0.0,
+                "score": 0.12499715750898215
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.11752123810943448,
+                "penalty": 0.0,
+                "score": 0.11752123810943448
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.11678438292212305,
+                "penalty": 0.0,
+                "score": 0.11678438292212305
+              }
+            ]
+          },
+          {
+            "case": "v_invalid_text",
+            "metrics": {
+              "recall_at_3": null,
+              "mrr": null,
+              "ndcg_at_3": null,
+              "selection_correct": false,
+              "hard_violation": true
+            },
+            "ranked": [
+              {
+                "id": "MASS::lda",
+                "cosine": 0.20672174728132253,
+                "penalty": 0.0,
+                "score": 0.20672174728132253
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.18568866347120583,
+                "penalty": 0.0,
+                "score": 0.18568866347120583
+              },
+              {
+                "id": "stats::hclust",
+                "cosine": 0.17960486246788895,
+                "penalty": 0.0,
+                "score": 0.17960486246788895
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.17740245556785103,
+                "penalty": 0.0,
+                "score": 0.17740245556785103
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.14096339683310485,
+                "penalty": 0.0,
+                "score": 0.14096339683310485
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.13442387965394445,
+                "penalty": 0.5,
+                "score": 0.13442387965394445
+              },
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.11791733704959904,
+                "penalty": 0.0,
+                "score": 0.11791733704959904
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.11522872712898732,
+                "penalty": 0.0,
+                "score": 0.11522872712898732
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.10741299483604352,
+                "penalty": 0.0,
+                "score": 0.10741299483604352
+              }
+            ]
+          },
+          {
+            "case": "v_unknown",
+            "metrics": {
+              "recall_at_3": null,
+              "mrr": null,
+              "ndcg_at_3": null,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": []
+          }
+        ]
+      },
+      "B": {
+        "summary": {
+          "recall_at_3": 1.0,
+          "mrr": 1.0,
+          "ndcg_at_3": 0.9661179301650845,
+          "selection_accuracy": 1.0,
+          "hard_violation_rate": 0.0,
+          "case_count": 8
+        },
+        "cases": [
+          {
+            "case": "v_pca_wide",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.1696342657590146,
+                "penalty": 0.0,
+                "score": 0.1696342657590146
+              }
+            ]
+          },
+          {
+            "case": "v_pca_dependent",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.1748441337760471,
+                "penalty": 0.0,
+                "score": 0.1748441337760471
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.16453471694443622,
+                "penalty": 0.25,
+                "score": 0.16453471694443622
+              }
+            ]
+          },
+          {
+            "case": "v_reg_dependent",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.2476892459066416,
+                "penalty": 0.0,
+                "score": 0.2476892459066416
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.23789870059953278,
+                "penalty": 0.5,
+                "score": 0.23789870059953278
+              }
+            ]
+          },
+          {
+            "case": "v_reg_regular",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 0.7967075809905066,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.26210994365857243,
+                "penalty": 0.0,
+                "score": 0.26210994365857243
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.23169378762968454,
+                "penalty": 0.0,
+                "score": 0.23169378762968454
+              }
+            ]
+          },
+          {
+            "case": "v_discriminant_small",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lda",
+                "cosine": 0.3781984633611473,
+                "penalty": 0.0,
+                "score": 0.3781984633611473
+              }
+            ]
+          },
+          {
+            "case": "v_clustering",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::hclust",
+                "cosine": 0.32455807309248774,
+                "penalty": 0.0,
+                "score": 0.32455807309248774
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.22622508996150412,
+                "penalty": 0.0,
+                "score": 0.22622508996150412
+              }
+            ]
+          },
+          {
+            "case": "v_invalid_text",
+            "metrics": {
+              "recall_at_3": null,
+              "mrr": null,
+              "ndcg_at_3": null,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": []
+          },
+          {
+            "case": "v_unknown",
+            "metrics": {
+              "recall_at_3": null,
+              "mrr": null,
+              "ndcg_at_3": null,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": []
+          }
+        ]
+      },
+      "C": {
+        "summary": {
+          "recall_at_3": 1.0,
+          "mrr": 1.0,
+          "ndcg_at_3": 0.9661179301650845,
+          "selection_accuracy": 1.0,
+          "hard_violation_rate": 0.0,
+          "case_count": 8
+        },
+        "cases": [
+          {
+            "case": "v_pca_wide",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.1696342657590146,
+                "penalty": 0.0,
+                "score": 0.1696342657590146
+              }
+            ]
+          },
+          {
+            "case": "v_pca_dependent",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.1748441337760471,
+                "penalty": 0.0,
+                "score": 0.1748441337760471
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.16453471694443622,
+                "penalty": 0.25,
+                "score": 0.16453471694443622
+              }
+            ]
+          },
+          {
+            "case": "v_reg_dependent",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.2476892459066416,
+                "penalty": 0.0,
+                "score": 0.2476892459066416
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.23789870059953278,
+                "penalty": 0.5,
+                "score": 0.23789870059953278
+              }
+            ]
+          },
+          {
+            "case": "v_reg_regular",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 0.7967075809905066,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.26210994365857243,
+                "penalty": 0.0,
+                "score": 0.26210994365857243
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.23169378762968454,
+                "penalty": 0.0,
+                "score": 0.23169378762968454
+              }
+            ]
+          },
+          {
+            "case": "v_discriminant_small",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lda",
+                "cosine": 0.3781984633611473,
+                "penalty": 0.0,
+                "score": 0.3781984633611473
+              }
+            ]
+          },
+          {
+            "case": "v_clustering",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::hclust",
+                "cosine": 0.32455807309248774,
+                "penalty": 0.0,
+                "score": 0.32455807309248774
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.22622508996150412,
+                "penalty": 0.0,
+                "score": 0.22622508996150412
+              }
+            ]
+          },
+          {
+            "case": "v_invalid_text",
+            "metrics": {
+              "recall_at_3": null,
+              "mrr": null,
+              "ndcg_at_3": null,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": []
+          },
+          {
+            "case": "v_unknown",
+            "metrics": {
+              "recall_at_3": null,
+              "mrr": null,
+              "ndcg_at_3": null,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": []
+          }
+        ]
+      }
+    },
+    "test": {
+      "A": {
+        "summary": {
+          "recall_at_3": 0.9285714285714286,
+          "mrr": 0.738095238095238,
+          "ndcg_at_3": 0.7629649518751778,
+          "selection_accuracy": 0.5,
+          "hard_violation_rate": 0.5,
+          "case_count": 8
+        },
+        "cases": [
+          {
+            "case": "t_pca_wide",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 0.3333333333333333,
+              "ndcg_at_3": 0.5,
+              "selection_correct": false,
+              "hard_violation": true
+            },
+            "ranked": [
+              {
+                "id": "MASS::lda",
+                "cosine": 0.2102005912490225,
+                "penalty": 0.0,
+                "score": 0.2102005912490225
+              },
+              {
+                "id": "stats::hclust",
+                "cosine": 0.18383501033178498,
+                "penalty": 0.0,
+                "score": 0.18383501033178498
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.16973512341000374,
+                "penalty": 0.0,
+                "score": 0.16973512341000374
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.15873046309776512,
+                "penalty": 0.25,
+                "score": 0.15873046309776512
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.1428418384902324,
+                "penalty": 0.0,
+                "score": 0.1428418384902324
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.13758990132819843,
+                "penalty": 1.0,
+                "score": 0.13758990132819843
+              },
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.12069458798024042,
+                "penalty": 0.0,
+                "score": 0.12069458798024042
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.11675405133610607,
+                "penalty": 0.0,
+                "score": 0.11675405133610607
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.10994284199283524,
+                "penalty": 0.0,
+                "score": 0.10994284199283524
+              }
+            ]
+          },
+          {
+            "case": "t_pca_dependent",
+            "metrics": {
+              "recall_at_3": 0.5,
+              "mrr": 0.3333333333333333,
+              "ndcg_at_3": 0.41311732856427996,
+              "selection_correct": false,
+              "hard_violation": true
+            },
+            "ranked": [
+              {
+                "id": "MASS::lda",
+                "cosine": 0.2066620091891188,
+                "penalty": 0.0,
+                "score": 0.2066620091891188
+              },
+              {
+                "id": "stats::hclust",
+                "cosine": 0.17823218554920217,
+                "penalty": 0.0,
+                "score": 0.17823218554920217
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.1698385187574911,
+                "penalty": 0.0,
+                "score": 0.1698385187574911
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.168138924080873,
+                "penalty": 0.25,
+                "score": 0.168138924080873
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.13848838159843388,
+                "penalty": 0.0,
+                "score": 0.13848838159843388
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.1333965101585651,
+                "penalty": 0.5,
+                "score": 0.1333965101585651
+              },
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.12357246450576623,
+                "penalty": 0.0,
+                "score": 0.12357246450576623
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.11319568402015104,
+                "penalty": 0.0,
+                "score": 0.11319568402015104
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.10659206305974027,
+                "penalty": 0.0,
+                "score": 0.10659206305974027
+              }
+            ]
+          },
+          {
+            "case": "t_reg_dependent",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.24492876792995535,
+                "penalty": 0.0,
+                "score": 0.24492876792995535
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.2388662930287496,
+                "penalty": 0.5,
+                "score": 0.2388662930287496
+              },
+              {
+                "id": "MASS::lda",
+                "cosine": 0.22874407102604688,
+                "penalty": 0.0,
+                "score": 0.22874407102604688
+              },
+              {
+                "id": "stats::hclust",
+                "cosine": 0.17620668388192515,
+                "penalty": 0.0,
+                "score": 0.17620668388192515
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.1585621500601072,
+                "penalty": 0.0,
+                "score": 0.1585621500601072
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.15665134536156144,
+                "penalty": 0.0,
+                "score": 0.15665134536156144
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.1267086389296662,
+                "penalty": 0.0,
+                "score": 0.1267086389296662
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.12398258388799929,
+                "penalty": 0.25,
+                "score": 0.12398258388799929
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.11167873864335845,
+                "penalty": 0.0,
+                "score": 0.11167873864335845
+              }
+            ]
+          },
+          {
+            "case": "t_reg_regular",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 0.7967075809905066,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.25237684949818434,
+                "penalty": 0.0,
+                "score": 0.25237684949818434
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.23626783535018123,
+                "penalty": 0.0,
+                "score": 0.23626783535018123
+              },
+              {
+                "id": "MASS::lda",
+                "cosine": 0.22904883470695425,
+                "penalty": 0.0,
+                "score": 0.22904883470695425
+              },
+              {
+                "id": "stats::hclust",
+                "cosine": 0.17428985583162776,
+                "penalty": 0.0,
+                "score": 0.17428985583162776
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.15683726443003454,
+                "penalty": 0.0,
+                "score": 0.15683726443003454
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.15494724602610668,
+                "penalty": 0.0,
+                "score": 0.15494724602610668
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.12533026514744267,
+                "penalty": 0.0,
+                "score": 0.12533026514744267
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.12263386493302411,
+                "penalty": 0.0,
+                "score": 0.12263386493302411
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.11046386452997424,
+                "penalty": 0.0,
+                "score": 0.11046386452997424
+              }
+            ]
+          },
+          {
+            "case": "t_discriminant_small",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lda",
+                "cosine": 0.37851828379701574,
+                "penalty": 0.0,
+                "score": 0.37851828379701574
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.31576486702485795,
+                "penalty": 0.0,
+                "score": 0.31576486702485795
+              },
+              {
+                "id": "stats::hclust",
+                "cosine": 0.17755855723633066,
+                "penalty": 0.0,
+                "score": 0.17755855723633066
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.15717886119591537,
+                "penalty": 0.0,
+                "score": 0.15717886119591537
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.13372893309435518,
+                "penalty": 0.0,
+                "score": 0.13372893309435518
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.13213108353965577,
+                "penalty": 0.0,
+                "score": 0.13213108353965577
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.13128195322285152,
+                "penalty": 0.0,
+                "score": 0.13128195322285152
+              },
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.11949604927708625,
+                "penalty": 0.0,
+                "score": 0.11949604927708625
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.10593585079332499,
+                "penalty": 0.0,
+                "score": 0.10593585079332499
+              }
+            ]
+          },
+          {
+            "case": "t_clustering",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::hclust",
+                "cosine": 0.3096155915941918,
+                "penalty": 0.0,
+                "score": 0.3096155915941918
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.22760020281826923,
+                "penalty": 0.0,
+                "score": 0.22760020281826923
+              },
+              {
+                "id": "MASS::lda",
+                "cosine": 0.2111821219580198,
+                "penalty": 0.0,
+                "score": 0.2111821219580198
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.15091519482860435,
+                "penalty": 0.0,
+                "score": 0.15091519482860435
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.15076632830636713,
+                "penalty": 0.0,
+                "score": 0.15076632830636713
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.14695596525145677,
+                "penalty": 0.0,
+                "score": 0.14695596525145677
+              },
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.12737349611189266,
+                "penalty": 0.0,
+                "score": 0.12737349611189266
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.12384716937096694,
+                "penalty": 0.0,
+                "score": 0.12384716937096694
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.11900458730825063,
+                "penalty": 0.0,
+                "score": 0.11900458730825063
+              }
+            ]
+          },
+          {
+            "case": "t_invalid_infinite",
+            "metrics": {
+              "recall_at_3": null,
+              "mrr": null,
+              "ndcg_at_3": null,
+              "selection_correct": false,
+              "hard_violation": true
+            },
+            "ranked": [
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.25754560704154394,
+                "penalty": 0.0,
+                "score": 0.25754560704154394
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.23323114439596185,
+                "penalty": 0.0,
+                "score": 0.23323114439596185
+              },
+              {
+                "id": "MASS::lda",
+                "cosine": 0.2233477180171876,
+                "penalty": 0.0,
+                "score": 0.2233477180171876
+              },
+              {
+                "id": "stats::hclust",
+                "cosine": 0.17204975223127242,
+                "penalty": 0.0,
+                "score": 0.17204975223127242
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.15482147458935097,
+                "penalty": 0.0,
+                "score": 0.15482147458935097
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.15295574811573184,
+                "penalty": 0.0,
+                "score": 0.15295574811573184
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.12505470301310118,
+                "penalty": 0.0,
+                "score": 0.12505470301310118
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.12371942682956893,
+                "penalty": 0.0,
+                "score": 0.12371942682956893
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.10904410031327877,
+                "penalty": 0.0,
+                "score": 0.10904410031327877
+              }
+            ]
+          },
+          {
+            "case": "t_manova",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 0.5,
+              "ndcg_at_3": 0.6309297535714574,
+              "selection_correct": false,
+              "hard_violation": true
+            },
+            "ranked": [
+              {
+                "id": "MASS::lda",
+                "cosine": 0.2516104498505929,
+                "penalty": 0.0,
+                "score": 0.2516104498505929
+              },
+              {
+                "id": "stats::manova",
+                "cosine": 0.20556501848787345,
+                "penalty": 0.0,
+                "score": 0.20556501848787345
+              },
+              {
+                "id": "MASS::qda",
+                "cosine": 0.18350029522306452,
+                "penalty": 0.0,
+                "score": 0.18350029522306452
+              },
+              {
+                "id": "stats::hclust",
+                "cosine": 0.16599971918632678,
+                "penalty": 0.0,
+                "score": 0.16599971918632678
+              },
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.1436979340274005,
+                "penalty": 0.0,
+                "score": 0.1436979340274005
+              },
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.1339328692278997,
+                "penalty": 0.0,
+                "score": 0.1339328692278997
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.1326814388979689,
+                "penalty": 0.0,
+                "score": 0.1326814388979689
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.11655695570769711,
+                "penalty": 0.0,
+                "score": 0.11655695570769711
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.09692623557404718,
+                "penalty": 0.0,
+                "score": 0.09692623557404718
+              }
+            ]
+          }
+        ]
+      },
+      "B": {
+        "summary": {
+          "recall_at_3": 1.0,
+          "mrr": 1.0,
+          "ndcg_at_3": 0.9709582258557867,
+          "selection_accuracy": 1.0,
+          "hard_violation_rate": 0.0,
+          "case_count": 8
+        },
+        "cases": [
+          {
+            "case": "t_pca_wide",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.16973512341000374,
+                "penalty": 0.0,
+                "score": 0.16973512341000374
+              }
+            ]
+          },
+          {
+            "case": "t_pca_dependent",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.1698385187574911,
+                "penalty": 0.0,
+                "score": 0.1698385187574911
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.168138924080873,
+                "penalty": 0.25,
+                "score": 0.168138924080873
+              }
+            ]
+          },
+          {
+            "case": "t_reg_dependent",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.24492876792995535,
+                "penalty": 0.0,
+                "score": 0.24492876792995535
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.2388662930287496,
+                "penalty": 0.5,
+                "score": 0.2388662930287496
+              }
+            ]
+          },
+          {
+            "case": "t_reg_regular",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 0.7967075809905066,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.25237684949818434,
+                "penalty": 0.0,
+                "score": 0.25237684949818434
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.23626783535018123,
+                "penalty": 0.0,
+                "score": 0.23626783535018123
+              }
+            ]
+          },
+          {
+            "case": "t_discriminant_small",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lda",
+                "cosine": 0.37851828379701574,
+                "penalty": 0.0,
+                "score": 0.37851828379701574
+              }
+            ]
+          },
+          {
+            "case": "t_clustering",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::hclust",
+                "cosine": 0.3096155915941918,
+                "penalty": 0.0,
+                "score": 0.3096155915941918
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.22760020281826923,
+                "penalty": 0.0,
+                "score": 0.22760020281826923
+              }
+            ]
+          },
+          {
+            "case": "t_invalid_infinite",
+            "metrics": {
+              "recall_at_3": null,
+              "mrr": null,
+              "ndcg_at_3": null,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": []
+          },
+          {
+            "case": "t_manova",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::manova",
+                "cosine": 0.20556501848787345,
+                "penalty": 0.0,
+                "score": 0.20556501848787345
+              }
+            ]
+          }
+        ]
+      },
+      "C": {
+        "summary": {
+          "recall_at_3": 1.0,
+          "mrr": 1.0,
+          "ndcg_at_3": 0.9709582258557867,
+          "selection_accuracy": 1.0,
+          "hard_violation_rate": 0.0,
+          "case_count": 8
+        },
+        "cases": [
+          {
+            "case": "t_pca_wide",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.16973512341000374,
+                "penalty": 0.0,
+                "score": 0.16973512341000374
+              }
+            ]
+          },
+          {
+            "case": "t_pca_dependent",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::prcomp",
+                "cosine": 0.1698385187574911,
+                "penalty": 0.0,
+                "score": 0.1698385187574911
+              },
+              {
+                "id": "stats::princomp",
+                "cosine": 0.168138924080873,
+                "penalty": 0.25,
+                "score": 0.168138924080873
+              }
+            ]
+          },
+          {
+            "case": "t_reg_dependent",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.24492876792995535,
+                "penalty": 0.0,
+                "score": 0.24492876792995535
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.2388662930287496,
+                "penalty": 0.5,
+                "score": 0.2388662930287496
+              }
+            ]
+          },
+          {
+            "case": "t_reg_regular",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 0.7967075809905066,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lm.ridge",
+                "cosine": 0.25237684949818434,
+                "penalty": 0.0,
+                "score": 0.25237684949818434
+              },
+              {
+                "id": "stats::lm",
+                "cosine": 0.23626783535018123,
+                "penalty": 0.0,
+                "score": 0.23626783535018123
+              }
+            ]
+          },
+          {
+            "case": "t_discriminant_small",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "MASS::lda",
+                "cosine": 0.37851828379701574,
+                "penalty": 0.0,
+                "score": 0.37851828379701574
+              }
+            ]
+          },
+          {
+            "case": "t_clustering",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::hclust",
+                "cosine": 0.3096155915941918,
+                "penalty": 0.0,
+                "score": 0.3096155915941918
+              },
+              {
+                "id": "stats::kmeans",
+                "cosine": 0.22760020281826923,
+                "penalty": 0.0,
+                "score": 0.22760020281826923
+              }
+            ]
+          },
+          {
+            "case": "t_invalid_infinite",
+            "metrics": {
+              "recall_at_3": null,
+              "mrr": null,
+              "ndcg_at_3": null,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": []
+          },
+          {
+            "case": "t_manova",
+            "metrics": {
+              "recall_at_3": 1.0,
+              "mrr": 1.0,
+              "ndcg_at_3": 1.0,
+              "selection_correct": true,
+              "hard_violation": false
+            },
+            "ranked": [
+              {
+                "id": "stats::manova",
+                "cosine": 0.20556501848787345,
+                "penalty": 0.0,
+                "score": 0.20556501848787345
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "model_metadata": null,
+  "limitations": [
+    "Labels and relevance grades are developer-authored and not independently reviewed.",
+    "Test seeds/data differ; scenario families overlap. This is not an external dataset.",
+    "Task types/roles are supplied explicitly here; LLM extraction is evaluated separately.",
+    "Inference assumptions and ridge tuning remain unknown; ranking is not execution authorization.",
+    "Selected lambda is experimental and does not change application defaults."
+  ]
+}
