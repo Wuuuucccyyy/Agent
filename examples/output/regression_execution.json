@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.1.0",
+  "schema_version": "0.2.0",
   "status": "success",
   "method": "stats::lm",
   "backend": "python_trusted_templates",
@@ -9,8 +9,8 @@
     "y"
   ],
   "metrics": {
+    "intercept": 1.999999999999998,
     "coefficients": {
-      "intercept": 1.999999999999998,
       "x1": 3.0000000000000013,
       "x2": -1.000000000000002
     },

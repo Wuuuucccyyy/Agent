@@ -1,6 +1,6 @@
 # 多模态统计分析 Agent
 
-按[项目工作手册](docs/WORKBOOK.md)开发的统计分析基线：生成带证据的数据画像，用统计约束解释方法推荐，再调用经过审核的 Python 统计模板。当前版本 `0.1.0` 是首轮可运行交付，项目尚未完成全部研究目标。
+按[项目工作手册](docs/WORKBOOK.md)开发的统计分析基线：生成带证据的数据画像，用统计约束解释方法推荐，再调用经过审核的 Python 统计模板。当前版本 `0.1.1` 已完成第二轮正确性与性能复查，项目尚未完成全部研究目标。修复、实测结果及输出格式变化见[基线复查记录](docs/BASELINE_REVIEW.md)。
 
 **进度与下一步：[PROGRESS.md](PROGRESS.md)** · **架构与 Agent 接口：[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · **验证记录：[docs/VALIDATION.md](docs/VALIDATION.md)**
 
@@ -45,7 +45,11 @@ Excel 可替换输入路径，使用 `--sheet 测量` 指定工作表。CSV 为 
 
 `--task pca|regression|clustering|manova|discriminant` 可明确任务。无法识别或包含多项任务时会要求澄清，不猜测执行。目标变量、分组和解释变量通过参数指定；未指定解释变量时使用除目标/分组外的数值列，真实分析建议显式选择，避免将数字 ID 当作测量变量。
 
+逻辑回归、岭回归等已识别但未支持的方法，以及未标准化 PCA 请求会被保留为待澄清，不替换成 OLS 或标准化 PCA。单独说“降维”“组间比较”也需要明确方法。此规则检查只覆盖列出的常见情况，不能替代完整语义理解。
+
 每次运行在输出目录下创建唯一 run ID，包含 `task.json`、`profile.json`、`knowledge.json`、`retrieval.json`、`execution.json`、`run.json`、`report.md`，父目录保存 `profiles.sqlite3`。退出码：`0` 成功执行；`2` 需要澄清、约束阻止或执行接口未实现；`1` 输入/配置错误。运行数据默认被 Git 忽略；仓库只提交合成示例。
+
+当前 DataProfile、QualityProfile、RelationsProfile、ExecutionResult 使用 Schema `0.2.0`：缺失模式的键为列名数组的 JSON 字符串（完整行是 `[]`）；OLS 截距位于 `metrics.intercept`，`metrics.coefficients` 只含预测变量。Markdown 报告数组最多预览 10 项，完整数值仍保存在 JSON。
 
 ## 语义检索接口
 

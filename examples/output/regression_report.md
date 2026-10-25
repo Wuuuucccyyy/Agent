@@ -9,17 +9,23 @@
 
 | 方法 | 余弦分数 | 软惩罚 | 最终分数 |
 |---|---:|---:|---:|
-| stats::lm | 0.3902 | 0.0000 | 0.3902 |
+| stats::lm | 0.3413 | 0.0000 | 0.3413 |
+
+### 约束依据
+
+- [stats::lm](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html)
 
 ## 执行与数值验证
 
 状态：`success`；数值校验通过：`True`。
 OLS finite coefficients and least-squares orthogonality checked.
 
+数组最多预览 10 项，完整数值保存在 execution.json。
+
 ```json
 {
+  "intercept": 1.999999999999998,
   "coefficients": {
-    "intercept": 1.999999999999998,
     "x1": 3.0000000000000013,
     "x2": -1.000000000000002
   },
@@ -50,6 +56,7 @@ OLS finite coefficients and least-squares orthogonality checked.
 
 ## 限制与待确认条件
 
+- study_design
 - measurement_scales
 - independence
 - pairing

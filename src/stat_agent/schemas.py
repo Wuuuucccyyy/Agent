@@ -72,6 +72,7 @@ class VariableProfile(Contract):
 
 
 class QualityProfile(Contract):
+    schema_version: str = "0.2.0"
     missing_cells: int
     missing_rate: float
     missing_patterns: dict[str, int]
@@ -82,8 +83,12 @@ class QualityProfile(Contract):
 
 
 class RelationsProfile(Contract):
+    schema_version: str = "0.2.0"
     columns: list[str]
     complete_rows: int
+    analysis_columns: list[str] = Field(default_factory=list)
+    analysis_complete_rows: int | None = None
+    analysis_predictor_rank: int | None = None
     correlation: dict[str, dict[str, float | None]]
     covariance: dict[str, dict[str, float | None]]
     centered_rank: int | None
@@ -104,6 +109,7 @@ class DesignProfile(Contract):
 
 
 class DataProfile(Contract):
+    schema_version: str = "0.2.0"
     source: SourceProfile
     structure: StructureProfile
     variables: list[VariableProfile]
@@ -163,6 +169,7 @@ class RetrievalResult(Contract):
 
 
 class ExecutionResult(Contract):
+    schema_version: str = "0.2.0"
     status: Literal["success", "blocked", "not_implemented", "skipped"]
     method: str | None = None
     backend: str = "python_trusted_templates"

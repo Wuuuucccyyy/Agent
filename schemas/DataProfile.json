@@ -103,7 +103,7 @@
       "additionalProperties": false,
       "properties": {
         "schema_version": {
-          "default": "0.1.0",
+          "default": "0.2.0",
           "title": "Schema Version",
           "type": "string"
         },
@@ -167,7 +167,7 @@
       "additionalProperties": false,
       "properties": {
         "schema_version": {
-          "default": "0.1.0",
+          "default": "0.2.0",
           "title": "Schema Version",
           "type": "string"
         },
@@ -181,6 +181,37 @@
         "complete_rows": {
           "title": "Complete Rows",
           "type": "integer"
+        },
+        "analysis_columns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Analysis Columns",
+          "type": "array"
+        },
+        "analysis_complete_rows": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Analysis Complete Rows"
+        },
+        "analysis_predictor_rank": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Analysis Predictor Rank"
         },
         "correlation": {
           "additionalProperties": {
@@ -570,7 +601,7 @@
   "additionalProperties": false,
   "properties": {
     "schema_version": {
-      "default": "0.1.0",
+      "default": "0.2.0",
       "title": "Schema Version",
       "type": "string"
     },

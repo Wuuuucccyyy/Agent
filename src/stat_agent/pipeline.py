@@ -11,6 +11,7 @@ from uuid import uuid4
 
 from langgraph.graph import END, START, StateGraph
 
+from . import __version__
 from .agents import KnowledgeAgent, ProfileValidationAgent, RelationsAgent, StructureAgent, TaskUnderstandingAgent
 from .execution import execute
 from .io import read_table
@@ -62,7 +63,10 @@ def build_graph(input_path, goal, roles, sheet, encoder, events):
             start = time.perf_counter()
             event = {"node": name, "status": "success"}
             try:
-                return node(state)
+                update = node(state)
+                if "execution" in update:
+                    event["outcome"] = update["execution"].status
+                return update
             except Exception as exc:
                 event.update(status="error", error=f"{type(exc).__name__}: {exc}")
                 raise
@@ -81,6 +85,16 @@ def build_graph(input_path, goal, roles, sheet, encoder, events):
     return graph.compile()
 
 
+def report_preview(value, limit=10):
+    """Keep reports readable; full arrays remain in execution.json."""
+    if isinstance(value, dict):
+        return {key: report_preview(item, limit) for key, item in value.items()}
+    if isinstance(value, list):
+        items = [report_preview(item, limit) for item in value[:limit]]
+        return {"preview": items, "total_items": len(value), "truncated": True} if len(value) > limit else items
+    return value
+
+
 def render_report(payload: dict) -> str:
     task, profile = payload["task"], payload["profile"]
     ranking, execution = payload["retrieval"], payload["execution"]
@@ -91,10 +105,16 @@ def render_report(payload: dict) -> str:
              "| 方法 | 余弦分数 | 软惩罚 | 最终分数 |", "|---|---:|---:|---:|"]
     for candidate in ranking["ranked"]:
         lines.append(f"| {candidate['knowledge_id']} | {candidate['cosine']:.4f} | {candidate['penalty_total']:.4f} | {candidate['score']:.4f} |")
+    lines.extend(["", "### 约束依据", ""])
+    for candidate in ranking["ranked"]:
+        lines.append(f"- [{candidate['knowledge_id']}]({candidate['source_url']})")
+        for penalty in candidate["penalties"]:
+            lines.append(f"  - {penalty['name']}: {penalty['severity']:.3f} × {penalty['weight']:.3f}；{penalty['reason']}")
     lines.extend(["", "## 执行与数值验证", "", f"状态：`{execution['status']}`；数值校验通过：`{execution['validation_passed']}`。",
-                  execution["message"], "", "```json", json.dumps(execution["metrics"], ensure_ascii=False, indent=2), "```",
+                  execution["message"], "", "数组最多预览 10 项，完整数值保存在 execution.json。", "",
+                  "```json", json.dumps(report_preview(execution["metrics"]), ensure_ascii=False, indent=2), "```",
                   "", "## 限制与待确认条件", ""])
-    warnings = list(profile["unknowns"]) + execution["limitations"]
+    warnings = list(task["unknowns"]) + list(profile["unknowns"]) + execution["limitations"]
     for candidate in ranking["ranked"]:
         warnings.extend(candidate["unknowns"])
     lines.extend(f"- {warning}" for warning in dict.fromkeys(warnings))
@@ -113,6 +133,7 @@ def run_pipeline(input_path: Path, goal: str, output_root: Path, *, sheet=0, enc
     start = time.perf_counter()
     encoder = encoder or LexicalEncoder()
     payload = {"run_id": run_id, "started_at": datetime.now(timezone.utc).isoformat(),
+               "application_version": __version__,
                "status": "running", "events": events, "python": platform.python_version(),
                "versions": {p: importlib.metadata.version(p) for p in ["numpy", "pandas", "pydantic", "langgraph", "scikit-learn", "openpyxl"]},
                "configuration": {"goal": goal, "roles": roles, "sheet": sheet, "encoder": encoder.name,

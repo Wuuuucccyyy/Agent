@@ -9,12 +9,18 @@
 
 | 方法 | 余弦分数 | 软惩罚 | 最终分数 |
 |---|---:|---:|---:|
-| stats::prcomp | 0.2350 | 0.0000 | 0.2350 |
+| stats::prcomp | 0.2714 | 0.0000 | 0.2714 |
+
+### 约束依据
+
+- [stats::prcomp](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html)
 
 ## 执行与数值验证
 
 状态：`success`；数值校验通过：`True`。
 PCA reconstruction and variance accounting checked.
+
+数组最多预览 10 项，完整数值保存在 execution.json。
 
 ```json
 {
@@ -93,6 +99,7 @@ PCA reconstruction and variance accounting checked.
 
 ## 限制与待确认条件
 
+- study_design
 - measurement_scales
 - independence
 - pairing

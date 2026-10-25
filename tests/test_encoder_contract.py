@@ -28,3 +28,9 @@ def test_shared_model_adapter_contract(monkeypatch):
     assert docs.shape == (2, 2)
     assert calls[0][2] == {"revision": "fixed-revision", "trust_remote_code": False}
     assert [c[0] for c in calls] == ["init", "query", "documents"]
+    docs[0, 0] = 99  # A consumer cannot corrupt the internal cached corpus.
+    _, cached = encoder.encode_pair("another task", ["method 1", "method 2"])
+    assert cached[0, 0] == 0
+    assert [c[0] for c in calls].count("documents") == 1
+    encoder.encode_pair("another task", ["method 2", "method 1"])
+    assert [c[0] for c in calls].count("documents") == 2

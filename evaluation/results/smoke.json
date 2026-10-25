@@ -38,12 +38,12 @@
       ],
       "ranked": [
         "stats::prcomp",
-        "stats::lm",
         "MASS::lda",
+        "stats::lm",
         "stats::kmeans",
         "stats::manova"
       ],
-      "seconds": 0.0241497999522835,
+      "seconds": 0.025476499926298857,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -58,7 +58,7 @@
       "ranked": [
         "stats::prcomp"
       ],
-      "seconds": 0.004583700094372034,
+      "seconds": 0.0009299000957980752,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -73,7 +73,7 @@
       "ranked": [
         "stats::prcomp"
       ],
-      "seconds": 0.004806799930520356,
+      "seconds": 0.0009336000075563788,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -92,7 +92,7 @@
         "stats::manova",
         "stats::kmeans"
       ],
-      "seconds": 0.004218199988827109,
+      "seconds": 0.001214900054037571,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -107,7 +107,7 @@
       "ranked": [
         "stats::lm"
       ],
-      "seconds": 0.00403589999768883,
+      "seconds": 0.0008550999918952584,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -122,7 +122,7 @@
       "ranked": [
         "stats::lm"
       ],
-      "seconds": 0.003962199902161956,
+      "seconds": 0.0007807000074535608,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -136,12 +136,12 @@
       ],
       "ranked": [
         "stats::kmeans",
-        "stats::lm",
         "MASS::lda",
         "stats::prcomp",
+        "stats::lm",
         "stats::manova"
       ],
-      "seconds": 0.004161000018939376,
+      "seconds": 0.0012643999652937055,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -156,7 +156,7 @@
       "ranked": [
         "stats::kmeans"
       ],
-      "seconds": 0.003751400043256581,
+      "seconds": 0.0008844999829307199,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -171,7 +171,7 @@
       "ranked": [
         "stats::kmeans"
       ],
-      "seconds": 0.003879799973219633,
+      "seconds": 0.0007205000147223473,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -186,11 +186,11 @@
       "ranked": [
         "stats::manova",
         "MASS::lda",
-        "stats::lm",
         "stats::prcomp",
+        "stats::lm",
         "stats::kmeans"
       ],
-      "seconds": 0.00430389994289726,
+      "seconds": 0.0009961000178009272,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -205,7 +205,7 @@
       "ranked": [
         "stats::manova"
       ],
-      "seconds": 0.0039975999388843775,
+      "seconds": 0.0007379000307992101,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -220,7 +220,7 @@
       "ranked": [
         "stats::manova"
       ],
-      "seconds": 0.003687000018544495,
+      "seconds": 0.0009007001062855124,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -234,12 +234,12 @@
       ],
       "ranked": [
         "MASS::lda",
-        "stats::lm",
         "stats::prcomp",
+        "stats::lm",
         "stats::kmeans",
         "stats::manova"
       ],
-      "seconds": 0.004016299964860082,
+      "seconds": 0.0010143999243155122,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -254,7 +254,7 @@
       "ranked": [
         "MASS::lda"
       ],
-      "seconds": 0.0036491999635472894,
+      "seconds": 0.0007748999632894993,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -269,7 +269,7 @@
       "ranked": [
         "MASS::lda"
       ],
-      "seconds": 0.0037415000842884183,
+      "seconds": 0.0007301000878214836,
       "recall_at_k": 1.0,
       "mrr": 1.0,
       "ndcg_at_k": 1.0,
@@ -281,12 +281,12 @@
       "relevant": [],
       "ranked": [
         "stats::prcomp",
-        "stats::lm",
         "MASS::lda",
-        "stats::kmeans",
-        "stats::manova"
+        "stats::lm",
+        "stats::manova",
+        "stats::kmeans"
       ],
-      "seconds": 0.004427999956533313,
+      "seconds": 0.0010491000721231103,
       "recall_at_k": null,
       "mrr": null,
       "ndcg_at_k": null,
@@ -297,7 +297,7 @@
       "mode": "B",
       "relevant": [],
       "ranked": [],
-      "seconds": 0.0036885999143123627,
+      "seconds": 0.0008847999852150679,
       "recall_at_k": null,
       "mrr": null,
       "ndcg_at_k": null,
@@ -308,7 +308,7 @@
       "mode": "C",
       "relevant": [],
       "ranked": [],
-      "seconds": 0.0035404000664129853,
+      "seconds": 0.000808300101198256,
       "recall_at_k": null,
       "mrr": null,
       "ndcg_at_k": null,
@@ -320,12 +320,12 @@
       "relevant": [],
       "ranked": [
         "stats::prcomp",
-        "stats::lm",
         "MASS::lda",
-        "stats::kmeans",
-        "stats::manova"
+        "stats::lm",
+        "stats::manova",
+        "stats::kmeans"
       ],
-      "seconds": 0.004104000050574541,
+      "seconds": 0.0010926000541076064,
       "recall_at_k": null,
       "mrr": null,
       "ndcg_at_k": null,
@@ -336,7 +336,7 @@
       "mode": "B",
       "relevant": [],
       "ranked": [],
-      "seconds": 0.003775999997742474,
+      "seconds": 0.0008769999258220196,
       "recall_at_k": null,
       "mrr": null,
       "ndcg_at_k": null,
@@ -347,7 +347,7 @@
       "mode": "C",
       "relevant": [],
       "ranked": [],
-      "seconds": 0.0036103000165894628,
+      "seconds": 0.0008128000190481544,
       "recall_at_k": null,
       "mrr": null,
       "ndcg_at_k": null,

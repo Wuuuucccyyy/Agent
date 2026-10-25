@@ -61,7 +61,8 @@ def execute(frame: pd.DataFrame, task: TaskProfile, ranking: RetrievalResult) ->
     tolerance = 1e-8 * max(1.0, float(np.linalg.norm(design) * np.linalg.norm(y)))
     valid = bool(np.isfinite(coefficients).all() and normal_error <= tolerance)
     return ExecutionResult(status="success" if valid else "blocked", method=method, inputs=used,
-        metrics={"coefficients": dict(zip(["intercept"] + cols, coefficients.tolist())),
+        metrics={"intercept": float(coefficients[0]),
+                 "coefficients": dict(zip(cols, coefficients[1:].tolist())),
                  "r_squared": 1 - sse / tss if tss > 0 else None, "sse": sse,
                  "predictions": predicted.tolist(), "residuals": residuals.tolist()},
         diagnostics={"n": n, "design_rank": rank, "residual_df": n - rank,

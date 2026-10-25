@@ -22,7 +22,8 @@ def test_ols_known_coefficients(examples):
     frame, source = read_table(examples / "regression.csv")
     task, profile = make_profile(frame, source, goal="回归", task_type="regression", targets=["y"], predictors=["x1", "x2"])
     result = execute(frame, task, retrieve(task, profile, KnowledgeAgent().run()))
-    assert result.metrics["coefficients"] == pytest.approx({"intercept": 2, "x1": 3, "x2": -1})
+    assert result.metrics["intercept"] == pytest.approx(2)
+    assert result.metrics["coefficients"] == pytest.approx({"x1": 3, "x2": -1})
     assert result.metrics["r_squared"] == pytest.approx(1)
     assert result.validation_passed
 

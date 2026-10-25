@@ -28,12 +28,20 @@ class LexicalEncoder:
     """Offline smoke-test baseline, explicitly NOT a pretrained semantic encoder."""
     name = "tfidf_char_lexical_smoke_only"
 
+    def __init__(self):
+        self._documents = None
+        self._vectorizer = None
+        self._matrix = None
+
     def encode_pair(self, query, documents):
         if not query.strip() or not documents or any(not d.strip() for d in documents):
             raise ValueError("Empty query/document.")
-        vectorizer = TfidfVectorizer(analyzer="char", ngram_range=(2, 4))
-        matrix = vectorizer.fit_transform(documents).toarray()
-        return vectorizer.transform([query]).toarray(), matrix
+        key = tuple(documents)
+        if key != self._documents:
+            vectorizer = TfidfVectorizer(analyzer="char", ngram_range=(2, 4))
+            matrix = vectorizer.fit_transform(documents).toarray()
+            self._vectorizer, self._matrix, self._documents = vectorizer, matrix, key
+        return self._vectorizer.transform([query]).toarray(), self._matrix.copy()
 
 
 class SentenceEncoder:
@@ -45,20 +53,31 @@ class SentenceEncoder:
             raise ValueError("Install the semantic extra: pip install -e '.[semantic]'") from exc
         self.model = SentenceTransformer(model, revision=revision, trust_remote_code=False)
         self.name = f"sentence_transformers:{model}@{revision or 'unpinned'}"
+        self._documents = None
+        self._matrix = None
 
     def encode_pair(self, query, documents):
         if not query.strip() or not documents or any(not d.strip() for d in documents):
             raise ValueError("Empty query/document.")
-        return (self.model.encode_query([query], convert_to_numpy=True),
-                self.model.encode_document(documents, convert_to_numpy=True))
+        query_vector = self.model.encode_query([query], convert_to_numpy=True)
+        key = tuple(documents)
+        if key != self._documents:
+            matrix = self.model.encode_document(documents, convert_to_numpy=True)
+            self._matrix, self._documents = np.asarray(matrix).copy(), key
+        return query_vector, self._matrix.copy()
 
 
 def query_text(task: TaskProfile, profile: DataProfile) -> str:
     # Keep raw cells and entire conversations out of the query.
+    features = task.predictor_variables or profile.relations.columns
+    selected = set(features + task.target_variables + task.group_variables)
+    variables = [v for v in profile.variables if v.name in selected]
+    missing_rate = sum(v.missing_count for v in variables) / (profile.structure.n * len(variables)) if variables else 0
     return (f"{task.task_type} {task.research_goal[:1200]} "
-            f"targets={','.join(task.target_variables)} predictors={','.join(task.predictor_variables)} "
-            f"n={profile.structure.n} p={profile.structure.p} "
-            f"missing={profile.quality.missing_rate:.3f} rank={profile.relations.centered_rank}")
+            f"targets={','.join(task.target_variables)} predictors={','.join(features)} groups={','.join(task.group_variables)} "
+            f"n={profile.structure.n} p_selected={len(variables)} "
+            f"missing_selected={missing_rate:.3f} rank={profile.relations.centered_rank} "
+            f"analysis_complete_rows={profile.relations.analysis_complete_rows}")
 
 
 def document_text(item: KnowledgeProfile) -> str:
@@ -100,12 +119,16 @@ def constraints(task: TaskProfile, profile: DataProfile, item: KnowledgeProfile)
     if any(v.name in profile.quality.all_missing_columns for v in selected_profiles):
         hard.append("A selected variable has no observed values.")
     if item.id == "stats::lm":
-        if profile.relations.singular:
+        analysis_rank = profile.relations.analysis_predictor_rank
+        if (analysis_rank is not None and analysis_rank < len(features)) or profile.relations.singular:
             penalties.append(Penalty(name="collinearity", severity=1, weight=0.5,
-                reason="Centered predictor matrix is rank deficient; unique coefficient interpretation fails."))
-        if profile.structure.n <= len(features) + 1:
+                reason="Predictor matrix is rank deficient on predictor-complete or joint-complete rows; unique coefficients are not established."))
+        analysis_n = profile.relations.analysis_complete_rows
+        if analysis_n is None:
+            unknowns.append("Joint complete-case sample size is unavailable in this older profile.")
+        elif analysis_n <= len(features) + 1:
             penalties.append(Penalty(name="residual_df", severity=1, weight=0.5,
-                reason="No positive residual degrees of freedom for full-rank OLS with intercept."))
+                reason=f"Only {analysis_n} joint-complete rows for {len(features)} predictors and an intercept; positive residual degrees of freedom are not available for a full-rank fit. No automatic row deletion is authorized."))
         unknowns.extend(["Linearity, homoscedasticity and residual distribution require model-specific diagnostics."])
     if item.id == "stats::prcomp":
         if any(c in profile.quality.constant_columns for c in features):

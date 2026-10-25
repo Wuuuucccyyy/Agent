@@ -1,0 +1,60 @@
+{
+  "scope": "local microbenchmarks only; timing varies by host and workload",
+  "python": "3.11.9",
+  "platform": "Windows",
+  "seed": 42,
+  "rows": 20000,
+  "columns": 12,
+  "queries": 21,
+  "knowledge_documents": 5,
+  "repeats": 5,
+  "output_equivalence_checked": true,
+  "measurements": {
+    "missing_patterns": {
+      "before": {
+        "median_seconds": 0.49241139995865524,
+        "samples_seconds": [
+          0.49241139995865524,
+          0.4913821999216452,
+          0.5025522999931127,
+          0.4888709000078961,
+          0.4968988000182435
+        ]
+      },
+      "after": {
+        "median_seconds": 0.01732740004081279,
+        "samples_seconds": [
+          0.01785619999282062,
+          0.01735400001052767,
+          0.01729340001475066,
+          0.017315699951723218,
+          0.01732740004081279
+        ]
+      },
+      "speedup_ratio": 28.41807765728466
+    },
+    "repeated_lexical_queries": {
+      "before": {
+        "median_seconds": 0.07676119997631758,
+        "samples_seconds": [
+          0.07822710007894784,
+          0.08243969990871847,
+          0.0754507000092417,
+          0.07676119997631758,
+          0.0759912000503391
+        ]
+      },
+      "after": {
+        "median_seconds": 0.01128659991081804,
+        "samples_seconds": [
+          0.011170199955813587,
+          0.011410900042392313,
+          0.01128659991081804,
+          0.011251699994318187,
+          0.01746520004235208
+        ]
+      },
+      "speedup_ratio": 6.801091611543978
+    }
+  }
+}

@@ -1,47 +1,49 @@
 {
-  "run_id": "f162d0d05b1e433283b2e6dac0e05d4e",
-  "started_at": "2026-10-24T23:51:10.849599+00:00",
+  "run_id": "f3cac3860b5c4ad2acbb1f8883898e00",
+  "started_at": "2026-10-25T05:22:13.861849+00:00",
+  "application_version": "0.1.1",
   "status": "success",
   "events": [
     {
       "node": "read_table",
       "status": "success",
-      "seconds": 0.00778440001886338
+      "seconds": 0.006159399985335767
     },
     {
       "node": "task_understanding",
       "status": "success",
-      "seconds": 7.319997530430555e-05
+      "seconds": 0.0024816999211907387
     },
     {
       "node": "data_structure",
       "status": "success",
-      "seconds": 0.00607770006172359
+      "seconds": 0.005906300037167966
     },
     {
       "node": "distribution_quality_relations",
       "status": "success",
-      "seconds": 0.005359899951145053
+      "seconds": 0.004859199980273843
     },
     {
       "node": "profile_validation",
       "status": "success",
-      "seconds": 0.004072600044310093
+      "seconds": 0.0033549999352544546
     },
     {
       "node": "statistical_knowledge",
       "status": "success",
-      "seconds": 0.0006710999878123403
+      "seconds": 0.0006016000406816602
     },
     {
       "node": "retrieve",
       "status": "success",
-      "seconds": 0.023774800007231534
+      "seconds": 0.02406560000963509
     },
     {
       "node": "execute_validate",
       "status": "success",
-      "seconds": 0.0010943999513983727
+      "outcome": "success",
+      "seconds": 0.0010553000029176474
     }
   ],
   "python": "3.11.9",
@@ -129,7 +131,7 @@
     }
   },
   "profile": {
-    "schema_version": "0.1.0",
+    "schema_version": "0.2.0",
     "source": {
       "schema_version": "0.1.0",
       "file_name": "regression.csv",
@@ -248,11 +250,11 @@
       }
     ],
     "quality": {
-      "schema_version": "0.1.0",
+      "schema_version": "0.2.0",
       "missing_cells": 0,
       "missing_rate": 0.0,
       "missing_patterns": {
-        "<complete>": 8
+        "[]": 8
       },
       "iqr_outlier_counts": {
         "x1": 0,
@@ -268,12 +270,19 @@
       ]
     },
     "relations": {
-      "schema_version": "0.1.0",
+      "schema_version": "0.2.0",
       "columns": [
         "x1",
         "x2"
       ],
       "complete_rows": 8,
+      "analysis_columns": [
+        "x1",
+        "x2",
+        "y"
+      ],
+      "analysis_complete_rows": 8,
+      "analysis_predictor_rank": 2,
       "correlation": {
         "x1": {
           "x1": 1.0,
@@ -374,7 +383,7 @@
       {
         "schema_version": "0.1.0",
         "knowledge_id": "stats::lm",
-        "cosine": 0.3901632030715598,
+        "cosine": 0.34125488313955016,
         "hard_failures": [],
         "penalties": [],
         "unknowns": [
@@ -382,7 +391,7 @@
           "Linearity, homoscedasticity and residual distribution require model-specific diagnostics."
         ],
         "penalty_total": 0.0,
-        "score": 0.3901632030715598,
+        "score": 0.34125488313955016,
         "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html"
       }
     ],
@@ -390,7 +399,7 @@
       {
         "schema_version": "0.1.0",
         "knowledge_id": "stats::prcomp",
-        "cosine": 0.13965068248239904,
+        "cosine": 0.20561309753358772,
         "hard_failures": [
           "Task regression is outside stats::prcomp's supported tasks."
         ],
@@ -400,13 +409,13 @@
           "Scaling and feature selection need scientific justification; PCA needs no marginal normality assumption."
         ],
         "penalty_total": 0.0,
-        "score": 0.13965068248239904,
+        "score": 0.20561309753358772,
         "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html"
       },
       {
         "schema_version": "0.1.0",
         "knowledge_id": "stats::kmeans",
-        "cosine": 0.09504737075611205,
+        "cosine": 0.14478853821647858,
         "hard_failures": [
           "Task regression is outside stats::kmeans's supported tasks."
         ],
@@ -415,13 +424,13 @@
           "Study design and independence have not been verified."
         ],
         "penalty_total": 0.0,
-        "score": 0.09504737075611205,
+        "score": 0.14478853821647858,
         "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html"
       },
       {
         "schema_version": "0.1.0",
         "knowledge_id": "stats::manova",
-        "cosine": 0.0949362166996654,
+        "cosine": 0.15702445825142752,
         "hard_failures": [
           "Task regression is outside stats::manova's supported tasks."
         ],
@@ -431,13 +440,13 @@
           "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
         ],
         "penalty_total": 0.0,
-        "score": 0.0949362166996654,
+        "score": 0.15702445825142752,
         "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/manova.html"
       },
       {
         "schema_version": "0.1.0",
         "knowledge_id": "MASS::lda",
-        "cosine": 0.22267379202247836,
+        "cosine": 0.2916167636222367,
         "hard_failures": [
           "Task regression is outside MASS::lda's supported tasks."
         ],
@@ -447,13 +456,13 @@
           "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
         ],
         "penalty_total": 0.0,
-        "score": 0.22267379202247836,
+        "score": 0.2916167636222367,
         "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lda.html"
       }
     ]
   },
   "execution": {
-    "schema_version": "0.1.0",
+    "schema_version": "0.2.0",
     "status": "success",
     "method": "stats::lm",
     "backend": "python_trusted_templates",
@@ -463,8 +472,8 @@
       "y"
     ],
     "metrics": {
+      "intercept": 1.999999999999998,
       "coefficients": {
-        "intercept": 1.999999999999998,
         "x1": 3.0000000000000013,
         "x2": -1.000000000000002
       },
@@ -508,5 +517,5 @@
     "message": "OLS finite coefficients and least-squares orthogonality checked."
   },
   "knowledge_sha256": "c0cb5679e024952c64a875cdf64fc9b105f31f6f34c5aaa5dfd4be3360828346",
-  "elapsed_seconds": 0.0900707000400871
+  "elapsed_seconds": 0.09094229992479086
 }

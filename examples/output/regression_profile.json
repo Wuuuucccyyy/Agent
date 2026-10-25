@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.1.0",
+  "schema_version": "0.2.0",
   "source": {
     "schema_version": "0.1.0",
     "file_name": "regression.csv",
@@ -118,11 +118,11 @@
     }
   ],
   "quality": {
-    "schema_version": "0.1.0",
+    "schema_version": "0.2.0",
     "missing_cells": 0,
     "missing_rate": 0.0,
     "missing_patterns": {
-      "<complete>": 8
+      "[]": 8
     },
     "iqr_outlier_counts": {
       "x1": 0,
@@ -138,12 +138,19 @@
     ]
   },
   "relations": {
-    "schema_version": "0.1.0",
+    "schema_version": "0.2.0",
     "columns": [
       "x1",
       "x2"
     ],
     "complete_rows": 8,
+    "analysis_columns": [
+      "x1",
+      "x2",
+      "y"
+    ],
+    "analysis_complete_rows": 8,
+    "analysis_predictor_rank": 2,
     "correlation": {
       "x1": {
         "x1": 1.0,

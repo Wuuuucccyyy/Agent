@@ -9,7 +9,7 @@
     {
       "schema_version": "0.1.0",
       "knowledge_id": "stats::prcomp",
-      "cosine": 0.23503152863010912,
+      "cosine": 0.2714327159225352,
       "hard_failures": [],
       "penalties": [],
       "unknowns": [
@@ -17,7 +17,7 @@
         "Scaling and feature selection need scientific justification; PCA needs no marginal normality assumption."
       ],
       "penalty_total": 0.0,
-      "score": 0.23503152863010912,
+      "score": 0.2714327159225352,
       "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html"
     }
   ],
@@ -25,7 +25,7 @@
     {
       "schema_version": "0.1.0",
       "knowledge_id": "stats::lm",
-      "cosine": 0.1780026613495125,
+      "cosine": 0.18698873360792434,
       "hard_failures": [
         "Task pca is outside stats::lm's supported tasks."
       ],
@@ -35,13 +35,13 @@
         "Linearity, homoscedasticity and residual distribution require model-specific diagnostics."
       ],
       "penalty_total": 0.0,
-      "score": 0.1780026613495125,
+      "score": 0.18698873360792434,
       "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html"
     },
     {
       "schema_version": "0.1.0",
       "knowledge_id": "stats::kmeans",
-      "cosine": 0.09304013326031833,
+      "cosine": 0.14488888448425816,
       "hard_failures": [
         "Task pca is outside stats::kmeans's supported tasks."
       ],
@@ -50,13 +50,13 @@
         "Study design and independence have not been verified."
       ],
       "penalty_total": 0.0,
-      "score": 0.09304013326031833,
+      "score": 0.14488888448425816,
       "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html"
     },
     {
       "schema_version": "0.1.0",
       "knowledge_id": "stats::manova",
-      "cosine": 0.0804164296312124,
+      "cosine": 0.14955980802128116,
       "hard_failures": [
         "Task pca is outside stats::manova's supported tasks."
       ],
@@ -66,13 +66,13 @@
         "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
       ],
       "penalty_total": 0.0,
-      "score": 0.0804164296312124,
+      "score": 0.14955980802128116,
       "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/manova.html"
     },
     {
       "schema_version": "0.1.0",
       "knowledge_id": "MASS::lda",
-      "cosine": 0.178367067011918,
+      "cosine": 0.26191925941743244,
       "hard_failures": [
         "Task pca is outside MASS::lda's supported tasks."
       ],
@@ -82,7 +82,7 @@
         "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
       ],
       "penalty_total": 0.0,
-      "score": 0.178367067011918,
+      "score": 0.26191925941743244,
       "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lda.html"
     }
   ]

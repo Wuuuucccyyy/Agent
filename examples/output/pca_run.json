@@ -1,47 +1,49 @@
 {
-  "run_id": "36f595e55ce747cfb14e670d4025fa28",
-  "started_at": "2026-10-24T23:51:04.432779+00:00",
+  "run_id": "f7483992180c4dbd82e9b25c50e5077e",
+  "started_at": "2026-10-25T05:22:06.942812+00:00",
+  "application_version": "0.1.1",
   "status": "success",
   "events": [
     {
       "node": "read_table",
       "status": "success",
-      "seconds": 0.007118699955753982
+      "seconds": 0.006901700049638748
     },
     {
       "node": "task_understanding",
       "status": "success",
-      "seconds": 6.989995017647743e-05
+      "seconds": 0.002489799982868135
     },
     {
       "node": "data_structure",
       "status": "success",
-      "seconds": 0.006021399982273579
+      "seconds": 0.0058120000176131725
     },
     {
       "node": "distribution_quality_relations",
       "status": "success",
-      "seconds": 0.00507149996701628
+      "seconds": 0.005577099975198507
     },
     {
       "node": "profile_validation",
       "status": "success",
-      "seconds": 0.004355600103735924
+      "seconds": 0.0034673999762162566
     },
     {
       "node": "statistical_knowledge",
       "status": "success",
-      "seconds": 0.000660400022752583
+      "seconds": 0.0006197000620886683
     },
     {
       "node": "retrieve",
       "status": "success",
-      "seconds": 0.023497199988923967
+      "seconds": 0.023606100003235042
     },
     {
       "node": "execute_validate",
       "status": "success",
-      "seconds": 0.0010863000061362982
+      "outcome": "success",
+      "seconds": 0.0010453000431880355
     }
   ],
   "python": "3.11.9",
@@ -127,7 +129,7 @@
     }
   },
   "profile": {
-    "schema_version": "0.1.0",
+    "schema_version": "0.2.0",
     "source": {
       "schema_version": "0.1.0",
       "file_name": "pca.csv",
@@ -250,11 +252,11 @@
       }
     ],
     "quality": {
-      "schema_version": "0.1.0",
+      "schema_version": "0.2.0",
       "missing_cells": 0,
       "missing_rate": 0.0,
       "missing_patterns": {
-        "<complete>": 8
+        "[]": 8
       },
       "iqr_outlier_counts": {
         "x1": 0,
@@ -270,13 +272,20 @@
       ]
     },
     "relations": {
-      "schema_version": "0.1.0",
+      "schema_version": "0.2.0",
       "columns": [
         "x1",
         "x2",
         "x3"
       ],
       "complete_rows": 8,
+      "analysis_columns": [
+        "x1",
+        "x2",
+        "x3"
+      ],
+      "analysis_complete_rows": 8,
+      "analysis_predictor_rank": 3,
       "correlation": {
         "x1": {
           "x1": 1.0,
@@ -389,7 +398,7 @@
       {
         "schema_version": "0.1.0",
         "knowledge_id": "stats::prcomp",
-        "cosine": 0.23503152863010912,
+        "cosine": 0.2714327159225352,
         "hard_failures": [],
         "penalties": [],
         "unknowns": [
@@ -397,7 +406,7 @@
           "Scaling and feature selection need scientific justification; PCA needs no marginal normality assumption."
         ],
         "penalty_total": 0.0,
-        "score": 0.23503152863010912,
+        "score": 0.2714327159225352,
         "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/prcomp.html"
       }
     ],
@@ -405,7 +414,7 @@
       {
         "schema_version": "0.1.0",
         "knowledge_id": "stats::lm",
-        "cosine": 0.1780026613495125,
+        "cosine": 0.18698873360792434,
         "hard_failures": [
           "Task pca is outside stats::lm's supported tasks."
         ],
@@ -415,13 +424,13 @@
           "Linearity, homoscedasticity and residual distribution require model-specific diagnostics."
         ],
         "penalty_total": 0.0,
-        "score": 0.1780026613495125,
+        "score": 0.18698873360792434,
         "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/lm.html"
       },
       {
         "schema_version": "0.1.0",
         "knowledge_id": "stats::kmeans",
-        "cosine": 0.09304013326031833,
+        "cosine": 0.14488888448425816,
         "hard_failures": [
           "Task pca is outside stats::kmeans's supported tasks."
         ],
@@ -430,13 +439,13 @@
           "Study design and independence have not been verified."
         ],
         "penalty_total": 0.0,
-        "score": 0.09304013326031833,
+        "score": 0.14488888448425816,
         "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/kmeans.html"
       },
       {
         "schema_version": "0.1.0",
         "knowledge_id": "stats::manova",
-        "cosine": 0.0804164296312124,
+        "cosine": 0.14955980802128116,
         "hard_failures": [
           "Task pca is outside stats::manova's supported tasks."
         ],
@@ -446,13 +455,13 @@
           "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
         ],
         "penalty_total": 0.0,
-        "score": 0.0804164296312124,
+        "score": 0.14955980802128116,
         "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/manova.html"
       },
       {
         "schema_version": "0.1.0",
         "knowledge_id": "MASS::lda",
-        "cosine": 0.178367067011918,
+        "cosine": 0.26191925941743244,
         "hard_failures": [
           "Task pca is outside MASS::lda's supported tasks."
         ],
@@ -462,13 +471,13 @@
           "Within-group covariance, group sample sizes and inferential assumptions need diagnostics."
         ],
         "penalty_total": 0.0,
-        "score": 0.178367067011918,
+        "score": 0.26191925941743244,
         "source_url": "https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/lda.html"
       }
     ]
   },
   "execution": {
-    "schema_version": "0.1.0",
+    "schema_version": "0.2.0",
     "status": "success",
     "method": "stats::prcomp",
     "backend": "python_trusted_templates",
@@ -572,5 +581,5 @@
     "message": "PCA reconstruction and variance accounting checked."
   },
   "knowledge_sha256": "c0cb5679e024952c64a875cdf64fc9b105f31f6f34c5aaa5dfd4be3360828346",
-  "elapsed_seconds": 0.09014690003823489
+  "elapsed_seconds": 0.08934970002155751
 }
