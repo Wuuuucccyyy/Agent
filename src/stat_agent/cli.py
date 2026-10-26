@@ -9,8 +9,22 @@ from .schemas import DataProfile, KnowledgeProfile, TaskProfile
 
 
 def main(argv=None) -> int:
-    parser = argparse.ArgumentParser(description="多模态统计分析 Agent v0.2：表格画像与方法检索")
+    arguments = list(sys.argv[1:] if argv is None else argv)
+    if arguments and arguments[0] == 'kb':
+        from .kb_cli import main as knowledge_main
+        return knowledge_main(arguments[1:])
+    parser = argparse.ArgumentParser(description="多模态统计分析 Agent v0.3：表格画像、CRAN 知识库与方法检索")
     commands = parser.add_subparsers(dest="command", required=True)
+    commands.add_parser('kb', help='Collect CRAN references, build/restore/index/search the knowledge database')
+    profile = commands.add_parser('profile', help='Generate a local dataset profile without method selection or execution')
+    profile.add_argument('input', type=Path)
+    profile.add_argument('--goal', default='数据探索与质量检查')
+    profile.add_argument('--task', choices=['pca', 'regression', 'clustering', 'manova', 'discriminant'])
+    profile.add_argument('--targets', nargs='*', default=[])
+    profile.add_argument('--predictors', nargs='*', default=[])
+    profile.add_argument('--groups', nargs='*', default=[])
+    profile.add_argument('--sheet', default='0')
+    profile.add_argument('--out', type=Path, default=Path('runs/profiles'))
     analyze = commands.add_parser("analyze", help="Read a CSV/XLSX, profile, retrieve and run an audited template")
     analyze.add_argument("input", type=Path)
     analyze.add_argument("--goal", required=True)
@@ -31,9 +45,17 @@ def main(argv=None) -> int:
     args = parser.parse_args(argv)
     try:
         if args.command == "schemas":
+            from .kb_agents import SemanticProfile
             args.out.mkdir(parents=True, exist_ok=True)
-            for model in [TaskProfile, DataProfile, KnowledgeProfile]:
+            for model in [TaskProfile, DataProfile, KnowledgeProfile, SemanticProfile]:
                 (args.out / f"{model.__name__}.json").write_text(json.dumps(model.model_json_schema(), indent=2) + "\n", encoding="utf-8")
+            return 0
+        if args.command == 'profile':
+            from .dataset_profile import profile_dataset
+            sheet = int(args.sheet) if args.sheet.isdecimal() else args.sheet
+            folder = profile_dataset(args.input, args.out, goal=args.goal, sheet=sheet, task_type=args.task,
+                                     targets=args.targets, predictors=args.predictors, groups=args.groups)
+            print(json.dumps({'output': str(folder.resolve()), 'status': 'profiled'}, ensure_ascii=False))
             return 0
         if args.encoder == "sentence" and not args.model and not args.embedding_config:
             parser.error("--encoder sentence requires --model")

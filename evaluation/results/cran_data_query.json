@@ -1,0 +1,1261 @@
+{
+  "snapshot_id": "aa61823f904a1b780aaf68113c85136e4269a228d8371d92ef54b3ae3ac489c1",
+  "encoder": "tfidf_char_lexical_smoke_only",
+  "query": "regression linear regression lambda GCV targets=y predictors=x1,x2 groups= n=8 p_selected=3 missing_selected=0.000 rank=2 analysis_complete_rows=8",
+  "profiles": {
+    "task": {
+      "schema_version": "0.2.0",
+      "research_goal": "linear regression lambda GCV",
+      "task_type": "regression",
+      "requested_method": null,
+      "target_variables": [
+        "y"
+      ],
+      "predictor_variables": [
+        "x1",
+        "x2"
+      ],
+      "group_variables": [],
+      "expected_output": [
+        "profiles",
+        "method ranking",
+        "validated analysis when supported"
+      ],
+      "constraints": [],
+      "unknowns": [
+        "study_design"
+      ],
+      "evidence": {
+        "research_goal": {
+          "schema_version": "0.1.0",
+          "origin": "user",
+          "source": "CLI goal",
+          "method": "verbatim",
+          "status": "verified",
+          "note": ""
+        },
+        "task_type": {
+          "schema_version": "0.1.0",
+          "origin": "user",
+          "source": "CLI task flag",
+          "method": "explicit flag",
+          "status": "verified",
+          "note": ""
+        },
+        "variable_roles": {
+          "schema_version": "0.1.0",
+          "origin": "user",
+          "source": "CLI variable flags",
+          "method": "explicit variable names",
+          "status": "verified",
+          "note": ""
+        }
+      }
+    },
+    "data": {
+      "schema_version": "0.2.0",
+      "source": {
+        "schema_version": "0.1.0",
+        "file_name": "regression.csv",
+        "sha256": "da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+        "format": "csv",
+        "extraction_method": "pandas local table reader",
+        "sheet": null,
+        "uncertainties": [
+          "Inferred dtypes do not establish measurement scales or study design."
+        ]
+      },
+      "structure": {
+        "schema_version": "0.1.0",
+        "n": 8,
+        "p": 3,
+        "p_over_n": 0.375,
+        "duplicate_rows": 0,
+        "candidate_keys": [],
+        "layout": "unknown",
+        "time_order": "unknown",
+        "repeated_measures": "unknown"
+      },
+      "variables": [
+        {
+          "schema_version": "0.1.0",
+          "name": "x1",
+          "dtype": "int64",
+          "kind": "numeric",
+          "measurement_scale": "unknown",
+          "n_unique": 4,
+          "missing_count": 0,
+          "missing_rate": 0.0,
+          "nonfinite_count": 0,
+          "minimum": 0.0,
+          "maximum": 3.0,
+          "mean": 1.25,
+          "variance": 1.0714285714285714,
+          "skewness": 0.38643671323171835,
+          "excess_kurtosis": -0.44799999999999957,
+          "quantiles": {
+            "0.25": 0.75,
+            "0.5": 1.0,
+            "0.75": 2.0
+          },
+          "zero_fraction": 0.25,
+          "evidence": {
+            "schema_version": "0.1.0",
+            "origin": "computed",
+            "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+            "method": "pandas; finite observations; sample variance ddof=1; adjusted skew/kurtosis",
+            "status": "verified",
+            "note": ""
+          }
+        },
+        {
+          "schema_version": "0.1.0",
+          "name": "x2",
+          "dtype": "int64",
+          "kind": "numeric",
+          "measurement_scale": "unknown",
+          "n_unique": 4,
+          "missing_count": 0,
+          "missing_rate": 0.0,
+          "nonfinite_count": 0,
+          "minimum": 0.0,
+          "maximum": 3.0,
+          "mean": 1.0,
+          "variance": 1.1428571428571428,
+          "skewness": 0.9354143466934852,
+          "excess_kurtosis": 0.35,
+          "quantiles": {
+            "0.25": 0.0,
+            "0.5": 1.0,
+            "0.75": 1.25
+          },
+          "zero_fraction": 0.375,
+          "evidence": {
+            "schema_version": "0.1.0",
+            "origin": "computed",
+            "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+            "method": "pandas; finite observations; sample variance ddof=1; adjusted skew/kurtosis",
+            "status": "verified",
+            "note": ""
+          }
+        },
+        {
+          "schema_version": "0.1.0",
+          "name": "y",
+          "dtype": "int64",
+          "kind": "numeric",
+          "measurement_scale": "unknown",
+          "n_unique": 7,
+          "missing_count": 0,
+          "missing_rate": 0.0,
+          "nonfinite_count": 0,
+          "minimum": 1.0,
+          "maximum": 11.0,
+          "mean": 4.75,
+          "variance": 9.928571428571429,
+          "skewness": 1.0730987164280323,
+          "excess_kurtosis": 1.4167382640650068,
+          "quantiles": {
+            "0.25": 2.75,
+            "0.5": 4.5,
+            "0.75": 5.5
+          },
+          "zero_fraction": 0.0,
+          "evidence": {
+            "schema_version": "0.1.0",
+            "origin": "computed",
+            "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+            "method": "pandas; finite observations; sample variance ddof=1; adjusted skew/kurtosis",
+            "status": "verified",
+            "note": ""
+          }
+        }
+      ],
+      "quality": {
+        "schema_version": "0.2.0",
+        "missing_cells": 0,
+        "missing_rate": 0.0,
+        "missing_patterns": {
+          "[]": 8
+        },
+        "iqr_outlier_counts": {
+          "x1": 0,
+          "x2": 0,
+          "y": 1
+        },
+        "constant_columns": [],
+        "all_missing_columns": [],
+        "warnings": [
+          "IQR flags are descriptive; they do not justify removing observations.",
+          "Numeric dtype does not distinguish identifiers, ordinal codes and continuous measurements.",
+          "Marginal distributions do not verify regression residual assumptions."
+        ]
+      },
+      "relations": {
+        "schema_version": "0.2.0",
+        "columns": [
+          "x1",
+          "x2"
+        ],
+        "complete_rows": 8,
+        "analysis_columns": [
+          "x1",
+          "x2",
+          "y"
+        ],
+        "analysis_complete_rows": 8,
+        "analysis_predictor_rank": 2,
+        "correlation": {
+          "x1": {
+            "x1": 1.0,
+            "x2": 0.12909944487358063
+          },
+          "x2": {
+            "x1": 0.12909944487358063,
+            "x2": 1.0
+          }
+        },
+        "covariance": {
+          "x1": {
+            "x1": 1.0714285714285714,
+            "x2": 0.14285714285714285
+          },
+          "x2": {
+            "x1": 0.14285714285714285,
+            "x2": 1.1428571428571428
+          }
+        },
+        "centered_rank": 2,
+        "effective_dimension_95": 2,
+        "condition_number": 1.143159717915903,
+        "singular": false,
+        "group_sizes": {},
+        "method": "Complete-case numeric subset; sample covariance; centered SVD"
+      },
+      "design": {
+        "schema_version": "0.1.0",
+        "independence": "unknown",
+        "pairing": "unknown",
+        "sampling": "unknown",
+        "repeated_measures": "unknown",
+        "goal": "regression",
+        "response_types": {
+          "y": "numeric"
+        }
+      },
+      "evidence": {
+        "source": {
+          "schema_version": "0.1.0",
+          "origin": "computed",
+          "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+          "method": "SHA256 and local reader metadata",
+          "status": "verified",
+          "note": ""
+        },
+        "structure": {
+          "schema_version": "0.1.0",
+          "origin": "computed",
+          "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+          "method": "shape, duplicated, nunique; key candidates are uniqueness only",
+          "status": "verified",
+          "note": ""
+        },
+        "quality": {
+          "schema_version": "0.1.0",
+          "origin": "computed",
+          "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+          "method": "missing masks and Tukey 1.5 IQR descriptive flags",
+          "status": "verified",
+          "note": ""
+        },
+        "relations": {
+          "schema_version": "0.1.0",
+          "origin": "computed",
+          "source": "sha256:da223769af11576cb785b1c2d21663e8a07bc2b4a5f70340be429ee0007f68d3",
+          "method": "Complete-case numeric subset; sample covariance; centered SVD",
+          "status": "verified",
+          "note": ""
+        },
+        "design": {
+          "schema_version": "0.1.0",
+          "origin": "unknown",
+          "source": "study protocol not supplied",
+          "method": "not inferred",
+          "status": "unknown",
+          "note": ""
+        }
+      },
+      "unknowns": [
+        "measurement_scales",
+        "independence",
+        "pairing",
+        "sampling",
+        "repeated_measures",
+        "missingness_mechanism"
+      ]
+    }
+  },
+  "candidates": [
+    {
+      "function_id": "MASS::lm.ridge",
+      "package_version": "7.3-66",
+      "revision": "531aa23cbb48846084c7768a0a3536f9233e8529c855afedd1ef4df1e27c4ec1",
+      "cosine": 0.20251479233963574,
+      "suitability_text": "该函数用于通过岭回归拟合线性模型，适用于以公式指定响应变量与预测变量的回归任务。输入可为数据框、列表或环境，支持子集筛选、缺失值过滤、offset 项及因子对比设置。lambda 可为标量或向量，一次拟合多个岭常数。输出为系数矩阵（每行对应一个 lambda）、缩放信息、GCV 及 HKB/L-W 岭常数估计；系数非原始尺度，需经 coef 方法使用。截距系数不被惩罚。",
+      "claims": [
+        {
+          "category": "input",
+          "evidence": [
+            {
+              "quote": "formula a formula expression as for regression models, of the form response ~ predictors .",
+              "section": "arguments"
+            },
+            {
+              "quote": "Fit a linear model by ridge regression.",
+              "section": "description"
+            }
+          ],
+          "statement": "该函数通过公式指定响应变量与预测变量，拟合线性模型。"
+        },
+        {
+          "category": "input",
+          "evidence": [
+            {
+              "quote": "data an optional data frame, list or environment in which to interpret the variables occurring in formula .",
+              "section": "arguments"
+            },
+            {
+              "quote": "offset terms are allowed.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "data 可为数据框、列表或环境，用于解释公式中的变量；offset 项被允许。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "lambda A scalar or vector of ridge constants.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "lambda 可为标量或向量，表示一个或多个岭常数。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "subset expression saying which subset of the rows of the data should be used in the fit.",
+              "section": "arguments"
+            },
+            {
+              "quote": "All observations are included by default.",
+              "section": "arguments"
+            },
+            {
+              "quote": "na.action a function to filter missing data.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "subset 用于选择参与拟合的行，默认包含全部观测；na.action 用于过滤缺失数据。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "contrasts a list of contrasts to be used for some or all of factor terms in the formula.",
+              "section": "arguments"
+            },
+            {
+              "quote": "See the contrasts.arg of model.matrix.default .",
+              "section": "arguments"
+            }
+          ],
+          "statement": "contrasts 可为公式中的部分或全部因子项指定对比方式。"
+        },
+        {
+          "category": "assumption",
+          "evidence": [
+            {
+              "quote": "If an intercept is present in the model, its coefficient is not penalized.",
+              "section": "details"
+            },
+            {
+              "quote": "(If you want to penalize an intercept, put in your own constant term and remove the intercept.)",
+              "section": "details"
+            }
+          ],
+          "statement": "若模型中存在截距，其系数不被惩罚；若要惩罚截距，需自行加入常数项并移除截距。"
+        },
+        {
+          "category": "output",
+          "evidence": [
+            {
+              "quote": "A list with components coef matrix of coefficients, one row for each value of lambda .",
+              "section": "value"
+            },
+            {
+              "quote": "Note that these are not on the original scale and are for use by the coef method.",
+              "section": "value"
+            }
+          ],
+          "statement": "返回列表，其中 coef 为系数矩阵，每行对应一个 lambda 值；这些系数不在原始尺度上，需由 coef 方法使用。"
+        },
+        {
+          "category": "output",
+          "evidence": [
+            {
+              "quote": "scales scalings used on the X matrix.",
+              "section": "value"
+            },
+            {
+              "quote": "Inter was intercept included?",
+              "section": "value"
+            },
+            {
+              "quote": "lambda vector of lambda values ym mean of y xm column means of x matrix GCV vector of GCV values kHKB HKB estimate of the ridge constant.",
+              "section": "value"
+            },
+            {
+              "quote": "kLW L-W estimate of the ridge constant.",
+              "section": "value"
+            }
+          ],
+          "statement": "返回值还包含 scales（X 矩阵缩放）、Inter（是否含截距）、lambda、ym、xm、GCV、kHKB 与 kLW 等分量。"
+        },
+        {
+          "category": "failure",
+          "evidence": [
+            {
+              "quote": "model should the model frame be returned?",
+              "section": "arguments"
+            },
+            {
+              "quote": "Not implemented.",
+              "section": "arguments"
+            },
+            {
+              "quote": "x should the design matrix be returned?",
+              "section": "arguments"
+            },
+            {
+              "quote": "Not implemented.",
+              "section": "arguments"
+            },
+            {
+              "quote": "y should the response be returned?",
+              "section": "arguments"
+            },
+            {
+              "quote": "Not implemented.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "model、x、y 参数（是否返回模型框、设计矩阵、响应）未实现。"
+        }
+      ],
+      "unknowns": [
+        "文档未说明对样本量、变量分布或残差独立同分布等推断性假设的要求。",
+        "文档未说明该函数对任意特定用户数据集的适用性或预测性能。",
+        "文档未说明 lambda 的默认取值或推荐选择方式（仅说明默认 lambda = 0）。"
+      ],
+      "status": "machine_checked",
+      "semantic_verification": "llm_inference_not_human_verified",
+      "source_url": "https://cran.r-project.org/src/contrib/MASS_7.3-66.tar.gz",
+      "execution_authorized": false
+    },
+    {
+      "function_id": "MASS::lda",
+      "package_version": "7.3-66",
+      "revision": "cd7e0e24b80a623113e9251c15b5cf94316cc44f2dfcda8b984bdd57152fcf01",
+      "cosine": 0.1549758735952744,
+      "suitability_text": "该函数执行线性判别分析，用于分类任务：以分组因子为响应、以非因子解释变量为判别器，拟合判别函数并输出类别与后验概率。输入可为公式+数据框，或矩阵/数据框+分组因子。可指定先验概率、容差、估计方法及留一交叉验证。需注意缺失值默认导致失败、常数变量会被拒绝。",
+      "claims": [
+        {
+          "category": "input",
+          "evidence": [
+            {
+              "quote": "formula A formula of the form groups ~ x1 + x2 + ...",
+              "section": "arguments"
+            },
+            {
+              "quote": "That is, the response is the grouping factor and the right hand side specifies the (non-factor) discriminators.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "输入可采用公式形式 groups ~ x1 + x2 + ...，其中响应为分组因子，右侧为（非因子）判别变量。"
+        },
+        {
+          "category": "input",
+          "evidence": [
+            {
+              "quote": "x (required if no formula is given as the principal argument.) a matrix or data frame or Matrix containing the explanatory variables.",
+              "section": "arguments"
+            },
+            {
+              "quote": "grouping (required if no formula principal argument is given.) a factor specifying the class for each observation.",
+              "section": "arguments"
+            },
+            {
+              "quote": "This function may be called giving either a formula and optional data frame, or a matrix and grouping factor as the first two arguments.",
+              "section": "note"
+            }
+          ],
+          "statement": "也可采用矩阵/数据框/Matrix 作为解释变量 x，并配合一个指定每观测类别的因子 grouping。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "prior the prior probabilities of class membership.",
+              "section": "arguments"
+            },
+            {
+              "quote": "If unspecified, the class proportions for the training set are used.",
+              "section": "arguments"
+            },
+            {
+              "quote": "If present, the probabilities should be specified in the order of the factor levels.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "prior 指定各类别的先验概率；若未指定则使用训练集的类别比例，若指定则须按因子水平顺序给出。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "(NOTE: If given, this argument must be named.) method \"moment\" for standard estimators of the mean and variance, \"mle\" for MLEs, \"mve\" to use cov.mve , or \"t\" for robust estimates based on a t distribution.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "method 可选 \"moment\"、\"mle\"、\"mve\" 或 \"t\"，分别对应标准估计、MLE、cov.mve 及基于 t 分布的稳健估计。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "CV If true, returns results (classes and posterior probabilities) for leave-one-out cross-validation.",
+              "section": "arguments"
+            },
+            {
+              "quote": "Note that if the prior is estimated, the proportions in the whole dataset are used.",
+              "section": "arguments"
+            },
+            {
+              "quote": "If CV = TRUE the return value is a list with components class , the MAP classification (a factor), and posterior , posterior probabilities for the classes.",
+              "section": "value"
+            }
+          ],
+          "statement": "CV=TRUE 时返回留一交叉验证的类别（MAP 分类因子）与后验概率；若先验为估计值则使用整个数据集的比例。"
+        },
+        {
+          "category": "preprocessing",
+          "evidence": [
+            {
+              "quote": "(NOTE: If given, this argument must be named.) na.action A function to specify the action to be taken if NA s are found.",
+              "section": "arguments"
+            },
+            {
+              "quote": "The default action is for the procedure to fail.",
+              "section": "arguments"
+            },
+            {
+              "quote": "An alternative is na.omit , which leads to rejection of cases with missing values on any required variable.",
+              "section": "arguments"
+            },
+            {
+              "quote": "All other arguments are optional, but subset= and na.action= , if required, must be fully named.",
+              "section": "note"
+            }
+          ],
+          "statement": "subset 与 na.action 若使用必须完整命名；na.action 默认使过程失败，na.omit 则剔除含缺失值的观测。"
+        },
+        {
+          "category": "failure",
+          "evidence": [
+            {
+              "quote": "tol A tolerance to decide if a matrix is singular;",
+              "section": "arguments"
+            },
+            {
+              "quote": "it will reject variables and linear combinations of unit-variance variables whose variance is less than tol^2 .",
+              "section": "arguments"
+            },
+            {
+              "quote": "If any variable has within-group variance less than tol^2 it will stop and report the variable as constant.",
+              "section": "details"
+            },
+            {
+              "quote": "This could result from poor scaling of the problem, but is more likely to result from constant variables.",
+              "section": "details"
+            }
+          ],
+          "statement": "若某变量组内方差小于 tol^2，函数会停止并报告该变量为常数；这可能源于变量恒定或尺度不佳。"
+        },
+        {
+          "category": "output",
+          "evidence": [
+            {
+              "quote": "Otherwise it is an object of class \"lda\" containing the following components: prior the prior probabilities used.",
+              "section": "value"
+            },
+            {
+              "quote": "means the group means.",
+              "section": "value"
+            },
+            {
+              "quote": "scaling a matrix which transforms observations to discriminant functions, normalized so that within groups covariance matrix is spherical.",
+              "section": "value"
+            },
+            {
+              "quote": "svd the singular values, which give the ratio of the between- and within-group standard deviations on the linear discriminant variables.",
+              "section": "value"
+            },
+            {
+              "quote": "Their squares are the canonical F-statistics.",
+              "section": "value"
+            },
+            {
+              "quote": "N The number of observations used.",
+              "section": "value"
+            },
+            {
+              "quote": "call The (matched) function call.",
+              "section": "value"
+            }
+          ],
+          "statement": "非 CV 情形返回 \"lda\" 对象，含 prior、means、scaling、svd、N 与 call 等分量；svd 的平方为典型 F 统计量。"
+        },
+        {
+          "category": "assumption",
+          "evidence": [
+            {
+              "quote": "Specifying the prior will affect the classification unless over-ridden in predict.lda .",
+              "section": "details"
+            },
+            {
+              "quote": "Unlike in most statistical packages, it will also affect the rotation of the linear discriminants within their space, as a weighted between-groups covariance matrix is used.",
+              "section": "details"
+            },
+            {
+              "quote": "Thus the first few linear discriminants emphasize the differences between groups with the weights given by the prior, which may differ from their prevalence in the dataset.",
+              "section": "details"
+            }
+          ],
+          "statement": "指定 prior 会影响分类（除非在 predict.lda 中覆盖），并影响判别旋转，因为使用了按先验加权的组间协方差矩阵。"
+        },
+        {
+          "category": "failure",
+          "evidence": [
+            {
+              "quote": "If one or more groups is missing in the supplied data, they are dropped with a warning, but the classifications produced are with respect to the original set of levels.",
+              "section": "details"
+            }
+          ],
+          "statement": "若数据中缺失一个或多个组，这些组会被丢弃并给出警告，但分类仍相对于原始水平集合。"
+        }
+      ],
+      "unknowns": [
+        "文档未说明对样本量、正态性或组内协方差齐性等推断性假设的要求。",
+        "文档未说明该函数对任意特定用户数据集的适用性或研究设计是否成立。",
+        "文档未说明 tol 的默认值 1.0e-4 之外应如何针对具体数据选择容差。"
+      ],
+      "status": "machine_checked",
+      "semantic_verification": "llm_inference_not_human_verified",
+      "source_url": "https://cran.r-project.org/src/contrib/MASS_7.3-66.tar.gz",
+      "execution_authorized": false
+    },
+    {
+      "function_id": "MASS::qda",
+      "package_version": "7.3-66",
+      "revision": "4e4f1b4e77ebf85c5b1e359acf60905a4f36da0a3f5317b2752e1b7ca00bdac0",
+      "cosine": 0.11887907086803212,
+      "suitability_text": "该函数执行二次判别分析，用于将观测分配到由分组因子定义的类别。输入可为公式（响应为分组因子，右侧为非因子判别变量）或矩阵/数据框/Matrix 加分组因子。可指定先验概率、估计方法、子集与缺失值处理，并支持留一交叉验证。输出为 qda 对象（或 CV=TRUE 时的分类与后验概率）。",
+      "claims": [
+        {
+          "category": "input",
+          "evidence": [
+            {
+              "quote": "formula A formula of the form groups ~ x1 + x2 + ...",
+              "section": "arguments"
+            },
+            {
+              "quote": "That is, the response is the grouping factor and the right hand side specifies the (non-factor) discriminators.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "输入可通过公式 groups ~ x1 + x2 + ... 指定，其中响应为分组因子，右侧为（非因子）判别变量。"
+        },
+        {
+          "category": "input",
+          "evidence": [
+            {
+              "quote": "x (required if no formula is given as the principal argument.) a matrix or data frame or Matrix containing the explanatory variables.",
+              "section": "arguments"
+            },
+            {
+              "quote": "grouping (required if no formula principal argument is given.) a factor specifying the class for each observation.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "若不使用公式，则需提供 x（矩阵、数据框或 Matrix，含解释变量）与 grouping（指定每个观测类别的因子）。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "prior the prior probabilities of class membership.",
+              "section": "arguments"
+            },
+            {
+              "quote": "If unspecified, the class proportions for the training set are used.",
+              "section": "arguments"
+            },
+            {
+              "quote": "If specified, the probabilities should be specified in the order of the factor levels.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "prior 指定类别先验概率；未指定时使用训练集的类别比例，若指定则应按因子水平顺序给出。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "(NOTE: If given, this argument must be named.) method \"moment\" for standard estimators of the mean and variance, \"mle\" for MLEs, \"mve\" to use cov.mve , or \"t\" for robust estimates based on a t distribution.",
+              "section": "arguments"
+            },
+            {
+              "quote": "nu degrees of freedom for method = \"t\" .",
+              "section": "arguments"
+            }
+          ],
+          "statement": "method 可选 \"moment\"、\"mle\"、\"mve\"（使用 cov.mve）或 \"t\"（基于 t 分布的稳健估计），其中 method=\"t\" 需用 nu 指定自由度。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "subset An index vector specifying the cases to be used in the training sample.",
+              "section": "arguments"
+            },
+            {
+              "quote": "(NOTE: If given, this argument must be named.) na.action A function to specify the action to be taken if NA s are found.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "subset 为指定训练样本案例的索引向量，na.action 指定缺失值处理；两者若给出必须命名。"
+        },
+        {
+          "category": "preprocessing",
+          "evidence": [
+            {
+              "quote": "The default action is for the procedure to fail.",
+              "section": "arguments"
+            },
+            {
+              "quote": "An alternative is na.omit, which leads to rejection of cases with missing values on any required variable.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "默认缺失值处理是使过程失败；可选用 na.omit 以剔除在任一所需变量上存在缺失值的案例。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "CV If true, returns results (classes and posterior probabilities) for leave-out-out cross-validation.",
+              "section": "arguments"
+            },
+            {
+              "quote": "Note that if the prior is estimated, the proportions in the whole dataset are used.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "CV=TRUE 时返回留一交叉验证的结果（类别与后验概率）；若先验被估计，则使用整个数据集的类别比例。"
+        },
+        {
+          "category": "output",
+          "evidence": [
+            {
+              "quote": "an object of class \"qda\" containing the following components: prior the prior probabilities used.",
+              "section": "value"
+            },
+            {
+              "quote": "means the group means.",
+              "section": "value"
+            },
+            {
+              "quote": "scaling for each group i , scaling[,,i] is an array which transforms observations so that within-groups covariance matrix is spherical.",
+              "section": "value"
+            },
+            {
+              "quote": "ldet a vector of half log determinants of the dispersion matrix.",
+              "section": "value"
+            },
+            {
+              "quote": "lev the levels of the grouping factor.",
+              "section": "value"
+            },
+            {
+              "quote": "terms (if formula is a formula) an object of mode expression and class term summarizing the formula.",
+              "section": "value"
+            },
+            {
+              "quote": "call the (matched) function call.",
+              "section": "value"
+            }
+          ],
+          "statement": "返回 qda 类对象，包含 prior、means、scaling、ldet、lev、terms（若为公式）与 call 等组件。"
+        },
+        {
+          "category": "output",
+          "evidence": [
+            {
+              "quote": "unless CV=TRUE , when the return value is a list with components: class The MAP classification (a factor) posterior posterior probabilities for the classes",
+              "section": "value"
+            }
+          ],
+          "statement": "当 CV=TRUE 时，返回值是含 class（MAP 分类因子）与 posterior（各类后验概率）的列表。"
+        },
+        {
+          "category": "failure",
+          "evidence": [
+            {
+              "quote": "Uses a QR decomposition which will give an error message if the within-group variance is singular for any group.",
+              "section": "details"
+            }
+          ],
+          "statement": "使用 QR 分解，若任一组内方差奇异则给出错误信息。"
+        }
+      ],
+      "unknowns": [
+        "文档未说明对样本量、变量分布或组间协方差结构的具体要求，也未说明该方法对任意特定用户数据集的适用性。",
+        "文档未说明各 method 选项（如 mve、t）对数据规模或异常值情形的具体适用条件。",
+        "文档未说明奇异组内方差之外的其他失败条件或数值稳定性限制。"
+      ],
+      "status": "machine_checked",
+      "semantic_verification": "llm_inference_not_human_verified",
+      "source_url": "https://cran.r-project.org/src/contrib/MASS_7.3-66.tar.gz",
+      "execution_authorized": false
+    },
+    {
+      "function_id": "cluster::pam",
+      "package_version": "2.1.8.3",
+      "revision": "db3589d99baed8a32dcfef47c06df3d2cce8804b124dbabbfbc5b037758a00c9",
+      "cosine": 0.09221839928757741,
+      "suitability_text": "该函数用于围绕中心点(medoids)的划分聚类，是K-means的更稳健版本。输入可为数值/逻辑型数据矩阵或数据框（行=观测、列=变量），也可为相异度矩阵或对象（如daisy、dist的输出）或长度为n*(n-1)/2的向量。需指定簇数k（小于观测数）。支持欧氏与曼哈顿距离，可标准化变量、指定初始中心点、随机重启及多种算法变体。输出为\"pam\"类聚类对象，或cluster.only=TRUE时仅返回聚类向量。注意内存与时间均为O(n^2)，且n有65536的硬上限。",
+      "claims": [
+        {
+          "category": "input",
+          "evidence": [
+            {
+              "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument.",
+              "section": "arguments"
+            },
+            {
+              "quote": "In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable.",
+              "section": "arguments"
+            },
+            {
+              "quote": "All variables must be numeric (or logical).",
+              "section": "arguments"
+            }
+          ],
+          "statement": "x 可为数据矩阵或数据框，每行对应一个观测、每列对应一个变量；所有变量必须为数值型或逻辑型。"
+        },
+        {
+          "category": "input",
+          "evidence": [
+            {
+              "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument.",
+              "section": "arguments"
+            },
+            {
+              "quote": "In case of a dissimilarity matrix, x is typically the output of daisy or dist .",
+              "section": "arguments"
+            },
+            {
+              "quote": "Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "x 也可为相异度矩阵或对象（通常是 daisy 或 dist 的输出），或长度为 n*(n-1)/2 的向量。"
+        },
+        {
+          "category": "input",
+          "evidence": [
+            {
+              "quote": "Missing values ( NA s) are allowed---as long as every pair of observations has at least one case not missing.",
+              "section": "arguments"
+            },
+            {
+              "quote": "Missing values ( NA s) are not allowed.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "当 x 为矩阵或数据框时允许缺失值，只要每对观测至少有一个变量不缺失；当 x 为相异度矩阵时不允许缺失值。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "k positive integer specifying the number of clusters, less than the number of observations.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "k 是正整数，指定簇数，且必须小于观测数。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "diss logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix.",
+              "section": "arguments"
+            },
+            {
+              "quote": "If FALSE, then x will be considered as a matrix of observations by variables.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "diss 为逻辑标志：TRUE（dist 或相异度对象的默认值）时 x 视为相异度矩阵，FALSE 时视为观测×变量矩阵。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations.",
+              "section": "arguments"
+            },
+            {
+              "quote": "The currently available options are \"euclidean\" and \"manhattan\".",
+              "section": "arguments"
+            },
+            {
+              "quote": "If x is already a dissimilarity matrix, then this argument will be ignored.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "metric 可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。"
+        },
+        {
+          "category": "preprocessing",
+          "evidence": [
+            {
+              "quote": "stand logical;",
+              "section": "arguments"
+            },
+            {
+              "quote": "if true, the measurements in x are standardized before calculating the dissimilarities.",
+              "section": "arguments"
+            },
+            {
+              "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation.",
+              "section": "arguments"
+            },
+            {
+              "quote": "If x is already a dissimilarity matrix, then this argument will be ignored.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "stand=TRUE 时在计算相异度前对每个变量（列）标准化，即减去变量均值并除以变量的平均绝对偏差；若 x 已是相异度矩阵则被忽略。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "medoids NULL (default) or length- k vector of integer indices (in 1:n ) specifying initial medoids instead of using the build algorithm.",
+              "section": "arguments"
+            },
+            {
+              "quote": "nstart used only when medoids = \"random\" : specifies the number of random starts ;",
+              "section": "arguments"
+            }
+          ],
+          "statement": "medoids 可为 NULL（默认，使用 build 算法）或长度为 k 的整数索引向量（在 1:n 内）指定初始中心点；nstart 仅在 medoids=\"random\" 时用于指定随机重启次数。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "variant a character string denoting the variant of PAM algorithm to use;",
+              "section": "arguments"
+            },
+            {
+              "quote": "a more self-documenting version of pamonce which should be used preferably;",
+              "section": "arguments"
+            },
+            {
+              "quote": "note that \"faster\" not only uses pamonce = 6 but also nstart = 1 and hence medoids = \"random\" by default.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "variant 是 pamonce 的更自文档化版本，应优先使用；\"faster\" 使用 pamonce=6 且默认 nstart=1、medoids=\"random\"。"
+        },
+        {
+          "category": "output",
+          "evidence": [
+            {
+              "quote": "an object of class \"pam\" representing the clustering.",
+              "section": "value"
+            },
+            {
+              "quote": "When cluster.only is true, the result is simply a (possibly named) integer vector specifying the clustering, i.e., pam(x,k, cluster.only=TRUE) is the same as pam(x,k)$clustering but computed more efficiently.",
+              "section": "details"
+            }
+          ],
+          "statement": "返回类 \"pam\" 的聚类对象；当 cluster.only=TRUE 时仅返回（可能带名称的）整数聚类向量，等价于 pam(x,k)$clustering 但计算更高效。"
+        },
+        {
+          "category": "failure",
+          "evidence": [
+            {
+              "quote": "For large datasets, pam may need too much memory or too much computation time since both are O(n^2) .",
+              "section": "note"
+            },
+            {
+              "quote": "Then, clara () is preferable, see its documentation.",
+              "section": "note"
+            },
+            {
+              "quote": "There is hard limit currently, n 65536 n <= 65536 , at 2^ 16 because for larger n , n(n-1)/2 is larger than the maximal integer ( .Machine $integer.max = 2^ 31 - 1 ).",
+              "section": "note"
+            }
+          ],
+          "statement": "对于大数据集，pam 可能因内存或计算时间（均为 O(n^2)）不足而受限，此时 clara() 更可取；且存在 n <= 65536 的硬上限。"
+        }
+      ],
+      "unknowns": [
+        "文档未说明该函数对任何特定用户数据集的适用性，也未给出样本量阈值、正态性或独立性等推断性假设要求。",
+        "文档未说明聚类质量或最优簇数 k 的判定标准（仅提及可用 silhouette 宽度辅助选择）。",
+        "文档未说明 do.swap=FALSE 或不同 pamonce/variant 设置对最终聚类结果质量的具体影响程度。"
+      ],
+      "status": "machine_checked",
+      "semantic_verification": "llm_inference_not_human_verified",
+      "source_url": "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz",
+      "execution_authorized": false
+    },
+    {
+      "function_id": "cluster::diana",
+      "package_version": "2.1.8.3",
+      "revision": "f26327a7d6970c03ea92ed535fb5eb3749780ebca9dea991cbf4666d3df180c8",
+      "cosine": 0.08562051425035086,
+      "suitability_text": "该函数用于对数据集执行分裂式层次聚类，返回 diana 类对象。输入可为数值型数据矩阵/数据框（行=观测、列=变量，允许缺失值），或由 daisy/dist 生成的相异度矩阵/对象（不允许缺失值）。可通过 metric 选择欧氏或曼哈顿距离，stand 控制按列标准化。输出含分裂系数 dc、merge 矩阵、order 等，并支持 print/summary/plot 及 as.hclust、cutree 等后续处理。",
+      "claims": [
+        {
+          "category": "input",
+          "evidence": [
+            {
+              "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument.",
+              "section": "arguments"
+            },
+            {
+              "quote": "In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable.",
+              "section": "arguments"
+            },
+            {
+              "quote": "All variables must be numeric.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "x 可为数据矩阵或数据框，此时每行对应一个观测、每列对应一个变量，且所有变量必须为数值型。"
+        },
+        {
+          "category": "input",
+          "evidence": [
+            {
+              "quote": "Missing values ( NA s) are allowed.",
+              "section": "arguments"
+            },
+            {
+              "quote": "Missing values (NAs) are not allowed.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "当 x 为矩阵或数据框时允许存在缺失值（NA）；当 x 为相异度矩阵时不允许缺失值。"
+        },
+        {
+          "category": "input",
+          "evidence": [
+            {
+              "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument.",
+              "section": "arguments"
+            },
+            {
+              "quote": "In case of a dissimilarity matrix, x is typically the output of daisy or dist .",
+              "section": "arguments"
+            },
+            {
+              "quote": "Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "x 也可为相异度矩阵或对象（通常由 daisy 或 dist 生成），或长度为 n*(n-1)/2 的向量，其中 n 为观测数。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "diss logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix.",
+              "section": "arguments"
+            },
+            {
+              "quote": "If FALSE, then x will be considered as a matrix of observations by variables.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "diss 为逻辑标志：TRUE（dist 或相异度对象的默认值）时 x 视为相异度矩阵，FALSE 时视为观测×变量矩阵。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations.",
+              "section": "arguments"
+            },
+            {
+              "quote": "The currently available options are \"euclidean\" and \"manhattan\".",
+              "section": "arguments"
+            },
+            {
+              "quote": "If x is already a dissimilarity matrix, then this argument will be ignored.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "metric 指定计算相异度的度量，可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "stand logical;",
+              "section": "arguments"
+            },
+            {
+              "quote": "if true, the measurements in x are standardized before calculating the dissimilarities.",
+              "section": "arguments"
+            },
+            {
+              "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation.",
+              "section": "arguments"
+            },
+            {
+              "quote": "If x is already a dissimilarity matrix, then this argument will be ignored.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "stand 为 TRUE 时，在计算相异度前对每列变量标准化（减去均值并除以平均绝对偏差）；若 x 已是相异度矩阵则被忽略。"
+        },
+        {
+          "category": "parameter",
+          "evidence": [
+            {
+              "quote": "stop.at.k logical or integer, FALSE by default.",
+              "section": "arguments"
+            },
+            {
+              "quote": "Otherwise must be integer, say k , in \\ 1,2,..,n\\ , specifying that the diana algorithm should stop early.",
+              "section": "arguments"
+            },
+            {
+              "quote": "Non-default NOT YET IMPLEMENTED.",
+              "section": "arguments"
+            }
+          ],
+          "statement": "stop.at.k 默认 FALSE，非默认值（提前停止）尚未实现。"
+        },
+        {
+          "category": "output",
+          "evidence": [
+            {
+              "quote": "an object of class \"diana\" representing the clustering;",
+              "section": "value"
+            },
+            {
+              "quote": "this class has methods for the following generic functions: print , summary , plot .",
+              "section": "value"
+            },
+            {
+              "quote": "A legitimate diana object is a list with the following components: order a vector giving a permutation of the original observations to allow for plotting, in the sense that the branches of a clustering tree will not cross.",
+              "section": "value"
+            },
+            {
+              "quote": "height a vector with the diameters of the clusters prior to splitting.",
+              "section": "value"
+            },
+            {
+              "quote": "dc the divisive coefficient, measuring the clustering structure of the dataset.",
+              "section": "value"
+            },
+            {
+              "quote": "merge an (n-1) by 2 matrix, where n is the number of observations.",
+              "section": "value"
+            }
+          ],
+          "statement": "返回 diana 类对象，含 order、height、dc（分裂系数）、merge 等组件，并提供 print、summary、plot 方法。"
+        },
+        {
+          "category": "output",
+          "evidence": [
+            {
+              "quote": "Further, the class \"diana\" inherits from \"twins\" .",
+              "section": "value"
+            },
+            {
+              "quote": "Therefore, the generic function pltree can be used on a diana object, and as.hclust and as.dendrogram methods are available.",
+              "section": "value"
+            },
+            {
+              "quote": "cutree (and as.hclust ) for grouping extraction;",
+              "section": "seealso"
+            }
+          ],
+          "statement": "diana 类继承自 twins，可用 pltree，且提供 as.hclust 与 as.dendrogram 方法；cutree 可用于分组提取。"
+        },
+        {
+          "category": "output",
+          "evidence": [
+            {
+              "quote": "dc the divisive coefficient, measuring the clustering structure of the dataset.",
+              "section": "value"
+            },
+            {
+              "quote": "Because dc grows with the number of observations, this measure should not be used to compare datasets of very different sizes.",
+              "section": "value"
+            }
+          ],
+          "statement": "分裂系数 dc 随观测数增长，因此不应用于比较规模差异很大的数据集。"
+        },
+        {
+          "category": "failure",
+          "evidence": [
+            {
+              "quote": "If a dissimilarity matrix was given as input structure, then this component is not available.",
+              "section": "value"
+            },
+            {
+              "quote": "keep.diss, keep.data logicals indicating if the dissimilarities and/or input data x should be kept in the result.",
+              "section": "arguments"
+            },
+            {
+              "quote": "Setting these to FALSE can give much smaller results and hence even save memory allocation time .",
+              "section": "arguments"
+            }
+          ],
+          "statement": "当输入为相异度矩阵时，data 组件不可用；keep.diss 与 keep.data 设为 FALSE 可减小结果体积。"
+        }
+      ],
+      "unknowns": [
+        "文档未说明对样本量、变量独立性或分布形态的任何要求，也未给出最小样本量阈值。",
+        "文档未说明该函数对特定用户数据集的适用性或聚类质量保证，需结合具体数据与领域知识判断。",
+        "文档未说明缺失值在矩阵/数据框输入下被如何处理（如成对删除或插补）。"
+      ],
+      "status": "machine_checked",
+      "semantic_verification": "llm_inference_not_human_verified",
+      "source_url": "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz",
+      "execution_authorized": false
+    }
+  ],
+  "scope": "Candidate discovery only. Conditions are displayed, not executed as automatic hard rules."
+}

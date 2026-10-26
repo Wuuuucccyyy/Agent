@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "repository": "https://cran.r-project.org",
+  "collected_at": "2026-10-25T14:33:27.380145+00:00",
+  "index_sha256": "c66b7d4789d2405f606687aabfb61ed25ffa7ec6416edc4cbb644b639dbace95",
+  "packages": [
+    {
+      "name": "MASS",
+      "version": "7.3-66",
+      "functions": [
+        "lda",
+        "qda",
+        "lm.ridge"
+      ],
+      "url": "https://cran.r-project.org/src/contrib/MASS_7.3-66.tar.gz",
+      "sha256": "59c619c70bfca653f1c74aef880e69405daefd0134e716a1862ecc5334b4e155",
+      "bytes": 510345,
+      "index_metadata": {
+        "Package": "MASS",
+        "Version": "7.3-66",
+        "Priority": "recommended",
+        "Depends": "R (>= 4.4.0), grDevices, graphics, stats, utils",
+        "Imports": "methods",
+        "Suggests": "lattice, nlme, nnet, survival",
+        "License": "GPL-2 | GPL-3",
+        "MD5sum": "272648f9e6c9f1855417b099ea03ee46",
+        "NeedsCompilation": "yes",
+        "Published": "2026-07-15 10:58:26 UTC"
+      }
+    },
+    {
+      "name": "cluster",
+      "version": "2.1.8.3",
+      "functions": [
+        "pam",
+        "clara",
+        "agnes",
+        "diana"
+      ],
+      "url": "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz",
+      "sha256": "e240bebe2aa85f9d9f674cd7addc3dc9023f9e4c3f462eca94e582e22a5ce2e9",
+      "bytes": 373042,
+      "index_metadata": {
+        "Package": "cluster",
+        "Version": "2.1.8.3",
+        "Priority": "recommended",
+        "Depends": "R (>= 3.5.0)",
+        "Imports": "graphics, grDevices, stats, utils",
+        "Suggests": "MASS, Matrix",
+        "Enhances": "mvoutlier, fpc, ellipse, sfsmisc",
+        "License": "GPL (>= 2)",
+        "MD5sum": "b6c742457ff06f5f3a20d883afdd19a7",
+        "NeedsCompilation": "yes",
+        "Published": "2026-07-30 15:30:09 UTC"
+      }
+    },
+    {
+      "name": "psych",
+      "version": "2.6.9",
+      "functions": [
+        "principal"
+      ],
+      "url": "https://cran.r-project.org/src/contrib/psych_2.6.9.tar.gz",
+      "sha256": "81cfacc5254b139323275a35cf0238dbefd23783b6deb3f4e01a40b0f2b2147f",
+      "bytes": 1187983,
+      "index_metadata": {
+        "Package": "psych",
+        "Version": "2.6.9",
+        "Imports": " mnormt,parallel,stats,graphics,grDevices,methods,lattice,nlme,GPArotation",
+        "Suggests": "psychTools, lavaan, lme4, Rcsdp, graph, knitr, Rgraphviz",
+        "License": "GPL (>= 2)",
+        "MD5sum": "843724d4f8e8dc92cf63b80d869c3320",
+        "NeedsCompilation": "no",
+        "Published": "2026-09-30 15:50:02 UTC"
+      }
+    }
+  ]
+}

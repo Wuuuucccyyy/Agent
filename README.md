@@ -1,6 +1,6 @@
 # 多模态统计分析 Agent
 
-按[项目工作手册](docs/WORKBOOK.md)开发的统计分析基线：生成带证据的数据画像，用统计约束解释方法推荐，再调用经过审核的 Python 统计模板。当前版本 `0.2.0` 已接入 CC Switch 中的 DeepSeek，并完成真实本地 Embedding 与两个端到端示例验收。实测结果、失败记录与研究边界见[本阶段记录](docs/STAGE2_VALIDATION.md)；上一轮修复见[基线复查记录](docs/BASELINE_REVIEW.md)。
+按[项目工作手册](docs/WORKBOOK.md)开发的统计分析基线：生成带证据的数据画像，用统计约束解释方法推荐，再调用经过审核的 Python 统计模板。当前版本 `0.3.0` 优先建设 CRAN 候选数据库，已完成官方源码采集、协作画像、版本化入库、恢复及检索。首批 8 条函数画像中 5 条机器复核通过、3 条待复核。见[数据库验证记录](docs/CRAN_DATABASE_VALIDATION.md)和[可读画像目录](database/cran_profiles.md)。此前真实模型与完整分析链路见[阶段记录](docs/STAGE2_VALIDATION.md)。
 
 **进度与下一步：[PROGRESS.md](PROGRESS.md)** · **架构与 Agent 接口：[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · **验证记录：[docs/VALIDATION.md](docs/VALIDATION.md)**
 
@@ -27,7 +27,42 @@ python -m pip install -e ".[dev]"
 
 Linux / macOS 使用 `source .venv/bin/activate`。如需复现本次测试依赖，先执行 `python -m pip install -r requirements.lock.txt`，再安装项目。锁定清单来自 Python 3.11 / Windows；其他平台以 CI 和实际安装结果为准。
 
+## CRAN 数据库
+
+先恢复仓库中的快照，即可离线查看和检索：
+
+```powershell
+python -m stat_agent kb restore
+python -m stat_agent kb inspect
+python -m stat_agent kb search --goal "回归模型的岭常数与 GCV"
+python -m stat_agent kb search --goal "linear regression lambda GCV" --input examples/data/regression.csv --task regression --targets y --predictors x1 x2 --out runs/knowledge-query.json
+```
+
+源码来源为 MASS 7.3-66、cluster 2.1.8.3、psych 2.6.9，版本与 SHA256 已锁定。每条画像包含函数签名、参数说明、适用数据文本、带原文证据的输入/参数/假设/输出/失败条件、未知项与复核记录。原九条内置知识与这批八条 CRAN 画像分开存放，存在重叠，不能相加视为十七种方法。
+
+重新采集或建库：
+
+```powershell
+python -m stat_agent kb collect
+python -m stat_agent kb build
+python -m stat_agent kb index --embedding-config configs/embedding.json
+python -m stat_agent kb search --goal "数值变量的二次判别分析" --embedding-config configs/embedding.json
+```
+
+`collect` 联网下载官方源码并生成版本锁；只更新已配置的包和函数，不抓取全站。`build` 使用 CC Switch DeepSeek，提取和复核分角色调用，最多两轮修正；已有相同指纹结果会复用。显式 `--refresh` 重新调用模型。退出码 2 表示有待复核或失败条目，详情在构建报告中；机器复核不等于独立人工审核。
+
+`search --input` 使用规则任务画像和程序计算的数据画像构成查询。它仅返回候选及条件；新库条件尚未编译成自动硬过滤规则，搜索不会执行 R 或替代 `analyze` 的可信模板。原始源码和 SQLite 在本地，仓库保存可恢复 JSON 与可读 Markdown，完整说明见 [database/README](database/README.md)。
+
 ## 运行
+
+只提供数据集、只生成画像：
+
+```powershell
+python -m stat_agent profile YOUR_DATA.csv --out runs/profiles
+python -m stat_agent profile YOUR_DATA.xlsx --sheet Sheet1 --out runs/profiles
+```
+
+不需要先给出分析目标或选择方法；输出结构化 `profile.json`、可读 `report.md`、任务信息及运行记录。可用 `--targets`、`--predictors`、`--groups` 补充变量角色。此入口只调用本地统计工具，不调用 LLM、不检索或执行统计方法；研究设计等无法从表格确定的条件保持未知。
 
 PCA：
 

@@ -1,5 +1,9 @@
 # 来源与核验范围
 
+v0.3 新增 CRAN 源码采集：MASS 7.3-66、cluster 2.1.8.3、psych 2.6.9。锁文件 `configs/cran_sources.lock.json` 保存官方 PACKAGES 索引信息、下载 URL 和源码 SHA256；函数画像另记录 Rd 路径与 SHA256。来源使用本轮固定包，而不是此前 R-devel 页面的包版本。清洗/引用内容沿用来源许可，见 [database/README](../database/README.md)。
+
+Rd 结构依据：[Writing R Extensions — Rd format](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Rd-format)。实现为有限静态解析，处理嵌套大括号、文档编码、注释及常见文本宏，保留原 usage；未运行 R 的正式 Rd 编译器。复杂宏的完整语义仍待扩展。
+
 核对日期：2026-10-24。用户工作手册是范围依据，文字摘录见 [WORKBOOK](WORKBOOK.md)。本轮未修改原始 Word 文件。
 
 | 画像 | 官方参考 | 核对范围 |

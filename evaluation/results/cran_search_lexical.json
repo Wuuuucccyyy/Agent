@@ -1,0 +1,184 @@
+{
+  "scope": "Eight developer-authored source-library acceptance queries; not independent annotation.",
+  "snapshot_id": "aa61823f904a1b780aaf68113c85136e4269a228d8371d92ef54b3ae3ac489c1",
+  "encoder": "tfidf_char_lexical_smoke_only",
+  "total_cases": 8,
+  "searchable_profiles": 5,
+  "top1_accuracy_all_cases": 0.625,
+  "hit_at_3_all_cases": 0.625,
+  "cases": [
+    {
+      "query": "使用线性判别分析，根据数值解释变量预测类别分组",
+      "expected": "MASS::lda",
+      "expected_is_searchable": true,
+      "top1_correct": true,
+      "hit_at_3": true,
+      "ranking": [
+        {
+          "id": "MASS::lda",
+          "cosine": 0.13420573681820475
+        },
+        {
+          "id": "MASS::qda",
+          "cosine": 0.08943127349772649
+        },
+        {
+          "id": "MASS::lm.ridge",
+          "cosine": 0.023813438016840986
+        }
+      ]
+    },
+    {
+      "query": "对具有类别标签的数值观测进行二次判别分析",
+      "expected": "MASS::qda",
+      "expected_is_searchable": true,
+      "top1_correct": true,
+      "hit_at_3": true,
+      "ranking": [
+        {
+          "id": "MASS::qda",
+          "cosine": 0.09538134903426183
+        },
+        {
+          "id": "MASS::lda",
+          "cosine": 0.054127749027769276
+        },
+        {
+          "id": "cluster::diana",
+          "cosine": 0.014287120549731944
+        }
+      ]
+    },
+    {
+      "query": "对回归模型使用岭常数 lambda，拟合岭回归并比较 GCV",
+      "expected": "MASS::lm.ridge",
+      "expected_is_searchable": true,
+      "top1_correct": true,
+      "hit_at_3": true,
+      "ranking": [
+        {
+          "id": "MASS::lm.ridge",
+          "cosine": 0.3168971121844924
+        },
+        {
+          "id": "MASS::lda",
+          "cosine": 0.030761113504464768
+        },
+        {
+          "id": "MASS::qda",
+          "cosine": 0.023141438116165074
+        }
+      ]
+    },
+    {
+      "query": "采用围绕中心对象 medoid 的划分聚类，输入距离或观测矩阵",
+      "expected": "cluster::pam",
+      "expected_is_searchable": true,
+      "top1_correct": true,
+      "hit_at_3": true,
+      "ranking": [
+        {
+          "id": "cluster::pam",
+          "cosine": 0.21004414687416845
+        },
+        {
+          "id": "cluster::diana",
+          "cosine": 0.03665811205535552
+        },
+        {
+          "id": "MASS::lda",
+          "cosine": 0.030855762147572314
+        }
+      ]
+    },
+    {
+      "query": "对大型观测数据通过重复抽样执行中心对象聚类",
+      "expected": "cluster::clara",
+      "expected_is_searchable": false,
+      "top1_correct": false,
+      "hit_at_3": false,
+      "ranking": [
+        {
+          "id": "cluster::pam",
+          "cosine": 0.09315490685558511
+        },
+        {
+          "id": "cluster::diana",
+          "cosine": 0.06429137485795063
+        },
+        {
+          "id": "MASS::qda",
+          "cosine": 0.025039621715969337
+        }
+      ]
+    },
+    {
+      "query": "对观测或相异度数据做凝聚型层次聚类",
+      "expected": "cluster::agnes",
+      "expected_is_searchable": false,
+      "top1_correct": false,
+      "hit_at_3": false,
+      "ranking": [
+        {
+          "id": "cluster::diana",
+          "cosine": 0.14068345052439546
+        },
+        {
+          "id": "cluster::pam",
+          "cosine": 0.1121196443287338
+        },
+        {
+          "id": "MASS::lda",
+          "cosine": 0.009544593818344872
+        }
+      ]
+    },
+    {
+      "query": "对观测或相异度数据做分裂型层次聚类",
+      "expected": "cluster::diana",
+      "expected_is_searchable": true,
+      "top1_correct": true,
+      "hit_at_3": true,
+      "ranking": [
+        {
+          "id": "cluster::diana",
+          "cosine": 0.15327838199653582
+        },
+        {
+          "id": "cluster::pam",
+          "cosine": 0.10772470155210151
+        },
+        {
+          "id": "MASS::lda",
+          "cosine": 0.00917045827850287
+        }
+      ]
+    },
+    {
+      "query": "对相关矩阵或原始变量做主成分分析，支持旋转与成分得分",
+      "expected": "psych::principal",
+      "expected_is_searchable": false,
+      "top1_correct": false,
+      "hit_at_3": false,
+      "ranking": [
+        {
+          "id": "cluster::pam",
+          "cosine": 0.06113899201502801
+        },
+        {
+          "id": "cluster::diana",
+          "cosine": 0.04763919495714998
+        },
+        {
+          "id": "MASS::lda",
+          "cosine": 0.044122520819809996
+        }
+      ]
+    }
+  ],
+  "model_metadata": null,
+  "limitations": [
+    "Unreviewed candidates are not silently removed from the evaluation denominator.",
+    "No statistical compatibility or code execution is validated by these queries."
+  ]
+}

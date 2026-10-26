@@ -20,3 +20,6 @@ jobs:
       - run: python evaluation/run.py --out runs/evaluation.json
       - run: python evaluation/expanded.py --out runs/expanded.json
       - run: python evaluation/profile_quality.py
+      - run: python -m stat_agent kb restore --db runs/ci-knowledge.sqlite3
+      - run: python evaluation/cran_database.py --db runs/ci-knowledge.sqlite3 --out runs/cran-search.json
+      - run: python -m stat_agent profile examples/data/pca.csv --out runs/ci-profile-only

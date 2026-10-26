@@ -75,17 +75,18 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 class DeepSeekClient:
-    def __init__(self, config: DeepSeekConfig, *, timeout=45, max_retries=1, transport=None):
+    def __init__(self, config: DeepSeekConfig, *, timeout=45, max_retries=1, transport=None, max_output_tokens=1800):
         self.config = config
         self.timeout = timeout
         self.max_retries = max_retries
+        self.max_output_tokens = max_output_tokens
         self.transport = transport or urllib.request.build_opener(NoRedirect()).open
         self.usage = dict(api_calls=0, llm_calls=0, input_tokens=0, output_tokens=0,
                           tokens=0, cache_read_input_tokens=0, retries=0)
         self.receipts = []
 
     def structured(self, system: str, payload: dict, schema: dict, *, tool_name='emit_profile') -> dict:
-        body = {'model': self.config.request_model, 'max_tokens': 1800,
+        body = {'model': self.config.request_model, 'max_tokens': self.max_output_tokens,
                 'temperature': 0, 'thinking': {'type': 'disabled'}, 'stream': False,
                 'system': system,
                 'messages': [{'role': 'user', 'content': json.dumps(payload, ensure_ascii=False)}],

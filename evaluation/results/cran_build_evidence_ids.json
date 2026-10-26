@@ -1,0 +1,89 @@
+{
+  "build_id": "660a81eb1f364779babfa41bd5138b8a",
+  "started_at": "2026-10-25T14:45:28.245908+00:00",
+  "source_lock_sha256": "761f236520c26599b1a702d4cb97f090d858d3b325b0826464cacc0ce990d43d",
+  "status": "error",
+  "function_count": 8,
+  "machine_checked": 3,
+  "needs_review": 1,
+  "errors": 4,
+  "snapshot": null,
+  "events": [
+    {
+      "function_id": "MASS::lda",
+      "cached": false,
+      "status": "machine_checked",
+      "revision": "23fbe1eab0756716bfada0a65fe220f7f0c3e99899ab54d00849e63d14156f1e",
+      "attempts": 2,
+      "seconds": 21.197424300014973
+    },
+    {
+      "function_id": "MASS::lm.ridge",
+      "cached": false,
+      "status": "error",
+      "error": "LLMError: Applicability schema errors (values omitted): [{\"field\": \"claims.4.evidence_ids\", \"type\": \"too_long\"}]",
+      "seconds": 19.995299299946055
+    },
+    {
+      "function_id": "MASS::qda",
+      "cached": false,
+      "status": "machine_checked",
+      "revision": "9a04b579addcdede896c0ec46fecec8b3041742508116239cdaea18449039ecd",
+      "attempts": 1,
+      "seconds": 11.188723200000823
+    },
+    {
+      "function_id": "cluster::diana",
+      "cached": false,
+      "status": "error",
+      "error": "LLMError: Applicability schema errors (values omitted): [{\"field\": \"claims.6.evidence_ids\", \"type\": \"too_long\"}]",
+      "seconds": 15.33843679993879
+    },
+    {
+      "function_id": "cluster::agnes",
+      "cached": false,
+      "status": "error",
+      "error": "LLMError: Applicability schema errors (values omitted): [{\"field\": \"claims\", \"type\": \"too_long\"}]",
+      "seconds": 20.438372200005688
+    },
+    {
+      "function_id": "cluster::pam",
+      "cached": false,
+      "status": "needs_review",
+      "revision": "ed87c550a0090cb586bb062a8e55af4358e6a33c159086e67fcd964c16b06d19",
+      "attempts": 2,
+      "seconds": 30.52162429993041
+    },
+    {
+      "function_id": "cluster::clara",
+      "cached": false,
+      "status": "machine_checked",
+      "revision": "a01683434e41761dd634aab4e272383405a71258017119a815a8d2d042c5cb92",
+      "attempts": 1,
+      "seconds": 11.893183900043368
+    },
+    {
+      "function_id": "psych::principal",
+      "cached": false,
+      "status": "error",
+      "error": "LLMError: Applicability schema errors (values omitted): [{\"field\": \"claims.5.evidence_ids\", \"type\": \"too_long\"}]",
+      "seconds": 24.172917800024152
+    }
+  ],
+  "elapsed_seconds": 155.0980821000412,
+  "usage": {
+    "api_calls": 22,
+    "llm_calls": 22,
+    "input_tokens": 59840,
+    "output_tokens": 13460,
+    "tokens": 109524,
+    "cache_read_input_tokens": 36224,
+    "retries": 0
+  },
+  "api_cost_usd": null,
+  "limitations": [
+    "Same DeepSeek model in extraction and review roles; no independent human audit.",
+    "Exact evidence quotes validate location, not truth of all semantic interpretations.",
+    "Source code and examples were not executed. Candidate search does not authorize execution."
+  ]
+}

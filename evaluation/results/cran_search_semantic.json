@@ -1,0 +1,254 @@
+{
+  "scope": "Eight developer-authored source-library acceptance queries; not independent annotation.",
+  "snapshot_id": "aa61823f904a1b780aaf68113c85136e4269a228d8371d92ef54b3ae3ac489c1",
+  "encoder": "sentence_transformers:intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|query/passage",
+  "total_cases": 8,
+  "searchable_profiles": 5,
+  "top1_accuracy_all_cases": 0.5,
+  "hit_at_3_all_cases": 0.625,
+  "cases": [
+    {
+      "query": "使用线性判别分析，根据数值解释变量预测类别分组",
+      "expected": "MASS::lda",
+      "expected_is_searchable": true,
+      "top1_correct": true,
+      "hit_at_3": true,
+      "ranking": [
+        {
+          "id": "MASS::lda",
+          "cosine": 0.9015371382356655
+        },
+        {
+          "id": "MASS::qda",
+          "cosine": 0.8887838318247347
+        },
+        {
+          "id": "MASS::lm.ridge",
+          "cosine": 0.8867193991217607
+        }
+      ]
+    },
+    {
+      "query": "对具有类别标签的数值观测进行二次判别分析",
+      "expected": "MASS::qda",
+      "expected_is_searchable": true,
+      "top1_correct": false,
+      "hit_at_3": true,
+      "ranking": [
+        {
+          "id": "MASS::lda",
+          "cosine": 0.8858342963469714
+        },
+        {
+          "id": "MASS::qda",
+          "cosine": 0.8845443543309857
+        },
+        {
+          "id": "MASS::lm.ridge",
+          "cosine": 0.866128661608563
+        }
+      ]
+    },
+    {
+      "query": "对回归模型使用岭常数 lambda，拟合岭回归并比较 GCV",
+      "expected": "MASS::lm.ridge",
+      "expected_is_searchable": true,
+      "top1_correct": true,
+      "hit_at_3": true,
+      "ranking": [
+        {
+          "id": "MASS::lm.ridge",
+          "cosine": 0.9186719065291198
+        },
+        {
+          "id": "MASS::lda",
+          "cosine": 0.888209353959621
+        },
+        {
+          "id": "MASS::qda",
+          "cosine": 0.8810594320882992
+        }
+      ]
+    },
+    {
+      "query": "采用围绕中心对象 medoid 的划分聚类，输入距离或观测矩阵",
+      "expected": "cluster::pam",
+      "expected_is_searchable": true,
+      "top1_correct": true,
+      "hit_at_3": true,
+      "ranking": [
+        {
+          "id": "cluster::pam",
+          "cosine": 0.9189589831771766
+        },
+        {
+          "id": "cluster::diana",
+          "cosine": 0.90260372118334
+        },
+        {
+          "id": "MASS::qda",
+          "cosine": 0.8820758088759268
+        }
+      ]
+    },
+    {
+      "query": "对大型观测数据通过重复抽样执行中心对象聚类",
+      "expected": "cluster::clara",
+      "expected_is_searchable": false,
+      "top1_correct": false,
+      "hit_at_3": false,
+      "ranking": [
+        {
+          "id": "cluster::pam",
+          "cosine": 0.8859355915232432
+        },
+        {
+          "id": "MASS::qda",
+          "cosine": 0.876116264216341
+        },
+        {
+          "id": "cluster::diana",
+          "cosine": 0.8743385801193996
+        }
+      ]
+    },
+    {
+      "query": "对观测或相异度数据做凝聚型层次聚类",
+      "expected": "cluster::agnes",
+      "expected_is_searchable": false,
+      "top1_correct": false,
+      "hit_at_3": false,
+      "ranking": [
+        {
+          "id": "cluster::diana",
+          "cosine": 0.8964354297478772
+        },
+        {
+          "id": "cluster::pam",
+          "cosine": 0.8950531194461796
+        },
+        {
+          "id": "MASS::qda",
+          "cosine": 0.8747924392496729
+        }
+      ]
+    },
+    {
+      "query": "对观测或相异度数据做分裂型层次聚类",
+      "expected": "cluster::diana",
+      "expected_is_searchable": true,
+      "top1_correct": true,
+      "hit_at_3": true,
+      "ranking": [
+        {
+          "id": "cluster::diana",
+          "cosine": 0.9104360840207397
+        },
+        {
+          "id": "cluster::pam",
+          "cosine": 0.8995016952005557
+        },
+        {
+          "id": "MASS::qda",
+          "cosine": 0.8793659902072223
+        }
+      ]
+    },
+    {
+      "query": "对相关矩阵或原始变量做主成分分析，支持旋转与成分得分",
+      "expected": "psych::principal",
+      "expected_is_searchable": false,
+      "top1_correct": false,
+      "hit_at_3": false,
+      "ranking": [
+        {
+          "id": "MASS::lda",
+          "cosine": 0.88280617025403
+        },
+        {
+          "id": "MASS::qda",
+          "cosine": 0.877928288827809
+        },
+        {
+          "id": "MASS::lm.ridge",
+          "cosine": 0.872769569628465
+        }
+      ]
+    }
+  ],
+  "model_metadata": {
+    "configuration": {
+      "model_id": "intfloat/multilingual-e5-small",
+      "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+      "query_prefix": "query: ",
+      "document_prefix": "passage: ",
+      "dimensions": 384,
+      "max_tokens": 512,
+      "device": "cpu",
+      "files": [
+        "config.json",
+        "model.safetensors",
+        "modules.json",
+        "sentence_bert_config.json",
+        "1_Pooling/config.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "special_tokens_map.json",
+        "sentencepiece.bpe.model"
+      ],
+      "source": "https://huggingface.co/intfloat/multilingual-e5-small"
+    },
+    "manifest": {
+      "model_id": "intfloat/multilingual-e5-small",
+      "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+      "files": {
+        "config.json": {
+          "sha256": "69137736cab8b8903a07fe8afaafdda25aac55415a12a55d1bffa9f581abf959",
+          "bytes": 655
+        },
+        "model.safetensors": {
+          "sha256": "1a55775f53449dac10a2bcbc312469fac40b96d53198c407081a831f81c98477",
+          "bytes": 470641600
+        },
+        "modules.json": {
+          "sha256": "c6e29747481e8b5dd2b58401966aeac910de39092f90cda9a704b1545f902b04",
+          "bytes": 387
+        },
+        "sentence_bert_config.json": {
+          "sha256": "948201d8329907aae938fa62f9ceeed53f5694dacc2b87b9f3b78b37ee986529",
+          "bytes": 57
+        },
+        "1_Pooling/config.json": {
+          "sha256": "987f7a67a38fa564c849bb5d277c52ab9088a84368fc0be31a354125aebb12a0",
+          "bytes": 200
+        },
+        "tokenizer.json": {
+          "sha256": "0b44a9d7b51c3c62626640cda0e2c2f70fdacdc25bbbd68038369d14ebdf4c39",
+          "bytes": 17082730
+        },
+        "tokenizer_config.json": {
+          "sha256": "a1d6bc8734a6f635dc158508bef000f8e2e5a759c7d92f984b2c86e5ff53425b",
+          "bytes": 443
+        },
+        "special_tokens_map.json": {
+          "sha256": "d05497f1da52c5e09554c0cd874037a083e1dc1b9cfd48034d1c717f1afc07a7",
+          "bytes": 167
+        },
+        "sentencepiece.bpe.model": {
+          "sha256": "cfc8146abe2a0488e9e2a0c56de7952f7c11ab059eca145a0a727afce0db2865",
+          "bytes": 5069051
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Unreviewed candidates are not silently removed from the evaluation denominator.",
+    "No statistical compatibility or code execution is validated by these queries."
+  ],
+  "index_reuse_check": {
+    "model": "sentence_transformers:intfloat/multilingual-e5-small@614241f622f53c4eeff9890bdc4f31cfecc418b3|query/passage",
+    "total": 5,
+    "encoded": 0,
+    "reused": 5
+  }
+}

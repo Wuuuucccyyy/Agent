@@ -1,0 +1,92 @@
+{
+  "build_id": "b497359bcb364617b9f881c4d3a5f8c8",
+  "started_at": "2026-10-25T14:41:37.743345+00:00",
+  "source_lock_sha256": "761f236520c26599b1a702d4cb97f090d858d3b325b0826464cacc0ce990d43d",
+  "status": "error",
+  "function_count": 8,
+  "machine_checked": 0,
+  "needs_review": 7,
+  "errors": 1,
+  "snapshot": null,
+  "events": [
+    {
+      "function_id": "MASS::lda",
+      "cached": false,
+      "status": "error",
+      "error": "LLMError: Applicability output failed schema validation; raw output omitted.",
+      "seconds": 30.012409399962053
+    },
+    {
+      "function_id": "MASS::lm.ridge",
+      "cached": false,
+      "status": "needs_review",
+      "revision": "105bda29a2c1d41f08c1f7d4d60df3785278c11ba54e6d2c05cac5f7a172d341",
+      "attempts": 2,
+      "seconds": 30.033583900076337
+    },
+    {
+      "function_id": "MASS::qda",
+      "cached": false,
+      "status": "needs_review",
+      "revision": "30a6938b81d4e1f01f8de1f3e99fc8cdefe5cdf3aac938f8148289bd34a9fdf6",
+      "attempts": 2,
+      "seconds": 30.144491599989124
+    },
+    {
+      "function_id": "cluster::diana",
+      "cached": false,
+      "status": "needs_review",
+      "revision": "4bc15135547e521b9383a98953dce62f334e6c639be3bedfffb57cc2b720cf31",
+      "attempts": 2,
+      "seconds": 25.284522000001743
+    },
+    {
+      "function_id": "cluster::agnes",
+      "cached": false,
+      "status": "needs_review",
+      "revision": "4ac0c007ba425388785474eb08988981b113e0d1e808e824718777abd841dc83",
+      "attempts": 2,
+      "seconds": 20.32211979990825
+    },
+    {
+      "function_id": "cluster::pam",
+      "cached": false,
+      "status": "needs_review",
+      "revision": "aceb0df4b2ff231765129ea0fa75e667a20c0137728e10dcc36dcc20ffcc248e",
+      "attempts": 2,
+      "seconds": 19.478799600037746
+    },
+    {
+      "function_id": "cluster::clara",
+      "cached": false,
+      "status": "needs_review",
+      "revision": "5cc41d84a74cf3753ba3e3f23061a471984ba20776aee34f485237245d77da1e",
+      "attempts": 2,
+      "seconds": 17.297993999905884
+    },
+    {
+      "function_id": "psych::principal",
+      "cached": false,
+      "status": "needs_review",
+      "revision": "d2adf868de7ac2428aa14c973804899dfba05e4c6c643fcaddb37d0090d398ef",
+      "attempts": 2,
+      "seconds": 37.918014500057325
+    }
+  ],
+  "elapsed_seconds": 210.88811890000943,
+  "usage": {
+    "api_calls": 24,
+    "llm_calls": 24,
+    "input_tokens": 34533,
+    "output_tokens": 20036,
+    "tokens": 79529,
+    "cache_read_input_tokens": 24960,
+    "retries": 0
+  },
+  "api_cost_usd": null,
+  "limitations": [
+    "Same DeepSeek model in extraction and review roles; no independent human audit.",
+    "Exact evidence quotes validate location, not truth of all semantic interpretations.",
+    "Source code and examples were not executed. Candidate search does not authorize execution."
+  ]
+}
