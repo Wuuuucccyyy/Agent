@@ -1,0 +1,103 @@
+{
+  "build_id": "9e7395d79dcd49b5b4f100e18bd39d27",
+  "started_at": "2026-10-26T12:54:45.987605+00:00",
+  "source_lock_sha256": "38267844a60a93223caa14fe5c61d475ac5af1b36e13f4719013bb7c98a8d8ca",
+  "source_lock_hash_format": "canonical JSON SHA256",
+  "status": "success",
+  "function_count": 8,
+  "machine_checked": 8,
+  "needs_review": 0,
+  "errors": 0,
+  "snapshot": {
+    "schema_version": "1.0",
+    "source_lock_sha256": "38267844a60a93223caa14fe5c61d475ac5af1b36e13f4719013bb7c98a8d8ca",
+    "revisions": [
+      "0a655d2e295a8d986e3491d77f52930e2dae3fb0f5495f95376b784fac503c91",
+      "0d5fc5dc7a044cc7d45f34c36a8f1727a940035452186bd7e6de1cde98a88dad",
+      "972855ac5434761d50ea2d1d3a6867c0fe4581ea0d296405f6631e26b6e9851e",
+      "9d5faf98162193209c4148501effe0cdafcccf2849262d0625771bea6df5953f",
+      "9fcde0a2a19febe00500bd105ac7625b0e2233025593506e2c1ac9197c4203ed",
+      "b1931a6acea5ee3668035535264053dbdd3ca8812f876739c6825365062c384a",
+      "c2e744ff2004f01befe6681a116f36eae9f254576ae6cce04a52e25a1928555f",
+      "c5f4bc61ee12bbc7a56329420601e0e6e83e87f542a4b1b5e46efae37b55ac46"
+    ],
+    "snapshot_id": "5627edada29a91ab51d3691a89eb53c85bcef927b806ac70dc1a78c7768071a9"
+  },
+  "events": [
+    {
+      "function_id": "MASS::lda",
+      "cached": true,
+      "status": "machine_checked",
+      "revision": "c2e744ff2004f01befe6681a116f36eae9f254576ae6cce04a52e25a1928555f",
+      "attempts": 0,
+      "seconds": 0.008684200001880527
+    },
+    {
+      "function_id": "MASS::lm.ridge",
+      "cached": true,
+      "status": "machine_checked",
+      "revision": "972855ac5434761d50ea2d1d3a6867c0fe4581ea0d296405f6631e26b6e9851e",
+      "attempts": 0,
+      "seconds": 0.002983400016091764
+    },
+    {
+      "function_id": "MASS::qda",
+      "cached": true,
+      "status": "machine_checked",
+      "revision": "9fcde0a2a19febe00500bd105ac7625b0e2233025593506e2c1ac9197c4203ed",
+      "attempts": 0,
+      "seconds": 0.0026234000688418746
+    },
+    {
+      "function_id": "cluster::diana",
+      "cached": true,
+      "status": "machine_checked",
+      "revision": "9d5faf98162193209c4148501effe0cdafcccf2849262d0625771bea6df5953f",
+      "attempts": 0,
+      "seconds": 0.002569400006905198
+    },
+    {
+      "function_id": "cluster::agnes",
+      "cached": true,
+      "status": "machine_checked",
+      "revision": "b1931a6acea5ee3668035535264053dbdd3ca8812f876739c6825365062c384a",
+      "attempts": 0,
+      "seconds": 0.002765399985946715
+    },
+    {
+      "function_id": "cluster::pam",
+      "cached": true,
+      "status": "machine_checked",
+      "revision": "c5f4bc61ee12bbc7a56329420601e0e6e83e87f542a4b1b5e46efae37b55ac46",
+      "attempts": 0,
+      "seconds": 0.002707500010728836
+    },
+    {
+      "function_id": "cluster::clara",
+      "cached": true,
+      "status": "machine_checked",
+      "revision": "0a655d2e295a8d986e3491d77f52930e2dae3fb0f5495f95376b784fac503c91",
+      "attempts": 0,
+      "seconds": 0.003487600013613701
+    },
+    {
+      "function_id": "psych::principal",
+      "cached": true,
+      "status": "machine_checked",
+      "revision": "0d5fc5dc7a044cc7d45f34c36a8f1727a940035452186bd7e6de1cde98a88dad",
+      "attempts": 0,
+      "seconds": 0.0028264999855309725
+    }
+  ],
+  "elapsed_seconds": 0.377232400001958,
+  "usage": {
+    "api_calls": 0,
+    "tokens": 0
+  },
+  "api_cost_usd": null,
+  "limitations": [
+    "Same DeepSeek model in extraction and review roles; no independent human audit.",
+    "Exact evidence quotes validate location, not truth of all semantic interpretations.",
+    "Source code and examples were not executed. Candidate search does not authorize execution."
+  ]
+}

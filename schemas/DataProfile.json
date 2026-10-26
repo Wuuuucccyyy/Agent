@@ -1,5 +1,231 @@
 {
   "$defs": {
+    "ApplicabilityProfile": {
+      "additionalProperties": false,
+      "description": "Additional observed facts; None means unavailable, never a passing assumption.",
+      "properties": {
+        "schema_version": {
+          "default": "0.1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "columns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Columns",
+          "type": "array"
+        },
+        "group_columns": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Group Columns",
+          "type": "array"
+        },
+        "numeric_only": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Numeric Only"
+        },
+        "numeric_or_boolean": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Numeric Or Boolean"
+        },
+        "missing_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Missing Count"
+        },
+        "nonfinite_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nonfinite Count"
+        },
+        "pairwise_observed_overlap": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pairwise Observed Overlap"
+        },
+        "group_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Group Count"
+        },
+        "minimum_group_size": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minimum Group Size"
+        },
+        "group_missing_count": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Group Missing Count"
+        },
+        "within_group_full_rank": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Within Group Full Rank"
+        },
+        "pooled_within_variance_nonzero": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pooled Within Variance Nonzero"
+        },
+        "square": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Square"
+        },
+        "symmetric": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Symmetric"
+        },
+        "diagonal_zero": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Diagonal Zero"
+        },
+        "diagonal_one": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Diagonal One"
+        },
+        "nonnegative": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nonnegative"
+        },
+        "correlation_bounds": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Correlation Bounds"
+        },
+        "notes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Notes",
+          "type": "array"
+        }
+      },
+      "title": "ApplicabilityProfile",
+      "type": "object"
+    },
     "DesignProfile": {
       "additionalProperties": false,
       "properties": {
@@ -601,7 +827,7 @@
   "additionalProperties": false,
   "properties": {
     "schema_version": {
-      "default": "0.2.0",
+      "default": "0.3.0",
       "title": "Schema Version",
       "type": "string"
     },
@@ -640,6 +866,17 @@
       },
       "title": "Unknowns",
       "type": "array"
+    },
+    "applicability": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ApplicabilityProfile"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
     }
   },
   "required": [

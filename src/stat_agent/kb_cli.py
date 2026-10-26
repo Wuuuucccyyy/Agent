@@ -46,6 +46,7 @@ def main(argv=None):
     search.add_argument('--embedding-config', type=Path)
     search.add_argument('--top-k', type=int, default=5)
     search.add_argument('--out', type=Path)
+    search.add_argument('--parameters', type=Path, help='JSON map: function_id (or *) to supported rule parameters')
     inspect = commands.add_parser('inspect', help='Inspect active snapshot and all review states')
     inspect.add_argument('--db', type=Path, default=Path('database/knowledge.sqlite3'))
     args = parser.parse_args(argv)
@@ -75,21 +76,31 @@ def main(argv=None):
                 for r in db.records(include_needs_review=True)]}
         else:
             encoder = pinned_encoder(args.embedding_config) if args.embedding_config else LexicalEncoder()
-            query, profiles = args.goal, None
+            if not 1 <= args.top_k <= 100:
+                raise ValueError('top-k must be between 1 and 100.')
+            query, profiles, task, profile = args.goal, None, None, None
+            from .agents import TaskUnderstandingAgent
+            task = TaskUnderstandingAgent().run(args.goal, task_type=args.task,
+                targets=args.targets, predictors=args.predictors, groups=args.groups)
             if args.input:
                 from .agents import TaskUnderstandingAgent, StructureAgent, RelationsAgent, ProfileValidationAgent
                 from .io import read_table
                 frame, source = read_table(args.input)
-                task = TaskUnderstandingAgent().run(args.goal, task_type=args.task,
-                    targets=args.targets, predictors=args.predictors, groups=args.groups)
                 validator = ProfileValidationAgent()
                 validator.validate_roles(frame, task)
                 profile = validator.run(frame, source, task, StructureAgent().run(frame, source), RelationsAgent().run(frame, task))
                 query = query_text(task, profile)
                 profiles = {'task': task.model_dump(mode='json'), 'data': profile.model_dump(mode='json')}
+            parameters = json.loads(args.parameters.read_text(encoding='utf-8')) if args.parameters else {}
+            if not isinstance(parameters, dict) or any(not isinstance(v, dict) for v in parameters.values()):
+                raise ValueError('Parameters must map function IDs to parameter objects.')
+            matches = db.search(query, encoder, 100, profile=profile, task=task,
+                                parameters=parameters, include_excluded=True)
             result = {'snapshot_id': db.snapshot()['snapshot_id'], 'encoder': encoder.name,
-                      'query': query, 'profiles': profiles, 'candidates': db.search(query, encoder, args.top_k),
-                      'scope': 'Candidate discovery only. Conditions are displayed, not executed as automatic hard rules.'}
+                      'query': query, 'profiles': profiles,
+                      'candidates': [r for r in matches if not r['conditions']['excluded']][:args.top_k],
+                      'excluded': [r for r in matches if r['conditions']['excluded']],
+                      'scope': 'Necessary conditions only: hard violations excluded, unknowns retained. No method execution authorized.'}
             if args.out:
                 write_json(args.out, result)
         print(json.dumps(result, ensure_ascii=False, indent=2))

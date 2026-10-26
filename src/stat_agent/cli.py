@@ -13,7 +13,7 @@ def main(argv=None) -> int:
     if arguments and arguments[0] == 'kb':
         from .kb_cli import main as knowledge_main
         return knowledge_main(arguments[1:])
-    parser = argparse.ArgumentParser(description="多模态统计分析 Agent v0.3：表格画像、CRAN 知识库与方法检索")
+    parser = argparse.ArgumentParser(description="多模态统计分析 Agent v0.4：表格画像、CRAN 知识库与条件检索")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser('kb', help='Collect CRAN references, build/restore/index/search the knowledge database')
     profile = commands.add_parser('profile', help='Generate a local dataset profile without method selection or execution')
@@ -46,8 +46,9 @@ def main(argv=None) -> int:
     try:
         if args.command == "schemas":
             from .kb_agents import SemanticProfile
+            from .kb_rules import RuleSet
             args.out.mkdir(parents=True, exist_ok=True)
-            for model in [TaskProfile, DataProfile, KnowledgeProfile, SemanticProfile]:
+            for model in [TaskProfile, DataProfile, KnowledgeProfile, SemanticProfile, RuleSet]:
                 (args.out / f"{model.__name__}.json").write_text(json.dumps(model.model_json_schema(), indent=2) + "\n", encoding="utf-8")
             return 0
         if args.command == 'profile':

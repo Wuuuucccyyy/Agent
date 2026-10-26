@@ -110,8 +110,31 @@ class DesignProfile(Contract):
     response_types: dict[str, str]
 
 
+class ApplicabilityProfile(Contract):
+    """Additional observed facts; None means unavailable, never a passing assumption."""
+    columns: list[str] = Field(default_factory=list)
+    group_columns: list[str] = Field(default_factory=list)
+    numeric_only: bool | None = None
+    numeric_or_boolean: bool | None = None
+    missing_count: int | None = None
+    nonfinite_count: int | None = None
+    pairwise_observed_overlap: bool | None = None
+    group_count: int | None = None
+    minimum_group_size: int | None = None
+    group_missing_count: int | None = None
+    within_group_full_rank: bool | None = None
+    pooled_within_variance_nonzero: bool | None = None
+    square: bool | None = None
+    symmetric: bool | None = None
+    diagonal_zero: bool | None = None
+    diagonal_one: bool | None = None
+    nonnegative: bool | None = None
+    correlation_bounds: bool | None = None
+    notes: list[str] = Field(default_factory=list)
+
+
 class DataProfile(Contract):
-    schema_version: str = "0.2.0"
+    schema_version: str = "0.3.0"
     source: SourceProfile
     structure: StructureProfile
     variables: list[VariableProfile]
@@ -120,6 +143,7 @@ class DataProfile(Contract):
     design: DesignProfile
     evidence: dict[str, Evidence]
     unknowns: list[str]
+    applicability: ApplicabilityProfile | None = None
 
 
 class KnowledgeProfile(Contract):

@@ -113,6 +113,7 @@ def missing_pattern_counts(missing: pd.DataFrame) -> dict[str, int]:
 
 def build_profile(frame: pd.DataFrame, source: SourceProfile, task: TaskProfile,
                   variables: list[VariableProfile], relations: RelationsProfile) -> DataProfile:
+    from .applicability_facts import describe_applicability
     missing = frame.isna()
     patterns = missing_pattern_counts(missing)
     outliers = {}
@@ -136,12 +137,14 @@ def build_profile(frame: pd.DataFrame, source: SourceProfile, task: TaskProfile,
             constant_columns=[v.name for v in variables if v.n_unique == 1],
             all_missing_columns=[v.name for v in variables if v.missing_count == len(frame)], warnings=warnings),
         relations=relations,
+        applicability=describe_applicability(frame, task, selected_features(frame, task)),
         design=DesignProfile(goal=task.task_type, response_types={v.name: v.kind for v in variables if v.name in task.target_variables}),
         evidence={
             "source": computed(source, "SHA256 and local reader metadata"),
             "structure": computed(source, "shape, duplicated, nunique; key candidates are uniqueness only"),
             "quality": computed(source, "missing masks and Tukey 1.5 IQR descriptive flags"),
             "relations": computed(source, relations.method),
+            "applicability": computed(source, "Selected finite observations, group counts/centered ranks and bounded missing-pattern overlap; no preprocessing"),
             "design": Evidence(origin="unknown", source="study protocol not supplied", method="not inferred", status="unknown"),
         },
         unknowns=["measurement_scales", "independence", "pairing", "sampling", "repeated_measures", "missingness_mechanism"],

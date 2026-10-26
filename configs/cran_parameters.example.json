@@ -1,0 +1,5 @@
+{
+  "cluster::pam": {"k": 2},
+  "cluster::clara": {"k": 2},
+  "psych::principal": {"nfactors": 2}
+}

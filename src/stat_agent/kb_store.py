@@ -70,6 +70,8 @@ class KnowledgeDatabase:
             draft.suitability_text, *[c.category+': '+c.statement for c in draft.claims]])
         if record['retrieval_text'] != expected_text:
             raise ValueError('Retrieval text differs from the validated semantic profile.')
+        from .kb_rules import validate_rule_set
+        validate_rule_set(record)
         return dict(payload, revision=checksum(payload))
 
     def save_profile(self, record):
@@ -167,7 +169,7 @@ class KnowledgeDatabase:
                         (record['revision'], encoder.name, checksum(record['retrieval_text']), len(vector), canonical(vector.tolist())))
         return {'model': encoder.name, 'total': len(records), 'encoded': len(missing), 'reused': len(records)-len(missing)}
 
-    def search(self, query, encoder, top_k=5):
+    def search(self, query, encoder, top_k=5, *, profile=None, task=None, parameters=None, include_excluded=False):
         if not query.strip() or not 1 <= top_k <= 100:
             raise ValueError('Nonempty query and top_k between 1 and 100 required.')
         records = self.records()
@@ -184,11 +186,21 @@ class KnowledgeDatabase:
             query_vector, matrix = encoder.encode_pair(query, [r['retrieval_text'] for r in records])
             query_vector, matrix = normalize(query_vector), normalize(matrix)
         scores = np.clip((query_vector @ matrix.T)[0], -1, 1)
-        ranked = sorted(zip(records, scores), key=lambda pair: (-pair[1], pair[0]['metadata']['function_id']))[:top_k]
+        from .kb_rules import evaluate_conditions
+        parameters = parameters or {}
+        if set(parameters) - {'*', *[r['metadata']['function_id'] for r in records]}:
+            raise ValueError('Parameters name an unknown function.')
+        verdicts = {r['revision']: evaluate_conditions(r, profile=profile, task=task,
+            parameters={**parameters.get('*', {}), **parameters.get(r['metadata']['function_id'], {})}) for r in records}
+        ranked = sorted(zip(records, scores), key=lambda pair: (-pair[1], pair[0]['metadata']['function_id']))
+        if not include_excluded:
+            ranked = [(r, score) for r, score in ranked if not verdicts[r['revision']]['excluded']][:top_k]
+        # Diagnostic callers need every exclusion before applying their eligible top-k.
         return [{'function_id': r['metadata']['function_id'], 'package_version': r['metadata']['package_version'],
                  'revision': r['revision'], 'cosine': float(score), 'suitability_text': r['semantic']['suitability_text'],
                  'claims': r['semantic']['claims'], 'unknowns': r['semantic']['unknowns'],
                  'status': r['status'], 'semantic_verification': r['semantic_verification'],
+                 'conditions': verdicts[r['revision']],
                  'source_url': r['metadata']['source_url'], 'execution_authorized': False} for r, score in ranked]
 
 
@@ -205,6 +217,12 @@ def render_catalog(bundle):
                   '参数：'+', '.join(p['name'] for p in meta['parameters']), '', '### 适用条件与输出', '']
         for claim in semantic['claims']:
             lines.append('- **'+claim['category']+'**：'+claim['statement'])
+        if record.get('source_audit'):
+            lines += ['', '### 来源复核与可计算条件', '',
+                      'Codex 对锁定版本原文逐项复核；保留原始模型复核记录，仍未经过独立人工审核或 R 运行。', '']
+            lines += ['- '+d['decision']+'：'+d['reason'] for d in record['source_audit']['decisions']]
+            lines += ['', '规则（满足 / 不满足 / 未知；明确违反硬条件才排除）：', '']
+            lines += ['- `'+r['id']+'`（'+r['severity']+'，'+r['origin']+'）：'+r['description'] for r in record['rules']['rules']]
         lines += ['', '### 未知与待复核', '']
         lines += ['- '+item for item in semantic['unknowns']]
         lines += ['- 复核意见：'+item for item in record['attempts'][-1]['review']['issues']]

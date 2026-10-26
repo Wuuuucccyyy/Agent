@@ -6,13 +6,13 @@ machine_checked 进入候选搜索；needs_review 保留待复核并从默认搜
 
 来源文档及改编部分沿用对应 CRAN 许可，见同目录 README 与许可证。
 
-快照：`aa61823f904a1b780aaf68113c85136e4269a228d8371d92ef54b3ae3ac489c1`
+快照：`5627edada29a91ab51d3691a89eb53c85bcef927b806ac70dc1a78c7768071a9`
 
 ## MASS::lda
 
 版本：7.3-66；状态：**machine_checked**。
 
-该函数执行线性判别分析，用于分类任务：以分组因子为响应、以非因子解释变量为判别器，拟合判别函数并输出类别与后验概率。输入可为公式+数据框，或矩阵/数据框+分组因子。可指定先验概率、容差、估计方法及留一交叉验证。需注意缺失值默认导致失败、常数变量会被拒绝。
+用于以分组因子为响应、非因子变量为判别变量的线性判别分析。支持公式或矩阵加分组因子。常规拟合返回 lda 对象；CV=TRUE 时返回留一交叉验证的类别与后验概率，常规预测需 predict.lda。支持先验概率、估计方法和缺失值策略；组内方差过小会报错。
 
 ### 函数接口
 
@@ -43,8 +43,37 @@ lda(x, \dots)
 - **preprocessing**：subset 与 na.action 若使用必须完整命名；na.action 默认使过程失败，na.omit 则剔除含缺失值的观测。
 - **failure**：若某变量组内方差小于 tol^2，函数会停止并报告该变量为常数；这可能源于变量恒定或尺度不佳。
 - **output**：非 CV 情形返回 "lda" 对象，含 prior、means、scaling、svd、N 与 call 等分量；svd 的平方为典型 F 统计量。
-- **assumption**：指定 prior 会影响分类（除非在 predict.lda 中覆盖），并影响判别旋转，因为使用了按先验加权的组间协方差矩阵。
+- **parameter**：指定 prior 会影响分类（除非在 predict.lda 中覆盖），并影响判别旋转，因为使用了按先验加权的组间协方差矩阵。
 - **failure**：若数据中缺失一个或多个组，这些组会被丢弃并给出警告，但分类仍相对于原始水平集合。
+
+### 来源复核与可计算条件
+
+Codex 对锁定版本原文逐项复核；保留原始模型复核记录，仍未经过独立人工审核或 R 运行。
+
+- corrected：区分常规拟合对象和 CV=TRUE 的类别/后验概率输出。
+- corrected：prior 影响分类和旋转属于参数行为，并非分布假设。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+
+规则（满足 / 不满足 / 未知；明确违反硬条件才排除）：
+
+- `task_match`（hard，derived）：用户任务类型须落在该函数画像覆盖的任务范围内；未确定任务时未知。
+- `input_kind`（hard，input_contract）：声明的输入形式须在当前画像支持范围内。
+- `nonempty_features`（hard，input_contract）：至少提供一列待分析变量。
+- `feature_types`（hard，input_contract）：所选分析列须为数值类型（允许逻辑类型）。
+- `group_role`（hard，official_document）：必须明确提供一个分组变量；未声明时未知。
+- `group_labels`（hard，input_contract）：分组标签不能缺失。
+- `missing_fail`（hard，official_document）：na.action=fail 时，判别变量不得含缺失值。
+- `preprocessing_observed`（hard，input_contract）：只有完整有限数据才具备当前规则需要的预处理完成证据；声明 na.omit 不等于已删行。
+- `estimation_method`（hard，official_document）：估计方法须为当前文档列出的取值。
+- `within_group_variance`（hard，derived）：判别变量的合并组内方差须非零。
 
 ### 未知与待复核
 
@@ -54,7 +83,7 @@ lda(x, \dots)
 
 [官方源码包](https://cran.r-project.org/src/contrib/MASS_7.3-66.tar.gz)；文档 `MASS/man/lda.Rd`。
 
-画像版本：`cd7e0e24b80a623113e9251c15b5cf94316cc44f2dfcda8b984bdd57152fcf01`。逐条原文证据和参数说明见同名 JSON。
+画像版本：`c2e744ff2004f01befe6681a116f36eae9f254576ae6cce04a52e25a1928555f`。逐条原文证据和参数说明见同名 JSON。
 
 ## MASS::lm.ridge
 
@@ -78,23 +107,45 @@ select(obj)
 
 - **input**：该函数通过公式指定响应变量与预测变量，拟合线性模型。
 - **input**：data 可为数据框、列表或环境，用于解释公式中的变量；offset 项被允许。
-- **parameter**：lambda 可为标量或向量，表示一个或多个岭常数。
+- **parameter**：lambda 可为标量或向量，表示一个或多个岭常数；默认 lambda=0。
 - **parameter**：subset 用于选择参与拟合的行，默认包含全部观测；na.action 用于过滤缺失数据。
 - **parameter**：contrasts 可为公式中的部分或全部因子项指定对比方式。
-- **assumption**：若模型中存在截距，其系数不被惩罚；若要惩罚截距，需自行加入常数项并移除截距。
+- **parameter**：若模型中存在截距，其系数不被惩罚；若要惩罚截距，需自行加入常数项并移除截距。
 - **output**：返回列表，其中 coef 为系数矩阵，每行对应一个 lambda 值；这些系数不在原始尺度上，需由 coef 方法使用。
 - **output**：返回值还包含 scales（X 矩阵缩放）、Inter（是否含截距）、lambda、ym、xm、GCV、kHKB 与 kLW 等分量。
 - **failure**：model、x、y 参数（是否返回模型框、设计矩阵、响应）未实现。
+
+### 来源复核与可计算条件
+
+Codex 对锁定版本原文逐项复核；保留原始模型复核记录，仍未经过独立人工审核或 R 运行。
+
+- corrected：补入 usage 明确提供的默认值。
+- corrected：截距不惩罚是算法参数行为，不能当作统计假设。
+- corrected：删除“默认值未知（默认0）”自相矛盾表述，不否认文档中的选择辅助信息。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+
+规则（满足 / 不满足 / 未知；明确违反硬条件才排除）：
+
+- `task_match`（hard，derived）：用户任务类型须落在该函数画像覆盖的任务范围内；未确定任务时未知。
+- `input_kind`（hard，input_contract）：声明的输入形式须在当前画像支持范围内。
+- `nonempty_features`（hard，input_contract）：至少提供一列待分析变量。
+- `response_role`（hard，derived）：岭回归须明确一个数值响应变量；未声明时未知。
 
 ### 未知与待复核
 
 - 文档未说明对样本量、变量分布或残差独立同分布等推断性假设的要求。
 - 文档未说明该函数对任意特定用户数据集的适用性或预测性能。
-- 文档未说明 lambda 的默认取值或推荐选择方式（仅说明默认 lambda = 0）。
+- lambda 默认值为 0；文档提供 GCV、HKB、L-W 等信息，但不能据此确定某个用户数据集的合适 lambda 或预测表现。
 
 [官方源码包](https://cran.r-project.org/src/contrib/MASS_7.3-66.tar.gz)；文档 `MASS/man/lm.ridge.Rd`。
 
-画像版本：`531aa23cbb48846084c7768a0a3536f9233e8529c855afedd1ef4df1e27c4ec1`。逐条原文证据和参数说明见同名 JSON。
+画像版本：`972855ac5434761d50ea2d1d3a6867c0fe4581ea0d296405f6631e26b6e9851e`。逐条原文证据和参数说明见同名 JSON。
 
 ## MASS::qda
 
@@ -130,9 +181,38 @@ qda(x, \dots)
 - **parameter**：subset 为指定训练样本案例的索引向量，na.action 指定缺失值处理；两者若给出必须命名。
 - **preprocessing**：默认缺失值处理是使过程失败；可选用 na.omit 以剔除在任一所需变量上存在缺失值的案例。
 - **parameter**：CV=TRUE 时返回留一交叉验证的结果（类别与后验概率）；若先验被估计，则使用整个数据集的类别比例。
-- **output**：返回 qda 类对象，包含 prior、means、scaling、ldet、lev、terms（若为公式）与 call 等组件。
+- **output**：非 CV 拟合返回 qda 对象，包含 prior、means、scaling、ldet、lev 和 call 等；CV=TRUE 的类别与后验概率输出另见对应说明。
 - **output**：当 CV=TRUE 时，返回值是含 class（MAP 分类因子）与 posterior（各类后验概率）的列表。
 - **failure**：使用 QR 分解，若任一组内方差奇异则给出错误信息。
+
+### 来源复核与可计算条件
+
+Codex 对锁定版本原文逐项复核；保留原始模型复核记录，仍未经过独立人工审核或 R 运行。
+
+- corrected：为普通拟合对象补上非 CV 的前提，避免与留一交叉验证混淆。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+
+规则（满足 / 不满足 / 未知；明确违反硬条件才排除）：
+
+- `task_match`（hard，derived）：用户任务类型须落在该函数画像覆盖的任务范围内；未确定任务时未知。
+- `input_kind`（hard，input_contract）：声明的输入形式须在当前画像支持范围内。
+- `nonempty_features`（hard，input_contract）：至少提供一列待分析变量。
+- `feature_types`（hard，input_contract）：所选分析列须为数值类型（允许逻辑类型）。
+- `group_role`（hard，official_document）：必须明确提供一个分组变量；未声明时未知。
+- `group_labels`（hard，input_contract）：分组标签不能缺失。
+- `missing_fail`（hard，official_document）：na.action=fail 时，判别变量不得含缺失值。
+- `preprocessing_observed`（hard，input_contract）：只有完整有限数据才具备当前规则需要的预处理完成证据；声明 na.omit 不等于已删行。
+- `estimation_method`（hard，official_document）：估计方法须为当前文档列出的取值。
+- `group_size_rank_bound`（hard，derived）：每组样本数必须严格大于判别变量数，这是组内协方差满秩的必要条件。
+- `observed_group_rank`（advisory，derived）：NumPy 检查各组中心化矩阵是否列满秩；仅作数值诊断。
 
 ### 未知与待复核
 
@@ -142,11 +222,11 @@ qda(x, \dots)
 
 [官方源码包](https://cran.r-project.org/src/contrib/MASS_7.3-66.tar.gz)；文档 `MASS/man/qda.Rd`。
 
-画像版本：`4e4f1b4e77ebf85c5b1e359acf60905a4f36da0a3f5317b2752e1b7ca00bdac0`。逐条原文证据和参数说明见同名 JSON。
+画像版本：`9fcde0a2a19febe00500bd105ac7625b0e2233025593506e2c1ac9197c4203ed`。逐条原文证据和参数说明见同名 JSON。
 
 ## cluster::agnes
 
-版本：2.1.8.3；状态：**needs_review**。
+版本：2.1.8.3；状态：**machine_checked**。
 
 agnes 用于对数据集进行凝聚式层次聚类。输入可为数值型数据矩阵/数据框（行=观测、列=变量，允许缺失值），或相异度矩阵/向量（不允许缺失值）。可通过 metric 选择欧氏或曼哈顿距离，stand 控制标准化，method 选择 linkage 方法。输出为 agnes 类对象，含凝聚系数并可通过 plot.agnes 查看 banner 图形。
 
@@ -171,27 +251,55 @@ agnes(x, diss = inherits(x, "dist"), metric = "euclidean",
 - **parameter**：metric 可选 "euclidean" 或 "manhattan"；若 x 已是相异度矩阵，该参数被忽略。
 - **parameter**：stand=TRUE 时按列标准化（减去均值并除以平均绝对偏差）；若 x 已是相异度矩阵则被忽略。
 - **parameter**：method 实现的方法包括 average、single、complete、ward、weighted，以及作为 weighted 推广的 flexible 和作为 average 推广的 gaverage（后两者使用 Lance-Williams 公式与 par.method）。
-- **parameter**：par.method 仅在 method 为 flexible 或 gaverage 时使用，为长度 1、3 或 4 的数值向量（gaverage 有默认值）。
+- **parameter**：par.method 仅在 method 为 flexible 或 gaverage 时使用，为长度 1、3 或 4 的数值向量（gaverage 有默认值）。 method="gaverage" 且未指定 par.method 时，默认值为 -0.1。
 - **parameter**：keep.diss 与 keep.data 控制是否在结果中保留相异度与输入数据，设为 FALSE 可显著减小结果并节省内存。
 - **output**：返回 agnes 类对象（继承自 twins），表示聚类结果，并产生凝聚系数以度量聚类结构。
 - **output**：除树状结构外，agnes 还提供 banner 图形显示（通过 plot.agnes 查看）。
 - **failure**：自 cluster 2.0 起，导致无效合并结构的选择会报错。
+
+### 来源复核与可计算条件
+
+Codex 对锁定版本原文逐项复核；保留原始模型复核记录，仍未经过独立人工审核或 R 运行。
+
+- false_positive：原文明确称 flexible 为 weighted 的推广；weighted 是 flexible 的特例，二者不矛盾。
+- corrected：补全有助于使用的默认参数信息；此前省略并非与原文矛盾。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+
+规则（满足 / 不满足 / 未知；明确违反硬条件才排除）：
+
+- `task_match`（hard，derived）：用户任务类型须落在该函数画像覆盖的任务范围内；未确定任务时未知。
+- `input_kind`（hard，input_contract）：声明的输入形式须在当前画像支持范围内。
+- `nonempty_features`（hard，input_contract）：至少提供一列待分析变量。
+- `feature_types`（hard，official_document）：所选分析列须为数值类型。
+- `metric`（hard，official_document）：原始观测输入的距离度量须为官方支持的取值。
+- `distance_missing`（hard，official_document）：不相似度输入不得包含缺失值。
+- `distance_matrix`（hard，input_contract）：声明为完整不相似度矩阵时须方阵、对称、零对角线且非负。
+- `distance_vector`（hard，official_document）：压缩不相似度向量须为单列且长度等于 n(n-1)/2。
+- `linkage`（hard，official_document）：聚合方法须为官方列出的七种方法之一。
 
 ### 未知与待复核
 
 - 文档未说明对样本量、变量独立性或分布的任何要求，也未确立该函数对任意特定用户数据集的适用性。
 - 文档未说明 ward 方法的具体距离更新公式或其对欧氏距离的依赖。
 - 文档未说明缺失值在矩阵/数据框形式下如何处理（如成对删除或插补）。
-- 复核意见：claim "method 实现的方法包括 average、single、complete、ward、weighted，以及作为 weighted 推广的 flexible 和作为 average 推广的 gaverage" 中，将 flexible 描述为 weighted 的推广、gaverage 描述为 average 的推广，与原文不符。原文 arguments 明确列出六种方法为 average、single、complete、ward、weighted、flexible、gaverage（实为七种），且 details 中说明 weighted 等价于 flexible, par.method=0.5（即 weighted 是 flexible 的特例，而非 flexible 是 weighted 的推广），gaverage 是 average 的推广（flexible UPGMA）。应改为：方法包括 average、single、complete、ward、weighted、flexible、gaverage，其中 weighted 等价于 flexible, par.method=0.5，gaverage 是 average 的推广。
-- 复核意见：claim "par.method 仅在 method 为 flexible 或 gaverage 时使用，为长度 1、3 或 4 的数值向量（gaverage 有默认值）" 中，"仅在 method 为 flexible 或 gaverage 时使用" 的表述与原文一致，但原文还说明 gaverage 的默认值为 -0.1（"if par.method is not specified, a default value of -0.1 is used"），该默认值信息被省略，导致 gaverage 默认行为描述不完整。建议补充 gaverage 默认 par.method = -0.1。
 
 [官方源码包](https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz)；文档 `cluster/man/agnes.Rd`。
 
-画像版本：`a270a1ad1a30e23bfb6cf8e9b28b35e1f1debd209aa7017aecf4fbc055bfb62a`。逐条原文证据和参数说明见同名 JSON。
+画像版本：`b1931a6acea5ee3668035535264053dbdd3ca8812f876739c6825365062c384a`。逐条原文证据和参数说明见同名 JSON。
 
 ## cluster::clara
 
-版本：2.1.8.3；状态：**needs_review**。
+版本：2.1.8.3；状态：**machine_checked**。
 
 clara 用于将数据划分为 k 个簇的分区聚类，适合处理远大于 pam 可处理规模的数据集。输入为数值（或逻辑）矩阵/数据框，允许缺失值；需指定簇数 k（0<k<n）。可通过 metric、stand、samples、sampsize 等参数控制距离度量、标准化与抽样规模，输出 clara 对象或仅聚类向量。
 
@@ -216,28 +324,52 @@ clara(x, k, metric = c("euclidean", "manhattan", "jaccard"),
 - **parameter**：metric 指定计算观测间相异度的度量，可选 "euclidean"、"manhattan"、"jaccard"；欧氏距离为差值平方和的平方根，曼哈顿距离为绝对差之和。
 - **preprocessing**：stand=TRUE 时，在计算相异度前对每列变量标准化，即减去该变量均值并除以该变量的平均绝对偏差。
 - **parameter**：samples 为抽取的样本数，默认 N=5 偏小，文档建议将其设大一个数量级；sampsize 为每个样本的观测数，默认 min(n, 40+2*k)，应大于 k 且至多为 n。
-- **assumption**：在固定子样本大小（sampsize）与样本数（samples）下，时间与存储需求随 n 线性增长而非二次增长；存储约为 O(n*p)+O(j^2)，CPU 时间约为 O(n*p*j^2*N)，其中 j=sampsize、N=samples。
+- **parameter**：当簇数 k 较小，且变量数 p、抽样大小 j=sampsize 与抽样次数 N=samples 固定时，时间与存储随 n 线性增长；存储约 O(n*p)+O(j^2)，CPU 时间约 O(n*p*j^2*N)。
 - **output**：cluster.only=FALSE（默认）时返回类 "clara" 的对象；cluster.only=TRUE 时返回长度为 n、取值为 1:k 的整数聚类向量。
-- **failure**：当 x 中存在 NA 时，correct.d 控制是否使用正确的距离计算；默认 correct.d=TRUE（即默认使用正确公式），若未显式指定 correct.d 会发出警告。
+- **failure**：数据存在 NA 时，除非用户显式指定 correct.d，否则会发出警告；默认 correct.d=TRUE，控制是否使用正确的距离计算。
 - **parameter**：rngR=FALSE 时使用 Fortran 内置的确定性抽样方案；rngR=TRUE 时使用 R 的随机数生成器，每次调用结果不同，可用 set.seed() 使结果可复现。
+
+### 来源复核与可计算条件
+
+Codex 对锁定版本原文逐项复核；保留原始模型复核记录，仍未经过独立人工审核或 R 运行。
+
+- corrected：确认旧复核指出的实质遗漏，补上小 k 和固定维度的复杂度前提。
+- corrected：警告取决于是否显式提供参数，原说明已含此条件；调整语序消除歧义。
+- false_positive：旧复核一边承认该描述与原文一致、一边判为错误；不是实质错误，现进一步澄清。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+
+规则（满足 / 不满足 / 未知；明确违反硬条件才排除）：
+
+- `task_match`（hard，derived）：用户任务类型须落在该函数画像覆盖的任务范围内；未确定任务时未知。
+- `input_kind`（hard，input_contract）：声明的输入形式须在当前画像支持范围内。
+- `nonempty_features`（hard，input_contract）：至少提供一列待分析变量。
+- `feature_types`（hard，official_document）：所选分析列须为数值类型（允许逻辑类型）。
+- `metric`（hard，official_document）：原始观测输入的距离度量须为官方支持的取值。
+- `cluster_count`（hard，official_document）：簇数 k 须为正整数且小于观测数；未提供 k 时未知。
+- `sample_size`（hard，official_document）：抽样大小须大于 k 且不超过 n；未指定时按 min(n,40+2k) 计算。
 
 ### 未知与待复核
 
 - 文档未给出适用于特定用户数据集的样本量阈值，仅说明 clara 可处理远大于 pam 的数据集，"小"数据集取决于可用内存与速度。
 - 文档未对数据分布、独立性或正态性等推断性假设作出说明，因此本函数对任意特定用户数据集的适用性未经验证。
 - 文档未说明 jaccard 度量下 clara 的算法细节（details 仅针对 euclidean 与 manhattan 描述）。
-- 复核意见：claim（failure 类）关于 correct.d 的表述有误：文档说明默认 correct.d=TRUE，但警告是在存在 NA 且用户未显式指定 correct.d 时发出。该 claim 将"默认使用正确公式"与"未显式指定会警告"并列陈述，但未准确传达：即使默认 correct.d=TRUE，只要用户未显式指定，仍会发出警告。原文为"a warning is signalled in this case, unless the user explicitly specifies correct.d"，即警告条件仅取决于是否显式指定，而非取决于 correct.d 的取值。当前表述"默认 correct.d=TRUE（即默认使用正确公式），若未显式指定 correct.d 会发出警告"实际上与原文一致，但需确认：原文并未说明默认 correct.d=TRUE 时使用正确公式这一因果，且警告与 correct.d 取值无关。建议改为：存在 NA 时，除非用户显式指定 correct.d，否则会发出警告；默认 correct.d=TRUE。
-- 复核意见：claim（assumption 类）将复杂度表述为"在固定子样本大小与样本数下，时间与存储需求随 n 线性增长"，但原文 note 中存储复杂度 O(n*p)+O(j^2) 与 CPU 时间 O(n*p*j^2*N) 均以"for small k"为前提条件，且 details 中"linear in n rather than quadratic"是针对存储与时间随 n 的缩放。当前 claim 未提及"for small k"这一限定，可能过度概括。建议补充"（假设 k 较小）"这一限定。
 
 [官方源码包](https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz)；文档 `cluster/man/clara.Rd`。
 
-画像版本：`d1fd90818704a9643c0878ad50c210d70c189054005ec5ec6b57f36346512ff1`。逐条原文证据和参数说明见同名 JSON。
+画像版本：`0a655d2e295a8d986e3491d77f52930e2dae3fb0f5495f95376b784fac503c91`。逐条原文证据和参数说明见同名 JSON。
 
 ## cluster::diana
 
 版本：2.1.8.3；状态：**machine_checked**。
 
-该函数用于对数据集执行分裂式层次聚类，返回 diana 类对象。输入可为数值型数据矩阵/数据框（行=观测、列=变量，允许缺失值），或由 daisy/dist 生成的相异度矩阵/对象（不允许缺失值）。可通过 metric 选择欧氏或曼哈顿距离，stand 控制按列标准化。输出含分裂系数 dc、merge 矩阵、order 等，并支持 print/summary/plot 及 as.hclust、cutree 等后续处理。
+该函数用于对数据集执行分裂式层次聚类，返回 diana 类对象。输入可为数值型数据矩阵/数据框（行=观测、列=变量，允许缺失值），或通常由 daisy/dist 生成的相异度矩阵/对象（不允许缺失值）。可通过 metric 选择欧氏或曼哈顿距离，stand 控制按列标准化。输出含分裂系数 dc、merge 矩阵、order 等，并支持 print/summary/plot 及 as.hclust、cutree 等后续处理。
 
 ### 函数接口
 
@@ -263,7 +395,35 @@ diana(x, diss = inherits(x, "dist"), metric = "euclidean", stand = FALSE,
 - **output**：返回 diana 类对象，含 order、height、dc（分裂系数）、merge 等组件，并提供 print、summary、plot 方法。
 - **output**：diana 类继承自 twins，可用 pltree，且提供 as.hclust 与 as.dendrogram 方法；cutree 可用于分组提取。
 - **output**：分裂系数 dc 随观测数增长，因此不应用于比较规模差异很大的数据集。
-- **failure**：当输入为相异度矩阵时，data 组件不可用；keep.diss 与 keep.data 设为 FALSE 可减小结果体积。
+- **output**：当输入为相异度矩阵时，data 组件不可用；keep.diss 与 keep.data 设为 FALSE 可减小结果体积。
+
+### 来源复核与可计算条件
+
+Codex 对锁定版本原文逐项复核；保留原始模型复核记录，仍未经过独立人工审核或 R 运行。
+
+- clarified：daisy/dist 是距离对象的常见来源，不是独占来源限制。
+- corrected：data 分量可用性和保存对象大小属于输出行为，不是运行失败条件。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+
+规则（满足 / 不满足 / 未知；明确违反硬条件才排除）：
+
+- `task_match`（hard，derived）：用户任务类型须落在该函数画像覆盖的任务范围内；未确定任务时未知。
+- `input_kind`（hard，input_contract）：声明的输入形式须在当前画像支持范围内。
+- `nonempty_features`（hard，input_contract）：至少提供一列待分析变量。
+- `feature_types`（hard，official_document）：所选分析列须为数值类型。
+- `metric`（hard，official_document）：原始观测输入的距离度量须为官方支持的取值。
+- `distance_missing`（hard，official_document）：不相似度输入不得包含缺失值。
+- `distance_matrix`（hard，input_contract）：声明为完整不相似度矩阵时须方阵、对称、零对角线且非负。
+- `distance_vector`（hard，official_document）：压缩不相似度向量须为单列且长度等于 n(n-1)/2。
 
 ### 未知与待复核
 
@@ -273,7 +433,7 @@ diana(x, diss = inherits(x, "dist"), metric = "euclidean", stand = FALSE,
 
 [官方源码包](https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz)；文档 `cluster/man/diana.Rd`。
 
-画像版本：`f26327a7d6970c03ea92ed535fb5eb3749780ebca9dea991cbf4666d3df180c8`。逐条原文证据和参数说明见同名 JSON。
+画像版本：`9d5faf98162193209c4148501effe0cdafcccf2849262d0625771bea6df5953f`。逐条原文证据和参数说明见同名 JSON。
 
 ## cluster::pam
 
@@ -309,24 +469,55 @@ pam(x, k, diss = inherits(x, "dist"),
 - **parameter**：diss 为逻辑标志：TRUE（dist 或相异度对象的默认值）时 x 视为相异度矩阵，FALSE 时视为观测×变量矩阵。
 - **parameter**：metric 可选 "euclidean" 或 "manhattan"；若 x 已是相异度矩阵则该参数被忽略。
 - **preprocessing**：stand=TRUE 时在计算相异度前对每个变量（列）标准化，即减去变量均值并除以变量的平均绝对偏差；若 x 已是相异度矩阵则被忽略。
-- **parameter**：medoids 可为 NULL（默认，使用 build 算法）或长度为 k 的整数索引向量（在 1:n 内）指定初始中心点；nstart 仅在 medoids="random" 时用于指定随机重启次数。
+- **parameter**：通常 medoids=NULL 时使用 build 算法；也可用长度 k、取值在 1:n 的整数向量指定初始中心。medoids="random" 时由 nstart 指定随机启动次数；variant="faster" 会采用随机中心的默认设置。
 - **parameter**：variant 是 pamonce 的更自文档化版本，应优先使用；"faster" 使用 pamonce=6 且默认 nstart=1、medoids="random"。
 - **output**：返回类 "pam" 的聚类对象；当 cluster.only=TRUE 时仅返回（可能带名称的）整数聚类向量，等价于 pam(x,k)$clustering 但计算更高效。
 - **failure**：对于大数据集，pam 可能因内存或计算时间（均为 O(n^2)）不足而受限，此时 clara() 更可取；且存在 n <= 65536 的硬上限。
 
+### 来源复核与可计算条件
+
+Codex 对锁定版本原文逐项复核；保留原始模型复核记录，仍未经过独立人工审核或 R 运行。
+
+- corrected：默认 medoids 与 variant/nstart 有条件关系，不能无条件声称总为 NULL。
+- corrected：区分已知实现上限与未知的研究样本充分性。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+
+规则（满足 / 不满足 / 未知；明确违反硬条件才排除）：
+
+- `task_match`（hard，derived）：用户任务类型须落在该函数画像覆盖的任务范围内；未确定任务时未知。
+- `input_kind`（hard，input_contract）：声明的输入形式须在当前画像支持范围内。
+- `nonempty_features`（hard，input_contract）：至少提供一列待分析变量。
+- `feature_types`（hard，official_document）：所选分析列须为数值类型（允许逻辑类型）。
+- `metric`（hard，official_document）：原始观测输入的距离度量须为官方支持的取值。
+- `distance_missing`（hard，official_document）：不相似度输入不得包含缺失值。
+- `distance_matrix`（hard，input_contract）：声明为完整不相似度矩阵时须方阵、对称、零对角线且非负。
+- `distance_vector`（hard，official_document）：压缩不相似度向量须为单列且长度等于 n(n-1)/2。
+- `cluster_count`（hard，official_document）：簇数 k 须为正整数且小于观测数；未提供 k 时未知。
+- `pairwise_overlap`（hard，official_document）：每对观测必须至少共享一个非缺失变量。
+- `sample_cap`（hard，official_document）：当前锁定版本的观测数不能超过 65536。
+
 ### 未知与待复核
 
-- 文档未说明该函数对任何特定用户数据集的适用性，也未给出样本量阈值、正态性或独立性等推断性假设要求。
+- 除文档的 n<=65536 实现上限之外，未确定针对特定用户数据集的样本充分性或适用性；正态性、独立性等推断假设未在此文档建立。
 - 文档未说明聚类质量或最优簇数 k 的判定标准（仅提及可用 silhouette 宽度辅助选择）。
 - 文档未说明 do.swap=FALSE 或不同 pamonce/variant 设置对最终聚类结果质量的具体影响程度。
 
 [官方源码包](https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz)；文档 `cluster/man/pam.Rd`。
 
-画像版本：`db3589d99baed8a32dcfef47c06df3d2cce8804b124dbabbfbc5b037758a00c9`。逐条原文证据和参数说明见同名 JSON。
+画像版本：`c5f4bc61ee12bbc7a56329420601e0e6e83e87f542a4b1b5e46efae37b55ac46`。逐条原文证据和参数说明见同名 JSON。
 
 ## psych::principal
 
-版本：2.6.9；状态：**needs_review**。
+版本：2.6.9；状态：**machine_checked**。
 
 该函数用于主成分分析(PCA)：对相关矩阵或协方差矩阵做特征值分解，提取指定数量的成分，返回特征值、载荷、拟合度及(可选)残差相关与成分得分。输入可为相关矩阵或原始数据矩阵(自动按成对删除求相关)。支持多种旋转/变换、缺失值插补、观测权重及多种相关类型。注意旋转后的成分不再是严格意义上的主成分，且部分统计量更适合因子分析、仅供比较。
 
@@ -349,25 +540,48 @@ hyper=.15,...)
 - **input**：covar=FALSE 时从原始数据求相关矩阵，或将输入的方阵转换为相关矩阵。
 - **parameter**：nfactors 指定要提取的成分数量；residuals=TRUE 时报告残差相关。
 - **parameter**：rotate 可选 "none"、"varimax"、"quartimax"、"promax"、"oblimin"、"simplimax"、"cluster" 等旋转/变换。
-- **parameter**：cor 参数可选择 Pearson("cor")、协方差("cov")、tetrachoric("tet")、polychoric("poly")、mixed(mixedCor 混合)以及 Yuleb、Yuleq、YuleY 等 Yule 系数。
+- **parameter**：cor 可选 Pearson("cor")、协方差("cov")、tetrachoric("tet")、polychoric("poly")、mixed(mixedCor)；Yuleb 对应 Yulebonett，Yuleq、YuleY 对应相应的 Yule 系数。
 - **parameter**：scores=TRUE 且 missing=TRUE 时，用中位数或均值(impute="median"/"mean")插补缺失值。
 - **parameter**：weight 若非 NULL，为长度 n.obs 的每观测权重向量；NULL 等价于所有观测权重为 1。
 - **preprocessing**：use 参数控制缺失数据处理方式，默认 use="pairwise"，其他选项见 cor。
 - **output**：返回特征值(values)、载荷矩阵(loadings)、模型对相关矩阵的拟合(fit)、非对角元素复现程度(fit.off)、残差矩阵(若请求)及自由度(dof)。
-- **output**：scores=TRUE 时报告成分得分估计；回归权重由相关矩阵的逆乘以载荷求得，且基于结构矩阵(Structure matrix)而非模式矩阵(Pattern matrix)。
+- **output**：scores=TRUE 时可返回成分得分。默认 oblique.scores=TRUE 时回归权重基于结构矩阵；设为 FALSE 时基于模式矩阵。
 - **output**：若请求斜交旋转(如 oblimin)，返回成分间相关 Phi；rot.mat 为产生旋转载荷的旋转矩阵。
-- **failure**：旋转后的主成分不再是特征值分解对应的主成分，而仅是成分(标记为 RCi/TCi)；部分统计量更适合最大似然因子分析，仅供比较。
+- **output**：旋转后的主成分不再是特征值分解对应的主成分，而仅是成分(标记为 RCi/TCi)；部分统计量更适合最大似然因子分析，仅供比较。
+
+### 来源复核与可计算条件
+
+Codex 对锁定版本原文逐项复核；保留原始模型复核记录，仍未经过独立人工审核或 R 运行。
+
+- corrected：细化 Yuleb 的具体名称；其余可选相关类型保留。
+- corrected：原声明已提结构矩阵，但还需补上 oblique.scores=FALSE 的例外，避免把默认设置当作所有设置。
+- corrected：旋转后成分的解释边界不是运行失败条件。
+- false_positive：旧复核自行确认 fit/fit.off 释义可接受；Phi 的成分间/因子间术语偏好不构成实质错误。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+- confirmed：已与锁定版本原文及逐条引用核对，保留原声明。
+
+规则（满足 / 不满足 / 未知；明确违反硬条件才排除）：
+
+- `task_match`（hard，derived）：用户任务类型须落在该函数画像覆盖的任务范围内；未确定任务时未知。
+- `input_kind`（hard，input_contract）：声明的输入形式须在当前画像支持范围内。
+- `nonempty_features`（hard，input_contract）：至少提供一列待分析变量。
+- `component_count`（hard，derived）：成分数须为正整数且不能超过输入变量数；默认 1。
+- `pca_matrix`（hard，input_contract）：声明为相关或协方差矩阵时须方阵且对称。
+- `correlation_matrix`（hard，input_contract）：相关矩阵的对角线须为 1，元素绝对值不超过 1。
 
 ### 未知与待复核
 
 - 文档未说明对样本量、变量分布(如正态性)或变量间独立性的任何要求。
 - 文档未说明该函数对任意特定用户数据集的适用性，也未给出成分数量选择的统计准则(需借助 VSS、fa.parallel 等)。
 - 文档未说明 tetrachoric/polychoric/mixed 相关在空单元格处理(correct 参数)之外的具体适用条件。
-- 复核意见：claim 'cor 参数可选择...Yuleb、Yuleq、YuleY 等 Yule 系数' 的表述不准确：原文为 'Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients as appropriate'，即 Yuleb 对应 Yulebonett 系数，Yuleq 与 YuleY 是相应的 Yule 系数，并非三种都叫 Yule 系数。请修正为 Yuleb(Yulebonett)、Yuleq、YuleY 等。
-- 复核意见：claim 'scores=TRUE 时报告成分得分估计；回归权重由相关矩阵的逆乘以载荷求得' 中，回归权重公式表述不完整：原文为 'R^(-1) lambda'，即相关矩阵的逆乘以载荷矩阵，且该回归权重基于结构矩阵(Structure matrix)而非模式矩阵。当前表述将'基于结构矩阵'与'相关矩阵的逆乘以载荷'并列，但原文明确指出回归权重由结构矩阵求得，请明确回归权重基于结构矩阵。
-- 复核意见：claim '返回特征值(values)、载荷矩阵(loadings)、模型对相关矩阵的拟合(fit)、非对角元素复现程度(fit.off)、残差矩阵(若请求)及自由度(dof)' 中，将 fit 表述为'模型对相关矩阵的拟合'不够准确：原文为 'fit Fit of the model to the correlation matrix'，可接受，但 fit.off 原文为 'how well are the off diagonal elements reproduced?'，表述为'非对角元素复现程度'可接受。此条无实质问题。
-- 复核意见：claim '若请求斜交旋转(如 oblimin)，返回成分间相关 Phi' 中，原文为 'Phi If oblique rotations (using oblimin from the GPArotation package) are requested, what is the interfactor correlation.'，表述为'成分间相关'可接受，但原文用词为 interfactor correlation(因子间相关)，建议保留'因子间相关'以忠实原文。
 
 [官方源码包](https://cran.r-project.org/src/contrib/psych_2.6.9.tar.gz)；文档 `psych/man/principal.Rd`。
 
-画像版本：`813e43d235e0d26c3bb71936986a9b69a3dff11379477401c2c1518a42bb015b`。逐条原文证据和参数说明见同名 JSON。
+画像版本：`0d5fc5dc7a044cc7d45f34c36a8f1727a940035452186bd7e6de1cde98a88dad`。逐条原文证据和参数说明见同名 JSON。

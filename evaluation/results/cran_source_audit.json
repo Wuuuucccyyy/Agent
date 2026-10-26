@@ -1,0 +1,552 @@
+{
+  "audit_version": "codex-cran-source-audit-1",
+  "reviewer": "codex_source_audit",
+  "snapshot": {
+    "schema_version": "1.0",
+    "source_lock_sha256": "38267844a60a93223caa14fe5c61d475ac5af1b36e13f4719013bb7c98a8d8ca",
+    "revisions": [
+      "0a655d2e295a8d986e3491d77f52930e2dae3fb0f5495f95376b784fac503c91",
+      "0d5fc5dc7a044cc7d45f34c36a8f1727a940035452186bd7e6de1cde98a88dad",
+      "972855ac5434761d50ea2d1d3a6867c0fe4581ea0d296405f6631e26b6e9851e",
+      "9d5faf98162193209c4148501effe0cdafcccf2849262d0625771bea6df5953f",
+      "9fcde0a2a19febe00500bd105ac7625b0e2233025593506e2c1ac9197c4203ed",
+      "b1931a6acea5ee3668035535264053dbdd3ca8812f876739c6825365062c384a",
+      "c2e744ff2004f01befe6681a116f36eae9f254576ae6cce04a52e25a1928555f",
+      "c5f4bc61ee12bbc7a56329420601e0e6e83e87f542a4b1b5e46efae37b55ac46"
+    ],
+    "snapshot_id": "5627edada29a91ab51d3691a89eb53c85bcef927b806ac70dc1a78c7768071a9"
+  },
+  "source_documents_verified": 8,
+  "machine_checked": 8,
+  "needs_review": 0,
+  "claims_reviewed": 85,
+  "rules": 66,
+  "functions": [
+    {
+      "function_id": "MASS::lda",
+      "original_revision": "cd7e0e24b80a623113e9251c15b5cf94316cc44f2dfcda8b984bdd57152fcf01",
+      "revision": "c2e744ff2004f01befe6681a116f36eae9f254576ae6cce04a52e25a1928555f",
+      "decisions": [
+        {
+          "decision": "corrected",
+          "location": "suitability_text",
+          "reason": "区分常规拟合对象和 CV=TRUE 的类别/后验概率输出。"
+        },
+        {
+          "decision": "corrected",
+          "location": "claims[8]",
+          "reason": "prior 影响分类和旋转属于参数行为，并非分布假设。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[0]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[1]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[2]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[3]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[4]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[5]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[6]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[7]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[9]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        }
+      ],
+      "rules": 10
+    },
+    {
+      "function_id": "MASS::lm.ridge",
+      "original_revision": "531aa23cbb48846084c7768a0a3536f9233e8529c855afedd1ef4df1e27c4ec1",
+      "revision": "972855ac5434761d50ea2d1d3a6867c0fe4581ea0d296405f6631e26b6e9851e",
+      "decisions": [
+        {
+          "decision": "corrected",
+          "location": "claims[2]",
+          "reason": "补入 usage 明确提供的默认值。"
+        },
+        {
+          "decision": "corrected",
+          "location": "claims[5]",
+          "reason": "截距不惩罚是算法参数行为，不能当作统计假设。"
+        },
+        {
+          "decision": "corrected",
+          "location": "unknowns[2]",
+          "reason": "删除“默认值未知（默认0）”自相矛盾表述，不否认文档中的选择辅助信息。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[0]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[1]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[3]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[4]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[6]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[7]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[8]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        }
+      ],
+      "rules": 4
+    },
+    {
+      "function_id": "MASS::qda",
+      "original_revision": "4e4f1b4e77ebf85c5b1e359acf60905a4f36da0a3f5317b2752e1b7ca00bdac0",
+      "revision": "9fcde0a2a19febe00500bd105ac7625b0e2233025593506e2c1ac9197c4203ed",
+      "decisions": [
+        {
+          "decision": "corrected",
+          "location": "claims[7]",
+          "reason": "为普通拟合对象补上非 CV 的前提，避免与留一交叉验证混淆。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[0]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[1]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[2]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[3]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[4]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[5]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[6]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[8]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[9]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        }
+      ],
+      "rules": 11
+    },
+    {
+      "function_id": "cluster::agnes",
+      "original_revision": "a270a1ad1a30e23bfb6cf8e9b28b35e1f1debd209aa7017aecf4fbc055bfb62a",
+      "revision": "b1931a6acea5ee3668035535264053dbdd3ca8812f876739c6825365062c384a",
+      "decisions": [
+        {
+          "decision": "false_positive",
+          "location": "prior_review.issues[0]",
+          "reason": "原文明确称 flexible 为 weighted 的推广；weighted 是 flexible 的特例，二者不矛盾。"
+        },
+        {
+          "decision": "corrected",
+          "location": "claims[7]",
+          "reason": "补全有助于使用的默认参数信息；此前省略并非与原文矛盾。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[0]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[1]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[2]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[3]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[4]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[5]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[6]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[8]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[9]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[10]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[11]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        }
+      ],
+      "rules": 9
+    },
+    {
+      "function_id": "cluster::clara",
+      "original_revision": "d1fd90818704a9643c0878ad50c210d70c189054005ec5ec6b57f36346512ff1",
+      "revision": "0a655d2e295a8d986e3491d77f52930e2dae3fb0f5495f95376b784fac503c91",
+      "decisions": [
+        {
+          "decision": "corrected",
+          "location": "claims[6]",
+          "reason": "确认旧复核指出的实质遗漏，补上小 k 和固定维度的复杂度前提。"
+        },
+        {
+          "decision": "corrected",
+          "location": "claims[8]",
+          "reason": "警告取决于是否显式提供参数，原说明已含此条件；调整语序消除歧义。"
+        },
+        {
+          "decision": "false_positive",
+          "location": "prior_review.issues[0]",
+          "reason": "旧复核一边承认该描述与原文一致、一边判为错误；不是实质错误，现进一步澄清。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[0]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[1]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[2]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[3]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[4]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[5]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[7]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[9]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        }
+      ],
+      "rules": 7
+    },
+    {
+      "function_id": "cluster::diana",
+      "original_revision": "f26327a7d6970c03ea92ed535fb5eb3749780ebca9dea991cbf4666d3df180c8",
+      "revision": "9d5faf98162193209c4148501effe0cdafcccf2849262d0625771bea6df5953f",
+      "decisions": [
+        {
+          "decision": "clarified",
+          "location": "suitability_text",
+          "reason": "daisy/dist 是距离对象的常见来源，不是独占来源限制。"
+        },
+        {
+          "decision": "corrected",
+          "location": "claims[10]",
+          "reason": "data 分量可用性和保存对象大小属于输出行为，不是运行失败条件。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[0]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[1]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[2]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[3]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[4]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[5]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[6]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[7]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[8]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[9]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        }
+      ],
+      "rules": 8
+    },
+    {
+      "function_id": "cluster::pam",
+      "original_revision": "db3589d99baed8a32dcfef47c06df3d2cce8804b124dbabbfbc5b037758a00c9",
+      "revision": "c5f4bc61ee12bbc7a56329420601e0e6e83e87f542a4b1b5e46efae37b55ac46",
+      "decisions": [
+        {
+          "decision": "corrected",
+          "location": "claims[7]",
+          "reason": "默认 medoids 与 variant/nstart 有条件关系，不能无条件声称总为 NULL。"
+        },
+        {
+          "decision": "corrected",
+          "location": "unknowns[0]",
+          "reason": "区分已知实现上限与未知的研究样本充分性。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[0]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[1]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[2]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[3]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[4]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[5]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[6]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[8]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[9]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[10]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        }
+      ],
+      "rules": 11
+    },
+    {
+      "function_id": "psych::principal",
+      "original_revision": "813e43d235e0d26c3bb71936986a9b69a3dff11379477401c2c1518a42bb015b",
+      "revision": "0d5fc5dc7a044cc7d45f34c36a8f1727a940035452186bd7e6de1cde98a88dad",
+      "decisions": [
+        {
+          "decision": "corrected",
+          "location": "claims[4]",
+          "reason": "细化 Yuleb 的具体名称；其余可选相关类型保留。"
+        },
+        {
+          "decision": "corrected",
+          "location": "claims[9]",
+          "reason": "原声明已提结构矩阵，但还需补上 oblique.scores=FALSE 的例外，避免把默认设置当作所有设置。"
+        },
+        {
+          "decision": "corrected",
+          "location": "claims[11]",
+          "reason": "旋转后成分的解释边界不是运行失败条件。"
+        },
+        {
+          "decision": "false_positive",
+          "location": "prior_review.issues[2:4]",
+          "reason": "旧复核自行确认 fit/fit.off 释义可接受；Phi 的成分间/因子间术语偏好不构成实质错误。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[0]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[1]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[2]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[3]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[5]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[6]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[7]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[8]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        },
+        {
+          "decision": "confirmed",
+          "location": "claims[10]",
+          "reason": "已与锁定版本原文及逐条引用核对，保留原声明。"
+        }
+      ],
+      "rules": 6
+    }
+  ],
+  "runtime_verified": false,
+  "human_verified": false
+}

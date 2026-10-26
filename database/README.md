@@ -14,12 +14,12 @@ python -m stat_agent kb search --goal "用岭回归拟合模型并比较 GCV"
 
 ## 质量状态
 
-- `machine_checked`：通过结构校验、引用原文位置检查和另一轮模型语义复核，进入默认候选搜索。
+- `machine_checked`：通过结构校验、引用检查和模型复核或明确记录的来源裁决，进入默认候选搜索。当前 8 条经 Codex 来源复核通过。
 - `needs_review`：两轮内仍有问题，保存在数据库中，但默认搜索排除。
 - `semantic_verification=llm_inference_not_human_verified`：所有生成的语义字段仍未经过独立人工审核。
 - `runtime_verified=false`：未执行 R 函数或帮助中的示例。
 
-复核 Agent 与提取 Agent 共用 DeepSeek，不等于独立专家一致意见。搜索结果只提供候选与待确认条件，不自动执行这些函数，也不把模型生成条件直接当作硬规则。现有 `analyze` 的固定 PCA/OLS 执行路径保持独立。
+初始复核与提取共用 DeepSeek；本轮 Codex 对照锁定原文处理了真实错误与误报，保留原记录，不等于独立专家一致意见。新增 66 条显式维护、来源绑定的条件规则；搜索只排除明确违反硬条件的候选，缺信息返回未知。详见 [复核与规则](../docs/AUDIT_AND_RULES.md)。不直接执行模型表达式，不执行 R；现有 `analyze` 的固定 PCA/OLS 路径保持独立。
 
 ## 更新、索引与历史
 

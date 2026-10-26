@@ -1,6 +1,6 @@
 # 多模态统计分析 Agent
 
-按[项目工作手册](docs/WORKBOOK.md)开发的统计分析基线：生成带证据的数据画像，用统计约束解释方法推荐，再调用经过审核的 Python 统计模板。当前版本 `0.3.0` 优先建设 CRAN 候选数据库，已完成官方源码采集、协作画像、版本化入库、恢复及检索。首批 8 条函数画像中 5 条机器复核通过、3 条待复核。见[数据库验证记录](docs/CRAN_DATABASE_VALIDATION.md)和[可读画像目录](database/cran_profiles.md)。此前真实模型与完整分析链路见[阶段记录](docs/STAGE2_VALIDATION.md)。
+按[项目工作手册](docs/WORKBOOK.md)开发的统计分析基线：生成带证据的数据画像，用统计约束解释方法推荐，再调用经过审核的 Python 统计模板。当前版本 `0.4.0` 已完成首批 8 个 CRAN 函数的来源复核和 66 条适用条件规则，支持满足、不满足、未知三态检查及候选过滤。见[复核与规则验证](docs/AUDIT_AND_RULES.md)和[可读画像目录](database/cran_profiles.md)。机器复核不等于独立人工审核或 R 运行验证；此前真实模型与分析链路见[阶段记录](docs/STAGE2_VALIDATION.md)。
 
 **进度与下一步：[PROGRESS.md](PROGRESS.md)** · **架构与 Agent 接口：[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · **验证记录：[docs/VALIDATION.md](docs/VALIDATION.md)**
 
@@ -51,7 +51,7 @@ python -m stat_agent kb search --goal "数值变量的二次判别分析" --embe
 
 `collect` 联网下载官方源码并生成版本锁；只更新已配置的包和函数，不抓取全站。`build` 使用 CC Switch DeepSeek，提取和复核分角色调用，最多两轮修正；已有相同指纹结果会复用。显式 `--refresh` 重新调用模型。退出码 2 表示有待复核或失败条目，详情在构建报告中；机器复核不等于独立人工审核。
 
-`search --input` 使用规则任务画像和程序计算的数据画像构成查询。它仅返回候选及条件；新库条件尚未编译成自动硬过滤规则，搜索不会执行 R 或替代 `analyze` 的可信模板。原始源码和 SQLite 在本地，仓库保存可恢复 JSON 与可读 Markdown，完整说明见 [database/README](database/README.md)。
+`search --input` 使用任务画像和程序计算的数据画像检索，先检查来源绑定的规则，再取候选 Top-K。明确违反硬条件的候选进入 `excluded`，事实不足保留 `unknown`；结果包含观察值、判定与原文引文。可用 `--parameters configs/cran_parameters.example.json` 提供 k 等参数。搜索不执行 R；原始源码和 SQLite 在本地，仓库保存可恢复 JSON 与可读 Markdown，完整说明见 [database/README](database/README.md)。
 
 ## 运行
 
