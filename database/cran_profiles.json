@@ -3238,7 +3238,1867 @@
         "rd_path": "cluster/man/clara.Rd",
         "rd_sha256": "b18b27063c8cf1c9d78ed87c9194a502281a363df12e053c527c3fa89f1f8ef2",
         "sections": {
-          "arguments": "x data matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric (or logical). Missing values (NAs) are allowed. k integer, the number of clusters. It is required that 0 < k < n where n is the number of observations (i.e., n = nrow(x) ). metric character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\", \"manhattan\", \"jaccard\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. stand logical, indicating if the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. cluster.only logical; if true, only the clustering will be computed and returned, see details. samples integer, say N , the number of samples to be drawn from the dataset. The default, N = 5 , is rather small for historical (and now back compatibility) reasons and we recommend to set samples an order of magnitude larger . sampsize integer, say j , the number of observations in each sample. sampsize should be higher than the number of clusters ( k ) and at most the number of observations ( n = nrow(x) ). While computational effort is proportional to j^2 , see note below, it may still be advisable to set j = sampsize to a larger value than the (historical) default. trace integer indicating a trace level for diagnostic output during the algorithm. medoids.x logical indicating if the medoids should be returned, identically to some rows of the input data x . If FALSE , keep.data must be false as well, and the medoid indices, i.e., row numbers of the medoids will still be returned ( i.med component), and the algorithm saves space by needing one copy less of x . keep.data logical indicating if the ( scaled …38492 tokens truncated…t is important to recognize that rotated principal components are not principal components (the axes associated with the eigen value decomposition) but are merely components.",
+          "arguments": "x data matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric (or logical). Missing values (NAs) are allowed. k integer, the number of clusters. It is required that 0 < k < n where n is the number of observations (i.e., n = nrow(x) ). metric character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\", \"manhattan\", \"jaccard\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. stand logical, indicating if the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. cluster.only logical; if true, only the clustering will be computed and returned, see details. samples integer, say N , the number of samples to be drawn from the dataset. The default, N = 5 , is rather small for historical (and now back compatibility) reasons and we recommend to set samples an order of magnitude larger . sampsize integer, say j , the number of observations in each sample. sampsize should be higher than the number of clusters ( k ) and at most the number of observations ( n = nrow(x) ). While computational effort is proportional to j^2 , see note below, it may still be advisable to set j = sampsize to a larger value than the (historical) default. trace integer indicating a trace level for diagnostic output during the algorithm. medoids.x logical indicating if the medoids should be returned, identically to some rows of the input data x . If FALSE , keep.data must be false as well, and the medoid indices, i.e., row numbers of the medoids will still be returned ( i.med component), and the algorithm saves space by needing one copy less of x . keep.data logical indicating if the ( scaled if stand is true) data should be kept in the result. Setting this to FALSE saves memory (and hence time), but disables clusplot () ing of the result. Use medoids.x = FALSE to save even more memory. rngR logical indicating if R's random number generator should be used instead of the primitive clara()-builtin one. If true, this also means that each call to clara() returns a different result -- though only slightly different in good situations. pamLike logical indicating if the swap phase (see pam , in C code) should use the same algorithm as pam () . Note that from Kaufman and Rousseeuw's description this should have been true always, but as the original Fortran code and the subsequent port to C has always contained a small one-letter change (a typo according to Martin Maechler) with respect to PAM, the default, pamLike = FALSE has been chosen to remain back compatible rather than PAM compatible . correct.d logical or integer indicating that---only in the case of NA s present in x ---the correct distance computation should be used instead of the wrong formula which has been present in the original Fortran code and been in use up to early 2016. Because the new correct formula is not back compatible, for the time being, a warning is signalled in this case, unless the user explicitly specifies correct.d .",
+          "description": "Computes a \"clara\" object, a list representing a clustering of the data into k clusters.",
+          "details": "clara (for \"euclidean\" and \"manhattan\") is fully described in chapter 3 of Kaufman and Rousseeuw (1990). Compared to other partitioning methods such as pam , it can deal with much larger datasets. Internally, this is achieved by considering sub-datasets of fixed size ( sampsize ) such that the time and storage requirements become linear in n rather than quadratic. Each sub-dataset is partitioned into k clusters using the same algorithm as in pam . Once k representative objects have been selected from the sub-dataset, each observation of the entire dataset is assigned to the nearest medoid. The mean (equivalent to the sum) of the dissimilarities of the observations to their closest medoid is used as a measure of the quality of the clustering. The sub-dataset for which the mean (or sum) is minimal, is retained. A further analysis is carried out on the final partition. Each sub-dataset is forced to contain the medoids obtained from the best sub-dataset until then. Randomly drawn observations are added to this set until sampsize has been reached. When cluster.only is true, the result is simply a (possibly named) integer vector specifying the clustering, i.e., clara(x,k, cluster.only=TRUE) is the same as clara(x,k)$clustering but computed more efficiently.",
+          "note": "By default, the random sampling is implemented with a very simple scheme (with period 2^ 16 = 65536 ) inside the Fortran code, independently of R's random number generation, and as a matter of fact, deterministically. Alternatively, we recommend setting rngR = TRUE which uses R's random number generators. Then, clara() results are made reproducible typically by using set.seed () before calling clara . The storage requirement of clara computation (for small k ) is about O(n p) + O(j^2) O(n * p) + O(j^2) where j = sampsize , and (n,p) = dim(x) . The CPU computing time (again assuming small k ) is about O(n p j^2 N) O(n * p * j^2 * N) , where N = samples . For small datasets, the function pam can be used directly. What can be considered small , is really a function of available computing power, both memory (RAM) and speed. Originally (1990), small meant less than 100 observations; in 1997, the authors said small (say with fewer than 200 observations) ; as of 2006, you can use pam with several thousand observations.",
+          "seealso": "agnes for background and references; clara.object , pam , partition.object , plot.partition .",
+          "title": "Clustering Large Applications",
+          "usage": "clara(x, k, metric = c(\"euclidean\", \"manhattan\", \"jaccard\"), stand = FALSE, cluster.only = FALSE, samples = 5, sampsize = min(n, 40 + 2 * k), trace = 0, medoids.x = TRUE, keep.data = medoids.x, rngR = FALSE, pamLike = FALSE, correct.d = TRUE)",
+          "value": "If cluster.only is false (as by default), an object of class \"clara\" representing the clustering. See clara.object for details. If cluster.only is true, the result is the \"clustering\", an integer vector of length n with entries from 1:k ."
+        },
+        "source_url": "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz",
+        "usage_rd": "\nclara(x, k, metric = c(\"euclidean\", \"manhattan\", \"jaccard\"),\n      stand = FALSE, cluster.only = FALSE, samples = 5,\n      sampsize = min(n, 40 + 2 * k), trace = 0, medoids.x = TRUE,\n      keep.data = medoids.x, rngR = FALSE, pamLike = FALSE, correct.d = TRUE)\n"
+      },
+      "status": "needs_review",
+      "usage": {
+        "api_calls": 4,
+        "cache_read_input_tokens": 6912,
+        "input_tokens": 11524,
+        "llm_calls": 4,
+        "output_tokens": 2982,
+        "retries": 0,
+        "tokens": 21418
+      },
+      "workflow_version": "cran-profile-2"
+    },
+    {
+      "agents": [
+        "function_metadata",
+        "applicability_extraction",
+        "evidence_review",
+        "database_publisher"
+      ],
+      "attempts": [
+        {
+          "draft": {
+            "claims": [
+              {
+                "category": "input",
+                "evidence": [
+                  {
+                    "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "All variables must be numeric.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "x 可为数据矩阵或数据框，此时每行对应一个观测、每列对应一个变量，且所有变量必须为数值型。"
+              },
+              {
+                "category": "input",
+                "evidence": [
+                  {
+                    "quote": "Missing values ( NA s) are allowed.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "Missing values (NAs) are not allowed.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "当 x 为矩阵或数据框时允许存在缺失值（NA）；当 x 为相异度矩阵时不允许缺失值。"
+              },
+              {
+                "category": "input",
+                "evidence": [
+                  {
+                    "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "In case of a dissimilarity matrix, x is typically the output of daisy or dist .",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "x 也可为相异度矩阵或对象（通常由 daisy 或 dist 生成），或长度为 n*(n-1)/2 的向量，其中 n 为观测数。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "diss logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "If FALSE, then x will be considered as a matrix of observations by variables.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "diss 为逻辑标志：TRUE（dist 或相异度对象的默认值）时 x 视为相异度矩阵，FALSE 时视为观测×变量矩阵。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "The currently available options are \"euclidean\" and \"manhattan\".",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "If x is already a dissimilarity matrix, then this argument will be ignored.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "metric 指定计算相异度的度量，可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "stand logical;",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "if true, the measurements in x are standardized before calculating the dissimilarities.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "If x is already a dissimilarity matrix, then this argument will be ignored.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "stand 为 TRUE 时，在计算相异度前对每列变量标准化（减去均值并除以平均绝对偏差）；若 x 已是相异度矩阵则被忽略。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "stop.at.k logical or integer, FALSE by default.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "Otherwise must be integer, say k , in \\ 1,2,..,n\\ , specifying that the diana algorithm should stop early.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "Non-default NOT YET IMPLEMENTED.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "stop.at.k 默认 FALSE，非默认值（提前停止）尚未实现。"
+              },
+              {
+                "category": "output",
+                "evidence": [
+                  {
+                    "quote": "an object of class \"diana\" representing the clustering;",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "this class has methods for the following generic functions: print , summary , plot .",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "A legitimate diana object is a list with the following components: order a vector giving a permutation of the original observations to allow for plotting, in the sense that the branches of a clustering tree will not cross.",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "height a vector with the diameters of the clusters prior to splitting.",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "dc the divisive coefficient, measuring the clustering structure of the dataset.",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "merge an (n-1) by 2 matrix, where n is the number of observations.",
+                    "section": "value"
+                  }
+                ],
+                "statement": "返回 diana 类对象，含 order、height、dc（分裂系数）、merge 等组件，并提供 print、summary、plot 方法。"
+              },
+              {
+                "category": "output",
+                "evidence": [
+                  {
+                    "quote": "Further, the class \"diana\" inherits from \"twins\" .",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "Therefore, the generic function pltree can be used on a diana object, and as.hclust and as.dendrogram methods are available.",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "cutree (and as.hclust ) for grouping extraction;",
+                    "section": "seealso"
+                  }
+                ],
+                "statement": "diana 类继承自 twins，可用 pltree，且提供 as.hclust 与 as.dendrogram 方法；cutree 可用于分组提取。"
+              },
+              {
+                "category": "output",
+                "evidence": [
+                  {
+                    "quote": "dc the divisive coefficient, measuring the clustering structure of the dataset.",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "Because dc grows with the number of observations, this measure should not be used to compare datasets of very different sizes.",
+                    "section": "value"
+                  }
+                ],
+                "statement": "分裂系数 dc 随观测数增长，因此不应用于比较规模差异很大的数据集。"
+              },
+              {
+                "category": "failure",
+                "evidence": [
+                  {
+                    "quote": "If a dissimilarity matrix was given as input structure, then this component is not available.",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "keep.diss, keep.data logicals indicating if the dissimilarities and/or input data x should be kept in the result.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "Setting these to FALSE can give much smaller results and hence even save memory allocation time .",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "当输入为相异度矩阵时，data 组件不可用；keep.diss 与 keep.data 设为 FALSE 可减小结果体积。"
+              }
+            ],
+            "suitability_text": "该函数用于对数据集执行分裂式层次聚类，返回 diana 类对象。输入可为数值型数据矩阵/数据框（行=观测、列=变量，允许缺失值），或由 daisy/dist 生成的相异度矩阵/对象（不允许缺失值）。可通过 metric 选择欧氏或曼哈顿距离，stand 控制按列标准化。输出含分裂系数 dc、merge 矩阵、order 等，并支持 print/summary/plot 及 as.hclust、cutree 等后续处理。",
+            "task_types": [
+              "clustering"
+            ],
+            "unknowns": [
+              "文档未说明对样本量、变量独立性或分布形态的任何要求，也未给出最小样本量阈值。",
+              "文档未说明该函数对特定用户数据集的适用性或聚类质量保证，需结合具体数据与领域知识判断。",
+              "文档未说明缺失值在矩阵/数据框输入下被如何处理（如成对删除或插补）。"
+            ]
+          },
+          "review": {
+            "accepted": true,
+            "explanation": "逐条核对官方文档后，suitability_text 与各 claim 均有对应原文支撑，未发现虚构条件、遗漏限定词或参数默认值矛盾。task_types 为 clustering 恰当。关于缺失值、样本量等未说明事项已正确列入 unknowns，未做过度推断。data 组件说明中引用了 agnes 的 stand 选项，原文确如此表述，未改变含义。无实质性问题。",
+            "issues": []
+          }
+        }
+      ],
+      "build_fingerprint": "665d32366b743c832eb1fd9f0ce440f1a79c06c5307819a1c1290869bbf5db15",
+      "metadata": {
+        "aliases": [
+          "diana",
+          "diana.object"
+        ],
+        "function_id": "cluster::diana",
+        "function_name": "diana",
+        "license": "GPL (>= 2)",
+        "package": "cluster",
+        "package_sha256": "e240bebe2aa85f9d9f674cd7addc3dc9023f9e4c3f462eca94e582e22a5ce2e9",
+        "package_version": "2.1.8.3",
+        "parameters": [
+          {
+            "description": "data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument. In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric. Missing values ( NA s) are allowed. In case of a dissimilarity matrix, x is typically the output of daisy or dist . Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions. Missing values (NAs) are not allowed.",
+            "name": "x"
+          },
+          {
+            "description": "logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix. If FALSE, then x will be considered as a matrix of observations by variables.",
+            "name": "diss"
+          },
+          {
+            "description": "character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\" and \"manhattan\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. If x is already a dissimilarity matrix, then this argument will be ignored.",
+            "name": "metric"
+          },
+          {
+            "description": "logical; if true, the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. If x is already a dissimilarity matrix, then this argument will be ignored.",
+            "name": "stand"
+          },
+          {
+            "description": "logical or integer, FALSE by default. Otherwise must be integer, say k , in \\ 1,2,..,n\\ , specifying that the diana algorithm should stop early. Non-default NOT YET IMPLEMENTED.",
+            "name": "stop.at.k"
+          },
+          {
+            "description": "logicals indicating if the dissimilarities and/or input data x should be kept in the result. Setting these to FALSE can give much smaller results and hence even save memory allocation time .",
+            "name": "keep.diss, keep.data"
+          },
+          {
+            "description": "integer specifying a trace level for printing diagnostics during the algorithm. Default 0 does not print anything; higher values print increasingly more.",
+            "name": "trace.lev"
+          }
+        ],
+        "rd_path": "cluster/man/diana.Rd",
+        "rd_sha256": "0bf0ba3ed417b73ceed0b4cd1ba55d12c384f98cbf5432299c3d1ce3e975812d",
+        "source_url": "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz",
+        "usage_rd": "\ndiana(x, diss = inherits(x, \"dist\"), metric = \"euclidean\", stand = FALSE,\n      stop.at.k = FALSE,\n      keep.diss = n < 100, keep.data = !diss, trace.lev = 0)\n"
+      },
+      "model": {
+        "configured_model": "deepseek-v4-pro[1m]",
+        "endpoint": "https://api.deepseek.com/anthropic",
+        "immutable_model_version": false,
+        "provider": "DeepSeek",
+        "receipts": [
+          {
+            "request_sha256": "541e5eb58bd4a2f1ddd51446216dc37f844c3276cdb5a3a53947988753119a74",
+            "requested_model": "deepseek-v4-pro",
+            "response_sha256": "68c2687c6f30cb2abd2757c79d073c90effb36f6aa8650d02fe09bcf35ec66aa",
+            "returned_model": "deepseek-v4-pro",
+            "seconds": 9.906303400057368,
+            "stop_reason": "tool_use"
+          },
+          {
+            "request_sha256": "4b173dd56dcd14f6167e5da1db04e9bbbd8a9ac89f83dca19a10a7f148ed1966",
+            "requested_model": "deepseek-v4-pro",
+            "response_sha256": "d58b321001caf564d7f0c64a6a1df06743c1c527d913955b03dee5f8aa1d95b5",
+            "returned_model": "deepseek-v4-pro",
+            "seconds": 3.0571429999545217,
+            "stop_reason": "tool_use"
+          }
+        ],
+        "requested_model": "deepseek-v4-pro"
+      },
+      "quote_verification": "exact_normalized_substrings",
+      "retrieval_text": "cluster::diana\nclustering\n该函数用于对数据集执行分裂式层次聚类，返回 diana 类对象。输入可为数值型数据矩阵/数据框（行=观测、列=变量，允许缺失值），或由 daisy/dist 生成的相异度矩阵/对象（不允许缺失值）。可通过 metric 选择欧氏或曼哈顿距离，stand 控制按列标准化。输出含分裂系数 dc、merge 矩阵、order 等，并支持 print/summary/plot 及 as.hclust、cutree 等后续处理。\ninput: x 可为数据矩阵或数据框，此时每行对应一个观测、每列对应一个变量，且所有变量必须为数值型。\ninput: 当 x 为矩阵或数据框时允许存在缺失值（NA）；当 x 为相异度矩阵时不允许缺失值。\ninput: x 也可为相异度矩阵或对象（通常由 daisy 或 dist 生成），或长度为 n*(n-1)/2 的向量，其中 n 为观测数。\nparameter: diss 为逻辑标志：TRUE（dist 或相异度对象的默认值）时 x 视为相异度矩阵，FALSE 时视为观测×变量矩阵。\nparameter: metric 指定计算相异度的度量，可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。\nparameter: stand 为 TRUE 时，在计算相异度前对每列变量标准化（减去均值并除以平均绝对偏差）；若 x 已是相异度矩阵则被忽略。\nparameter: stop.at.k 默认 FALSE，非默认值（提前停止）尚未实现。\noutput: 返回 diana 类对象，含 order、height、dc（分裂系数）、merge 等组件，并提供 print、summary、plot 方法。\noutput: diana 类继承自 twins，可用 pltree，且提供 as.hclust 与 as.dendrogram 方法；cutree 可用于分组提取。\noutput: 分裂系数 dc 随观测数增长，因此不应用于比较规模差异很大的数据集。\nfailure: 当输入为相异度矩阵时，data 组件不可用；keep.diss 与 keep.data 设为 FALSE 可减小结果体积。",
+      "revision": "f26327a7d6970c03ea92ed535fb5eb3749780ebca9dea991cbf4666d3df180c8",
+      "runtime_verified": false,
+      "schema_version": "1.0",
+      "semantic": {
+        "claims": [
+          {
+            "category": "input",
+            "evidence": [
+              {
+                "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument.",
+                "section": "arguments"
+              },
+              {
+                "quote": "In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable.",
+                "section": "arguments"
+              },
+              {
+                "quote": "All variables must be numeric.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "x 可为数据矩阵或数据框，此时每行对应一个观测、每列对应一个变量，且所有变量必须为数值型。"
+          },
+          {
+            "category": "input",
+            "evidence": [
+              {
+                "quote": "Missing values ( NA s) are allowed.",
+                "section": "arguments"
+              },
+              {
+                "quote": "Missing values (NAs) are not allowed.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "当 x 为矩阵或数据框时允许存在缺失值（NA）；当 x 为相异度矩阵时不允许缺失值。"
+          },
+          {
+            "category": "input",
+            "evidence": [
+              {
+                "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument.",
+                "section": "arguments"
+              },
+              {
+                "quote": "In case of a dissimilarity matrix, x is typically the output of daisy or dist .",
+                "section": "arguments"
+              },
+              {
+                "quote": "Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "x 也可为相异度矩阵或对象（通常由 daisy 或 dist 生成），或长度为 n*(n-1)/2 的向量，其中 n 为观测数。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "diss logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix.",
+                "section": "arguments"
+              },
+              {
+                "quote": "If FALSE, then x will be considered as a matrix of observations by variables.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "diss 为逻辑标志：TRUE（dist 或相异度对象的默认值）时 x 视为相异度矩阵，FALSE 时视为观测×变量矩阵。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations.",
+                "section": "arguments"
+              },
+              {
+                "quote": "The currently available options are \"euclidean\" and \"manhattan\".",
+                "section": "arguments"
+              },
+              {
+                "quote": "If x is already a dissimilarity matrix, then this argument will be ignored.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "metric 指定计算相异度的度量，可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "stand logical;",
+                "section": "arguments"
+              },
+              {
+                "quote": "if true, the measurements in x are standardized before calculating the dissimilarities.",
+                "section": "arguments"
+              },
+              {
+                "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation.",
+                "section": "arguments"
+              },
+              {
+                "quote": "If x is already a dissimilarity matrix, then this argument will be ignored.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "stand 为 TRUE 时，在计算相异度前对每列变量标准化（减去均值并除以平均绝对偏差）；若 x 已是相异度矩阵则被忽略。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "stop.at.k logical or integer, FALSE by default.",
+                "section": "arguments"
+              },
+              {
+                "quote": "Otherwise must be integer, say k , in \\ 1,2,..,n\\ , specifying that the diana algorithm should stop early.",
+                "section": "arguments"
+              },
+              {
+                "quote": "Non-default NOT YET IMPLEMENTED.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "stop.at.k 默认 FALSE，非默认值（提前停止）尚未实现。"
+          },
+          {
+            "category": "output",
+            "evidence": [
+              {
+                "quote": "an object of class \"diana\" representing the clustering;",
+                "section": "value"
+              },
+              {
+                "quote": "this class has methods for the following generic functions: print , summary , plot .",
+                "section": "value"
+              },
+              {
+                "quote": "A legitimate diana object is a list with the following components: order a vector giving a permutation of the original observations to allow for plotting, in the sense that the branches of a clustering tree will not cross.",
+                "section": "value"
+              },
+              {
+                "quote": "height a vector with the diameters of the clusters prior to splitting.",
+                "section": "value"
+              },
+              {
+                "quote": "dc the divisive coefficient, measuring the clustering structure of the dataset.",
+                "section": "value"
+              },
+              {
+                "quote": "merge an (n-1) by 2 matrix, where n is the number of observations.",
+                "section": "value"
+              }
+            ],
+            "statement": "返回 diana 类对象，含 order、height、dc（分裂系数）、merge 等组件，并提供 print、summary、plot 方法。"
+          },
+          {
+            "category": "output",
+            "evidence": [
+              {
+                "quote": "Further, the class \"diana\" inherits from \"twins\" .",
+                "section": "value"
+              },
+              {
+                "quote": "Therefore, the generic function pltree can be used on a diana object, and as.hclust and as.dendrogram methods are available.",
+                "section": "value"
+              },
+              {
+                "quote": "cutree (and as.hclust ) for grouping extraction;",
+                "section": "seealso"
+              }
+            ],
+            "statement": "diana 类继承自 twins，可用 pltree，且提供 as.hclust 与 as.dendrogram 方法；cutree 可用于分组提取。"
+          },
+          {
+            "category": "output",
+            "evidence": [
+              {
+                "quote": "dc the divisive coefficient, measuring the clustering structure of the dataset.",
+                "section": "value"
+              },
+              {
+                "quote": "Because dc grows with the number of observations, this measure should not be used to compare datasets of very different sizes.",
+                "section": "value"
+              }
+            ],
+            "statement": "分裂系数 dc 随观测数增长，因此不应用于比较规模差异很大的数据集。"
+          },
+          {
+            "category": "failure",
+            "evidence": [
+              {
+                "quote": "If a dissimilarity matrix was given as input structure, then this component is not available.",
+                "section": "value"
+              },
+              {
+                "quote": "keep.diss, keep.data logicals indicating if the dissimilarities and/or input data x should be kept in the result.",
+                "section": "arguments"
+              },
+              {
+                "quote": "Setting these to FALSE can give much smaller results and hence even save memory allocation time .",
+                "section": "arguments"
+              }
+            ],
+            "statement": "当输入为相异度矩阵时，data 组件不可用；keep.diss 与 keep.data 设为 FALSE 可减小结果体积。"
+          }
+        ],
+        "suitability_text": "该函数用于对数据集执行分裂式层次聚类，返回 diana 类对象。输入可为数值型数据矩阵/数据框（行=观测、列=变量，允许缺失值），或由 daisy/dist 生成的相异度矩阵/对象（不允许缺失值）。可通过 metric 选择欧氏或曼哈顿距离，stand 控制按列标准化。输出含分裂系数 dc、merge 矩阵、order 等，并支持 print/summary/plot 及 as.hclust、cutree 等后续处理。",
+        "task_types": [
+          "clustering"
+        ],
+        "unknowns": [
+          "文档未说明对样本量、变量独立性或分布形态的任何要求，也未给出最小样本量阈值。",
+          "文档未说明该函数对特定用户数据集的适用性或聚类质量保证，需结合具体数据与领域知识判断。",
+          "文档未说明缺失值在矩阵/数据框输入下被如何处理（如成对删除或插补）。"
+        ]
+      },
+      "semantic_verification": "llm_inference_not_human_verified",
+      "source": {
+        "aliases": [
+          "diana",
+          "diana.object"
+        ],
+        "collected_at": "2026-10-25T14:33:27.380145+00:00",
+        "function_id": "cluster::diana",
+        "function_name": "diana",
+        "license": "GPL (>= 2)",
+        "package": "cluster",
+        "package_sha256": "e240bebe2aa85f9d9f674cd7addc3dc9023f9e4c3f462eca94e582e22a5ce2e9",
+        "package_version": "2.1.8.3",
+        "parameters": [
+          {
+            "description": "data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument. In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric. Missing values ( NA s) are allowed. In case of a dissimilarity matrix, x is typically the output of daisy or dist . Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions. Missing values (NAs) are not allowed.",
+            "name": "x"
+          },
+          {
+            "description": "logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix. If FALSE, then x will be considered as a matrix of observations by variables.",
+            "name": "diss"
+          },
+          {
+            "description": "character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\" and \"manhattan\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. If x is already a dissimilarity matrix, then this argument will be ignored.",
+            "name": "metric"
+          },
+          {
+            "description": "logical; if true, the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. If x is already a dissimilarity matrix, then this argument will be ignored.",
+            "name": "stand"
+          },
+          {
+            "description": "logical or integer, FALSE by default. Otherwise must be integer, say k , in \\ 1,2,..,n\\ , specifying that the diana algorithm should stop early. Non-default NOT YET IMPLEMENTED.",
+            "name": "stop.at.k"
+          },
+          {
+            "description": "logicals indicating if the dissimilarities and/or input data x should be kept in the result. Setting these to FALSE can give much smaller results and hence even save memory allocation time .",
+            "name": "keep.diss, keep.data"
+          },
+          {
+            "description": "integer specifying a trace level for printing diagnostics during the algorithm. Default 0 does not print anything; higher values print increasingly more.",
+            "name": "trace.lev"
+          }
+        ],
+        "parser_version": "rd-static-3",
+        "parser_warnings": [
+          "Static Rd subset renderer; original usage retained; no R code or examples executed."
+        ],
+        "rd_path": "cluster/man/diana.Rd",
+        "rd_sha256": "0bf0ba3ed417b73ceed0b4cd1ba55d12c384f98cbf5432299c3d1ce3e975812d",
+        "sections": {
+          "arguments": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument. In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric. Missing values ( NA s) are allowed. In case of a dissimilarity matrix, x is typically the output of daisy or dist . Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions. Missing values (NAs) are not allowed. diss logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix. If FALSE, then x will be considered as a matrix of observations by variables. metric character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\" and \"manhattan\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. If x is already a dissimilarity matrix, then this argument will be ignored. stand logical; if true, the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. If x is already a dissimilarity matrix, then this argument will be ignored. stop.at.k logical or integer, FALSE by default. Otherwise must be integer, say k , in \\ 1,2,..,n\\ , specifying that the diana algorithm should stop early. Non-default NOT YET IMPLEMENTED. keep.diss, keep.data logicals indicating if the dissimilarities and/or input data x should be kept in the result. Setting these to FALSE can give much smaller results and hence even save memory allocation time . trace.lev integer specifying a trace level for printing diagnostics during the algorithm. Default 0 does not print anything; higher values print increasingly more.",
+          "description": "Computes a divisive hierarchical clustering of the dataset returning an object of class diana .",
+          "details": "diana is fully described in chapter 6 of Kaufman and Rousseeuw (1990). It is probably unique in computing a divisive hierarchy, whereas most other software for hierarchical clustering is agglomerative. Moreover, diana provides (a) the divisive coefficient (see diana.object ) which measures the amount of clustering structure found; and (b) the banner, a novel graphical display (see plot.diana ). The diana -algorithm constructs a hierarchy of clusterings, starting with one large cluster containing all n observations. Clusters are divided until each cluster contains only a single observation. At each stage, the cluster with the largest diameter is selected. (The diameter of a cluster is the largest dissimilarity between any two of its observations.) To divide the selected cluster, the algorithm first looks for its most disparate observation (i.e., which has the largest average dissimilarity to the other observations of the selected cluster). This observation initiates the \"splinter group\". In subsequent steps, the algorithm reassigns observations that are closer to the \"splinter group\" than to the \"old party\". The result is a division of the selected cluster into two new clusters.",
+          "seealso": "agnes also for background and references; cutree (and as.hclust ) for grouping extraction; daisy , dist , plot.diana , twins.object .",
+          "title": "DIvisive ANAlysis Clustering",
+          "usage": "diana(x, diss = inherits(x, \"dist\"), metric = \"euclidean\", stand = FALSE, stop.at.k = FALSE, keep.diss = n < 100, keep.data = !diss, trace.lev = 0)",
+          "value": "an object of class \"diana\" representing the clustering; this class has methods for the following generic functions: print , summary , plot . Further, the class \"diana\" inherits from \"twins\" . Therefore, the generic function pltree can be used on a diana object, and as.hclust and as.dendrogram methods are available. A legitimate diana object is a list with the following components: order a vector giving a permutation of the original observations to allow for plotting, in the sense that the branches of a clustering tree will not cross. order.lab a vector similar to order , but containing observation labels instead of observation numbers. This component is only available if the original observations were labelled. height a vector with the diameters of the clusters prior to splitting. dc the divisive coefficient, measuring the clustering structure of the dataset. For each observation i, denote by d(i) the diameter of the last cluster to which it belongs (before being split off as a single observation), divided by the diameter of the whole dataset. The dc is the average of all 1 - d(i) . It can also be seen as the average width (or the percentage filled) of the banner plot. Because dc grows with the number of observations, this measure should not be used to compare datasets of very different sizes. merge an (n-1) by 2 matrix, where n is the number of observations. Row i of merge describes the split at step n-i of the clustering. If a number j in row r is negative, then the single observation |j| is split off at stage n-r. If j is positive, then the cluster that will be splitted at stage n-j (described by row j), is split off at stage n-r. diss an object of class \"dissimilarity\" , representing the total dissimilarity matrix of the dataset. data a matrix containing the original or standardized measurements, depending on the stand option of the function agnes . If a dissimilarity matrix was given as input structure, then this component is not available."
+        },
+        "source_url": "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz",
+        "usage_rd": "\ndiana(x, diss = inherits(x, \"dist\"), metric = \"euclidean\", stand = FALSE,\n      stop.at.k = FALSE,\n      keep.diss = n < 100, keep.data = !diss, trace.lev = 0)\n"
+      },
+      "status": "machine_checked",
+      "usage": {
+        "api_calls": 2,
+        "cache_read_input_tokens": 1152,
+        "input_tokens": 7105,
+        "llm_calls": 2,
+        "output_tokens": 1129,
+        "retries": 0,
+        "tokens": 9386
+      },
+      "workflow_version": "cran-profile-2"
+    },
+    {
+      "agents": [
+        "function_metadata",
+        "applicability_extraction",
+        "evidence_review",
+        "database_publisher"
+      ],
+      "attempts": [
+        {
+          "draft": {
+            "claims": [
+              {
+                "category": "input",
+                "evidence": [
+                  {
+                    "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "All variables must be numeric (or logical).",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "x 可为数据矩阵或数据框，每行对应一个观测、每列对应一个变量；所有变量必须为数值型或逻辑型。"
+              },
+              {
+                "category": "input",
+                "evidence": [
+                  {
+                    "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "In case of a dissimilarity matrix, x is typically the output of daisy or dist .",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "x 也可为相异度矩阵或对象（通常是 daisy 或 dist 的输出），或长度为 n*(n-1)/2 的向量。"
+              },
+              {
+                "category": "input",
+                "evidence": [
+                  {
+                    "quote": "Missing values ( NA s) are allowed---as long as every pair of observations has at least one case not missing.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "Missing values ( NA s) are not allowed.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "当 x 为矩阵或数据框时允许缺失值，只要每对观测至少有一个变量不缺失；当 x 为相异度矩阵时不允许缺失值。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "k positive integer specifying the number of clusters, less than the number of observations.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "k 是正整数，指定簇数，且必须小于观测数。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "diss logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "If FALSE, then x will be considered as a matrix of observations by variables.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "diss 为逻辑标志：TRUE（dist 或相异度对象的默认值）时 x 视为相异度矩阵，FALSE 时视为观测×变量矩阵。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "The currently available options are \"euclidean\" and \"manhattan\".",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "If x is already a dissimilarity matrix, then this argument will be ignored.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "metric 可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。"
+              },
+              {
+                "category": "preprocessing",
+                "evidence": [
+                  {
+                    "quote": "stand logical;",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "if true, the measurements in x are standardized before calculating the dissimilarities.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "If x is already a dissimilarity matrix, then this argument will be ignored.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "stand=TRUE 时在计算相异度前对每个变量（列）标准化，即减去变量均值并除以变量的平均绝对偏差；若 x 已是相异度矩阵则被忽略。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "medoids NULL (default) or length- k vector of integer indices (in 1:n ) specifying initial medoids instead of using the build algorithm.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "nstart used only when medoids = \"random\" : specifies the number of random starts ;",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "medoids 可为 NULL（默认，使用 build 算法）或长度为 k 的整数索引向量（在 1:n 内）指定初始中心点；nstart 仅在 medoids=\"random\" 时用于指定随机重启次数。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "variant a character string denoting the variant of PAM algorithm to use;",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "a more self-documenting version of pamonce which should be used preferably;",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "note that \"faster\" not only uses pamonce = 6 but also nstart = 1 and hence medoids = \"random\" by default.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "variant 是 pamonce 的更自文档化版本，应优先使用；\"faster\" 使用 pamonce=6 且默认 nstart=1、medoids=\"random\"。"
+              },
+              {
+                "category": "output",
+                "evidence": [
+                  {
+                    "quote": "an object of class \"pam\" representing the clustering.",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "When cluster.only is true, the result is simply a (possibly named) integer vector specifying the clustering, i.e., pam(x,k, cluster.only=TRUE) is the same as pam(x,k)$clustering but computed more efficiently.",
+                    "section": "details"
+                  }
+                ],
+                "statement": "返回类 \"pam\" 的聚类对象；当 cluster.only=TRUE 时仅返回（可能带名称的）整数聚类向量，等价于 pam(x,k)$clustering 但计算更高效。"
+              },
+              {
+                "category": "failure",
+                "evidence": [
+                  {
+                    "quote": "For large datasets, pam may need too much memory or too much computation time since both are O(n^2) .",
+                    "section": "note"
+                  },
+                  {
+                    "quote": "Then, clara () is preferable, see its documentation.",
+                    "section": "note"
+                  },
+                  {
+                    "quote": "There is hard limit currently, n 65536 n <= 65536 , at 2^ 16 because for larger n , n(n-1)/2 is larger than the maximal integer ( .Machine $integer.max = 2^ 31 - 1 ).",
+                    "section": "note"
+                  }
+                ],
+                "statement": "对于大数据集，pam 可能因内存或计算时间（均为 O(n^2)）不足而受限，此时 clara() 更可取；且存在 n <= 65536 的硬上限。"
+              }
+            ],
+            "suitability_text": "该函数用于围绕中心点(medoids)的划分聚类，是K-means的更稳健版本。输入可为数值/逻辑型数据矩阵或数据框（行=观测、列=变量），也可为相异度矩阵或对象（如daisy、dist的输出）或长度为n*(n-1)/2的向量。需指定簇数k（小于观测数）。支持欧氏与曼哈顿距离，可标准化变量、指定初始中心点、随机重启及多种算法变体。输出为\"pam\"类聚类对象，或cluster.only=TRUE时仅返回聚类向量。注意内存与时间均为O(n^2)，且n有65536的硬上限。",
+            "task_types": [
+              "clustering"
+            ],
+            "unknowns": [
+              "文档未说明该函数对任何特定用户数据集的适用性，也未给出样本量阈值、正态性或独立性等推断性假设要求。",
+              "文档未说明聚类质量或最优簇数 k 的判定标准（仅提及可用 silhouette 宽度辅助选择）。",
+              "文档未说明 do.swap=FALSE 或不同 pamonce/variant 设置对最终聚类结果质量的具体影响程度。"
+            ]
+          },
+          "review": {
+            "accepted": true,
+            "explanation": "逐条核对官方文档后，草稿的 suitability_text、task_types 与各 claims 均有对应原文支撑，未发现虚构条件、遗漏改变含义的限定词、混淆输入类型或矛盾默认值。关键限定（如缺失值允许条件、nstart 仅在 medoids=\"random\" 时生效、metric/stand 在相异度矩阵输入时被忽略、cluster.only 返回向量、n<=65536 硬上限）均被准确保留。unknowns 的保守表述与文档一致，未越界声称推断性假设或聚类质量判定标准。无实质性问题。",
+            "issues": []
+          }
+        }
+      ],
+      "build_fingerprint": "1ff53a53f0bb39238eb5b53f88dac1a31f9540ab875e1de3eeb0f60bc435528e",
+      "metadata": {
+        "aliases": [
+          "pam"
+        ],
+        "function_id": "cluster::pam",
+        "function_name": "pam",
+        "license": "GPL (>= 2)",
+        "package": "cluster",
+        "package_sha256": "e240bebe2aa85f9d9f674cd7addc3dc9023f9e4c3f462eca94e582e22a5ce2e9",
+        "package_version": "2.1.8.3",
+        "parameters": [
+          {
+            "description": "data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument. In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric (or logical). Missing values ( NA s) are allowed---as long as every pair of observations has at least one case not missing. In case of a dissimilarity matrix, x is typically the output of daisy or dist . Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions. Missing values ( NA s) are not allowed.",
+            "name": "x"
+          },
+          {
+            "description": "positive integer specifying the number of clusters, less than the number of observations.",
+            "name": "k"
+          },
+          {
+            "description": "logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix. If FALSE, then x will be considered as a matrix of observations by variables.",
+            "name": "diss"
+          },
+          {
+            "description": "character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\" and \"manhattan\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. If x is already a dissimilarity matrix, then this argument will be ignored.",
+            "name": "metric"
+          },
+          {
+            "description": "NULL (default) or length- k vector of integer indices (in 1:n ) specifying initial medoids instead of using the build algorithm.",
+            "name": "medoids"
+          },
+          {
+            "description": "used only when medoids = \"random\" : specifies the number of random starts ; this argument corresponds to the one of kmeans () (from R's package stats ).",
+            "name": "nstart"
+          },
+          {
+            "description": "logical; if true, the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. If x is already a dissimilarity matrix, then this argument will be ignored.",
+            "name": "stand"
+          },
+          {
+            "description": "logical; if true, only the clustering will be computed and returned, see details.",
+            "name": "cluster.only"
+          },
+          {
+            "description": "logical indicating if the swap phase should happen. The default, TRUE , correspond to the original algorithm. On the other hand, the swap phase is much more computer intensive than the build one for large n , so can be skipped by do.swap = FALSE .",
+            "name": "do.swap"
+          },
+          {
+            "description": "logicals indicating if the dissimilarities and/or input data x should be kept in the result. Setting these to FALSE can give much smaller results and hence even save memory allocation time .",
+            "name": "keep.diss, keep.data"
+          },
+          {
+            "description": "logical or integer in 0:6 specifying algorithmic short cuts as proposed by Reynolds et al. (2006), and Schubert and Rousseeuw (2019, 2021) see below.",
+            "name": "pamonce"
+          },
+          {
+            "description": "a character string denoting the variant of PAM algorithm to use; a more self-documenting version of pamonce which should be used preferably; note that \"faster\" not only uses pamonce = 6 but also nstart = 1 and hence medoids = \"random\" by default.",
+            "name": "variant"
+          },
+          {
+            "description": "integer specifying a trace level for printing diagnostics during the build and swap phase of the algorithm. Default 0 does not print anything; higher values print increasingly more.",
+            "name": "trace.lev"
+          }
+        ],
+        "rd_path": "cluster/man/pam.Rd",
+        "rd_sha256": "7d3e8c696a846ad8cb3bb25deec235b95bcc6f48c325d1086f9237b3e982823c",
+        "source_url": "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz",
+        "usage_rd": "\npam(x, k, diss = inherits(x, \"dist\"),\n    metric = c(\"euclidean\", \"manhattan\"), %% FIXME: add \"jaccard\"\n    medoids = if(is.numeric(nstart)) \"random\",\n    nstart = if(variant == \"faster\") 1 else NA,\n    stand = FALSE, cluster.only = FALSE,\n    do.swap = TRUE,\n    keep.diss = !diss && !cluster.only && n < 100,\n    keep.data = !diss && !cluster.only,\n    variant = c(\"original\", \"o_1\", \"o_2\", \"f_3\", \"f_4\", \"f_5\", \"faster\"),\n    pamonce = FALSE, trace.lev = 0)\n"
+      },
+      "model": {
+        "configured_model": "deepseek-v4-pro[1m]",
+        "endpoint": "https://api.deepseek.com/anthropic",
+        "immutable_model_version": false,
+        "provider": "DeepSeek",
+        "receipts": [
+          {
+            "request_sha256": "6efc062790d3e7b18e135982f873f5b64c7f4b638cf5503a9d78164a6f70934d",
+            "requested_model": "deepseek-v4-pro",
+            "response_sha256": "e3ff1ebbb3b8ba3fa0cddc201fef408229c3c9faa8d93284ac0124f046eefcfa",
+            "returned_model": "deepseek-v4-pro",
+            "seconds": 10.579976900015026,
+            "stop_reason": "tool_use"
+          },
+          {
+            "request_sha256": "ee2ab362f7f1ce6427a9fe14e79a72769cb0790425b80b7016a44c96a9528b32",
+            "requested_model": "deepseek-v4-pro",
+            "response_sha256": "c48231f5ea1337eddb1f6241b3fa7b864b6422c7b3c7fe6f772d7077d9889c37",
+            "returned_model": "deepseek-v4-pro",
+            "seconds": 3.0098480000160635,
+            "stop_reason": "tool_use"
+          }
+        ],
+        "requested_model": "deepseek-v4-pro"
+      },
+      "quote_verification": "exact_normalized_substrings",
+      "retrieval_text": "cluster::pam\nclustering\n该函数用于围绕中心点(medoids)的划分聚类，是K-means的更稳健版本。输入可为数值/逻辑型数据矩阵或数据框（行=观测、列=变量），也可为相异度矩阵或对象（如daisy、dist的输出）或长度为n*(n-1)/2的向量。需指定簇数k（小于观测数）。支持欧氏与曼哈顿距离，可标准化变量、指定初始中心点、随机重启及多种算法变体。输出为\"pam\"类聚类对象，或cluster.only=TRUE时仅返回聚类向量。注意内存与时间均为O(n^2)，且n有65536的硬上限。\ninput: x 可为数据矩阵或数据框，每行对应一个观测、每列对应一个变量；所有变量必须为数值型或逻辑型。\ninput: x 也可为相异度矩阵或对象（通常是 daisy 或 dist 的输出），或长度为 n*(n-1)/2 的向量。\ninput: 当 x 为矩阵或数据框时允许缺失值，只要每对观测至少有一个变量不缺失；当 x 为相异度矩阵时不允许缺失值。\nparameter: k 是正整数，指定簇数，且必须小于观测数。\nparameter: diss 为逻辑标志：TRUE（dist 或相异度对象的默认值）时 x 视为相异度矩阵，FALSE 时视为观测×变量矩阵。\nparameter: metric 可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。\npreprocessing: stand=TRUE 时在计算相异度前对每个变量（列）标准化，即减去变量均值并除以变量的平均绝对偏差；若 x 已是相异度矩阵则被忽略。\nparameter: medoids 可为 NULL（默认，使用 build 算法）或长度为 k 的整数索引向量（在 1:n 内）指定初始中心点；nstart 仅在 medoids=\"random\" 时用于指定随机重启次数。\nparameter: variant 是 pamonce 的更自文档化版本，应优先使用；\"faster\" 使用 pamonce=6 且默认 nstart=1、medoids=\"random\"。\noutput: 返回类 \"pam\" 的聚类对象；当 cluster.only=TRUE 时仅返回（可能带名称的）整数聚类向量，等价于 pam(x,k)$clustering 但计算更高效。\nfailure: 对于大数据集，pam 可能因内存或计算时间（均为 O(n^2)）不足而受限，此时 clara() 更可取；且存在 n <= 65536 的硬上限。",
+      "revision": "db3589d99baed8a32dcfef47c06df3d2cce8804b124dbabbfbc5b037758a00c9",
+      "runtime_verified": false,
+      "schema_version": "1.0",
+      "semantic": {
+        "claims": [
+          {
+            "category": "input",
+            "evidence": [
+              {
+                "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument.",
+                "section": "arguments"
+              },
+              {
+                "quote": "In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable.",
+                "section": "arguments"
+              },
+              {
+                "quote": "All variables must be numeric (or logical).",
+                "section": "arguments"
+              }
+            ],
+            "statement": "x 可为数据矩阵或数据框，每行对应一个观测、每列对应一个变量；所有变量必须为数值型或逻辑型。"
+          },
+          {
+            "category": "input",
+            "evidence": [
+              {
+                "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument.",
+                "section": "arguments"
+              },
+              {
+                "quote": "In case of a dissimilarity matrix, x is typically the output of daisy or dist .",
+                "section": "arguments"
+              },
+              {
+                "quote": "Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "x 也可为相异度矩阵或对象（通常是 daisy 或 dist 的输出），或长度为 n*(n-1)/2 的向量。"
+          },
+          {
+            "category": "input",
+            "evidence": [
+              {
+                "quote": "Missing values ( NA s) are allowed---as long as every pair of observations has at least one case not missing.",
+                "section": "arguments"
+              },
+              {
+                "quote": "Missing values ( NA s) are not allowed.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "当 x 为矩阵或数据框时允许缺失值，只要每对观测至少有一个变量不缺失；当 x 为相异度矩阵时不允许缺失值。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "k positive integer specifying the number of clusters, less than the number of observations.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "k 是正整数，指定簇数，且必须小于观测数。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "diss logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix.",
+                "section": "arguments"
+              },
+              {
+                "quote": "If FALSE, then x will be considered as a matrix of observations by variables.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "diss 为逻辑标志：TRUE（dist 或相异度对象的默认值）时 x 视为相异度矩阵，FALSE 时视为观测×变量矩阵。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations.",
+                "section": "arguments"
+              },
+              {
+                "quote": "The currently available options are \"euclidean\" and \"manhattan\".",
+                "section": "arguments"
+              },
+              {
+                "quote": "If x is already a dissimilarity matrix, then this argument will be ignored.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "metric 可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。"
+          },
+          {
+            "category": "preprocessing",
+            "evidence": [
+              {
+                "quote": "stand logical;",
+                "section": "arguments"
+              },
+              {
+                "quote": "if true, the measurements in x are standardized before calculating the dissimilarities.",
+                "section": "arguments"
+              },
+              {
+                "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation.",
+                "section": "arguments"
+              },
+              {
+                "quote": "If x is already a dissimilarity matrix, then this argument will be ignored.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "stand=TRUE 时在计算相异度前对每个变量（列）标准化，即减去变量均值并除以变量的平均绝对偏差；若 x 已是相异度矩阵则被忽略。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "medoids NULL (default) or length- k vector of integer indices (in 1:n ) specifying initial medoids instead of using the build algorithm.",
+                "section": "arguments"
+              },
+              {
+                "quote": "nstart used only when medoids = \"random\" : specifies the number of random starts ;",
+                "section": "arguments"
+              }
+            ],
+            "statement": "medoids 可为 NULL（默认，使用 build 算法）或长度为 k 的整数索引向量（在 1:n 内）指定初始中心点；nstart 仅在 medoids=\"random\" 时用于指定随机重启次数。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "variant a character string denoting the variant of PAM algorithm to use;",
+                "section": "arguments"
+              },
+              {
+                "quote": "a more self-documenting version of pamonce which should be used preferably;",
+                "section": "arguments"
+              },
+              {
+                "quote": "note that \"faster\" not only uses pamonce = 6 but also nstart = 1 and hence medoids = \"random\" by default.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "variant 是 pamonce 的更自文档化版本，应优先使用；\"faster\" 使用 pamonce=6 且默认 nstart=1、medoids=\"random\"。"
+          },
+          {
+            "category": "output",
+            "evidence": [
+              {
+                "quote": "an object of class \"pam\" representing the clustering.",
+                "section": "value"
+              },
+              {
+                "quote": "When cluster.only is true, the result is simply a (possibly named) integer vector specifying the clustering, i.e., pam(x,k, cluster.only=TRUE) is the same as pam(x,k)$clustering but computed more efficiently.",
+                "section": "details"
+              }
+            ],
+            "statement": "返回类 \"pam\" 的聚类对象；当 cluster.only=TRUE 时仅返回（可能带名称的）整数聚类向量，等价于 pam(x,k)$clustering 但计算更高效。"
+          },
+          {
+            "category": "failure",
+            "evidence": [
+              {
+                "quote": "For large datasets, pam may need too much memory or too much computation time since both are O(n^2) .",
+                "section": "note"
+              },
+              {
+                "quote": "Then, clara () is preferable, see its documentation.",
+                "section": "note"
+              },
+              {
+                "quote": "There is hard limit currently, n 65536 n <= 65536 , at 2^ 16 because for larger n , n(n-1)/2 is larger than the maximal integer ( .Machine $integer.max = 2^ 31 - 1 ).",
+                "section": "note"
+              }
+            ],
+            "statement": "对于大数据集，pam 可能因内存或计算时间（均为 O(n^2)）不足而受限，此时 clara() 更可取；且存在 n <= 65536 的硬上限。"
+          }
+        ],
+        "suitability_text": "该函数用于围绕中心点(medoids)的划分聚类，是K-means的更稳健版本。输入可为数值/逻辑型数据矩阵或数据框（行=观测、列=变量），也可为相异度矩阵或对象（如daisy、dist的输出）或长度为n*(n-1)/2的向量。需指定簇数k（小于观测数）。支持欧氏与曼哈顿距离，可标准化变量、指定初始中心点、随机重启及多种算法变体。输出为\"pam\"类聚类对象，或cluster.only=TRUE时仅返回聚类向量。注意内存与时间均为O(n^2)，且n有65536的硬上限。",
+        "task_types": [
+          "clustering"
+        ],
+        "unknowns": [
+          "文档未说明该函数对任何特定用户数据集的适用性，也未给出样本量阈值、正态性或独立性等推断性假设要求。",
+          "文档未说明聚类质量或最优簇数 k 的判定标准（仅提及可用 silhouette 宽度辅助选择）。",
+          "文档未说明 do.swap=FALSE 或不同 pamonce/variant 设置对最终聚类结果质量的具体影响程度。"
+        ]
+      },
+      "semantic_verification": "llm_inference_not_human_verified",
+      "source": {
+        "aliases": [
+          "pam"
+        ],
+        "collected_at": "2026-10-25T14:33:27.380145+00:00",
+        "function_id": "cluster::pam",
+        "function_name": "pam",
+        "license": "GPL (>= 2)",
+        "package": "cluster",
+        "package_sha256": "e240bebe2aa85f9d9f674cd7addc3dc9023f9e4c3f462eca94e582e22a5ce2e9",
+        "package_version": "2.1.8.3",
+        "parameters": [
+          {
+            "description": "data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument. In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric (or logical). Missing values ( NA s) are allowed---as long as every pair of observations has at least one case not missing. In case of a dissimilarity matrix, x is typically the output of daisy or dist . Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions. Missing values ( NA s) are not allowed.",
+            "name": "x"
+          },
+          {
+            "description": "positive integer specifying the number of clusters, less than the number of observations.",
+            "name": "k"
+          },
+          {
+            "description": "logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix. If FALSE, then x will be considered as a matrix of observations by variables.",
+            "name": "diss"
+          },
+          {
+            "description": "character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\" and \"manhattan\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. If x is already a dissimilarity matrix, then this argument will be ignored.",
+            "name": "metric"
+          },
+          {
+            "description": "NULL (default) or length- k vector of integer indices (in 1:n ) specifying initial medoids instead of using the build algorithm.",
+            "name": "medoids"
+          },
+          {
+            "description": "used only when medoids = \"random\" : specifies the number of random starts ; this argument corresponds to the one of kmeans () (from R's package stats ).",
+            "name": "nstart"
+          },
+          {
+            "description": "logical; if true, the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. If x is already a dissimilarity matrix, then this argument will be ignored.",
+            "name": "stand"
+          },
+          {
+            "description": "logical; if true, only the clustering will be computed and returned, see details.",
+            "name": "cluster.only"
+          },
+          {
+            "description": "logical indicating if the swap phase should happen. The default, TRUE , correspond to the original algorithm. On the other hand, the swap phase is much more computer intensive than the build one for large n , so can be skipped by do.swap = FALSE .",
+            "name": "do.swap"
+          },
+          {
+            "description": "logicals indicating if the dissimilarities and/or input data x should be kept in the result. Setting these to FALSE can give much smaller results and hence even save memory allocation time .",
+            "name": "keep.diss, keep.data"
+          },
+          {
+            "description": "logical or integer in 0:6 specifying algorithmic short cuts as proposed by Reynolds et al. (2006), and Schubert and Rousseeuw (2019, 2021) see below.",
+            "name": "pamonce"
+          },
+          {
+            "description": "a character string denoting the variant of PAM algorithm to use; a more self-documenting version of pamonce which should be used preferably; note that \"faster\" not only uses pamonce = 6 but also nstart = 1 and hence medoids = \"random\" by default.",
+            "name": "variant"
+          },
+          {
+            "description": "integer specifying a trace level for printing diagnostics during the build and swap phase of the algorithm. Default 0 does not print anything; higher values print increasingly more.",
+            "name": "trace.lev"
+          }
+        ],
+        "parser_version": "rd-static-3",
+        "parser_warnings": [
+          "Static Rd subset renderer; original usage retained; no R code or examples executed."
+        ],
+        "rd_path": "cluster/man/pam.Rd",
+        "rd_sha256": "7d3e8c696a846ad8cb3bb25deec235b95bcc6f48c325d1086f9237b3e982823c",
+        "sections": {
+          "arguments": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument. In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric (or logical). Missing values ( NA s) are allowed---as long as every pair of observations has at least one case not missing. In case of a dissimilarity matrix, x is typically the output of daisy or dist . Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions. Missing values ( NA s) are not allowed. k positive integer specifying the number of clusters, less than the number of observations. diss logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix. If FALSE, then x will be considered as a matrix of observations by variables. metric character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\" and \"manhattan\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. If x is already a dissimilarity matrix, then this argument will be ignored. medoids NULL (default) or length- k vector of integer indices (in 1:n ) specifying initial medoids instead of using the build algorithm. nstart used only when medoids = \"random\" : specifies the number of random starts ; this argument corresponds to the one of kmeans () (from R's package stats ). stand logical; if true, the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. If x is already a dissimilarity matrix, then this argument will be ignored. cluster.only logical; if true, only the clustering will be computed and returned, see details. do.swap logical indicating if the swap phase should happen. The default, TRUE , correspond to the original algorithm. On the other hand, the swap phase is much more computer intensive than the build one for large n , so can be skipped by do.swap = FALSE . keep.diss, keep.data logicals indicating if the dissimilarities and/or input data x should be kept in the result. Setting these to FALSE can give much smaller results and hence even save memory allocation time . pamonce logical or integer in 0:6 specifying algorithmic short cuts as proposed by Reynolds et al. (2006), and Schubert and Rousseeuw (2019, 2021) see below. variant a character string denoting the variant of PAM algorithm to use; a more self-documenting version of pamonce which should be used preferably; note that \"faster\" not only uses pamonce = 6 but also nstart = 1 and hence medoids = \"random\" by default. trace.lev integer specifying a trace level for printing diagnostics during the build and swap phase of the algorithm. Default 0 does not print anything; higher values print increasingly more.",
+          "description": "Partitioning (clustering) of the data into k clusters around medoids , a more robust version of K-means.",
+          "details": "The basic pam algorithm is fully described in chapter 2 of Kaufman and Rousseeuw(1990). Compared to the k-means approach in kmeans , the function pam has the following features: (a) it also accepts a dissimilarity matrix; (b) it is more robust because it minimizes a sum of dissimilarities instead of a sum of squared euclidean distances; (c) it provides a novel graphical display, the silhouette plot (see plot.partition ) (d) it allows to select the number of clusters using mean( silhouette (pr)[, \"sil_width\"]) on the result pr <- pam(..) , or directly its component pr$silinfo$avg.width , see also pam.object . When cluster.only is true, the result is simply a (possibly named) integer vector specifying the clustering, i.e., pam(x,k, cluster.only=TRUE) is the same as pam(x,k)$clustering but computed more efficiently. The pam -algorithm is based on the search for k representative objects or medoids among the observations of the dataset. These observations should represent the structure of the data. After finding a set of k medoids, k clusters are constructed by assigning each observation to the nearest medoid. The goal is to find k representative objects which minimize the sum of the dissimilarities of the observations to their closest representative object. By default, when medoids are not specified, the algorithm first looks for a good initial set of medoids (this is called the build phase). Then it finds a local minimum for the objective function, that is, a solution such that there is no single switch of an observation with a medoid (i.e. a swap ) that will decrease the objective (this is called the swap phase). When the medoids are specified (or randomly generated), their order does not matter; in general, the algorithms have been designed to not depend on the order of the observations. The pamonce option, new in cluster 1.14.2 (Jan. 2012), has been proposed by Matthias Studer, University of Geneva, based on the findings by Reynolds et al. (2006) and was extended by Erich Schubert, TU Dortmund, with the FastPAM optimizations. The default FALSE (or integer 0 ) corresponds to the original swap algorithm, whereas pamonce = 1 (or TRUE ), corresponds to the first proposal .... and pamonce = 2 additionally implements the second proposal as well. The key ideas of FastPAM (Schubert and Rousseeuw, 2019) are implemented except for the linear approximate build as follows: pamonce = 3 : reduces the runtime by a factor of O(k) by exploiting that points cannot be closest to all current medoids at the same time. pamonce = 4 : additionally allows executing multiple swaps per iteration, usually reducing the number of iterations. pamonce = 5 : adds minor optimizations copied from the pamonce = 2 approach, and is expected to be the fastest of the FastPam variants included. FasterPAM (Schubert and Rousseeuw, 2021) is implemented via pamonce = 6 : execute each swap which improves results immediately, and hence typically multiple swaps per iteration; this swapping algorithm runs in O(n^2) rather than O(n(n-k)k) time which is much faster for all but small k . In addition, FasterPAM uses random initialization of the medoids (instead of the build phase) to avoid the O(n^2 k) initialization cost of the build algorithm. In particular for large k, this yields a much faster algorithm, while preserving a similar result quality. One may decide to use repeated random initialization by setting nstart > 1 .",
+          "note": "For large datasets, pam may need too much memory or too much computation time since both are O(n^2) . Then, clara () is preferable, see its documentation. There is hard limit currently, n 65536 n <= 65536 , at 2^ 16 because for larger n , n(n-1)/2 is larger than the maximal integer ( .Machine $integer.max = 2^ 31 - 1 ).",
+          "seealso": "agnes for background and references; pam.object , clara , daisy , partition.object , plot.partition , dist .",
+          "title": "Partitioning Around Medoids",
+          "usage": "pam(x, k, diss = inherits(x, \"dist\"), metric = c(\"euclidean\", \"manhattan\"), medoids = if(is.numeric(nstart)) \"random\", nstart = if(variant == \"faster\") 1 else NA, stand = FALSE, cluster.only = FALSE, do.swap = TRUE, keep.diss = !diss && !cluster.only && n < 100, keep.data = !diss && !cluster.only, variant = c(\"original\", \"o_1\", \"o_2\", \"f_3\", \"f_4\", \"f_5\", \"faster\"), pamonce = FALSE, trace.lev = 0)",
+          "value": "an object of class \"pam\" representing the clustering. See ? pam.object for details."
+        },
+        "source_url": "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz",
+        "usage_rd": "\npam(x, k, diss = inherits(x, \"dist\"),\n    metric = c(\"euclidean\", \"manhattan\"), %% FIXME: add \"jaccard\"\n    medoids = if(is.numeric(nstart)) \"random\",\n    nstart = if(variant == \"faster\") 1 else NA,\n    stand = FALSE, cluster.only = FALSE,\n    do.swap = TRUE,\n    keep.diss = !diss && !cluster.only && n < 100,\n    keep.data = !diss && !cluster.only,\n    variant = c(\"original\", \"o_1\", \"o_2\", \"f_3\", \"f_4\", \"f_5\", \"faster\"),\n    pamonce = FALSE, trace.lev = 0)\n"
+      },
+      "status": "machine_checked",
+      "usage": {
+        "api_calls": 2,
+        "cache_read_input_tokens": 1024,
+        "input_tokens": 9210,
+        "llm_calls": 2,
+        "output_tokens": 1244,
+        "retries": 0,
+        "tokens": 11478
+      },
+      "workflow_version": "cran-profile-2"
+    },
+    {
+      "agents": [
+        "function_metadata",
+        "applicability_extraction",
+        "evidence_review",
+        "database_publisher"
+      ],
+      "attempts": [
+        {
+          "draft": {
+            "claims": [
+              {
+                "category": "input",
+                "evidence": [
+                  {
+                    "quote": "r a correlation matrix.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "If a raw data matrix is used, the correlations will be found using pairwise deletions for missing values.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "输入 r 可以是相关矩阵，也可以是原始数据矩阵；若为原始数据矩阵，将使用成对删除处理缺失值来求相关。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "nfactors Number of components to extract residuals FALSE, do not show residuals, TRUE, report residuals rotate \"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "covar If false, find the correlation matrix from the raw data or convert to a correlation matrix if given a square matrix as input.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "nfactors 指定要提取的成分数量；covar=FALSE 时从原始数据求相关矩阵，或将方阵输入转换为相关矩阵。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "nfactors Number of components to extract residuals FALSE, do not show residuals, TRUE, report residuals rotate \"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "See fa for all rotations avaiable.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "rotate 支持 \"none\"、\"varimax\"、\"quartimax\"、\"promax\"、\"oblimin\"、\"simplimax\" 和 \"cluster\" 等旋转/变换方式。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "cor How to find the correlations: \"cor\" is Pearson\", \"cov\" is covariance, \"tet\" is tetrachoric, \"poly\" is polychoric, \"mixed\" uses mixedCor for a mixture of tetrachorics, polychorics, Pearsons, biserials, and polyserials, Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients as appropriate correct When doing tetrachoric, polycoric, or mixed cor, how should we",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "cor 参数可选择 Pearson(\"cor\")、协方差(\"cov\")、tetrachoric(\"tet\")、polychoric(\"poly\") 或 mixedCor(\"mixed\") 等计算相关的方式。"
+              },
+              {
+                "category": "preprocessing",
+                "evidence": [
+                  {
+                    "quote": "scores If TRUE, find component scores missing if scores are TRUE, and missing=TRUE, then impute missing values using either the median or the mean impute \"median\" or \"mean\" values are used to replace missing values oblique.scores If TRUE (default), then the component scores are based upon the structure matrix.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "若 scores=TRUE 且 missing=TRUE，则用中位数或均值（impute=\"median\" 或 \"mean\"）填补缺失值。"
+              },
+              {
+                "category": "output",
+                "evidence": [
+                  {
+                    "quote": "values Eigen Values of all components -- useful for a scree plot rotation which rotation was requested?",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "loadings A standard loading matrix of class ``loadings\" fit Fit of the model to the correlation matrix fit.off how well are the off diagonal elements reproduced?",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "residual Residual matrix -- if requested dof Degrees of Freedom for this model.",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "scores If scores=TRUE, then estimates of the factor scores are reported weights The beta weights to find the principal components from the data R2 The multiple R square between the factors and factor score estimates, if they were to be found.",
+                    "section": "value"
+                  }
+                ],
+                "statement": "返回特征值(values)、载荷矩阵(loadings)、拟合度(fit)、残差矩阵(若请求)、自由度(dof)及成分得分(若 scores=TRUE)等。"
+              },
+              {
+                "category": "assumption",
+                "evidence": [
+                  {
+                    "quote": "For principal components, the item uniqueness is assumed to be zero and all elements of the correlation or covariance matrix are fitted.",
+                    "section": "details"
+                  }
+                ],
+                "statement": "主成分模型假定各项目的唯一性(uniqueness)为零，并拟合相关或协方差矩阵的所有元素。"
+              },
+              {
+                "category": "failure",
+                "evidence": [
+                  {
+                    "quote": "It is important to recognize that rotated principal components are not principal components (the axes associated with the eigen value decomposition) but are merely components.",
+                    "section": "details"
+                  },
+                  {
+                    "quote": "To point this out, unrotated principal components are labelled as PCi, while rotated PCs are now labeled as RCi (for rotated components) and obliquely transformed components as TCi (for transformed components).",
+                    "section": "details"
+                  }
+                ],
+                "statement": "旋转后的主成分不再是特征值分解对应的主成分，而仅是成分（标记为 RCi 或 TCi）。"
+              },
+              {
+                "category": "output",
+                "evidence": [
+                  {
+                    "quote": "The regression weights are found from the inverse of the correlation matrix times the component loadings.",
+                    "section": "details"
+                  },
+                  {
+                    "quote": "This has the result that the component scores are standard scores (mean=0, sd = 1) of the standardized input.",
+                    "section": "details"
+                  },
+                  {
+                    "quote": "If the scores are found with the covar option = TRUE, then the scores are not standardized but are just mean centered.",
+                    "section": "details"
+                  }
+                ],
+                "statement": "成分得分通过回归权重（相关矩阵的逆乘以载荷）求得，结果为标准化输入的标准化得分（均值0、标准差1）；若 covar=TRUE 则仅做均值中心化。"
+              }
+            ],
+            "suitability_text": "该函数执行主成分分析（PCA），对相关矩阵或协方差矩阵做特征值分解，返回特征值、载荷与拟合度，并可提取指定数量的成分、计算成分得分及进行旋转。输入可为相关矩阵或原始数据矩阵（后者按成对删除处理缺失值）。适用于数据降维与成分提取，但旋转后的成分不再是严格意义上的主成分。",
+            "task_types": [
+              "pca"
+            ],
+            "unknowns": [
+              "文档未说明对样本量、正态性或变量独立性的任何要求。",
+              "文档未说明该函数对任意特定用户数据集的适用性，需结合研究设计自行判断。",
+              "文档未说明各旋转方法在何种数据条件下更适用或更稳健。"
+            ]
+          },
+          "review": {
+            "accepted": false,
+            "explanation": "草稿整体准确，但存在三处实质性偏差：cor 参数选项列举不完整且 'mixedCor(\\\"mixed\\\")' 表述有误；fit 与 fit.off 含义被笼统合并；成分得分回归权重的表述遗漏了 '基于结构矩阵而非模式矩阵' 的重要限定。需修正后方可接受。",
+            "issues": [
+              "claim 'cor 参数可选择 Pearson(\"cor\")、协方差(\"cov\")、tetrachoric(\"tet\")、polychoric(\"poly\") 或 mixedCor(\"mixed\") 等计算相关的方式' 的表述不完整且可能误导：文档中 cor 参数还包含 Yuleb、Yuleq、YuleY 等选项，且 'mixed' 是使用 mixedCor 处理 tetrachoric、polychoric、Pearson、biserial、polyserial 的混合，而非 'mixedCor(\"mixed\")' 这一表述。建议改为完整列出或概括为 'cor 参数可选择 Pearson、协方差、tetrachoric、polychoric、mixed（mixedCor 混合）以及 Yule 系数等'。",
+              "claim '返回特征值(values)、载荷矩阵(loadings)、拟合度(fit)、残差矩阵(若请求)、自由度(dof)及成分得分(若 scores=TRUE)等' 中 '拟合度(fit)' 的表述可能引起误解：文档中 fit 是 'Fit of the model to the correlation matrix'，而 fit.off 是 'how well are the off diagonal elements reproduced'，两者含义不同，不应笼统合并为 '拟合度(fit)'。建议分别说明 fit 与 fit.off 的含义。",
+              "claim '成分得分通过回归权重（相关矩阵的逆乘以载荷）求得' 的表述与文档存在细微偏差：文档原文为 'component scores are found by regression where the regression weights are R^-1 lambda'，即回归权重是相关矩阵的逆乘以载荷，但该表述将 '回归权重' 与 '成分得分' 的求法混为一谈，且未提及文档中 'The regression weights are found from the Structure matrix, not the Pattern matrix' 这一重要限定（oblique 情况下基于结构矩阵而非模式矩阵）。建议补充该限定以避免误导。"
+            ]
+          }
+        },
+        {
+          "draft": {
+            "claims": [
+              {
+                "category": "input",
+                "evidence": [
+                  {
+                    "quote": "r a correlation matrix.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "If a raw data matrix is used, the correlations will be found using pairwise deletions for missing values.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "输入 r 可为相关矩阵；若提供原始数据矩阵，则使用成对删除处理缺失值后求相关。"
+              },
+              {
+                "category": "input",
+                "evidence": [
+                  {
+                    "quote": "covar If false, find the correlation matrix from the raw data or convert to a correlation matrix if given a square matrix as input.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "covar=FALSE 时从原始数据求相关矩阵，或将输入的方阵转换为相关矩阵。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "nfactors Number of components to extract residuals FALSE, do not show residuals, TRUE, report residuals rotate \"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "Can show the residual correlations as well.",
+                    "section": "description"
+                  }
+                ],
+                "statement": "nfactors 指定要提取的成分数量；residuals=TRUE 时报告残差相关。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "nfactors Number of components to extract residuals FALSE, do not show residuals, TRUE, report residuals rotate \"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "See fa for all rotations avaiable.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "rotate 可选 \"none\"、\"varimax\"、\"quartimax\"、\"promax\"、\"oblimin\"、\"simplimax\"、\"cluster\" 等旋转/变换。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "cor How to find the correlations: \"cor\" is Pearson\", \"cov\" is covariance, \"tet\" is tetrachoric, \"poly\" is polychoric, \"mixed\" uses mixedCor for a mixture of tetrachorics, polychorics, Pearsons, biserials, and polyserials, Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients as appropriate correct When doing tetrachoric, polycoric, or mixed cor, how should we",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "cor 参数可选择 Pearson(\"cor\")、协方差(\"cov\")、tetrachoric(\"tet\")、polychoric(\"poly\")、mixed(mixedCor 混合)以及 Yuleb、Yuleq、YuleY 等 Yule 系数。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "scores If TRUE, find component scores missing if scores are TRUE, and missing=TRUE, then impute missing values using either the median or the mean impute \"median\" or \"mean\" values are used to replace missing values oblique.scores If TRUE (default), then the component scores are based upon the structure matrix.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "scores=TRUE 且 missing=TRUE 时，用中位数或均值(impute=\"median\"/\"mean\")插补缺失值。"
+              },
+              {
+                "category": "parameter",
+                "evidence": [
+                  {
+                    "quote": "The default is \"regression\" weight If not NULL, a vector of length n.obs that contains weights for each observation.",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "The NULL case is equivalent to all cases being weighted 1.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "weight 若非 NULL，为长度 n.obs 的每观测权重向量；NULL 等价于所有观测权重为 1。"
+              },
+              {
+                "category": "preprocessing",
+                "evidence": [
+                  {
+                    "quote": "use How to treat missing data, use=\"pairwise\" is the default\".",
+                    "section": "arguments"
+                  },
+                  {
+                    "quote": "See cor for other options.",
+                    "section": "arguments"
+                  }
+                ],
+                "statement": "use 参数控制缺失数据处理方式，默认 use=\"pairwise\"，其他选项见 cor。"
+              },
+              {
+                "category": "output",
+                "evidence": [
+                  {
+                    "quote": "values Eigen Values of all components -- useful for a scree plot rotation which rotation was requested?",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "loadings A standard loading matrix of class ``loadings\" fit Fit of the model to the correlation matrix fit.off how well are the off diagonal elements reproduced?",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "residual Residual matrix -- if requested dof Degrees of Freedom for this model.",
+                    "section": "value"
+                  }
+                ],
+                "statement": "返回特征值(values)、载荷矩阵(loadings)、模型对相关矩阵的拟合(fit)、非对角元素复现程度(fit.off)、残差矩阵(若请求)及自由度(dof)。"
+              },
+              {
+                "category": "output",
+                "evidence": [
+                  {
+                    "quote": "scores If scores=TRUE, then estimates of the factor scores are reported weights The beta weights to find the principal components from the data R2 The multiple R square between the factors and factor score estimates, if they were to be found.",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "The regression weights are found from the inverse of the correlation matrix times the component loadings.",
+                    "section": "details"
+                  },
+                  {
+                    "quote": "The regression weights are found from the Structure matrix, not the Pattern matrix.",
+                    "section": "details"
+                  }
+                ],
+                "statement": "scores=TRUE 时报告成分得分估计；回归权重由相关矩阵的逆乘以载荷求得，且基于结构矩阵(Structure matrix)而非模式矩阵(Pattern matrix)。"
+              },
+              {
+                "category": "output",
+                "evidence": [
+                  {
+                    "quote": "Phi If oblique rotations (using oblimin from the GPArotation package) are requested, what is the interfactor correlation.",
+                    "section": "value"
+                  },
+                  {
+                    "quote": "rot.mat The rotation matrix used to produce the rotated component loadings.",
+                    "section": "value"
+                  }
+                ],
+                "statement": "若请求斜交旋转(如 oblimin)，返回成分间相关 Phi；rot.mat 为产生旋转载荷的旋转矩阵。"
+              },
+              {
+                "category": "failure",
+                "evidence": [
+                  {
+                    "quote": "It is important to recognize that rotated principal components are not principal components (the axes associated with the eigen value decomposition) but are merely components.",
+                    "section": "details"
+                  },
+                  {
+                    "quote": "To point this out, unrotated principal components are labelled as PCi, while rotated PCs are now labeled as RCi (for rotated components) and obliquely transformed components as TCi (for transformed components).",
+                    "section": "details"
+                  },
+                  {
+                    "quote": "The correlations of the factors may be found by = ' Phi = Th' Th Some of the statistics reported are more appropriate for (maximum likelihood) factor analysis rather than principal components analysis, and are reported to allow comparisons with these other models.",
+                    "section": "details"
+                  }
+                ],
+                "statement": "旋转后的主成分不再是特征值分解对应的主成分，而仅是成分(标记为 RCi/TCi)；部分统计量更适合最大似然因子分析，仅供比较。"
+              }
+            ],
+            "suitability_text": "该函数用于主成分分析(PCA)：对相关矩阵或协方差矩阵做特征值分解，提取指定数量的成分，返回特征值、载荷、拟合度及(可选)残差相关与成分得分。输入可为相关矩阵或原始数据矩阵(自动按成对删除求相关)。支持多种旋转/变换、缺失值插补、观测权重及多种相关类型。注意旋转后的成分不再是严格意义上的主成分，且部分统计量更适合因子分析、仅供比较。",
+            "task_types": [
+              "pca"
+            ],
+            "unknowns": [
+              "文档未说明对样本量、变量分布(如正态性)或变量间独立性的任何要求。",
+              "文档未说明该函数对任意特定用户数据集的适用性，也未给出成分数量选择的统计准则(需借助 VSS、fa.parallel 等)。",
+              "文档未说明 tetrachoric/polychoric/mixed 相关在空单元格处理(correct 参数)之外的具体适用条件。"
+            ]
+          },
+          "review": {
+            "accepted": false,
+            "explanation": "草稿整体忠实于原文，但存在若干表述不准确之处需修正：Yule 系数的归类表述有误；回归权重基于结构矩阵这一关键限定需明确；Phi 的原文用词为 interfactor correlation。修正后可通过。",
+            "issues": [
+              "claim 'cor 参数可选择...Yuleb、Yuleq、YuleY 等 Yule 系数' 的表述不准确：原文为 'Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients as appropriate'，即 Yuleb 对应 Yulebonett 系数，Yuleq 与 YuleY 是相应的 Yule 系数，并非三种都叫 Yule 系数。请修正为 Yuleb(Yulebonett)、Yuleq、YuleY 等。",
+              "claim 'scores=TRUE 时报告成分得分估计；回归权重由相关矩阵的逆乘以载荷求得' 中，回归权重公式表述不完整：原文为 'R^(-1) lambda'，即相关矩阵的逆乘以载荷矩阵，且该回归权重基于结构矩阵(Structure matrix)而非模式矩阵。当前表述将'基于结构矩阵'与'相关矩阵的逆乘以载荷'并列，但原文明确指出回归权重由结构矩阵求得，请明确回归权重基于结构矩阵。",
+              "claim '返回特征值(values)、载荷矩阵(loadings)、模型对相关矩阵的拟合(fit)、非对角元素复现程度(fit.off)、残差矩阵(若请求)及自由度(dof)' 中，将 fit 表述为'模型对相关矩阵的拟合'不够准确：原文为 'fit Fit of the model to the correlation matrix'，可接受，但 fit.off 原文为 'how well are the off diagonal elements reproduced?'，表述为'非对角元素复现程度'可接受。此条无实质问题。",
+              "claim '若请求斜交旋转(如 oblimin)，返回成分间相关 Phi' 中，原文为 'Phi If oblique rotations (using oblimin from the GPArotation package) are requested, what is the interfactor correlation.'，表述为'成分间相关'可接受，但原文用词为 interfactor correlation(因子间相关)，建议保留'因子间相关'以忠实原文。"
+            ]
+          }
+        }
+      ],
+      "build_fingerprint": "4964bca0a52632064082227683e4084fa496aeca30bfb08b218cd6dad30cd12d",
+      "metadata": {
+        "aliases": [
+          "principal",
+          "pca"
+        ],
+        "function_id": "psych::principal",
+        "function_name": "principal",
+        "license": "GPL (>= 2)",
+        "package": "psych",
+        "package_sha256": "81cfacc5254b139323275a35cf0238dbefd23783b6deb3f4e01a40b0f2b2147f",
+        "package_version": "2.6.9",
+        "parameters": [
+          {
+            "description": "a correlation matrix. If a raw data matrix is used, the correlations will be found using pairwise deletions for missing values.",
+            "name": "r"
+          },
+          {
+            "description": "Number of components to extract",
+            "name": "nfactors"
+          },
+          {
+            "description": "FALSE, do not show residuals, TRUE, report residuals",
+            "name": "residuals"
+          },
+          {
+            "description": "\"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution. See fa for all rotations avaiable.",
+            "name": "rotate"
+          },
+          {
+            "description": "Number of observations used to find the correlation matrix if using a correlation matrix. Used for finding the goodness of fit statistics.",
+            "name": "n.obs"
+          },
+          {
+            "description": "If false, find the correlation matrix from the raw data or convert to a correlation matrix if given a square matrix as input.",
+            "name": "covar"
+          },
+          {
+            "description": "If TRUE, find component scores",
+            "name": "scores"
+          },
+          {
+            "description": "if scores are TRUE, and missing=TRUE, then impute missing values using either the median or the mean",
+            "name": "missing"
+          },
+          {
+            "description": "\"median\" or \"mean\" values are used to replace missing values",
+            "name": "impute"
+          },
+          {
+            "description": "If TRUE (default), then the component scores are based upon the structure matrix. If FALSE, upon the pattern matrix.",
+            "name": "oblique.scores"
+          },
+          {
+            "description": "Which way of finding component scores should be used. The default is \"regression\"",
+            "name": "method"
+          },
+          {
+            "description": "If not NULL, a vector of length n.obs that contains weights for each observation. The NULL case is equivalent to all cases being weighted 1.",
+            "name": "weight"
+          },
+          {
+            "description": "How to treat missing data, use=\"pairwise\" is the default\". See cor for other options.",
+            "name": "use"
+          },
+          {
+            "description": "How to find the correlations: \"cor\" is Pearson\", \"cov\" is covariance, \"tet\" is tetrachoric, \"poly\" is polychoric, \"mixed\" uses mixedCor for a mixture of tetrachorics, polychorics, Pearsons, biserials, and polyserials, Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients as appropriate",
+            "name": "cor"
+          },
+          {
+            "description": "When doing tetrachoric, polycoric, or mixed cor, how should we treat empty cells. (See the discussion in the help for tetrachoric.)",
+            "name": "correct"
+          },
+          {
+            "description": "Number of random restarts for rotations",
+            "name": "n.rotations"
+          },
+          {
+            "description": "Count number of (absolute) loadings less than hyper.",
+            "name": "hyper"
+          },
+          {
+            "description": "other parameters to pass to functions such as factor.scores or the various rotation functions.",
+            "name": "..."
+          }
+        ],
+        "rd_path": "psych/man/principal.Rd",
+        "rd_sha256": "82ed8581c7ae7622e9d2b5e535748a3f0801ab6aece05450603db80732994d1c",
+        "source_url": "https://cran.r-project.org/src/contrib/psych_2.6.9.tar.gz",
+        "usage_rd": "\nprincipal(r, nfactors = 1, residuals = FALSE,rotate=\"varimax\",n.obs=NA, covar=FALSE,\n scores=TRUE,missing=FALSE,impute=\"median\",oblique.scores=TRUE,method=\"regression\",\n use =\"pairwise\",cor=\"cor\",correct=.5,weight=NULL,n.rotations=1,\nhyper=.15,...)\n"
+      },
+      "model": {
+        "configured_model": "deepseek-v4-pro[1m]",
+        "endpoint": "https://api.deepseek.com/anthropic",
+        "immutable_model_version": false,
+        "provider": "DeepSeek",
+        "receipts": [
+          {
+            "request_sha256": "8a5cba2a0f2a10c1b19eb05ded278d93bc494ef8ccb954fd3a60955cafe10783",
+            "requested_model": "deepseek-v4-pro",
+            "response_sha256": "3eaa25ce8a2a92de86e1153a4f80ab81d2fc02adb7791b5146be36ac435e7677",
+            "returned_model": "deepseek-v4-pro",
+            "seconds": 8.758509000064805,
+            "stop_reason": "tool_use"
+          },
+          {
+            "request_sha256": "18cafa02a7d8c335d3ca0d9557dc3f5554772c439e122ee09557039d6d844dd0",
+            "requested_model": "deepseek-v4-pro",
+            "response_sha256": "4dafe8d759bce2cf4756e5e139c9ac81bebd6a020ecc3b335163c23171795c0b",
+            "returned_model": "deepseek-v4-pro",
+            "seconds": 6.670549900038168,
+            "stop_reason": "tool_use"
+          },
+          {
+            "request_sha256": "eeae13def91caa6d86dcb0fa81efcb7b9958963fe8e9a9f622a1538ca12efd60",
+            "requested_model": "deepseek-v4-pro",
+            "response_sha256": "a4419c8faea5c1223b989545fa7c746b77636b2993f1685acfa9344b0b09e0a0",
+            "returned_model": "deepseek-v4-pro",
+            "seconds": 9.781186999985948,
+            "stop_reason": "tool_use"
+          },
+          {
+            "request_sha256": "ca854fd4082e1d57f2696f2d5e777316101ed7cae072de50827c761148c67f53",
+            "requested_model": "deepseek-v4-pro",
+            "response_sha256": "f1da63dd1c230a3b2c417887fbfdf5cb541e490377e6bb6d0baadf95bf86f95d",
+            "returned_model": "deepseek-v4-pro",
+            "seconds": 7.428948100074194,
+            "stop_reason": "tool_use"
+          }
+        ],
+        "requested_model": "deepseek-v4-pro"
+      },
+      "quote_verification": "exact_normalized_substrings",
+      "retrieval_text": "psych::principal\npca\n该函数用于主成分分析(PCA)：对相关矩阵或协方差矩阵做特征值分解，提取指定数量的成分，返回特征值、载荷、拟合度及(可选)残差相关与成分得分。输入可为相关矩阵或原始数据矩阵(自动按成对删除求相关)。支持多种旋转/变换、缺失值插补、观测权重及多种相关类型。注意旋转后的成分不再是严格意义上的主成分，且部分统计量更适合因子分析、仅供比较。\ninput: 输入 r 可为相关矩阵；若提供原始数据矩阵，则使用成对删除处理缺失值后求相关。\ninput: covar=FALSE 时从原始数据求相关矩阵，或将输入的方阵转换为相关矩阵。\nparameter: nfactors 指定要提取的成分数量；residuals=TRUE 时报告残差相关。\nparameter: rotate 可选 \"none\"、\"varimax\"、\"quartimax\"、\"promax\"、\"oblimin\"、\"simplimax\"、\"cluster\" 等旋转/变换。\nparameter: cor 参数可选择 Pearson(\"cor\")、协方差(\"cov\")、tetrachoric(\"tet\")、polychoric(\"poly\")、mixed(mixedCor 混合)以及 Yuleb、Yuleq、YuleY 等 Yule 系数。\nparameter: scores=TRUE 且 missing=TRUE 时，用中位数或均值(impute=\"median\"/\"mean\")插补缺失值。\nparameter: weight 若非 NULL，为长度 n.obs 的每观测权重向量；NULL 等价于所有观测权重为 1。\npreprocessing: use 参数控制缺失数据处理方式，默认 use=\"pairwise\"，其他选项见 cor。\noutput: 返回特征值(values)、载荷矩阵(loadings)、模型对相关矩阵的拟合(fit)、非对角元素复现程度(fit.off)、残差矩阵(若请求)及自由度(dof)。\noutput: scores=TRUE 时报告成分得分估计；回归权重由相关矩阵的逆乘以载荷求得，且基于结构矩阵(Structure matrix)而非模式矩阵(Pattern matrix)。\noutput: 若请求斜交旋转(如 oblimin)，返回成分间相关 Phi；rot.mat 为产生旋转载荷的旋转矩阵。\nfailure: 旋转后的主成分不再是特征值分解对应的主成分，而仅是成分(标记为 RCi/TCi)；部分统计量更适合最大似然因子分析，仅供比较。",
+      "revision": "813e43d235e0d26c3bb71936986a9b69a3dff11379477401c2c1518a42bb015b",
+      "runtime_verified": false,
+      "schema_version": "1.0",
+      "semantic": {
+        "claims": [
+          {
+            "category": "input",
+            "evidence": [
+              {
+                "quote": "r a correlation matrix.",
+                "section": "arguments"
+              },
+              {
+                "quote": "If a raw data matrix is used, the correlations will be found using pairwise deletions for missing values.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "输入 r 可为相关矩阵；若提供原始数据矩阵，则使用成对删除处理缺失值后求相关。"
+          },
+          {
+            "category": "input",
+            "evidence": [
+              {
+                "quote": "covar If false, find the correlation matrix from the raw data or convert to a correlation matrix if given a square matrix as input.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "covar=FALSE 时从原始数据求相关矩阵，或将输入的方阵转换为相关矩阵。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "nfactors Number of components to extract residuals FALSE, do not show residuals, TRUE, report residuals rotate \"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution.",
+                "section": "arguments"
+              },
+              {
+                "quote": "Can show the residual correlations as well.",
+                "section": "description"
+              }
+            ],
+            "statement": "nfactors 指定要提取的成分数量；residuals=TRUE 时报告残差相关。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "nfactors Number of components to extract residuals FALSE, do not show residuals, TRUE, report residuals rotate \"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution.",
+                "section": "arguments"
+              },
+              {
+                "quote": "See fa for all rotations avaiable.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "rotate 可选 \"none\"、\"varimax\"、\"quartimax\"、\"promax\"、\"oblimin\"、\"simplimax\"、\"cluster\" 等旋转/变换。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "cor How to find the correlations: \"cor\" is Pearson\", \"cov\" is covariance, \"tet\" is tetrachoric, \"poly\" is polychoric, \"mixed\" uses mixedCor for a mixture of tetrachorics, polychorics, Pearsons, biserials, and polyserials, Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients as appropriate correct When doing tetrachoric, polycoric, or mixed cor, how should we",
+                "section": "arguments"
+              }
+            ],
+            "statement": "cor 参数可选择 Pearson(\"cor\")、协方差(\"cov\")、tetrachoric(\"tet\")、polychoric(\"poly\")、mixed(mixedCor 混合)以及 Yuleb、Yuleq、YuleY 等 Yule 系数。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "scores If TRUE, find component scores missing if scores are TRUE, and missing=TRUE, then impute missing values using either the median or the mean impute \"median\" or \"mean\" values are used to replace missing values oblique.scores If TRUE (default), then the component scores are based upon the structure matrix.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "scores=TRUE 且 missing=TRUE 时，用中位数或均值(impute=\"median\"/\"mean\")插补缺失值。"
+          },
+          {
+            "category": "parameter",
+            "evidence": [
+              {
+                "quote": "The default is \"regression\" weight If not NULL, a vector of length n.obs that contains weights for each observation.",
+                "section": "arguments"
+              },
+              {
+                "quote": "The NULL case is equivalent to all cases being weighted 1.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "weight 若非 NULL，为长度 n.obs 的每观测权重向量；NULL 等价于所有观测权重为 1。"
+          },
+          {
+            "category": "preprocessing",
+            "evidence": [
+              {
+                "quote": "use How to treat missing data, use=\"pairwise\" is the default\".",
+                "section": "arguments"
+              },
+              {
+                "quote": "See cor for other options.",
+                "section": "arguments"
+              }
+            ],
+            "statement": "use 参数控制缺失数据处理方式，默认 use=\"pairwise\"，其他选项见 cor。"
+          },
+          {
+            "category": "output",
+            "evidence": [
+              {
+                "quote": "values Eigen Values of all components -- useful for a scree plot rotation which rotation was requested?",
+                "section": "value"
+              },
+              {
+                "quote": "loadings A standard loading matrix of class ``loadings\" fit Fit of the model to the correlation matrix fit.off how well are the off diagonal elements reproduced?",
+                "section": "value"
+              },
+              {
+                "quote": "residual Residual matrix -- if requested dof Degrees of Freedom for this model.",
+                "section": "value"
+              }
+            ],
+            "statement": "返回特征值(values)、载荷矩阵(loadings)、模型对相关矩阵的拟合(fit)、非对角元素复现程度(fit.off)、残差矩阵(若请求)及自由度(dof)。"
+          },
+          {
+            "category": "output",
+            "evidence": [
+              {
+                "quote": "scores If scores=TRUE, then estimates of the factor scores are reported weights The beta weights to find the principal components from the data R2 The multiple R square between the factors and factor score estimates, if they were to be found.",
+                "section": "value"
+              },
+              {
+                "quote": "The regression weights are found from the inverse of the correlation matrix times the component loadings.",
+                "section": "details"
+              },
+              {
+                "quote": "The regression weights are found from the Structure matrix, not the Pattern matrix.",
+                "section": "details"
+              }
+            ],
+            "statement": "scores=TRUE 时报告成分得分估计；回归权重由相关矩阵的逆乘以载荷求得，且基于结构矩阵(Structure matrix)而非模式矩阵(Pattern matrix)。"
+          },
+          {
+            "category": "output",
+            "evidence": [
+              {
+                "quote": "Phi If oblique rotations (using oblimin from the GPArotation package) are requested, what is the interfactor correlation.",
+                "section": "value"
+              },
+              {
+                "quote": "rot.mat The rotation matrix used to produce the rotated component loadings.",
+                "section": "value"
+              }
+            ],
+            "statement": "若请求斜交旋转(如 oblimin)，返回成分间相关 Phi；rot.mat 为产生旋转载荷的旋转矩阵。"
+          },
+          {
+            "category": "failure",
+            "evidence": [
+              {
+                "quote": "It is important to recognize that rotated principal components are not principal components (the axes associated with the eigen value decomposition) but are merely components.",
                 "section": "details"
               },
               {
