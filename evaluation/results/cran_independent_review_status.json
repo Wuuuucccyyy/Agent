@@ -1,0 +1,11 @@
+{
+  "policy": "source-first-human-reference-1",
+  "packet_id": "0a94ff8b2718f9e7578c7f8ccb341a4115c6d08a5d71a1e3d1312766f2f9c361",
+  "snapshot_id": "5627edada29a91ab51d3691a89eb53c85bcef927b806ac70dc1a78c7768071a9",
+  "function_count": 8,
+  "item_count": 199,
+  "status": "awaiting_independent_reference",
+  "metrics": null,
+  "independent_human_review_complete": false,
+  "reason": "Source material and empty templates are prepared; no frozen independent reference was supplied to this report."
+}

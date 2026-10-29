@@ -1,5 +1,7 @@
 # 首轮验证记录
 
+v0.5 独立参考工作流的范围、空指标状态与验证见 [INDEPENDENT_REVIEW](INDEPENDENT_REVIEW.md)。v0.4 条件检索验证见 [AUDIT_AND_RULES](AUDIT_AND_RULES.md)。下列版本记录均为历史结果。
+
 当前 v0.3.0 的 CRAN 采集、协作画像、数据库恢复与搜索验收见 [CRAN_DATABASE_VALIDATION](CRAN_DATABASE_VALIDATION.md)。
 
 当前 v0.2.0 的真实 DeepSeek、固定 Embedding、扩展候选和画像评估见 [STAGE2_VALIDATION](STAGE2_VALIDATION.md)。下文为 v0.1 / v0.1.1 历史记录，其中“尚未验证”描述对应当时状态。

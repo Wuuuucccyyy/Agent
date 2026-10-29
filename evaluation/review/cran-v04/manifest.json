@@ -1,0 +1,31 @@
+{
+  "policy": "source-first-human-reference-1",
+  "snapshot": {
+    "revisions": [
+      "0a655d2e295a8d986e3491d77f52930e2dae3fb0f5495f95376b784fac503c91",
+      "0d5fc5dc7a044cc7d45f34c36a8f1727a940035452186bd7e6de1cde98a88dad",
+      "972855ac5434761d50ea2d1d3a6867c0fe4581ea0d296405f6631e26b6e9851e",
+      "9d5faf98162193209c4148501effe0cdafcccf2849262d0625771bea6df5953f",
+      "9fcde0a2a19febe00500bd105ac7625b0e2233025593506e2c1ac9197c4203ed",
+      "b1931a6acea5ee3668035535264053dbdd3ca8812f876739c6825365062c384a",
+      "c2e744ff2004f01befe6681a116f36eae9f254576ae6cce04a52e25a1928555f",
+      "c5f4bc61ee12bbc7a56329420601e0e6e83e87f542a4b1b5e46efae37b55ac46"
+    ],
+    "schema_version": "1.0",
+    "snapshot_id": "5627edada29a91ab51d3691a89eb53c85bcef927b806ac70dc1a78c7768071a9",
+    "source_lock_sha256": "38267844a60a93223caa14fe5c61d475ac5af1b36e13f4719013bb7c98a8d8ca"
+  },
+  "source_set_id": "9da6e1c7a83a56790164cf0cb5699ce0860bb5826cea6e435045b658c7678ebe",
+  "candidate_items_sha256": "330cf0dd5d212279120b6e8571c41c250844b5512fc70706e3a1e2cf7510b3ef",
+  "function_count": 8,
+  "item_count": 199,
+  "category_counts": {
+    "claim": 85,
+    "rule": 66,
+    "rule_configuration": 8,
+    "summary": 8,
+    "task": 8,
+    "unknowns": 24
+  },
+  "packet_id": "0a94ff8b2718f9e7578c7f8ccb341a4115c6d08a5d71a1e3d1312766f2f9c361"
+}

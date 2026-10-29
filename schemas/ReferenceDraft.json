@@ -1,0 +1,192 @@
+{
+  "$defs": {
+    "EvidenceSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "section": {
+          "title": "Section",
+          "type": "string"
+        },
+        "quote": {
+          "maxLength": 400,
+          "minLength": 8,
+          "title": "Quote",
+          "type": "string"
+        }
+      },
+      "required": [
+        "section",
+        "quote"
+      ],
+      "title": "EvidenceSpan",
+      "type": "object"
+    },
+    "FunctionReference": {
+      "additionalProperties": false,
+      "properties": {
+        "function_id": {
+          "title": "Function Id",
+          "type": "string"
+        },
+        "source_rd_sha256": {
+          "title": "Source Rd Sha256",
+          "type": "string"
+        },
+        "scope_complete": {
+          "default": false,
+          "title": "Scope Complete",
+          "type": "boolean"
+        },
+        "facts": {
+          "items": {
+            "$ref": "#/$defs/ReferenceFact"
+          },
+          "maxItems": 200,
+          "title": "Facts",
+          "type": "array"
+        }
+      },
+      "required": [
+        "function_id",
+        "source_rd_sha256"
+      ],
+      "title": "FunctionReference",
+      "type": "object"
+    },
+    "ReferenceFact": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "maxLength": 80,
+          "minLength": 1,
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "title": "Id",
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "task",
+            "input",
+            "roles",
+            "parameters",
+            "conditions",
+            "output",
+            "unknowns"
+          ],
+          "title": "Category",
+          "type": "string"
+        },
+        "statement": {
+          "maxLength": 1500,
+          "minLength": 1,
+          "title": "Statement",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "documented",
+            "derived",
+            "not_established"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/EvidenceSpan"
+          },
+          "maxItems": 12,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "rationale": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "category",
+        "statement",
+        "status",
+        "rationale"
+      ],
+      "title": "ReferenceFact",
+      "type": "object"
+    },
+    "Reviewer": {
+      "additionalProperties": false,
+      "properties": {
+        "reviewer_id": {
+          "default": "",
+          "title": "Reviewer Id",
+          "type": "string"
+        },
+        "kind": {
+          "default": "unassigned",
+          "enum": [
+            "unassigned",
+            "human",
+            "ai",
+            "developer_fixture"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "independent_of_generation": {
+          "default": false,
+          "title": "Independent Of Generation",
+          "type": "boolean"
+        },
+        "reviewed_on": {
+          "default": "",
+          "title": "Reviewed On",
+          "type": "string"
+        }
+      },
+      "title": "Reviewer",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_set_id": {
+      "title": "Source Set Id",
+      "type": "string"
+    },
+    "reviewer": {
+      "$ref": "#/$defs/Reviewer"
+    },
+    "authored_from_sources_before_viewing_candidates": {
+      "default": false,
+      "title": "Authored From Sources Before Viewing Candidates",
+      "type": "boolean"
+    },
+    "functions": {
+      "items": {
+        "$ref": "#/$defs/FunctionReference"
+      },
+      "title": "Functions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "source_set_id",
+    "functions"
+  ],
+  "title": "ReferenceDraft",
+  "type": "object"
+}

@@ -1,0 +1,154 @@
+{
+  "$defs": {
+    "CoverageJudgment": {
+      "additionalProperties": false,
+      "properties": {
+        "fact_id": {
+          "title": "Fact Id",
+          "type": "string"
+        },
+        "verdict": {
+          "default": "unreviewed",
+          "enum": [
+            "unreviewed",
+            "covered",
+            "missing",
+            "uncertain"
+          ],
+          "title": "Verdict",
+          "type": "string"
+        },
+        "candidate_item_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Candidate Item Ids",
+          "type": "array"
+        },
+        "rationale": {
+          "default": "",
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fact_id"
+      ],
+      "title": "CoverageJudgment",
+      "type": "object"
+    },
+    "ItemJudgment": {
+      "additionalProperties": false,
+      "properties": {
+        "item_id": {
+          "title": "Item Id",
+          "type": "string"
+        },
+        "verdict": {
+          "default": "unreviewed",
+          "enum": [
+            "unreviewed",
+            "supported",
+            "contradicted",
+            "unsupported",
+            "uncertain"
+          ],
+          "title": "Verdict",
+          "type": "string"
+        },
+        "reference_fact_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reference Fact Ids",
+          "type": "array"
+        },
+        "rationale": {
+          "default": "",
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "item_id"
+      ],
+      "title": "ItemJudgment",
+      "type": "object"
+    },
+    "Reviewer": {
+      "additionalProperties": false,
+      "properties": {
+        "reviewer_id": {
+          "default": "",
+          "title": "Reviewer Id",
+          "type": "string"
+        },
+        "kind": {
+          "default": "unassigned",
+          "enum": [
+            "unassigned",
+            "human",
+            "ai",
+            "developer_fixture"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "independent_of_generation": {
+          "default": false,
+          "title": "Independent Of Generation",
+          "type": "boolean"
+        },
+        "reviewed_on": {
+          "default": "",
+          "title": "Reviewed On",
+          "type": "string"
+        }
+      },
+      "title": "Reviewer",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "packet_id": {
+      "title": "Packet Id",
+      "type": "string"
+    },
+    "reference_id": {
+      "title": "Reference Id",
+      "type": "string"
+    },
+    "reviewer": {
+      "$ref": "#/$defs/Reviewer"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/ItemJudgment"
+      },
+      "title": "Items",
+      "type": "array"
+    },
+    "coverage": {
+      "items": {
+        "$ref": "#/$defs/CoverageJudgment"
+      },
+      "title": "Coverage",
+      "type": "array"
+    }
+  },
+  "required": [
+    "packet_id",
+    "reference_id",
+    "items",
+    "coverage"
+  ],
+  "title": "ReviewAnnotations",
+  "type": "object"
+}

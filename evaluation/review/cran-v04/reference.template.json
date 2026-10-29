@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "source_set_id": "9da6e1c7a83a56790164cf0cb5699ce0860bb5826cea6e435045b658c7678ebe",
+  "reviewer": {
+    "reviewer_id": "",
+    "kind": "unassigned",
+    "independent_of_generation": false,
+    "reviewed_on": ""
+  },
+  "authored_from_sources_before_viewing_candidates": false,
+  "functions": [
+    {
+      "function_id": "MASS::lda",
+      "source_rd_sha256": "c3b3311368b575a80803713fd61f758b47f7fdaf0a6dd0385191a9e81143f27e",
+      "scope_complete": false,
+      "facts": []
+    },
+    {
+      "function_id": "MASS::lm.ridge",
+      "source_rd_sha256": "45a6e84256ee24be378fc1b741134969deca94cd428f9bb05578d35eadff5229",
+      "scope_complete": false,
+      "facts": []
+    },
+    {
+      "function_id": "MASS::qda",
+      "source_rd_sha256": "59579f504ebbe9e1e9bf28a3e82f9339791c29636e0690497f7489b338d560a3",
+      "scope_complete": false,
+      "facts": []
+    },
+    {
+      "function_id": "cluster::agnes",
+      "source_rd_sha256": "958ff549f380aed8fbd2f51ce05f723469d22a922432ec2913789d850f49b1d5",
+      "scope_complete": false,
+      "facts": []
+    },
+    {
+      "function_id": "cluster::clara",
+      "source_rd_sha256": "b18b27063c8cf1c9d78ed87c9194a502281a363df12e053c527c3fa89f1f8ef2",
+      "scope_complete": false,
+      "facts": []
+    },
+    {
+      "function_id": "cluster::diana",
+      "source_rd_sha256": "0bf0ba3ed417b73ceed0b4cd1ba55d12c384f98cbf5432299c3d1ce3e975812d",
+      "scope_complete": false,
+      "facts": []
+    },
+    {
+      "function_id": "cluster::pam",
+      "source_rd_sha256": "7d3e8c696a846ad8cb3bb25deec235b95bcc6f48c325d1086f9237b3e982823c",
+      "scope_complete": false,
+      "facts": []
+    },
+    {
+      "function_id": "psych::principal",
+      "source_rd_sha256": "82ed8581c7ae7622e9d2b5e535748a3f0801ab6aece05450603db80732994d1c",
+      "scope_complete": false,
+      "facts": []
+    }
+  ]
+}

@@ -16,8 +16,13 @@ def write_json(path, payload):
 
 
 def main(argv=None):
+    arguments = list(sys.argv[1:] if argv is None else argv)
+    if arguments and arguments[0] == 'review':
+        from .kb_review import main as review_main
+        return review_main(arguments[1:])
     parser = argparse.ArgumentParser(description='CRAN function applicability knowledge database')
     commands = parser.add_subparsers(dest='command', required=True)
+    commands.add_parser('review', help='Prepare source-only human reference material, freeze references and score annotations')
     collect = commands.add_parser('collect', help='Resolve selected CRAN versions and download source archives')
     collect.add_argument('--config', type=Path, default=Path('configs/cran_seed.json'))
     collect.add_argument('--lock', type=Path, default=Path('configs/cran_sources.lock.json'))

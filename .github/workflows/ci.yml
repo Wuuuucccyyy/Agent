@@ -23,4 +23,6 @@ jobs:
       - run: python -m stat_agent kb restore --db runs/ci-knowledge.sqlite3
       - run: python evaluation/cran_database.py --db runs/ci-knowledge.sqlite3 --out runs/cran-search.json
       - run: python evaluation/cran_conditions.py --db runs/ci-knowledge.sqlite3 --out runs/cran-conditions.json
+      - run: python -m stat_agent kb review prepare --db runs/ci-knowledge.sqlite3 --packet runs/ci-review
+      - run: python -m stat_agent kb review status --db runs/ci-knowledge.sqlite3 --packet runs/ci-review --out runs/ci-review-status.json
       - run: python -m stat_agent profile examples/data/pca.csv --out runs/ci-profile-only
