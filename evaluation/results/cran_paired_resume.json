@@ -1,0 +1,15 @@
+{
+  "plan_id": "21b79e0def8803ec2cb8b3a4a3df46d7127ee7e384c5b5854b8152bffbb554e4",
+  "completed_functions": 8,
+  "resume_usage": {
+    "api_calls": 0,
+    "llm_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "tokens": 0,
+    "cache_read_input_tokens": 0,
+    "retries": 0
+  },
+  "production_snapshot_id": "5627edada29a91ab51d3691a89eb53c85bcef927b806ac70dc1a78c7768071a9",
+  "network_calls_disallowed_during_validation": true
+}

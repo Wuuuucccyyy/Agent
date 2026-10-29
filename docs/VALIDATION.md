@@ -1,5 +1,7 @@
 # 首轮验证记录
 
+v0.6 真实配对画像生成、调用成本、恢复检查及质量限制见 [PROFILE_COMPARISON](PROFILE_COMPARISON.md)。
+
 v0.5 独立参考工作流的范围、空指标状态与验证见 [INDEPENDENT_REVIEW](INDEPENDENT_REVIEW.md)。v0.4 条件检索验证见 [AUDIT_AND_RULES](AUDIT_AND_RULES.md)。下列版本记录均为历史结果。
 
 当前 v0.3.0 的 CRAN 采集、协作画像、数据库恢复与搜索验收见 [CRAN_DATABASE_VALIDATION](CRAN_DATABASE_VALIDATION.md)。

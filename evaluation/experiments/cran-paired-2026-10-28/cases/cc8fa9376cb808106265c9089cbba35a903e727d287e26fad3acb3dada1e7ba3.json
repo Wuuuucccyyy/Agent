@@ -1,0 +1,566 @@
+{
+  "plan_id": "21b79e0def8803ec2cb8b3a4a3df46d7127ee7e384c5b5854b8152bffbb554e4",
+  "function_id": "MASS::lm.ridge",
+  "source_rd_sha256": "45a6e84256ee24be378fc1b741134969deca94cd428f9bb05578d35eadff5229",
+  "state": "completed",
+  "pending_phase": null,
+  "phases": [
+    {
+      "name": "initial_extraction",
+      "status": "completed",
+      "error": null,
+      "seconds": 10.340107799973339,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 21,
+        "output_tokens": 712,
+        "tokens": 3037,
+        "cache_read_input_tokens": 2304,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "e8c174c9a7fcc6d62eebd46529157f02cb1739db9d57fbea3bf75eb7587758a3",
+          "response_sha256": "19739cccffefbb84d6da16020a12be1930e5c9f6d21517af6058b15ae530ed33",
+          "seconds": 10.339069799985737,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "task_types": [
+          "regression"
+        ],
+        "suitability_text": "该函数用于通过岭回归拟合线性模型，适用于以公式指定响应变量与预测变量的回归任务。输入可为数据框、列表或环境，支持子集筛选、缺失值处理、偏移项及因子对比。lambda 可为标量或向量，一次拟合多个岭常数。输出为系数矩阵（每行对应一个 lambda）及尺度、GCV、HKB/L-W 估计等组件；系数非原始尺度，需经 coef 方法使用。",
+        "claims": [
+          {
+            "category": "input",
+            "statement": "输入通过 formula 指定，形式为 response ~ predictors，用于回归模型。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "formula a formula expression as for regression models, of the form response ~ predictors ."
+              }
+            ]
+          },
+          {
+            "category": "input",
+            "statement": "data 可为数据框、列表或环境，用于解释公式中的变量；offset 项被允许。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "data an optional data frame, list or environment in which to interpret the variables occurring in formula ."
+              },
+              {
+                "section": "arguments",
+                "quote": "offset terms are allowed."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "lambda 是岭常数的标量或向量，可为每个 lambda 值拟合一行系数。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "lambda A scalar or vector of ridge constants."
+              },
+              {
+                "section": "value",
+                "quote": "A list with components coef matrix of coefficients, one row for each value of lambda ."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "subset 用于选择参与拟合的行，默认包含所有观测；na.action 用于过滤缺失数据。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "subset expression saying which subset of the rows of the data should be used in the fit."
+              },
+              {
+                "section": "arguments",
+                "quote": "All observations are included by default."
+              },
+              {
+                "section": "arguments",
+                "quote": "na.action a function to filter missing data."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "contrasts 可为公式中的部分或全部因子项指定对比；... 为传给 lm.fit 的额外参数。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "contrasts a list of contrasts to be used for some or all of factor terms in the formula."
+              },
+              {
+                "section": "arguments",
+                "quote": "additional arguments to lm.fit ."
+              }
+            ]
+          },
+          {
+            "category": "assumption",
+            "statement": "若模型中存在截距，其系数不被惩罚；若要惩罚截距，需自行加入常数项并移除截距。",
+            "evidence": [
+              {
+                "section": "details",
+                "quote": "If an intercept is present in the model, its coefficient is not penalized."
+              },
+              {
+                "section": "details",
+                "quote": "(If you want to penalize an intercept, put in your own constant term and remove the intercept.)"
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "返回列表，含 coef 系数矩阵（每行对应一个 lambda）、scales、Inter、lambda、ym、xm、GCV、kHKB 与 kLW 等组件。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "A list with components coef matrix of coefficients, one row for each value of lambda ."
+              },
+              {
+                "section": "value",
+                "quote": "scales scalings used on the X matrix."
+              },
+              {
+                "section": "value",
+                "quote": "Inter was intercept included?"
+              },
+              {
+                "section": "value",
+                "quote": "lambda vector of lambda values ym mean of y xm column means of x matrix GCV vector of GCV values kHKB HKB estimate of the ridge constant."
+              },
+              {
+                "section": "value",
+                "quote": "kLW L-W estimate of the ridge constant."
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "coef 中的系数不在原始尺度上，需通过 coef 方法使用。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "Note that these are not on the original scale and are for use by the coef method."
+              }
+            ]
+          },
+          {
+            "category": "failure",
+            "statement": "model、x、y 参数（是否返回模型框、设计矩阵、响应）未实现。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "model should the model frame be returned?"
+              },
+              {
+                "section": "arguments",
+                "quote": "Not implemented."
+              },
+              {
+                "section": "arguments",
+                "quote": "x should the design matrix be returned?"
+              },
+              {
+                "section": "arguments",
+                "quote": "Not implemented."
+              },
+              {
+                "section": "arguments",
+                "quote": "y should the response be returned?"
+              },
+              {
+                "section": "arguments",
+                "quote": "Not implemented."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "文档未说明对样本量、变量分布或共线性程度的具体要求，也未说明岭回归推断所需的统计假设。",
+          "文档未说明该函数对任意特定用户数据集的适用性或研究设计是否成立。"
+        ]
+      }
+    },
+    {
+      "name": "initial_review",
+      "status": "completed",
+      "error": null,
+      "seconds": 3.9239226998761296,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 1043,
+        "output_tokens": 171,
+        "tokens": 2238,
+        "cache_read_input_tokens": 1024,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "5bce63d1344d92e6023dcc804e33783686bfdbfca9e7d6ae1dc7b03a89a1988c",
+          "response_sha256": "d6265b4a1ca97d33720af58a8ede6ac0fa96e909cfaee84f98376915b0017369",
+          "seconds": 3.922810100018978,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "accepted": true,
+        "issues": [],
+        "explanation": "逐条核对官方文档，suitability_text 与全部 claims 均有对应章节和引文支持，未发现虚构条件、遗漏限定词或与文档矛盾之处。task_types 标注为 regression 与函数用途一致。lambda 默认值 0、系数非原始尺度、截距不惩罚、model/x/y 未实现等关键限定均被正确保留。unknowns 保守地未对文档未说明的统计假设与数据要求作断言，符合要求。"
+      }
+    }
+  ],
+  "single": {
+    "status": "structurally_valid",
+    "semantic": {
+      "task_types": [
+        "regression"
+      ],
+      "suitability_text": "该函数用于通过岭回归拟合线性模型，适用于以公式指定响应变量与预测变量的回归任务。输入可为数据框、列表或环境，支持子集筛选、缺失值处理、偏移项及因子对比。lambda 可为标量或向量，一次拟合多个岭常数。输出为系数矩阵（每行对应一个 lambda）及尺度、GCV、HKB/L-W 估计等组件；系数非原始尺度，需经 coef 方法使用。",
+      "claims": [
+        {
+          "category": "input",
+          "statement": "输入通过 formula 指定，形式为 response ~ predictors，用于回归模型。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "formula a formula expression as for regression models, of the form response ~ predictors ."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "data 可为数据框、列表或环境，用于解释公式中的变量；offset 项被允许。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "data an optional data frame, list or environment in which to interpret the variables occurring in formula ."
+            },
+            {
+              "section": "arguments",
+              "quote": "offset terms are allowed."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "lambda 是岭常数的标量或向量，可为每个 lambda 值拟合一行系数。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "lambda A scalar or vector of ridge constants."
+            },
+            {
+              "section": "value",
+              "quote": "A list with components coef matrix of coefficients, one row for each value of lambda ."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "subset 用于选择参与拟合的行，默认包含所有观测；na.action 用于过滤缺失数据。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "subset expression saying which subset of the rows of the data should be used in the fit."
+            },
+            {
+              "section": "arguments",
+              "quote": "All observations are included by default."
+            },
+            {
+              "section": "arguments",
+              "quote": "na.action a function to filter missing data."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "contrasts 可为公式中的部分或全部因子项指定对比；... 为传给 lm.fit 的额外参数。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "contrasts a list of contrasts to be used for some or all of factor terms in the formula."
+            },
+            {
+              "section": "arguments",
+              "quote": "additional arguments to lm.fit ."
+            }
+          ]
+        },
+        {
+          "category": "assumption",
+          "statement": "若模型中存在截距，其系数不被惩罚；若要惩罚截距，需自行加入常数项并移除截距。",
+          "evidence": [
+            {
+              "section": "details",
+              "quote": "If an intercept is present in the model, its coefficient is not penalized."
+            },
+            {
+              "section": "details",
+              "quote": "(If you want to penalize an intercept, put in your own constant term and remove the intercept.)"
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "返回列表，含 coef 系数矩阵（每行对应一个 lambda）、scales、Inter、lambda、ym、xm、GCV、kHKB 与 kLW 等组件。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "A list with components coef matrix of coefficients, one row for each value of lambda ."
+            },
+            {
+              "section": "value",
+              "quote": "scales scalings used on the X matrix."
+            },
+            {
+              "section": "value",
+              "quote": "Inter was intercept included?"
+            },
+            {
+              "section": "value",
+              "quote": "lambda vector of lambda values ym mean of y xm column means of x matrix GCV vector of GCV values kHKB HKB estimate of the ridge constant."
+            },
+            {
+              "section": "value",
+              "quote": "kLW L-W estimate of the ridge constant."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "coef 中的系数不在原始尺度上，需通过 coef 方法使用。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "Note that these are not on the original scale and are for use by the coef method."
+            }
+          ]
+        },
+        {
+          "category": "failure",
+          "statement": "model、x、y 参数（是否返回模型框、设计矩阵、响应）未实现。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "model should the model frame be returned?"
+            },
+            {
+              "section": "arguments",
+              "quote": "Not implemented."
+            },
+            {
+              "section": "arguments",
+              "quote": "x should the design matrix be returned?"
+            },
+            {
+              "section": "arguments",
+              "quote": "Not implemented."
+            },
+            {
+              "section": "arguments",
+              "quote": "y should the response be returned?"
+            },
+            {
+              "section": "arguments",
+              "quote": "Not implemented."
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "文档未说明对样本量、变量分布或共线性程度的具体要求，也未说明岭回归推断所需的统计假设。",
+        "文档未说明该函数对任意特定用户数据集的适用性或研究设计是否成立。"
+      ]
+    },
+    "structural_issues": [],
+    "semantic_review": "not_performed"
+  },
+  "cooperative": {
+    "status": "machine_accepted",
+    "semantic": {
+      "task_types": [
+        "regression"
+      ],
+      "suitability_text": "该函数用于通过岭回归拟合线性模型，适用于以公式指定响应变量与预测变量的回归任务。输入可为数据框、列表或环境，支持子集筛选、缺失值处理、偏移项及因子对比。lambda 可为标量或向量，一次拟合多个岭常数。输出为系数矩阵（每行对应一个 lambda）及尺度、GCV、HKB/L-W 估计等组件；系数非原始尺度，需经 coef 方法使用。",
+      "claims": [
+        {
+          "category": "input",
+          "statement": "输入通过 formula 指定，形式为 response ~ predictors，用于回归模型。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "formula a formula expression as for regression models, of the form response ~ predictors ."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "data 可为数据框、列表或环境，用于解释公式中的变量；offset 项被允许。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "data an optional data frame, list or environment in which to interpret the variables occurring in formula ."
+            },
+            {
+              "section": "arguments",
+              "quote": "offset terms are allowed."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "lambda 是岭常数的标量或向量，可为每个 lambda 值拟合一行系数。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "lambda A scalar or vector of ridge constants."
+            },
+            {
+              "section": "value",
+              "quote": "A list with components coef matrix of coefficients, one row for each value of lambda ."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "subset 用于选择参与拟合的行，默认包含所有观测；na.action 用于过滤缺失数据。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "subset expression saying which subset of the rows of the data should be used in the fit."
+            },
+            {
+              "section": "arguments",
+              "quote": "All observations are included by default."
+            },
+            {
+              "section": "arguments",
+              "quote": "na.action a function to filter missing data."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "contrasts 可为公式中的部分或全部因子项指定对比；... 为传给 lm.fit 的额外参数。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "contrasts a list of contrasts to be used for some or all of factor terms in the formula."
+            },
+            {
+              "section": "arguments",
+              "quote": "additional arguments to lm.fit ."
+            }
+          ]
+        },
+        {
+          "category": "assumption",
+          "statement": "若模型中存在截距，其系数不被惩罚；若要惩罚截距，需自行加入常数项并移除截距。",
+          "evidence": [
+            {
+              "section": "details",
+              "quote": "If an intercept is present in the model, its coefficient is not penalized."
+            },
+            {
+              "section": "details",
+              "quote": "(If you want to penalize an intercept, put in your own constant term and remove the intercept.)"
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "返回列表，含 coef 系数矩阵（每行对应一个 lambda）、scales、Inter、lambda、ym、xm、GCV、kHKB 与 kLW 等组件。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "A list with components coef matrix of coefficients, one row for each value of lambda ."
+            },
+            {
+              "section": "value",
+              "quote": "scales scalings used on the X matrix."
+            },
+            {
+              "section": "value",
+              "quote": "Inter was intercept included?"
+            },
+            {
+              "section": "value",
+              "quote": "lambda vector of lambda values ym mean of y xm column means of x matrix GCV vector of GCV values kHKB HKB estimate of the ridge constant."
+            },
+            {
+              "section": "value",
+              "quote": "kLW L-W estimate of the ridge constant."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "coef 中的系数不在原始尺度上，需通过 coef 方法使用。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "Note that these are not on the original scale and are for use by the coef method."
+            }
+          ]
+        },
+        {
+          "category": "failure",
+          "statement": "model、x、y 参数（是否返回模型框、设计矩阵、响应）未实现。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "model should the model frame be returned?"
+            },
+            {
+              "section": "arguments",
+              "quote": "Not implemented."
+            },
+            {
+              "section": "arguments",
+              "quote": "x should the design matrix be returned?"
+            },
+            {
+              "section": "arguments",
+              "quote": "Not implemented."
+            },
+            {
+              "section": "arguments",
+              "quote": "y should the response be returned?"
+            },
+            {
+              "section": "arguments",
+              "quote": "Not implemented."
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "文档未说明对样本量、变量分布或共线性程度的具体要求，也未说明岭回归推断所需的统计假设。",
+        "文档未说明该函数对任意特定用户数据集的适用性或研究设计是否成立。"
+      ]
+    },
+    "structural_issues": [],
+    "semantic_review": "same_model_review_not_independent",
+    "review": {
+      "accepted": true,
+      "issues": [],
+      "explanation": "逐条核对官方文档，suitability_text 与全部 claims 均有对应章节和引文支持，未发现虚构条件、遗漏限定词或与文档矛盾之处。task_types 标注为 regression 与函数用途一致。lambda 默认值 0、系数非原始尺度、截距不惩罚、model/x/y 未实现等关键限定均被正确保留。unknowns 保守地未对文档未说明的统计假设与数据要求作断言，符合要求。"
+    }
+  },
+  "record_sha256": "c153a45c950a40d272a45d6f45cd85948a66843f7c0823f9ea027529aa81b028"
+}

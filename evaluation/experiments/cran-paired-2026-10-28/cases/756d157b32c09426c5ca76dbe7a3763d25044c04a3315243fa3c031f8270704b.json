@@ -1,0 +1,827 @@
+{
+  "plan_id": "21b79e0def8803ec2cb8b3a4a3df46d7127ee7e384c5b5854b8152bffbb554e4",
+  "function_id": "psych::principal",
+  "source_rd_sha256": "82ed8581c7ae7622e9d2b5e535748a3f0801ab6aece05450603db80732994d1c",
+  "state": "completed",
+  "pending_phase": null,
+  "phases": [
+    {
+      "name": "initial_extraction",
+      "status": "completed",
+      "error": null,
+      "seconds": 14.553766299970448,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 44,
+        "output_tokens": 997,
+        "tokens": 9233,
+        "cache_read_input_tokens": 8192,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "8a5cba2a0f2a10c1b19eb05ded278d93bc494ef8ccb954fd3a60955cafe10783",
+          "response_sha256": "d4e4abef706a02a9a03e5ff881a019cc50d90b8d3d8133ef46498b218c18e46c",
+          "seconds": 14.552317299880087,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "task_types": [
+          "pca"
+        ],
+        "suitability_text": "该函数执行主成分分析（PCA），对相关矩阵或协方差矩阵做特征值分解，返回特征值、载荷与拟合度，并可提取指定数量的成分、计算成分得分及进行旋转。输入可为相关矩阵或原始数据矩阵（原始数据将按成对删除缺失值求相关）。适用于降维与成分提取任务。",
+        "claims": [
+          {
+            "category": "input",
+            "statement": "输入 r 可以是相关矩阵，也可以是原始数据矩阵；若为原始数据矩阵，将使用成对删除处理缺失值来求相关。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "r a correlation matrix."
+              },
+              {
+                "section": "arguments",
+                "quote": "If a raw data matrix is used, the correlations will be found using pairwise deletions for missing values."
+              }
+            ]
+          },
+          {
+            "category": "input",
+            "statement": "covar 参数控制是否从原始数据求相关矩阵，或在给定方阵输入时转换为相关矩阵；covar=FALSE 时求相关矩阵。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "covar If false, find the correlation matrix from the raw data or convert to a correlation matrix if given a square matrix as input."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "nfactors 指定要提取的成分数量；rotate 支持 \"none\"、\"varimax\"、\"quartimax\"、\"promax\"、\"oblimin\"、\"simplimax\" 和 \"cluster\" 等旋转/变换。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "nfactors Number of components to extract residuals FALSE, do not show residuals, TRUE, report residuals rotate \"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "cor 参数可选择相关类型：\"cor\" 为 Pearson，\"cov\" 为协方差，\"tet\" 为四分相关，\"poly\" 为多分相关，\"mixed\" 使用 mixedCor 混合多种相关。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "cor How to find the correlations: \"cor\" is Pearson\", \"cov\" is covariance, \"tet\" is tetrachoric, \"poly\" is polychoric, \"mixed\" uses mixedCor for a mixture of tetrachorics, polychorics, Pearsons, biserials, and polyserials, Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients as appropriate correct When doing tetrachoric, polycoric, or mixed cor, how should we"
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "scores=TRUE 时计算成分得分；若同时 missing=TRUE，则用中位数或均值（impute 参数）填补缺失值。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "scores If TRUE, find component scores missing if scores are TRUE, and missing=TRUE, then impute missing values using either the median or the mean impute \"median\" or \"mean\" values are used to replace missing values oblique.scores If TRUE (default), then the component scores are based upon the structure matrix."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "method 默认 \"regression\"，回归权重由相关矩阵的逆乘以成分载荷得到；oblique.scores=TRUE 时成分得分基于结构矩阵，FALSE 时基于模式矩阵。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "The default is \"regression\" weight If not NULL, a vector of length n.obs that contains weights for each observation."
+              },
+              {
+                "section": "arguments",
+                "quote": "scores If TRUE, find component scores missing if scores are TRUE, and missing=TRUE, then impute missing values using either the median or the mean impute \"median\" or \"mean\" values are used to replace missing values oblique.scores If TRUE (default), then the component scores are based upon the structure matrix."
+              },
+              {
+                "section": "arguments",
+                "quote": "If FALSE, upon the pattern matrix."
+              },
+              {
+                "section": "details",
+                "quote": "The regression weights are found from the inverse of the correlation matrix times the component loadings."
+              },
+              {
+                "section": "details",
+                "quote": "The regression weights are found from the Structure matrix, not the Pattern matrix."
+              }
+            ]
+          },
+          {
+            "category": "preprocessing",
+            "statement": "成分得分是标准化输入的标准化得分（均值=0，标准差=1）；若 covar=TRUE，则得分不做标准化而仅做均值中心化。",
+            "evidence": [
+              {
+                "section": "details",
+                "quote": "This has the result that the component scores are standard scores (mean=0, sd = 1) of the standardized input."
+              },
+              {
+                "section": "details",
+                "quote": "If the scores are found with the covar option = TRUE, then the scores are not standardized but are just mean centered."
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "返回对象包含特征值（values）、载荷矩阵（loadings）、拟合度（fit）、残差矩阵（若请求）、自由度（dof）以及旋转矩阵（rot.mat）等。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "values Eigen Values of all components -- useful for a scree plot rotation which rotation was requested?"
+              },
+              {
+                "section": "value",
+                "quote": "loadings A standard loading matrix of class ``loadings\" fit Fit of the model to the correlation matrix fit.off how well are the off diagonal elements reproduced?"
+              },
+              {
+                "section": "value",
+                "quote": "residual Residual matrix -- if requested dof Degrees of Freedom for this model."
+              },
+              {
+                "section": "value",
+                "quote": "rot.mat The rotation matrix used to produce the rotated component loadings."
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "若指定或找到观测数 n.obs，则基于目标函数 f 报告卡方统计量 STATISTIC 及 PVAL；这些统计量更适合最大似然因子分析，此处仅供比较。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "STATISTIC If the number of observations is specified or found, this is a chi square based upon the objective function, f."
+              },
+              {
+                "section": "value",
+                "quote": "Using the formula from factanal : ^2 = (n.obs - 1 - (2 * p + 5)/6 - (2 * factors)/3)) * f chi^2 = (n.obs - 1 - (2 * p + 5)/6 - (2 * factors)/3)) * f PVAL If n.obs > 0, then what is the probability of observing a chisquare this large or larger?"
+              },
+              {
+                "section": "details",
+                "quote": "The correlations of the factors may be found by = ' Phi = Th' Th Some of the statistics reported are more appropriate for (maximum likelihood) factor analysis rather than principal components analysis, and are reported to allow comparisons with these other models."
+              }
+            ]
+          },
+          {
+            "category": "assumption",
+            "statement": "主成分模型假设各项目的唯一性（uniqueness）为零，并拟合相关或协方差矩阵的所有元素。",
+            "evidence": [
+              {
+                "section": "details",
+                "quote": "For principal components, the item uniqueness is assumed to be zero and all elements of the correlation or covariance matrix are fitted."
+              }
+            ]
+          },
+          {
+            "category": "failure",
+            "statement": "旋转后的主成分不再是特征值分解对应的主成分，而只是成分；未旋转成分标记为 PCi，旋转成分为 RCi，斜交变换成分为 TCi。",
+            "evidence": [
+              {
+                "section": "details",
+                "quote": "It is important to recognize that rotated principal components are not principal components (the axes associated with the eigen value decomposition) but are merely components."
+              },
+              {
+                "section": "details",
+                "quote": "To point this out, unrotated principal components are labelled as PCi, while rotated PCs are now labeled as RCi (for rotated components) and obliquely transformed components as TCi (for transformed components)."
+              }
+            ]
+          },
+          {
+            "category": "failure",
+            "statement": "由于成分不最小化非对角线元素，其拟合度不如因子分析；目标函数与卡方统计量仅供比较用途。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "Because components do not minimize the off diagonal, this fit will be not as good as for factor analysis."
+              },
+              {
+                "section": "value",
+                "quote": "It is included merely for comparison purposes."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "文档未说明对样本量、正态性或变量独立性的任何要求。",
+          "文档未说明该函数对任意特定用户数据集的适用性或研究设计是否成立。",
+          "文档未说明各旋转选项的默认收敛精度或具体实现细节（除 varimax 的 eps 提示外）。"
+        ]
+      }
+    },
+    {
+      "name": "initial_review",
+      "status": "completed",
+      "error": null,
+      "seconds": 8.864906800212339,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 1918,
+        "output_tokens": 531,
+        "tokens": 5649,
+        "cache_read_input_tokens": 3200,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "d2b0991b924c25c3c422c00cd5abdab7a4371847ce71e46879e38671e7e1ab8f",
+          "response_sha256": "ac6fed5d86f60c4d55f1175fd7e236308f613759f7442c0790feb3e306781c70",
+          "seconds": 8.861908700084314,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "accepted": false,
+        "issues": [
+          "claim 'method 默认 \"regression\"，回归权重由相关矩阵的逆乘以成分载荷得到' 的证据引用不完整：details 中明确说明 'The regression weights are found from the Structure matrix, not the Pattern matrix.'，即回归权重基于结构矩阵而非模式矩阵。该 claim 将 '回归权重由相关矩阵的逆乘以成分载荷' 与 'oblique.scores=TRUE 时基于结构矩阵' 并列陈述，但未说明在斜交情况下回归权重实际取自结构矩阵（而非模式矩阵），可能造成混淆。应明确：回归权重由相关矩阵的逆乘以成分载荷（结构矩阵）得到，且斜交时基于结构矩阵而非模式矩阵。",
+          "claim 'scores=TRUE 时计算成分得分；若同时 missing=TRUE，则用中位数或均值（impute 参数）填补缺失值' 的证据引用中，arguments 原文为 'missing if scores are TRUE, and missing=TRUE, then impute missing values using either the median or the mean'，即缺失值填补仅在 scores=TRUE 且 missing=TRUE 时发生，claim 已正确表述该条件，无实质问题。但需注意 impute 默认值为 \"median\"，claim 未提及默认值，属可接受省略。",
+          "claim 'cor 参数可选择相关类型' 的证据引用被截断，未包含 'Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients' 等后续内容，但 claim 仅列举了部分类型并以 '等' 收尾，属可接受省略，无实质问题。"
+        ],
+        "explanation": "经核对，draft 中大部分 claim 与官方文档一致。但 method 相关 claim 存在一处实质性表述问题：文档明确说明回归权重取自结构矩阵（Structure matrix）而非模式矩阵（Pattern matrix），而 claim 将 '回归权重由相关矩阵的逆乘以成分载荷' 与 'oblique.scores=TRUE 时基于结构矩阵' 并列，未澄清斜交情况下回归权重实际基于结构矩阵，可能误导读者认为回归权重基于模式矩阵。需修正该 claim 以准确反映结构矩阵这一关键限定。"
+      }
+    },
+    {
+      "name": "correction_extraction",
+      "status": "completed",
+      "error": null,
+      "seconds": 12.836600700160488,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 390,
+        "output_tokens": 849,
+        "tokens": 9431,
+        "cache_read_input_tokens": 8192,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "86ae96a823a8dea23c64fd298f56901c3ca6d38cc694a2e757339972214a25cb",
+          "response_sha256": "1f77a8def5ac235a4e4caaf4500f77ac40a1e29cfa1d338a99ac3d3f11101af9",
+          "seconds": 12.835021199891344,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "task_types": [
+          "pca"
+        ],
+        "suitability_text": "该函数用于主成分分析（PCA），对相关矩阵或协方差矩阵做特征值分解，返回特征值、载荷与拟合度，并可提取指定数量的成分、计算成分得分及进行旋转。输入可为相关矩阵或原始数据矩阵（自动按成对删除计算相关）。支持多种旋转与相关类型，可输出残差相关、拟合统计与成分得分。注意旋转后的成分不再是严格意义上的主成分。",
+        "claims": [
+          {
+            "category": "input",
+            "statement": "输入 r 可为相关矩阵；若提供原始数据矩阵，则使用成对删除处理缺失值来计算相关。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "r a correlation matrix."
+              },
+              {
+                "section": "arguments",
+                "quote": "If a raw data matrix is used, the correlations will be found using pairwise deletions for missing values."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "covar=FALSE 时从原始数据求相关矩阵，或将输入的方阵转换为相关矩阵；covar=TRUE 时使用协方差。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "covar If false, find the correlation matrix from the raw data or convert to a correlation matrix if given a square matrix as input."
+              },
+              {
+                "section": "description",
+                "quote": "Basically it is just doing a principal components analysis (PCA) for n principal components of either a correlation or covariance matrix."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "nfactors 指定要提取的成分数量；与 princomp 不同，本函数只返回最佳的 nfactors 个成分。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "nfactors Number of components to extract residuals FALSE, do not show residuals, TRUE, report residuals rotate \"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution."
+              },
+              {
+                "section": "description",
+                "quote": "Unlike princomp, this returns a subset of just the best nfactors."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "rotate 支持 \"none\"、\"varimax\"、\"quartimax\"、\"promax\"、\"oblimin\"、\"simplimax\"、\"cluster\" 等旋转/变换。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "nfactors Number of components to extract residuals FALSE, do not show residuals, TRUE, report residuals rotate \"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution."
+              },
+              {
+                "section": "arguments",
+                "quote": "See fa for all rotations avaiable."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "cor 参数可选择相关类型：\"cor\" 为 Pearson，\"cov\" 为协方差，\"tet\" 为四分相关，\"poly\" 为多分相关，\"mixed\" 为混合相关等。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "cor How to find the correlations: \"cor\" is Pearson\", \"cov\" is covariance, \"tet\" is tetrachoric, \"poly\" is polychoric, \"mixed\" uses mixedCor for a mixture of tetrachorics, polychorics, Pearsons, biserials, and polyserials, Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients as appropriate correct When doing tetrachoric, polycoric, or mixed cor, how should we"
+              }
+            ]
+          },
+          {
+            "category": "preprocessing",
+            "statement": "当 scores=TRUE 且 missing=TRUE 时，用中位数或均值（impute 参数）填补缺失值。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "scores If TRUE, find component scores missing if scores are TRUE, and missing=TRUE, then impute missing values using either the median or the mean impute \"median\" or \"mean\" values are used to replace missing values oblique.scores If TRUE (default), then the component scores are based upon the structure matrix."
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "返回特征值（values）、载荷矩阵（loadings）、拟合度（fit）、残差矩阵（若请求）及自由度（dof）等。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "values Eigen Values of all components -- useful for a scree plot rotation which rotation was requested?"
+              },
+              {
+                "section": "value",
+                "quote": "loadings A standard loading matrix of class ``loadings\" fit Fit of the model to the correlation matrix fit.off how well are the off diagonal elements reproduced?"
+              },
+              {
+                "section": "value",
+                "quote": "residual Residual matrix -- if requested dof Degrees of Freedom for this model."
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "若 scores=TRUE，则报告成分得分估计；回归权重由相关矩阵的逆乘以成分载荷（结构矩阵）得到，斜交时基于结构矩阵而非模式矩阵。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "scores If scores=TRUE, then estimates of the factor scores are reported weights The beta weights to find the principal components from the data R2 The multiple R square between the factors and factor score estimates, if they were to be found."
+              },
+              {
+                "section": "details",
+                "quote": "The regression weights are found from the inverse of the correlation matrix times the component loadings."
+              },
+              {
+                "section": "details",
+                "quote": "The regression weights are found from the Structure matrix, not the Pattern matrix."
+              }
+            ]
+          },
+          {
+            "category": "assumption",
+            "statement": "主成分模型假定各项目的唯一性（uniqueness）为零，并拟合相关或协方差矩阵的所有元素。",
+            "evidence": [
+              {
+                "section": "details",
+                "quote": "For principal components, the item uniqueness is assumed to be zero and all elements of the correlation or covariance matrix are fitted."
+              },
+              {
+                "section": "details",
+                "quote": "That is, _nR_n _ n F_ kk F_n' nRn = nFk kFn' The primary empirical difference between a components versus a factor model is the treatment of the variances for each item."
+              }
+            ]
+          },
+          {
+            "category": "failure",
+            "statement": "旋转后的主成分不再是特征值分解对应的主成分，而仅是成分（标记为 RCi 或 TCi）。",
+            "evidence": [
+              {
+                "section": "details",
+                "quote": "It is important to recognize that rotated principal components are not principal components (the axes associated with the eigen value decomposition) but are merely components."
+              },
+              {
+                "section": "details",
+                "quote": "To point this out, unrotated principal components are labelled as PCi, while rotated PCs are now labeled as RCi (for rotated components) and obliquely transformed components as TCi (for transformed components)."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "文档未说明对样本量、正态性或变量独立性的任何要求，这些属于推断性假设而非算法输入要求。",
+          "文档未说明该函数对任意特定用户数据集的适用性，需结合具体研究设计判断。",
+          "文档未说明各旋转选项的默认参数细节（如 varimax 的 eps 精度），仅提示可通过 eps=1e-14 提升精度。"
+        ]
+      }
+    },
+    {
+      "name": "final_review",
+      "status": "completed",
+      "error": null,
+      "seconds": 13.760710699949414,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 1710,
+        "output_tokens": 720,
+        "tokens": 5502,
+        "cache_read_input_tokens": 3072,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "8757fcd4b0b4323fe8f97669f605c7108aeaf47d04d0418179c2c23a599955a2",
+          "response_sha256": "188fcc4b140ca9ea6c7e49ec827fccb25f66d2c1538b467c605d29715ac3a3e5",
+          "seconds": 13.75845060008578,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "accepted": false,
+        "issues": [
+          "claim 'covar=FALSE 时从原始数据求相关矩阵，或将输入的方阵转换为相关矩阵；covar=TRUE 时使用协方差' 中，'covar=TRUE 时使用协方差' 这一半缺乏直接证据。文档 arguments 仅说明 covar=FALSE 的行为，未明确说明 covar=TRUE 时使用协方差。description 中 'either a correlation or covariance matrix' 只是说明输入可为相关或协方差矩阵，并未说明 covar=TRUE 会使用协方差。请补充能支持 'covar=TRUE 使用协方差' 的原文引用，或删除该半句。",
+          "claim 'cor 参数可选择相关类型' 的证据引用被截断，未包含 'Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients' 的完整内容，且引文在 'how should we' 处中断。请补全引文以完整覆盖所声称的相关类型（尤其是 Yule 系数）。",
+          "claim '返回特征值（values）、载荷矩阵（loadings）、拟合度（fit）、残差矩阵（若请求）及自由度（dof）等' 中，'拟合度（fit）' 的证据引用将 'fit Fit of the model to the correlation matrix' 与 'fit.off how well are the off diagonal elements reproduced?' 混在同一引文中，且未单独引用 fit 的说明。请分别引用 fit 与 fit.off 的原文，避免将两个不同返回值合并为一条证据。",
+          "claim '若 scores=TRUE，则报告成分得分估计；回归权重由相关矩阵的逆乘以成分载荷（结构矩阵）得到' 中，'结构矩阵' 的表述与文档存在细微出入。文档 details 明确说明 'The regression weights are found from the Structure matrix, not the Pattern matrix'，但 value 部分对 weights 的描述为 'The beta weights to find the principal components from the data'，未提及结构矩阵。请确保 '结构矩阵' 的表述仅由 details 部分支持，并避免暗示 value 部分也支持该表述。",
+          "claim '主成分模型假定各项目的唯一性（uniqueness）为零' 被归类为 assumption（推断性假设），但文档 details 中 'the item uniqueness is assumed to be zero' 是 PCA 的算法定义性设定，而非对数据的统计推断假设。请重新评估该 claim 的 category 归类，或调整表述以区分算法设定与统计假设。"
+        ],
+        "explanation": "草稿整体准确，但存在若干证据支撑不足或表述与原文有细微出入的问题。主要问题包括：covar=TRUE 使用协方差这一半句缺乏直接原文支持；cor 参数的证据引文被截断，未完整覆盖 Yule 系数；fit 与 fit.off 被合并引用；'结构矩阵' 表述的证据来源需明确；以及 uniqueness 为零被归类为 assumption 而非算法设定，需重新评估。这些属于实质性证据支撑问题，需修正后方可接受。"
+      }
+    }
+  ],
+  "single": {
+    "status": "structurally_valid",
+    "semantic": {
+      "task_types": [
+        "pca"
+      ],
+      "suitability_text": "该函数执行主成分分析（PCA），对相关矩阵或协方差矩阵做特征值分解，返回特征值、载荷与拟合度，并可提取指定数量的成分、计算成分得分及进行旋转。输入可为相关矩阵或原始数据矩阵（原始数据将按成对删除缺失值求相关）。适用于降维与成分提取任务。",
+      "claims": [
+        {
+          "category": "input",
+          "statement": "输入 r 可以是相关矩阵，也可以是原始数据矩阵；若为原始数据矩阵，将使用成对删除处理缺失值来求相关。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "r a correlation matrix."
+            },
+            {
+              "section": "arguments",
+              "quote": "If a raw data matrix is used, the correlations will be found using pairwise deletions for missing values."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "covar 参数控制是否从原始数据求相关矩阵，或在给定方阵输入时转换为相关矩阵；covar=FALSE 时求相关矩阵。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "covar If false, find the correlation matrix from the raw data or convert to a correlation matrix if given a square matrix as input."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "nfactors 指定要提取的成分数量；rotate 支持 \"none\"、\"varimax\"、\"quartimax\"、\"promax\"、\"oblimin\"、\"simplimax\" 和 \"cluster\" 等旋转/变换。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "nfactors Number of components to extract residuals FALSE, do not show residuals, TRUE, report residuals rotate \"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "cor 参数可选择相关类型：\"cor\" 为 Pearson，\"cov\" 为协方差，\"tet\" 为四分相关，\"poly\" 为多分相关，\"mixed\" 使用 mixedCor 混合多种相关。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "cor How to find the correlations: \"cor\" is Pearson\", \"cov\" is covariance, \"tet\" is tetrachoric, \"poly\" is polychoric, \"mixed\" uses mixedCor for a mixture of tetrachorics, polychorics, Pearsons, biserials, and polyserials, Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients as appropriate correct When doing tetrachoric, polycoric, or mixed cor, how should we"
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "scores=TRUE 时计算成分得分；若同时 missing=TRUE，则用中位数或均值（impute 参数）填补缺失值。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "scores If TRUE, find component scores missing if scores are TRUE, and missing=TRUE, then impute missing values using either the median or the mean impute \"median\" or \"mean\" values are used to replace missing values oblique.scores If TRUE (default), then the component scores are based upon the structure matrix."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "method 默认 \"regression\"，回归权重由相关矩阵的逆乘以成分载荷得到；oblique.scores=TRUE 时成分得分基于结构矩阵，FALSE 时基于模式矩阵。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "The default is \"regression\" weight If not NULL, a vector of length n.obs that contains weights for each observation."
+            },
+            {
+              "section": "arguments",
+              "quote": "scores If TRUE, find component scores missing if scores are TRUE, and missing=TRUE, then impute missing values using either the median or the mean impute \"median\" or \"mean\" values are used to replace missing values oblique.scores If TRUE (default), then the component scores are based upon the structure matrix."
+            },
+            {
+              "section": "arguments",
+              "quote": "If FALSE, upon the pattern matrix."
+            },
+            {
+              "section": "details",
+              "quote": "The regression weights are found from the inverse of the correlation matrix times the component loadings."
+            },
+            {
+              "section": "details",
+              "quote": "The regression weights are found from the Structure matrix, not the Pattern matrix."
+            }
+          ]
+        },
+        {
+          "category": "preprocessing",
+          "statement": "成分得分是标准化输入的标准化得分（均值=0，标准差=1）；若 covar=TRUE，则得分不做标准化而仅做均值中心化。",
+          "evidence": [
+            {
+              "section": "details",
+              "quote": "This has the result that the component scores are standard scores (mean=0, sd = 1) of the standardized input."
+            },
+            {
+              "section": "details",
+              "quote": "If the scores are found with the covar option = TRUE, then the scores are not standardized but are just mean centered."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "返回对象包含特征值（values）、载荷矩阵（loadings）、拟合度（fit）、残差矩阵（若请求）、自由度（dof）以及旋转矩阵（rot.mat）等。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "values Eigen Values of all components -- useful for a scree plot rotation which rotation was requested?"
+            },
+            {
+              "section": "value",
+              "quote": "loadings A standard loading matrix of class ``loadings\" fit Fit of the model to the correlation matrix fit.off how well are the off diagonal elements reproduced?"
+            },
+            {
+              "section": "value",
+              "quote": "residual Residual matrix -- if requested dof Degrees of Freedom for this model."
+            },
+            {
+              "section": "value",
+              "quote": "rot.mat The rotation matrix used to produce the rotated component loadings."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "若指定或找到观测数 n.obs，则基于目标函数 f 报告卡方统计量 STATISTIC 及 PVAL；这些统计量更适合最大似然因子分析，此处仅供比较。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "STATISTIC If the number of observations is specified or found, this is a chi square based upon the objective function, f."
+            },
+            {
+              "section": "value",
+              "quote": "Using the formula from factanal : ^2 = (n.obs - 1 - (2 * p + 5)/6 - (2 * factors)/3)) * f chi^2 = (n.obs - 1 - (2 * p + 5)/6 - (2 * factors)/3)) * f PVAL If n.obs > 0, then what is the probability of observing a chisquare this large or larger?"
+            },
+            {
+              "section": "details",
+              "quote": "The correlations of the factors may be found by = ' Phi = Th' Th Some of the statistics reported are more appropriate for (maximum likelihood) factor analysis rather than principal components analysis, and are reported to allow comparisons with these other models."
+            }
+          ]
+        },
+        {
+          "category": "assumption",
+          "statement": "主成分模型假设各项目的唯一性（uniqueness）为零，并拟合相关或协方差矩阵的所有元素。",
+          "evidence": [
+            {
+              "section": "details",
+              "quote": "For principal components, the item uniqueness is assumed to be zero and all elements of the correlation or covariance matrix are fitted."
+            }
+          ]
+        },
+        {
+          "category": "failure",
+          "statement": "旋转后的主成分不再是特征值分解对应的主成分，而只是成分；未旋转成分标记为 PCi，旋转成分为 RCi，斜交变换成分为 TCi。",
+          "evidence": [
+            {
+              "section": "details",
+              "quote": "It is important to recognize that rotated principal components are not principal components (the axes associated with the eigen value decomposition) but are merely components."
+            },
+            {
+              "section": "details",
+              "quote": "To point this out, unrotated principal components are labelled as PCi, while rotated PCs are now labeled as RCi (for rotated components) and obliquely transformed components as TCi (for transformed components)."
+            }
+          ]
+        },
+        {
+          "category": "failure",
+          "statement": "由于成分不最小化非对角线元素，其拟合度不如因子分析；目标函数与卡方统计量仅供比较用途。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "Because components do not minimize the off diagonal, this fit will be not as good as for factor analysis."
+            },
+            {
+              "section": "value",
+              "quote": "It is included merely for comparison purposes."
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "文档未说明对样本量、正态性或变量独立性的任何要求。",
+        "文档未说明该函数对任意特定用户数据集的适用性或研究设计是否成立。",
+        "文档未说明各旋转选项的默认收敛精度或具体实现细节（除 varimax 的 eps 提示外）。"
+      ]
+    },
+    "structural_issues": [],
+    "semantic_review": "not_performed"
+  },
+  "cooperative": {
+    "status": "needs_review",
+    "semantic": {
+      "task_types": [
+        "pca"
+      ],
+      "suitability_text": "该函数用于主成分分析（PCA），对相关矩阵或协方差矩阵做特征值分解，返回特征值、载荷与拟合度，并可提取指定数量的成分、计算成分得分及进行旋转。输入可为相关矩阵或原始数据矩阵（自动按成对删除计算相关）。支持多种旋转与相关类型，可输出残差相关、拟合统计与成分得分。注意旋转后的成分不再是严格意义上的主成分。",
+      "claims": [
+        {
+          "category": "input",
+          "statement": "输入 r 可为相关矩阵；若提供原始数据矩阵，则使用成对删除处理缺失值来计算相关。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "r a correlation matrix."
+            },
+            {
+              "section": "arguments",
+              "quote": "If a raw data matrix is used, the correlations will be found using pairwise deletions for missing values."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "covar=FALSE 时从原始数据求相关矩阵，或将输入的方阵转换为相关矩阵；covar=TRUE 时使用协方差。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "covar If false, find the correlation matrix from the raw data or convert to a correlation matrix if given a square matrix as input."
+            },
+            {
+              "section": "description",
+              "quote": "Basically it is just doing a principal components analysis (PCA) for n principal components of either a correlation or covariance matrix."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "nfactors 指定要提取的成分数量；与 princomp 不同，本函数只返回最佳的 nfactors 个成分。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "nfactors Number of components to extract residuals FALSE, do not show residuals, TRUE, report residuals rotate \"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution."
+            },
+            {
+              "section": "description",
+              "quote": "Unlike princomp, this returns a subset of just the best nfactors."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "rotate 支持 \"none\"、\"varimax\"、\"quartimax\"、\"promax\"、\"oblimin\"、\"simplimax\"、\"cluster\" 等旋转/变换。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "nfactors Number of components to extract residuals FALSE, do not show residuals, TRUE, report residuals rotate \"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution."
+            },
+            {
+              "section": "arguments",
+              "quote": "See fa for all rotations avaiable."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "cor 参数可选择相关类型：\"cor\" 为 Pearson，\"cov\" 为协方差，\"tet\" 为四分相关，\"poly\" 为多分相关，\"mixed\" 为混合相关等。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "cor How to find the correlations: \"cor\" is Pearson\", \"cov\" is covariance, \"tet\" is tetrachoric, \"poly\" is polychoric, \"mixed\" uses mixedCor for a mixture of tetrachorics, polychorics, Pearsons, biserials, and polyserials, Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients as appropriate correct When doing tetrachoric, polycoric, or mixed cor, how should we"
+            }
+          ]
+        },
+        {
+          "category": "preprocessing",
+          "statement": "当 scores=TRUE 且 missing=TRUE 时，用中位数或均值（impute 参数）填补缺失值。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "scores If TRUE, find component scores missing if scores are TRUE, and missing=TRUE, then impute missing values using either the median or the mean impute \"median\" or \"mean\" values are used to replace missing values oblique.scores If TRUE (default), then the component scores are based upon the structure matrix."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "返回特征值（values）、载荷矩阵（loadings）、拟合度（fit）、残差矩阵（若请求）及自由度（dof）等。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "values Eigen Values of all components -- useful for a scree plot rotation which rotation was requested?"
+            },
+            {
+              "section": "value",
+              "quote": "loadings A standard loading matrix of class ``loadings\" fit Fit of the model to the correlation matrix fit.off how well are the off diagonal elements reproduced?"
+            },
+            {
+              "section": "value",
+              "quote": "residual Residual matrix -- if requested dof Degrees of Freedom for this model."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "若 scores=TRUE，则报告成分得分估计；回归权重由相关矩阵的逆乘以成分载荷（结构矩阵）得到，斜交时基于结构矩阵而非模式矩阵。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "scores If scores=TRUE, then estimates of the factor scores are reported weights The beta weights to find the principal components from the data R2 The multiple R square between the factors and factor score estimates, if they were to be found."
+            },
+            {
+              "section": "details",
+              "quote": "The regression weights are found from the inverse of the correlation matrix times the component loadings."
+            },
+            {
+              "section": "details",
+              "quote": "The regression weights are found from the Structure matrix, not the Pattern matrix."
+            }
+          ]
+        },
+        {
+          "category": "assumption",
+          "statement": "主成分模型假定各项目的唯一性（uniqueness）为零，并拟合相关或协方差矩阵的所有元素。",
+          "evidence": [
+            {
+              "section": "details",
+              "quote": "For principal components, the item uniqueness is assumed to be zero and all elements of the correlation or covariance matrix are fitted."
+            },
+            {
+              "section": "details",
+              "quote": "That is, _nR_n _ n F_ kk F_n' nRn = nFk kFn' The primary empirical difference between a components versus a factor model is the treatment of the variances for each item."
+            }
+          ]
+        },
+        {
+          "category": "failure",
+          "statement": "旋转后的主成分不再是特征值分解对应的主成分，而仅是成分（标记为 RCi 或 TCi）。",
+          "evidence": [
+            {
+              "section": "details",
+              "quote": "It is important to recognize that rotated principal components are not principal components (the axes associated with the eigen value decomposition) but are merely components."
+            },
+            {
+              "section": "details",
+              "quote": "To point this out, unrotated principal components are labelled as PCi, while rotated PCs are now labeled as RCi (for rotated components) and obliquely transformed components as TCi (for transformed components)."
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "文档未说明对样本量、正态性或变量独立性的任何要求，这些属于推断性假设而非算法输入要求。",
+        "文档未说明该函数对任意特定用户数据集的适用性，需结合具体研究设计判断。",
+        "文档未说明各旋转选项的默认参数细节（如 varimax 的 eps 精度），仅提示可通过 eps=1e-14 提升精度。"
+      ]
+    },
+    "structural_issues": [],
+    "semantic_review": "same_model_review_not_independent",
+    "review": {
+      "accepted": false,
+      "issues": [
+        "claim 'covar=FALSE 时从原始数据求相关矩阵，或将输入的方阵转换为相关矩阵；covar=TRUE 时使用协方差' 中，'covar=TRUE 时使用协方差' 这一半缺乏直接证据。文档 arguments 仅说明 covar=FALSE 的行为，未明确说明 covar=TRUE 时使用协方差。description 中 'either a correlation or covariance matrix' 只是说明输入可为相关或协方差矩阵，并未说明 covar=TRUE 会使用协方差。请补充能支持 'covar=TRUE 使用协方差' 的原文引用，或删除该半句。",
+        "claim 'cor 参数可选择相关类型' 的证据引用被截断，未包含 'Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients' 的完整内容，且引文在 'how should we' 处中断。请补全引文以完整覆盖所声称的相关类型（尤其是 Yule 系数）。",
+        "claim '返回特征值（values）、载荷矩阵（loadings）、拟合度（fit）、残差矩阵（若请求）及自由度（dof）等' 中，'拟合度（fit）' 的证据引用将 'fit Fit of the model to the correlation matrix' 与 'fit.off how well are the off diagonal elements reproduced?' 混在同一引文中，且未单独引用 fit 的说明。请分别引用 fit 与 fit.off 的原文，避免将两个不同返回值合并为一条证据。",
+        "claim '若 scores=TRUE，则报告成分得分估计；回归权重由相关矩阵的逆乘以成分载荷（结构矩阵）得到' 中，'结构矩阵' 的表述与文档存在细微出入。文档 details 明确说明 'The regression weights are found from the Structure matrix, not the Pattern matrix'，但 value 部分对 weights 的描述为 'The beta weights to find the principal components from the data'，未提及结构矩阵。请确保 '结构矩阵' 的表述仅由 details 部分支持，并避免暗示 value 部分也支持该表述。",
+        "claim '主成分模型假定各项目的唯一性（uniqueness）为零' 被归类为 assumption（推断性假设），但文档 details 中 'the item uniqueness is assumed to be zero' 是 PCA 的算法定义性设定，而非对数据的统计推断假设。请重新评估该 claim 的 category 归类，或调整表述以区分算法设定与统计假设。"
+      ],
+      "explanation": "草稿整体准确，但存在若干证据支撑不足或表述与原文有细微出入的问题。主要问题包括：covar=TRUE 使用协方差这一半句缺乏直接原文支持；cor 参数的证据引文被截断，未完整覆盖 Yule 系数；fit 与 fit.off 被合并引用；'结构矩阵' 表述的证据来源需明确；以及 uniqueness 为零被归类为 assumption 而非算法设定，需重新评估。这些属于实质性证据支撑问题，需修正后方可接受。"
+    }
+  },
+  "record_sha256": "0838142a177672f33946b496f8366f150d37b0f6b89746f602ca0e4c64e7af0d"
+}

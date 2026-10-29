@@ -1,6 +1,6 @@
 # 多模态统计分析 Agent
 
-按[项目工作手册](docs/WORKBOOK.md)开发的统计分析基线：生成带证据的数据画像，用统计约束解释方法推荐，再调用经过审核的 Python 统计模板。当前版本 `0.5.0` 新增[独立参考与画像质量评估工作流](docs/INDEPENDENT_REVIEW.md)：来源材料、空白模板、参考冻结、候选对照和评分。真实人工参考仍待填写，不生成虚假质量分数。此前完成的 8 个 CRAN 函数、66 条适用规则继续可用，见[规则验证](docs/AUDIT_AND_RULES.md)和[画像目录](database/cran_profiles.md)；仍未执行 R 验证。
+按[项目工作手册](docs/WORKBOOK.md)开发的统计分析基线：生成带证据的数据画像，用统计约束解释方法推荐，再调用经过审核的 Python 统计模板。当前版本 `0.6.0` 已完成同批 8 个 CRAN 函数的[真实 DeepSeek 配对画像实验](docs/PROFILE_COMPARISON.md)，保存两组草稿、复核及调用成本；人工质量评分仍等待[独立参考](docs/INDEPENDENT_REVIEW.md)。生产数据库的 8 个函数、66 条适用规则继续可用，见[规则验证](docs/AUDIT_AND_RULES.md)和[画像目录](database/cran_profiles.md)；仍未执行 R 验证。
 
 **进度与下一步：[PROGRESS.md](PROGRESS.md)** · **架构与 Agent 接口：[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** · **验证记录：[docs/VALIDATION.md](docs/VALIDATION.md)**
 
@@ -28,6 +28,8 @@ python -m pip install -e ".[dev]"
 Linux / macOS 使用 `source .venv/bin/activate`。如需复现本次测试依赖，先执行 `python -m pip install -r requirements.lock.txt`，再安装项目。锁定清单来自 Python 3.11 / Windows；其他平台以 CI 和实际安装结果为准。
 
 ## CRAN 数据库
+
+离线查看单次提取与协作复核实验：`python -m stat_agent.profile_experiment report --experiment evaluation/experiments/cran-paired-2026-10-28`。结果包含真实调用、Token、耗时和失败状态，不会覆盖生产画像；实验设计与复现见[对照说明](docs/PROFILE_COMPARISON.md)。
 
 独立复核入口：`python -m stat_agent kb review prepare`。已生成的[来源材料与空白模板](evaluation/review/cran-v04/README.md)覆盖 8 个函数；后续 `freeze`、`form`、`score` 的完整步骤见[复核说明](docs/INDEPENDENT_REVIEW.md)。
 

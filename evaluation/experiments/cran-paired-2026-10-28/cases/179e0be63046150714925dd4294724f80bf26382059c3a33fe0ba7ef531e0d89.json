@@ -1,0 +1,707 @@
+{
+  "plan_id": "21b79e0def8803ec2cb8b3a4a3df46d7127ee7e384c5b5854b8152bffbb554e4",
+  "function_id": "cluster::diana",
+  "source_rd_sha256": "0bf0ba3ed417b73ceed0b4cd1ba55d12c384f98cbf5432299c3d1ce3e975812d",
+  "state": "completed",
+  "pending_phase": null,
+  "phases": [
+    {
+      "name": "initial_extraction",
+      "status": "completed",
+      "error": null,
+      "seconds": 13.592094999970868,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 96,
+        "output_tokens": 986,
+        "tokens": 5690,
+        "cache_read_input_tokens": 4608,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "541e5eb58bd4a2f1ddd51446216dc37f844c3276cdb5a3a53947988753119a74",
+          "response_sha256": "eb3c0a606f74e5ece4a778b92d1713054ba980a8838902fca46449f6239988de",
+          "seconds": 13.590957200154662,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "task_types": [
+          "clustering"
+        ],
+        "suitability_text": "该函数用于对数据集执行分裂式层次聚类，返回 diana 类对象。输入可为数值型数据矩阵/数据框（行=观测、列=变量，允许缺失值），或由 daisy/dist 生成的相异度矩阵/对象（不允许缺失值）。可通过 metric 选择欧氏或曼哈顿距离，stand 控制按列标准化。输出含分裂系数 dc、merge 分裂矩阵、order 排序等，并支持 print/summary/plot 及 as.hclust、cutree 等后续处理。",
+        "claims": [
+          {
+            "category": "input",
+            "statement": "x 可为数据矩阵或数据框，此时每行对应一个观测、每列对应一个变量，且所有变量必须为数值型。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument."
+              },
+              {
+                "section": "arguments",
+                "quote": "In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable."
+              },
+              {
+                "section": "arguments",
+                "quote": "All variables must be numeric."
+              }
+            ]
+          },
+          {
+            "category": "input",
+            "statement": "当 x 为矩阵或数据框时，允许存在缺失值（NA）。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "Missing values ( NA s) are allowed."
+              }
+            ]
+          },
+          {
+            "category": "input",
+            "statement": "x 也可为相异度矩阵或对象（通常为 daisy 或 dist 的输出），此时不允许存在缺失值。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "In case of a dissimilarity matrix, x is typically the output of daisy or dist ."
+              },
+              {
+                "section": "arguments",
+                "quote": "Missing values (NAs) are not allowed."
+              }
+            ]
+          },
+          {
+            "category": "input",
+            "statement": "还允许传入长度为 n*(n-1)/2 的向量，其解释方式与上述函数的输出相同。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "diss 为逻辑标志：TRUE（dist 或相异度对象的默认值）时 x 被视为相异度矩阵，FALSE 时被视为观测×变量矩阵。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "diss logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix."
+              },
+              {
+                "section": "arguments",
+                "quote": "If FALSE, then x will be considered as a matrix of observations by variables."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "metric 指定计算观测间相异度的度量，可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations."
+              },
+              {
+                "section": "arguments",
+                "quote": "The currently available options are \"euclidean\" and \"manhattan\"."
+              },
+              {
+                "section": "arguments",
+                "quote": "If x is already a dissimilarity matrix, then this argument will be ignored."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "stand 为 TRUE 时，在计算相异度前对每列变量标准化（减去均值并除以平均绝对偏差）；若 x 已是相异度矩阵则该参数被忽略。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "stand logical;"
+              },
+              {
+                "section": "arguments",
+                "quote": "if true, the measurements in x are standardized before calculating the dissimilarities."
+              },
+              {
+                "section": "arguments",
+                "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation."
+              },
+              {
+                "section": "arguments",
+                "quote": "If x is already a dissimilarity matrix, then this argument will be ignored."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "stop.at.k 默认 FALSE，非默认值（指定提前停止的整数 k）尚未实现。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "stop.at.k logical or integer, FALSE by default."
+              },
+              {
+                "section": "arguments",
+                "quote": "Otherwise must be integer, say k , in \\ 1,2,..,n\\ , specifying that the diana algorithm should stop early."
+              },
+              {
+                "section": "arguments",
+                "quote": "Non-default NOT YET IMPLEMENTED."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "keep.diss 与 keep.data 控制是否在结果中保留相异度矩阵和/或输入数据，设为 FALSE 可显著减小结果并节省内存分配时间。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "keep.diss, keep.data logicals indicating if the dissimilarities and/or input data x should be kept in the result."
+              },
+              {
+                "section": "arguments",
+                "quote": "Setting these to FALSE can give much smaller results and hence even save memory allocation time ."
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "返回 diana 类对象，提供 print、summary、plot 方法，并继承自 twins，可用 pltree、as.hclust、as.dendrogram。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "an object of class \"diana\" representing the clustering;"
+              },
+              {
+                "section": "value",
+                "quote": "this class has methods for the following generic functions: print , summary , plot ."
+              },
+              {
+                "section": "value",
+                "quote": "Further, the class \"diana\" inherits from \"twins\" ."
+              },
+              {
+                "section": "value",
+                "quote": "Therefore, the generic function pltree can be used on a diana object, and as.hclust and as.dendrogram methods are available."
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "结果含 dc（分裂系数，衡量聚类结构）、merge（(n-1)×2 分裂矩阵）、order、height 等分量；dc 随观测数增长，不宜用于比较规模差异很大的数据集。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "height a vector with the diameters of the clusters prior to splitting."
+              },
+              {
+                "section": "value",
+                "quote": "dc the divisive coefficient, measuring the clustering structure of the dataset."
+              },
+              {
+                "section": "value",
+                "quote": "Because dc grows with the number of observations, this measure should not be used to compare datasets of very different sizes."
+              },
+              {
+                "section": "value",
+                "quote": "merge an (n-1) by 2 matrix, where n is the number of observations."
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "data 分量包含原始或标准化后的测量值（取决于 stand 选项）；若输入为相异度矩阵则该分量不可用。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "data a matrix containing the original or standardized measurements, depending on the stand option of the function agnes ."
+              },
+              {
+                "section": "value",
+                "quote": "If a dissimilarity matrix was given as input structure, then this component is not available."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "文档未说明该函数对任何特定用户数据集的适用性或研究设计是否成立。",
+          "文档未说明聚类数目的选择方法或最优簇数判定标准。",
+          "文档未说明对变量分布、独立性或样本量的任何统计假设要求。"
+        ]
+      }
+    },
+    {
+      "name": "initial_review",
+      "status": "completed",
+      "error": null,
+      "seconds": 5.623408600222319,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 2969,
+        "output_tokens": 212,
+        "tokens": 3693,
+        "cache_read_input_tokens": 512,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "c919bf5d4c139d0a7c5e1fb7e6974c7cfcae061ff6b53183ad587d62f26a3ab3",
+          "response_sha256": "fad1008be8996cdb597ae1f77b788f632f5d27ca6954a332aee949e64d69cbf2",
+          "seconds": 5.620877499924973,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "accepted": true,
+        "issues": [],
+        "explanation": "逐条核对官方文档，suitability_text、task_types 与各 claims 均有对应章节与引文支撑，未发现虚构条件、遗漏限定词或与文档矛盾的表述。关于 data 分量的引文原文为 \"depending on the stand option of the function agnes\"，文档本身即如此表述（应为 diana 的笔误），草稿按原文转述为\"取决于 stand 选项\"，未改变含义，可接受。缺失值、metric/stand 被忽略、stop.at.k 未实现、dc 不宜跨规模比较等限定均被正确保留。unknowns 所列内容文档确实未说明，属保守处理。无实质性问题。"
+      }
+    }
+  ],
+  "single": {
+    "status": "structurally_valid",
+    "semantic": {
+      "task_types": [
+        "clustering"
+      ],
+      "suitability_text": "该函数用于对数据集执行分裂式层次聚类，返回 diana 类对象。输入可为数值型数据矩阵/数据框（行=观测、列=变量，允许缺失值），或由 daisy/dist 生成的相异度矩阵/对象（不允许缺失值）。可通过 metric 选择欧氏或曼哈顿距离，stand 控制按列标准化。输出含分裂系数 dc、merge 分裂矩阵、order 排序等，并支持 print/summary/plot 及 as.hclust、cutree 等后续处理。",
+      "claims": [
+        {
+          "category": "input",
+          "statement": "x 可为数据矩阵或数据框，此时每行对应一个观测、每列对应一个变量，且所有变量必须为数值型。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument."
+            },
+            {
+              "section": "arguments",
+              "quote": "In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable."
+            },
+            {
+              "section": "arguments",
+              "quote": "All variables must be numeric."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "当 x 为矩阵或数据框时，允许存在缺失值（NA）。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "Missing values ( NA s) are allowed."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "x 也可为相异度矩阵或对象（通常为 daisy 或 dist 的输出），此时不允许存在缺失值。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "In case of a dissimilarity matrix, x is typically the output of daisy or dist ."
+            },
+            {
+              "section": "arguments",
+              "quote": "Missing values (NAs) are not allowed."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "还允许传入长度为 n*(n-1)/2 的向量，其解释方式与上述函数的输出相同。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "diss 为逻辑标志：TRUE（dist 或相异度对象的默认值）时 x 被视为相异度矩阵，FALSE 时被视为观测×变量矩阵。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "diss logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix."
+            },
+            {
+              "section": "arguments",
+              "quote": "If FALSE, then x will be considered as a matrix of observations by variables."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "metric 指定计算观测间相异度的度量，可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations."
+            },
+            {
+              "section": "arguments",
+              "quote": "The currently available options are \"euclidean\" and \"manhattan\"."
+            },
+            {
+              "section": "arguments",
+              "quote": "If x is already a dissimilarity matrix, then this argument will be ignored."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "stand 为 TRUE 时，在计算相异度前对每列变量标准化（减去均值并除以平均绝对偏差）；若 x 已是相异度矩阵则该参数被忽略。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "stand logical;"
+            },
+            {
+              "section": "arguments",
+              "quote": "if true, the measurements in x are standardized before calculating the dissimilarities."
+            },
+            {
+              "section": "arguments",
+              "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation."
+            },
+            {
+              "section": "arguments",
+              "quote": "If x is already a dissimilarity matrix, then this argument will be ignored."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "stop.at.k 默认 FALSE，非默认值（指定提前停止的整数 k）尚未实现。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "stop.at.k logical or integer, FALSE by default."
+            },
+            {
+              "section": "arguments",
+              "quote": "Otherwise must be integer, say k , in \\ 1,2,..,n\\ , specifying that the diana algorithm should stop early."
+            },
+            {
+              "section": "arguments",
+              "quote": "Non-default NOT YET IMPLEMENTED."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "keep.diss 与 keep.data 控制是否在结果中保留相异度矩阵和/或输入数据，设为 FALSE 可显著减小结果并节省内存分配时间。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "keep.diss, keep.data logicals indicating if the dissimilarities and/or input data x should be kept in the result."
+            },
+            {
+              "section": "arguments",
+              "quote": "Setting these to FALSE can give much smaller results and hence even save memory allocation time ."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "返回 diana 类对象，提供 print、summary、plot 方法，并继承自 twins，可用 pltree、as.hclust、as.dendrogram。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "an object of class \"diana\" representing the clustering;"
+            },
+            {
+              "section": "value",
+              "quote": "this class has methods for the following generic functions: print , summary , plot ."
+            },
+            {
+              "section": "value",
+              "quote": "Further, the class \"diana\" inherits from \"twins\" ."
+            },
+            {
+              "section": "value",
+              "quote": "Therefore, the generic function pltree can be used on a diana object, and as.hclust and as.dendrogram methods are available."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "结果含 dc（分裂系数，衡量聚类结构）、merge（(n-1)×2 分裂矩阵）、order、height 等分量；dc 随观测数增长，不宜用于比较规模差异很大的数据集。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "height a vector with the diameters of the clusters prior to splitting."
+            },
+            {
+              "section": "value",
+              "quote": "dc the divisive coefficient, measuring the clustering structure of the dataset."
+            },
+            {
+              "section": "value",
+              "quote": "Because dc grows with the number of observations, this measure should not be used to compare datasets of very different sizes."
+            },
+            {
+              "section": "value",
+              "quote": "merge an (n-1) by 2 matrix, where n is the number of observations."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "data 分量包含原始或标准化后的测量值（取决于 stand 选项）；若输入为相异度矩阵则该分量不可用。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "data a matrix containing the original or standardized measurements, depending on the stand option of the function agnes ."
+            },
+            {
+              "section": "value",
+              "quote": "If a dissimilarity matrix was given as input structure, then this component is not available."
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "文档未说明该函数对任何特定用户数据集的适用性或研究设计是否成立。",
+        "文档未说明聚类数目的选择方法或最优簇数判定标准。",
+        "文档未说明对变量分布、独立性或样本量的任何统计假设要求。"
+      ]
+    },
+    "structural_issues": [],
+    "semantic_review": "not_performed"
+  },
+  "cooperative": {
+    "status": "machine_accepted",
+    "semantic": {
+      "task_types": [
+        "clustering"
+      ],
+      "suitability_text": "该函数用于对数据集执行分裂式层次聚类，返回 diana 类对象。输入可为数值型数据矩阵/数据框（行=观测、列=变量，允许缺失值），或由 daisy/dist 生成的相异度矩阵/对象（不允许缺失值）。可通过 metric 选择欧氏或曼哈顿距离，stand 控制按列标准化。输出含分裂系数 dc、merge 分裂矩阵、order 排序等，并支持 print/summary/plot 及 as.hclust、cutree 等后续处理。",
+      "claims": [
+        {
+          "category": "input",
+          "statement": "x 可为数据矩阵或数据框，此时每行对应一个观测、每列对应一个变量，且所有变量必须为数值型。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument."
+            },
+            {
+              "section": "arguments",
+              "quote": "In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable."
+            },
+            {
+              "section": "arguments",
+              "quote": "All variables must be numeric."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "当 x 为矩阵或数据框时，允许存在缺失值（NA）。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "Missing values ( NA s) are allowed."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "x 也可为相异度矩阵或对象（通常为 daisy 或 dist 的输出），此时不允许存在缺失值。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "In case of a dissimilarity matrix, x is typically the output of daisy or dist ."
+            },
+            {
+              "section": "arguments",
+              "quote": "Missing values (NAs) are not allowed."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "还允许传入长度为 n*(n-1)/2 的向量，其解释方式与上述函数的输出相同。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "diss 为逻辑标志：TRUE（dist 或相异度对象的默认值）时 x 被视为相异度矩阵，FALSE 时被视为观测×变量矩阵。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "diss logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix."
+            },
+            {
+              "section": "arguments",
+              "quote": "If FALSE, then x will be considered as a matrix of observations by variables."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "metric 指定计算观测间相异度的度量，可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations."
+            },
+            {
+              "section": "arguments",
+              "quote": "The currently available options are \"euclidean\" and \"manhattan\"."
+            },
+            {
+              "section": "arguments",
+              "quote": "If x is already a dissimilarity matrix, then this argument will be ignored."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "stand 为 TRUE 时，在计算相异度前对每列变量标准化（减去均值并除以平均绝对偏差）；若 x 已是相异度矩阵则该参数被忽略。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "stand logical;"
+            },
+            {
+              "section": "arguments",
+              "quote": "if true, the measurements in x are standardized before calculating the dissimilarities."
+            },
+            {
+              "section": "arguments",
+              "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation."
+            },
+            {
+              "section": "arguments",
+              "quote": "If x is already a dissimilarity matrix, then this argument will be ignored."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "stop.at.k 默认 FALSE，非默认值（指定提前停止的整数 k）尚未实现。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "stop.at.k logical or integer, FALSE by default."
+            },
+            {
+              "section": "arguments",
+              "quote": "Otherwise must be integer, say k , in \\ 1,2,..,n\\ , specifying that the diana algorithm should stop early."
+            },
+            {
+              "section": "arguments",
+              "quote": "Non-default NOT YET IMPLEMENTED."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "keep.diss 与 keep.data 控制是否在结果中保留相异度矩阵和/或输入数据，设为 FALSE 可显著减小结果并节省内存分配时间。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "keep.diss, keep.data logicals indicating if the dissimilarities and/or input data x should be kept in the result."
+            },
+            {
+              "section": "arguments",
+              "quote": "Setting these to FALSE can give much smaller results and hence even save memory allocation time ."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "返回 diana 类对象，提供 print、summary、plot 方法，并继承自 twins，可用 pltree、as.hclust、as.dendrogram。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "an object of class \"diana\" representing the clustering;"
+            },
+            {
+              "section": "value",
+              "quote": "this class has methods for the following generic functions: print , summary , plot ."
+            },
+            {
+              "section": "value",
+              "quote": "Further, the class \"diana\" inherits from \"twins\" ."
+            },
+            {
+              "section": "value",
+              "quote": "Therefore, the generic function pltree can be used on a diana object, and as.hclust and as.dendrogram methods are available."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "结果含 dc（分裂系数，衡量聚类结构）、merge（(n-1)×2 分裂矩阵）、order、height 等分量；dc 随观测数增长，不宜用于比较规模差异很大的数据集。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "height a vector with the diameters of the clusters prior to splitting."
+            },
+            {
+              "section": "value",
+              "quote": "dc the divisive coefficient, measuring the clustering structure of the dataset."
+            },
+            {
+              "section": "value",
+              "quote": "Because dc grows with the number of observations, this measure should not be used to compare datasets of very different sizes."
+            },
+            {
+              "section": "value",
+              "quote": "merge an (n-1) by 2 matrix, where n is the number of observations."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "data 分量包含原始或标准化后的测量值（取决于 stand 选项）；若输入为相异度矩阵则该分量不可用。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "data a matrix containing the original or standardized measurements, depending on the stand option of the function agnes ."
+            },
+            {
+              "section": "value",
+              "quote": "If a dissimilarity matrix was given as input structure, then this component is not available."
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "文档未说明该函数对任何特定用户数据集的适用性或研究设计是否成立。",
+        "文档未说明聚类数目的选择方法或最优簇数判定标准。",
+        "文档未说明对变量分布、独立性或样本量的任何统计假设要求。"
+      ]
+    },
+    "structural_issues": [],
+    "semantic_review": "same_model_review_not_independent",
+    "review": {
+      "accepted": true,
+      "issues": [],
+      "explanation": "逐条核对官方文档，suitability_text、task_types 与各 claims 均有对应章节与引文支撑，未发现虚构条件、遗漏限定词或与文档矛盾的表述。关于 data 分量的引文原文为 \"depending on the stand option of the function agnes\"，文档本身即如此表述（应为 diana 的笔误），草稿按原文转述为\"取决于 stand 选项\"，未改变含义，可接受。缺失值、metric/stand 被忽略、stop.at.k 未实现、dc 不宜跨规模比较等限定均被正确保留。unknowns 所列内容文档确实未说明，属保守处理。无实质性问题。"
+    }
+  },
+  "record_sha256": "d48942732dded7682e7779986bd98f0ae720d9e5c56e00bf21c406ac00b86339"
+}

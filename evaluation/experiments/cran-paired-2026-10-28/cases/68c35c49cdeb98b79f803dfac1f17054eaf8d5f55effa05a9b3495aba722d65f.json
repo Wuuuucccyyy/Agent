@@ -1,0 +1,575 @@
+{
+  "plan_id": "21b79e0def8803ec2cb8b3a4a3df46d7127ee7e384c5b5854b8152bffbb554e4",
+  "function_id": "cluster::agnes",
+  "source_rd_sha256": "958ff549f380aed8fbd2f51ce05f723469d22a922432ec2913789d850f49b1d5",
+  "state": "completed",
+  "pending_phase": null,
+  "phases": [
+    {
+      "name": "initial_extraction",
+      "status": "completed",
+      "error": null,
+      "seconds": 11.504974000155926,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 111,
+        "output_tokens": 826,
+        "tokens": 6313,
+        "cache_read_input_tokens": 5376,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "e14027073de64a626aa60859b5a249dc37ae1d9fd095f28bca7587ea0720e468",
+          "response_sha256": "7b9b5b8d82144ee6008f47431682997316a1a17d9b189a12db0ee5c8eb63a896",
+          "seconds": 11.503686300013214,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "task_types": [
+          "clustering"
+        ],
+        "suitability_text": "agnes 用于对数据集执行凝聚式层次聚类，构建从每个观测自成一簇到全部合并为一簇的聚类层次。输入可为数值型数据矩阵/数据框（行=观测、列=变量，允许缺失值），或相异度矩阵/向量（不允许缺失值）。可通过 metric、stand、method 等参数控制距离计算与合并策略，输出 agnes 对象（含凝聚系数与 banner 图）。",
+        "claims": [
+          {
+            "category": "input",
+            "statement": "x 可为数据矩阵、数据框或相异度矩阵，具体取决于 diss 参数的值。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "x data matrix or data frame, or dissimilarity matrix, depending on the value of the diss argument."
+              }
+            ]
+          },
+          {
+            "category": "input",
+            "statement": "当 x 为矩阵或数据框时，每行对应一个观测，每列对应一个变量，且所有变量必须为数值型。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable."
+              },
+              {
+                "section": "arguments",
+                "quote": "All variables must be numeric."
+              }
+            ]
+          },
+          {
+            "category": "input",
+            "statement": "矩阵/数据框形式允许缺失值(NA)，而相异度矩阵形式不允许缺失值。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "Missing values (NAs) are allowed."
+              },
+              {
+                "section": "arguments",
+                "quote": "Missing values (NAs) are not allowed."
+              }
+            ]
+          },
+          {
+            "category": "input",
+            "statement": "相异度矩阵通常为 daisy 或 dist 的输出，也允许长度为 n*(n-1)/2 的向量（n 为观测数）。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "In case of a dissimilarity matrix, x is typically the output of daisy or dist ."
+              },
+              {
+                "section": "arguments",
+                "quote": "Also a vector with length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "metric 可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations."
+              },
+              {
+                "section": "arguments",
+                "quote": "The currently available options are \"euclidean\" and \"manhattan\" ."
+              },
+              {
+                "section": "arguments",
+                "quote": "If x is already a dissimilarity matrix, then this argument will be ignored."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "stand=TRUE 时按列标准化（减去均值并除以平均绝对偏差）；若 x 已是相异度矩阵则被忽略。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "stand logical flag: if TRUE, then the measurements in x are standardized before calculating the dissimilarities."
+              },
+              {
+                "section": "arguments",
+                "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation."
+              },
+              {
+                "section": "arguments",
+                "quote": "If x is already a dissimilarity matrix, then this argument will be ignored."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "method 提供 \"average\"、\"single\"、\"complete\"、\"ward\"、\"weighted\"、\"flexible\"、\"gaverage\" 等合并策略，默认 \"average\"。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "method character string defining the clustering method."
+              },
+              {
+                "section": "arguments",
+                "quote": "The six methods implemented are \"average\" ([unweighted pair-]group [arithMetic] average method, aka UPGMA ), \"single\" (single linkage), \"complete\" (complete linkage), \"ward\" (Ward's method), \"weighted\" (weighted average linkage, aka WPGMA ), its generalization \"flexible\" which uses (a constant version of) the Lance-Williams formula and the par.method argument, and \"gaverage\" a"
+              },
+              {
+                "section": "arguments",
+                "quote": "generalized \"average\" aka flexible UPGMA method also using the Lance-Williams formula and par.method ."
+              },
+              {
+                "section": "arguments",
+                "quote": "The default is \"average\" ."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "par.method 仅在 method 为 \"flexible\" 或 \"gaverage\" 时使用，为长度 1、3 或 4 的数值向量（\"gaverage\" 有默认值）。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "par.method If method is \"flexible\" or \"gaverage\" , a numeric vector of length 1, 3, or 4, (with a default for \"gaverage\" ), see in the details section."
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "返回类 \"agnes\"（继承自 \"twins\"）的对象，表示聚类结果，并提供凝聚系数与 banner 图。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "an object of class \"agnes\" (which extends \"twins\" ) representing the clustering."
+              },
+              {
+                "section": "details",
+                "quote": "Compared to other agglomerative clustering methods such as hclust , agnes has the following features: (a) it yields the agglomerative coefficient (see agnes.object ) which measures the amount of clustering structure found;"
+              },
+              {
+                "section": "details",
+                "quote": "and (b) apart from the usual tree it also provides the banner, a novel graphical display (see plot.agnes )."
+              }
+            ]
+          },
+          {
+            "category": "failure",
+            "statement": "自 cluster 2.0 起，导致无效合并结构的选择会报错；使用 method=\"flexible\" 且 par.method 长度大于 1 时需谨慎。",
+            "evidence": [
+              {
+                "section": "details",
+                "quote": "Since cluster version 2.0, choices leading to invalid merge structures now signal an error (from the C code already)."
+              },
+              {
+                "section": "details",
+                "quote": "Care and expertise is probably needed when using method = \"flexible\" particularly for the case when par.method is specified of longer length than one."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "文档未说明对样本量、变量分布或独立性等推断性假设的要求。",
+          "文档未说明该函数对任意特定用户数据集的适用性是否已确立。",
+          "文档未说明 ward 方法的具体距离更新公式细节。"
+        ]
+      }
+    },
+    {
+      "name": "initial_review",
+      "status": "completed",
+      "error": null,
+      "seconds": 3.623670999892056,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 1565,
+        "output_tokens": 167,
+        "tokens": 3908,
+        "cache_read_input_tokens": 2176,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "d49017838a26574d4a08da635e08bdf330577972713eb5e0f4b168d38eac6f59",
+          "response_sha256": "a589456f8eccb32b50e8ba82f48c68eb7899ec7150daa086bd615ac929dea32d",
+          "seconds": 3.6205178999807686,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "accepted": true,
+        "issues": [],
+        "explanation": "逐条核对官方文档，suitability_text 与各 claim 均有对应章节与引文支撑，未发现虚构条件、遗漏限定或参数默认值矛盾。输入形式（矩阵/数据框/相异度矩阵/向量）、缺失值规则、metric/stand/method/par.method 的语义与默认值、输出对象及失败情形均与原文一致。unknowns 保守地未断言文档未说明的推断性假设，符合要求。"
+      }
+    }
+  ],
+  "single": {
+    "status": "structurally_valid",
+    "semantic": {
+      "task_types": [
+        "clustering"
+      ],
+      "suitability_text": "agnes 用于对数据集执行凝聚式层次聚类，构建从每个观测自成一簇到全部合并为一簇的聚类层次。输入可为数值型数据矩阵/数据框（行=观测、列=变量，允许缺失值），或相异度矩阵/向量（不允许缺失值）。可通过 metric、stand、method 等参数控制距离计算与合并策略，输出 agnes 对象（含凝聚系数与 banner 图）。",
+      "claims": [
+        {
+          "category": "input",
+          "statement": "x 可为数据矩阵、数据框或相异度矩阵，具体取决于 diss 参数的值。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "x data matrix or data frame, or dissimilarity matrix, depending on the value of the diss argument."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "当 x 为矩阵或数据框时，每行对应一个观测，每列对应一个变量，且所有变量必须为数值型。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable."
+            },
+            {
+              "section": "arguments",
+              "quote": "All variables must be numeric."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "矩阵/数据框形式允许缺失值(NA)，而相异度矩阵形式不允许缺失值。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "Missing values (NAs) are allowed."
+            },
+            {
+              "section": "arguments",
+              "quote": "Missing values (NAs) are not allowed."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "相异度矩阵通常为 daisy 或 dist 的输出，也允许长度为 n*(n-1)/2 的向量（n 为观测数）。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "In case of a dissimilarity matrix, x is typically the output of daisy or dist ."
+            },
+            {
+              "section": "arguments",
+              "quote": "Also a vector with length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "metric 可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations."
+            },
+            {
+              "section": "arguments",
+              "quote": "The currently available options are \"euclidean\" and \"manhattan\" ."
+            },
+            {
+              "section": "arguments",
+              "quote": "If x is already a dissimilarity matrix, then this argument will be ignored."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "stand=TRUE 时按列标准化（减去均值并除以平均绝对偏差）；若 x 已是相异度矩阵则被忽略。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "stand logical flag: if TRUE, then the measurements in x are standardized before calculating the dissimilarities."
+            },
+            {
+              "section": "arguments",
+              "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation."
+            },
+            {
+              "section": "arguments",
+              "quote": "If x is already a dissimilarity matrix, then this argument will be ignored."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "method 提供 \"average\"、\"single\"、\"complete\"、\"ward\"、\"weighted\"、\"flexible\"、\"gaverage\" 等合并策略，默认 \"average\"。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "method character string defining the clustering method."
+            },
+            {
+              "section": "arguments",
+              "quote": "The six methods implemented are \"average\" ([unweighted pair-]group [arithMetic] average method, aka UPGMA ), \"single\" (single linkage), \"complete\" (complete linkage), \"ward\" (Ward's method), \"weighted\" (weighted average linkage, aka WPGMA ), its generalization \"flexible\" which uses (a constant version of) the Lance-Williams formula and the par.method argument, and \"gaverage\" a"
+            },
+            {
+              "section": "arguments",
+              "quote": "generalized \"average\" aka flexible UPGMA method also using the Lance-Williams formula and par.method ."
+            },
+            {
+              "section": "arguments",
+              "quote": "The default is \"average\" ."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "par.method 仅在 method 为 \"flexible\" 或 \"gaverage\" 时使用，为长度 1、3 或 4 的数值向量（\"gaverage\" 有默认值）。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "par.method If method is \"flexible\" or \"gaverage\" , a numeric vector of length 1, 3, or 4, (with a default for \"gaverage\" ), see in the details section."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "返回类 \"agnes\"（继承自 \"twins\"）的对象，表示聚类结果，并提供凝聚系数与 banner 图。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "an object of class \"agnes\" (which extends \"twins\" ) representing the clustering."
+            },
+            {
+              "section": "details",
+              "quote": "Compared to other agglomerative clustering methods such as hclust , agnes has the following features: (a) it yields the agglomerative coefficient (see agnes.object ) which measures the amount of clustering structure found;"
+            },
+            {
+              "section": "details",
+              "quote": "and (b) apart from the usual tree it also provides the banner, a novel graphical display (see plot.agnes )."
+            }
+          ]
+        },
+        {
+          "category": "failure",
+          "statement": "自 cluster 2.0 起，导致无效合并结构的选择会报错；使用 method=\"flexible\" 且 par.method 长度大于 1 时需谨慎。",
+          "evidence": [
+            {
+              "section": "details",
+              "quote": "Since cluster version 2.0, choices leading to invalid merge structures now signal an error (from the C code already)."
+            },
+            {
+              "section": "details",
+              "quote": "Care and expertise is probably needed when using method = \"flexible\" particularly for the case when par.method is specified of longer length than one."
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "文档未说明对样本量、变量分布或独立性等推断性假设的要求。",
+        "文档未说明该函数对任意特定用户数据集的适用性是否已确立。",
+        "文档未说明 ward 方法的具体距离更新公式细节。"
+      ]
+    },
+    "structural_issues": [],
+    "semantic_review": "not_performed"
+  },
+  "cooperative": {
+    "status": "machine_accepted",
+    "semantic": {
+      "task_types": [
+        "clustering"
+      ],
+      "suitability_text": "agnes 用于对数据集执行凝聚式层次聚类，构建从每个观测自成一簇到全部合并为一簇的聚类层次。输入可为数值型数据矩阵/数据框（行=观测、列=变量，允许缺失值），或相异度矩阵/向量（不允许缺失值）。可通过 metric、stand、method 等参数控制距离计算与合并策略，输出 agnes 对象（含凝聚系数与 banner 图）。",
+      "claims": [
+        {
+          "category": "input",
+          "statement": "x 可为数据矩阵、数据框或相异度矩阵，具体取决于 diss 参数的值。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "x data matrix or data frame, or dissimilarity matrix, depending on the value of the diss argument."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "当 x 为矩阵或数据框时，每行对应一个观测，每列对应一个变量，且所有变量必须为数值型。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable."
+            },
+            {
+              "section": "arguments",
+              "quote": "All variables must be numeric."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "矩阵/数据框形式允许缺失值(NA)，而相异度矩阵形式不允许缺失值。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "Missing values (NAs) are allowed."
+            },
+            {
+              "section": "arguments",
+              "quote": "Missing values (NAs) are not allowed."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "相异度矩阵通常为 daisy 或 dist 的输出，也允许长度为 n*(n-1)/2 的向量（n 为观测数）。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "In case of a dissimilarity matrix, x is typically the output of daisy or dist ."
+            },
+            {
+              "section": "arguments",
+              "quote": "Also a vector with length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "metric 可选 \"euclidean\" 或 \"manhattan\"；若 x 已是相异度矩阵则该参数被忽略。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations."
+            },
+            {
+              "section": "arguments",
+              "quote": "The currently available options are \"euclidean\" and \"manhattan\" ."
+            },
+            {
+              "section": "arguments",
+              "quote": "If x is already a dissimilarity matrix, then this argument will be ignored."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "stand=TRUE 时按列标准化（减去均值并除以平均绝对偏差）；若 x 已是相异度矩阵则被忽略。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "stand logical flag: if TRUE, then the measurements in x are standardized before calculating the dissimilarities."
+            },
+            {
+              "section": "arguments",
+              "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation."
+            },
+            {
+              "section": "arguments",
+              "quote": "If x is already a dissimilarity matrix, then this argument will be ignored."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "method 提供 \"average\"、\"single\"、\"complete\"、\"ward\"、\"weighted\"、\"flexible\"、\"gaverage\" 等合并策略，默认 \"average\"。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "method character string defining the clustering method."
+            },
+            {
+              "section": "arguments",
+              "quote": "The six methods implemented are \"average\" ([unweighted pair-]group [arithMetic] average method, aka UPGMA ), \"single\" (single linkage), \"complete\" (complete linkage), \"ward\" (Ward's method), \"weighted\" (weighted average linkage, aka WPGMA ), its generalization \"flexible\" which uses (a constant version of) the Lance-Williams formula and the par.method argument, and \"gaverage\" a"
+            },
+            {
+              "section": "arguments",
+              "quote": "generalized \"average\" aka flexible UPGMA method also using the Lance-Williams formula and par.method ."
+            },
+            {
+              "section": "arguments",
+              "quote": "The default is \"average\" ."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "par.method 仅在 method 为 \"flexible\" 或 \"gaverage\" 时使用，为长度 1、3 或 4 的数值向量（\"gaverage\" 有默认值）。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "par.method If method is \"flexible\" or \"gaverage\" , a numeric vector of length 1, 3, or 4, (with a default for \"gaverage\" ), see in the details section."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "返回类 \"agnes\"（继承自 \"twins\"）的对象，表示聚类结果，并提供凝聚系数与 banner 图。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "an object of class \"agnes\" (which extends \"twins\" ) representing the clustering."
+            },
+            {
+              "section": "details",
+              "quote": "Compared to other agglomerative clustering methods such as hclust , agnes has the following features: (a) it yields the agglomerative coefficient (see agnes.object ) which measures the amount of clustering structure found;"
+            },
+            {
+              "section": "details",
+              "quote": "and (b) apart from the usual tree it also provides the banner, a novel graphical display (see plot.agnes )."
+            }
+          ]
+        },
+        {
+          "category": "failure",
+          "statement": "自 cluster 2.0 起，导致无效合并结构的选择会报错；使用 method=\"flexible\" 且 par.method 长度大于 1 时需谨慎。",
+          "evidence": [
+            {
+              "section": "details",
+              "quote": "Since cluster version 2.0, choices leading to invalid merge structures now signal an error (from the C code already)."
+            },
+            {
+              "section": "details",
+              "quote": "Care and expertise is probably needed when using method = \"flexible\" particularly for the case when par.method is specified of longer length than one."
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "文档未说明对样本量、变量分布或独立性等推断性假设的要求。",
+        "文档未说明该函数对任意特定用户数据集的适用性是否已确立。",
+        "文档未说明 ward 方法的具体距离更新公式细节。"
+      ]
+    },
+    "structural_issues": [],
+    "semantic_review": "same_model_review_not_independent",
+    "review": {
+      "accepted": true,
+      "issues": [],
+      "explanation": "逐条核对官方文档，suitability_text 与各 claim 均有对应章节与引文支撑，未发现虚构条件、遗漏限定或参数默认值矛盾。输入形式（矩阵/数据框/相异度矩阵/向量）、缺失值规则、metric/stand/method/par.method 的语义与默认值、输出对象及失败情形均与原文一致。unknowns 保守地未断言文档未说明的推断性假设，符合要求。"
+    }
+  },
+  "record_sha256": "656c45e35309c63645d55d60291f4cb1439bbf78c58ad4149f0226d3eca33cd9"
+}

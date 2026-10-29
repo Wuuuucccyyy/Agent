@@ -1,0 +1,35 @@
+{
+  "protocol": "paired-source-profile-1",
+  "source_set_id": "9da6e1c7a83a56790164cf0cb5699ce0860bb5826cea6e435045b658c7678ebe",
+  "functions": [
+    "MASS::lda",
+    "MASS::lm.ridge",
+    "MASS::qda",
+    "cluster::agnes",
+    "cluster::clara",
+    "cluster::diana",
+    "cluster::pam",
+    "psych::principal"
+  ],
+  "model": {
+    "provider": "DeepSeek",
+    "configured_model": "deepseek-v4-pro[1m]",
+    "requested_model": "deepseek-v4-pro",
+    "endpoint": "https://api.deepseek.com/anthropic",
+    "immutable_model_version": false
+  },
+  "prompts_sha256": "b4b798d79d2e7ae5c835d6cfe1fde46e53dcc971cb576d3f0802855e050dd142",
+  "repetitions": 1,
+  "settings": {
+    "max_output_tokens": 4000,
+    "timeout": 60,
+    "max_retries": 1,
+    "temperature": 0,
+    "thinking": "disabled"
+  },
+  "design": "One shared initial extraction per source; single stops, cooperative reviews and may correct once.",
+  "max_logical_calls_per_function": 4,
+  "shared_initial_call_charged_to_both_arm_estimates": true,
+  "realized_cost_counts_shared_call_once": true,
+  "plan_id": "21b79e0def8803ec2cb8b3a4a3df46d7127ee7e384c5b5854b8152bffbb554e4"
+}

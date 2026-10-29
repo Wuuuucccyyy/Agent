@@ -1,0 +1,569 @@
+{
+  "plan_id": "21b79e0def8803ec2cb8b3a4a3df46d7127ee7e384c5b5854b8152bffbb554e4",
+  "function_id": "MASS::qda",
+  "source_rd_sha256": "59579f504ebbe9e1e9bf28a3e82f9339791c29636e0690497f7489b338d560a3",
+  "state": "completed",
+  "pending_phase": null,
+  "phases": [
+    {
+      "name": "initial_extraction",
+      "status": "completed",
+      "error": null,
+      "seconds": 11.499895800137892,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 65,
+        "output_tokens": 778,
+        "tokens": 3531,
+        "cache_read_input_tokens": 2688,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "6957f3e672f8db299225f28ad408091638ec346e79f08895de60a87d9158fdaf",
+          "response_sha256": "46053f0ee95c62943b5ee52b40e6b6b8ec25ad7c97aa3ce8092f8e4f5e06468e",
+          "seconds": 11.498863099841401,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "task_types": [
+          "discriminant"
+        ],
+        "suitability_text": "该函数执行二次判别分析，用于将观测分类到由分组因子定义的类别中。输入可为公式（响应为分组因子，右侧为非因子判别变量）或矩阵/数据框/Matrix 加分组因子。可指定先验概率、子集、缺失值处理及估计方法，并支持留一交叉验证。输出为 qda 对象（或 CV=TRUE 时的分类与后验概率）。",
+        "claims": [
+          {
+            "category": "input",
+            "statement": "输入可通过公式指定，形式为 groups ~ x1 + x2 + ...，其中响应是分组因子，右侧为（非因子）判别变量。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "formula A formula of the form groups ~ x1 + x2 + ..."
+              },
+              {
+                "section": "arguments",
+                "quote": "That is, the response is the grouping factor and the right hand side specifies the (non-factor) discriminators."
+              }
+            ]
+          },
+          {
+            "category": "input",
+            "statement": "若不使用公式，则需提供 x（矩阵、数据框或 Matrix，含解释变量）和 grouping（指定每个观测类别的因子）。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "x (required if no formula is given as the principal argument.) a matrix or data frame or Matrix containing the explanatory variables."
+              },
+              {
+                "section": "arguments",
+                "quote": "grouping (required if no formula principal argument is given.) a factor specifying the class for each observation."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "prior 指定类别先验概率；若未指定则使用训练集的类别比例，若指定则应按因子水平顺序给出。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "prior the prior probabilities of class membership."
+              },
+              {
+                "section": "arguments",
+                "quote": "If unspecified, the class proportions for the training set are used."
+              },
+              {
+                "section": "arguments",
+                "quote": "If specified, the probabilities should be specified in the order of the factor levels."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "method 可选 \"moment\"、\"mle\"、\"mve\"（使用 cov.mve）或 \"t\"（基于 t 分布的稳健估计），其中 method=\"t\" 时 nu 指定自由度。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "(NOTE: If given, this argument must be named.) method \"moment\" for standard estimators of the mean and variance, \"mle\" for MLEs, \"mve\" to use cov.mve , or \"t\" for robust estimates based on a t distribution."
+              },
+              {
+                "section": "arguments",
+                "quote": "nu degrees of freedom for method = \"t\" ."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "subset 为指定训练样本案例的索引向量，na.action 指定缺失值处理；两者若给出必须命名。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "subset An index vector specifying the cases to be used in the training sample."
+              },
+              {
+                "section": "arguments",
+                "quote": "(NOTE: If given, this argument must be named.) na.action A function to specify the action to be taken if NA s are found."
+              }
+            ]
+          },
+          {
+            "category": "preprocessing",
+            "statement": "默认缺失值处理是使过程失败；可选用 na.omit 以剔除在任一所需变量上存在缺失值的案例。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "The default action is for the procedure to fail."
+              },
+              {
+                "section": "arguments",
+                "quote": "An alternative is na.omit, which leads to rejection of cases with missing values on any required variable."
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "返回类 \"qda\" 的对象，包含 prior、means、scaling、ldet、lev、terms（若为公式）和 call 等组件。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "an object of class \"qda\" containing the following components: prior the prior probabilities used."
+              },
+              {
+                "section": "value",
+                "quote": "means the group means."
+              },
+              {
+                "section": "value",
+                "quote": "scaling for each group i , scaling[,,i] is an array which transforms observations so that within-groups covariance matrix is spherical."
+              },
+              {
+                "section": "value",
+                "quote": "ldet a vector of half log determinants of the dispersion matrix."
+              },
+              {
+                "section": "value",
+                "quote": "lev the levels of the grouping factor."
+              },
+              {
+                "section": "value",
+                "quote": "terms (if formula is a formula) an object of mode expression and class term summarizing the formula."
+              },
+              {
+                "section": "value",
+                "quote": "call the (matched) function call."
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "当 CV=TRUE 时，返回列表，包含 MAP 分类（因子）和各类别的后验概率；若先验被估计，则使用整个数据集的类别比例。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "CV If true, returns results (classes and posterior probabilities) for leave-out-out cross-validation."
+              },
+              {
+                "section": "arguments",
+                "quote": "Note that if the prior is estimated, the proportions in the whole dataset are used."
+              },
+              {
+                "section": "value",
+                "quote": "unless CV=TRUE , when the return value is a list with components: class The MAP classification (a factor) posterior posterior probabilities for the classes"
+              }
+            ]
+          },
+          {
+            "category": "failure",
+            "statement": "使用 QR 分解，若任一组内方差奇异则会给出错误信息。",
+            "evidence": [
+              {
+                "section": "details",
+                "quote": "Uses a QR decomposition which will give an error message if the within-group variance is singular for any group."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "文档未说明对样本量、正态性或独立性等推断性假设的要求。",
+          "文档未说明各 method 选项对数据分布或异常值敏感性的具体适用条件。",
+          "该函数对任意特定用户数据集的适用性未在文档中确立。"
+        ]
+      }
+    },
+    {
+      "name": "initial_review",
+      "status": "completed",
+      "error": null,
+      "seconds": 4.702015199931338,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 1338,
+        "output_tokens": 213,
+        "tokens": 2703,
+        "cache_read_input_tokens": 1152,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "f071edcc7bf8f25c151dd814bec8e65887cd99437678e95473bf85b9d9ad8750",
+          "response_sha256": "8a5e3a7285ae7dbbc275cdeed4fd333a98afa01c65c61e261920955d4a027a02",
+          "seconds": 4.700276300078258,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "accepted": true,
+        "issues": [],
+        "explanation": "逐条核对官方文档后，所有 claims 均与给定章节的原文一致，未发现虚构条件、遗漏限定词或曲解。输入形式、prior 默认值与顺序要求、method 各选项及 nu 的限定、subset/na.action 必须命名的说明、缺失值默认失败与 na.omit 行为、qda 对象组件、CV=TRUE 时的返回结构及先验估计使用整个数据集比例、QR 分解与奇异方差报错等均准确对应原文。suitability_text 与 task_types 保守且未超出文档范围，unknowns 恰当标注了文档未说明的推断性假设与适用条件。无实质性问题。"
+      }
+    }
+  ],
+  "single": {
+    "status": "structurally_valid",
+    "semantic": {
+      "task_types": [
+        "discriminant"
+      ],
+      "suitability_text": "该函数执行二次判别分析，用于将观测分类到由分组因子定义的类别中。输入可为公式（响应为分组因子，右侧为非因子判别变量）或矩阵/数据框/Matrix 加分组因子。可指定先验概率、子集、缺失值处理及估计方法，并支持留一交叉验证。输出为 qda 对象（或 CV=TRUE 时的分类与后验概率）。",
+      "claims": [
+        {
+          "category": "input",
+          "statement": "输入可通过公式指定，形式为 groups ~ x1 + x2 + ...，其中响应是分组因子，右侧为（非因子）判别变量。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "formula A formula of the form groups ~ x1 + x2 + ..."
+            },
+            {
+              "section": "arguments",
+              "quote": "That is, the response is the grouping factor and the right hand side specifies the (non-factor) discriminators."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "若不使用公式，则需提供 x（矩阵、数据框或 Matrix，含解释变量）和 grouping（指定每个观测类别的因子）。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "x (required if no formula is given as the principal argument.) a matrix or data frame or Matrix containing the explanatory variables."
+            },
+            {
+              "section": "arguments",
+              "quote": "grouping (required if no formula principal argument is given.) a factor specifying the class for each observation."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "prior 指定类别先验概率；若未指定则使用训练集的类别比例，若指定则应按因子水平顺序给出。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "prior the prior probabilities of class membership."
+            },
+            {
+              "section": "arguments",
+              "quote": "If unspecified, the class proportions for the training set are used."
+            },
+            {
+              "section": "arguments",
+              "quote": "If specified, the probabilities should be specified in the order of the factor levels."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "method 可选 \"moment\"、\"mle\"、\"mve\"（使用 cov.mve）或 \"t\"（基于 t 分布的稳健估计），其中 method=\"t\" 时 nu 指定自由度。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "(NOTE: If given, this argument must be named.) method \"moment\" for standard estimators of the mean and variance, \"mle\" for MLEs, \"mve\" to use cov.mve , or \"t\" for robust estimates based on a t distribution."
+            },
+            {
+              "section": "arguments",
+              "quote": "nu degrees of freedom for method = \"t\" ."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "subset 为指定训练样本案例的索引向量，na.action 指定缺失值处理；两者若给出必须命名。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "subset An index vector specifying the cases to be used in the training sample."
+            },
+            {
+              "section": "arguments",
+              "quote": "(NOTE: If given, this argument must be named.) na.action A function to specify the action to be taken if NA s are found."
+            }
+          ]
+        },
+        {
+          "category": "preprocessing",
+          "statement": "默认缺失值处理是使过程失败；可选用 na.omit 以剔除在任一所需变量上存在缺失值的案例。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "The default action is for the procedure to fail."
+            },
+            {
+              "section": "arguments",
+              "quote": "An alternative is na.omit, which leads to rejection of cases with missing values on any required variable."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "返回类 \"qda\" 的对象，包含 prior、means、scaling、ldet、lev、terms（若为公式）和 call 等组件。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "an object of class \"qda\" containing the following components: prior the prior probabilities used."
+            },
+            {
+              "section": "value",
+              "quote": "means the group means."
+            },
+            {
+              "section": "value",
+              "quote": "scaling for each group i , scaling[,,i] is an array which transforms observations so that within-groups covariance matrix is spherical."
+            },
+            {
+              "section": "value",
+              "quote": "ldet a vector of half log determinants of the dispersion matrix."
+            },
+            {
+              "section": "value",
+              "quote": "lev the levels of the grouping factor."
+            },
+            {
+              "section": "value",
+              "quote": "terms (if formula is a formula) an object of mode expression and class term summarizing the formula."
+            },
+            {
+              "section": "value",
+              "quote": "call the (matched) function call."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "当 CV=TRUE 时，返回列表，包含 MAP 分类（因子）和各类别的后验概率；若先验被估计，则使用整个数据集的类别比例。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "CV If true, returns results (classes and posterior probabilities) for leave-out-out cross-validation."
+            },
+            {
+              "section": "arguments",
+              "quote": "Note that if the prior is estimated, the proportions in the whole dataset are used."
+            },
+            {
+              "section": "value",
+              "quote": "unless CV=TRUE , when the return value is a list with components: class The MAP classification (a factor) posterior posterior probabilities for the classes"
+            }
+          ]
+        },
+        {
+          "category": "failure",
+          "statement": "使用 QR 分解，若任一组内方差奇异则会给出错误信息。",
+          "evidence": [
+            {
+              "section": "details",
+              "quote": "Uses a QR decomposition which will give an error message if the within-group variance is singular for any group."
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "文档未说明对样本量、正态性或独立性等推断性假设的要求。",
+        "文档未说明各 method 选项对数据分布或异常值敏感性的具体适用条件。",
+        "该函数对任意特定用户数据集的适用性未在文档中确立。"
+      ]
+    },
+    "structural_issues": [],
+    "semantic_review": "not_performed"
+  },
+  "cooperative": {
+    "status": "machine_accepted",
+    "semantic": {
+      "task_types": [
+        "discriminant"
+      ],
+      "suitability_text": "该函数执行二次判别分析，用于将观测分类到由分组因子定义的类别中。输入可为公式（响应为分组因子，右侧为非因子判别变量）或矩阵/数据框/Matrix 加分组因子。可指定先验概率、子集、缺失值处理及估计方法，并支持留一交叉验证。输出为 qda 对象（或 CV=TRUE 时的分类与后验概率）。",
+      "claims": [
+        {
+          "category": "input",
+          "statement": "输入可通过公式指定，形式为 groups ~ x1 + x2 + ...，其中响应是分组因子，右侧为（非因子）判别变量。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "formula A formula of the form groups ~ x1 + x2 + ..."
+            },
+            {
+              "section": "arguments",
+              "quote": "That is, the response is the grouping factor and the right hand side specifies the (non-factor) discriminators."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "若不使用公式，则需提供 x（矩阵、数据框或 Matrix，含解释变量）和 grouping（指定每个观测类别的因子）。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "x (required if no formula is given as the principal argument.) a matrix or data frame or Matrix containing the explanatory variables."
+            },
+            {
+              "section": "arguments",
+              "quote": "grouping (required if no formula principal argument is given.) a factor specifying the class for each observation."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "prior 指定类别先验概率；若未指定则使用训练集的类别比例，若指定则应按因子水平顺序给出。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "prior the prior probabilities of class membership."
+            },
+            {
+              "section": "arguments",
+              "quote": "If unspecified, the class proportions for the training set are used."
+            },
+            {
+              "section": "arguments",
+              "quote": "If specified, the probabilities should be specified in the order of the factor levels."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "method 可选 \"moment\"、\"mle\"、\"mve\"（使用 cov.mve）或 \"t\"（基于 t 分布的稳健估计），其中 method=\"t\" 时 nu 指定自由度。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "(NOTE: If given, this argument must be named.) method \"moment\" for standard estimators of the mean and variance, \"mle\" for MLEs, \"mve\" to use cov.mve , or \"t\" for robust estimates based on a t distribution."
+            },
+            {
+              "section": "arguments",
+              "quote": "nu degrees of freedom for method = \"t\" ."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "subset 为指定训练样本案例的索引向量，na.action 指定缺失值处理；两者若给出必须命名。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "subset An index vector specifying the cases to be used in the training sample."
+            },
+            {
+              "section": "arguments",
+              "quote": "(NOTE: If given, this argument must be named.) na.action A function to specify the action to be taken if NA s are found."
+            }
+          ]
+        },
+        {
+          "category": "preprocessing",
+          "statement": "默认缺失值处理是使过程失败；可选用 na.omit 以剔除在任一所需变量上存在缺失值的案例。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "The default action is for the procedure to fail."
+            },
+            {
+              "section": "arguments",
+              "quote": "An alternative is na.omit, which leads to rejection of cases with missing values on any required variable."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "返回类 \"qda\" 的对象，包含 prior、means、scaling、ldet、lev、terms（若为公式）和 call 等组件。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "an object of class \"qda\" containing the following components: prior the prior probabilities used."
+            },
+            {
+              "section": "value",
+              "quote": "means the group means."
+            },
+            {
+              "section": "value",
+              "quote": "scaling for each group i , scaling[,,i] is an array which transforms observations so that within-groups covariance matrix is spherical."
+            },
+            {
+              "section": "value",
+              "quote": "ldet a vector of half log determinants of the dispersion matrix."
+            },
+            {
+              "section": "value",
+              "quote": "lev the levels of the grouping factor."
+            },
+            {
+              "section": "value",
+              "quote": "terms (if formula is a formula) an object of mode expression and class term summarizing the formula."
+            },
+            {
+              "section": "value",
+              "quote": "call the (matched) function call."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "当 CV=TRUE 时，返回列表，包含 MAP 分类（因子）和各类别的后验概率；若先验被估计，则使用整个数据集的类别比例。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "CV If true, returns results (classes and posterior probabilities) for leave-out-out cross-validation."
+            },
+            {
+              "section": "arguments",
+              "quote": "Note that if the prior is estimated, the proportions in the whole dataset are used."
+            },
+            {
+              "section": "value",
+              "quote": "unless CV=TRUE , when the return value is a list with components: class The MAP classification (a factor) posterior posterior probabilities for the classes"
+            }
+          ]
+        },
+        {
+          "category": "failure",
+          "statement": "使用 QR 分解，若任一组内方差奇异则会给出错误信息。",
+          "evidence": [
+            {
+              "section": "details",
+              "quote": "Uses a QR decomposition which will give an error message if the within-group variance is singular for any group."
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "文档未说明对样本量、正态性或独立性等推断性假设的要求。",
+        "文档未说明各 method 选项对数据分布或异常值敏感性的具体适用条件。",
+        "该函数对任意特定用户数据集的适用性未在文档中确立。"
+      ]
+    },
+    "structural_issues": [],
+    "semantic_review": "same_model_review_not_independent",
+    "review": {
+      "accepted": true,
+      "issues": [],
+      "explanation": "逐条核对官方文档后，所有 claims 均与给定章节的原文一致，未发现虚构条件、遗漏限定词或曲解。输入形式、prior 默认值与顺序要求、method 各选项及 nu 的限定、subset/na.action 必须命名的说明、缺失值默认失败与 na.omit 行为、qda 对象组件、CV=TRUE 时的返回结构及先验估计使用整个数据集比例、QR 分解与奇异方差报错等均准确对应原文。suitability_text 与 task_types 保守且未超出文档范围，unknowns 恰当标注了文档未说明的推断性假设与适用条件。无实质性问题。"
+    }
+  },
+  "record_sha256": "1fff64beee838450176f72fcdcb6f1df17f579c86d8086e84b9ec36aac6748a2"
+}

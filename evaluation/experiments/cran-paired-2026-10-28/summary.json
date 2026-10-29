@@ -1,0 +1,86 @@
+{
+  "protocol": "paired-source-profile-1",
+  "plan_id": "21b79e0def8803ec2cb8b3a4a3df46d7127ee7e384c5b5854b8152bffbb554e4",
+  "execution_status": "completed",
+  "human_quality_status": "awaiting_independent_reference_and_annotations",
+  "functions": [
+    "MASS::lda",
+    "MASS::lm.ridge",
+    "MASS::qda",
+    "cluster::agnes",
+    "cluster::clara",
+    "cluster::diana",
+    "cluster::pam",
+    "psych::principal"
+  ],
+  "arms": {
+    "single": {
+      "planned_functions": 8,
+      "completed_functions": 8,
+      "candidates_available": 8,
+      "structurally_valid": 8,
+      "status_counts": {
+        "structurally_valid": 8
+      },
+      "accounted_usage": {
+        "api_calls": 8,
+        "cache_read_input_tokens": 37632,
+        "input_tokens": 576,
+        "llm_calls": 8,
+        "output_tokens": 7245,
+        "retries": 0,
+        "tokens": 45453
+      },
+      "phase_seconds": 105.45862730033696,
+      "field_accuracy": null,
+      "field_completeness": null,
+      "semantic_accuracy": null,
+      "unsupported_inference_rate": null,
+      "api_cost_usd": null
+    },
+    "cooperative": {
+      "planned_functions": 8,
+      "completed_functions": 8,
+      "candidates_available": 8,
+      "structurally_valid": 8,
+      "status_counts": {
+        "machine_accepted": 6,
+        "needs_review": 2
+      },
+      "accounted_usage": {
+        "api_calls": 20,
+        "cache_read_input_tokens": 68096,
+        "input_tokens": 21354,
+        "llm_calls": 20,
+        "output_tokens": 12716,
+        "retries": 0,
+        "tokens": 102166
+      },
+      "phase_seconds": 201.9329120006878,
+      "field_accuracy": null,
+      "field_completeness": null,
+      "semantic_accuracy": null,
+      "unsupported_inference_rate": null,
+      "api_cost_usd": null
+    }
+  },
+  "realized_usage": {
+    "api_calls": 20,
+    "cache_read_input_tokens": 68096,
+    "input_tokens": 21354,
+    "llm_calls": 20,
+    "output_tokens": 12716,
+    "retries": 0,
+    "tokens": 102166
+  },
+  "realized_phase_seconds": 201.9329120006878,
+  "api_cost_usd": null,
+  "limitations": [
+    "Paired continuation, not two independently sampled generations; initial extraction is shared.",
+    "Arm cost estimates both include initial extraction. Do not add arms to obtain realized API usage.",
+    "Provider model alias is not an immutable model revision; one repetition is not a significance test.",
+    "Schema/evidence checks and model acceptance are not human correctness labels.",
+    "Provider-reported tokens omit unreported consumption from failed calls; currency cost is not estimated.",
+    "No production profiles, hand-authored rules, or Codex source corrections are used as experimental answers."
+  ]
+}

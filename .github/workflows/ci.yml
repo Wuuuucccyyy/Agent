@@ -25,4 +25,5 @@ jobs:
       - run: python evaluation/cran_conditions.py --db runs/ci-knowledge.sqlite3 --out runs/cran-conditions.json
       - run: python -m stat_agent kb review prepare --db runs/ci-knowledge.sqlite3 --packet runs/ci-review
       - run: python -m stat_agent kb review status --db runs/ci-knowledge.sqlite3 --packet runs/ci-review --out runs/ci-review-status.json
+      - run: python -m stat_agent.profile_experiment report --experiment evaluation/experiments/cran-paired-2026-10-28
       - run: python -m stat_agent profile examples/data/pca.csv --out runs/ci-profile-only

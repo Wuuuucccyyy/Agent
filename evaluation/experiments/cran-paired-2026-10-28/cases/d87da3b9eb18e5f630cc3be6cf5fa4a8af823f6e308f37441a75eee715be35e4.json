@@ -1,0 +1,979 @@
+{
+  "plan_id": "21b79e0def8803ec2cb8b3a4a3df46d7127ee7e384c5b5854b8152bffbb554e4",
+  "function_id": "cluster::clara",
+  "source_rd_sha256": "b18b27063c8cf1c9d78ed87c9194a502281a363df12e053c527c3fa89f1f8ef2",
+  "state": "completed",
+  "pending_phase": null,
+  "phases": [
+    {
+      "name": "initial_extraction",
+      "status": "completed",
+      "error": null,
+      "seconds": 13.858223000075668,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 114,
+        "output_tokens": 972,
+        "tokens": 6078,
+        "cache_read_input_tokens": 4992,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "1ae4065aea7af36155ca6b7ee1095989e27d2b7371fd3165be6f0d849bb10213",
+          "response_sha256": "c5e146911f21737ff1ab42f339529f5373b412d736a843311f3a939f6f3a71a6",
+          "seconds": 13.856922500068322,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "task_types": [
+          "clustering"
+        ],
+        "suitability_text": "该函数用于对大型数据集进行划分式聚类（k-medoids 类），将观测划分为 k 个簇。输入须为数值或逻辑型矩阵/数据框，允许缺失值；需指定簇数 k（0<k<n）。支持欧氏、曼哈顿、jaccard 三种距离度量，可选按列标准化。通过抽取固定大小的子样本近似计算，适合样本量大、内存受限的场景；小数据集建议改用 pam。",
+        "claims": [
+          {
+            "category": "input",
+            "statement": "输入 x 为数据矩阵或数据框，每行对应一个观测，每列对应一个变量。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "x data matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable."
+              }
+            ]
+          },
+          {
+            "category": "input",
+            "statement": "所有变量必须是数值型（或逻辑型），且允许存在缺失值（NA）。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "All variables must be numeric (or logical)."
+              },
+              {
+                "section": "arguments",
+                "quote": "Missing values (NAs) are allowed."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "k 为簇数，要求 0 < k < n，其中 n = nrow(x)。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "k integer, the number of clusters."
+              },
+              {
+                "section": "arguments",
+                "quote": "It is required that 0 < k < n where n is the number of observations (i.e., n = nrow(x) )."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "metric 指定距离度量，可选 \"euclidean\"、\"manhattan\" 或 \"jaccard\"；欧氏距离为差值平方和的平方根，曼哈顿距离为绝对差之和。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations."
+              },
+              {
+                "section": "arguments",
+                "quote": "The currently available options are \"euclidean\", \"manhattan\", \"jaccard\"."
+              },
+              {
+                "section": "arguments",
+                "quote": "Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences."
+              }
+            ]
+          },
+          {
+            "category": "preprocessing",
+            "statement": "stand=TRUE 时，在计算相异度前对每列标准化，即减去该列均值并除以该列平均绝对偏差。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "stand logical, indicating if the measurements in x are standardized before calculating the dissimilarities."
+              },
+              {
+                "section": "arguments",
+                "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "sampsize 为每个样本的观测数，应大于簇数 k 且不超过观测总数 n；计算量与其平方成正比。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "sampsize integer, say j , the number of observations in each sample."
+              },
+              {
+                "section": "arguments",
+                "quote": "sampsize should be higher than the number of clusters ( k ) and at most the number of observations ( n = nrow(x) )."
+              },
+              {
+                "section": "arguments",
+                "quote": "While computational effort is proportional to j^2 , see note below, it may still be advisable to set j = sampsize to a larger value than the (historical) default."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "samples 为抽取的样本数，默认 N=5 偏小，文档建议将其设大一个数量级。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "samples integer, say N , the number of samples to be drawn from the dataset."
+              },
+              {
+                "section": "arguments",
+                "quote": "The default, N = 5 , is rather small for historical (and now back compatibility) reasons and we recommend to set samples an order of magnitude larger ."
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "默认返回类 \"clara\" 的对象；cluster.only=TRUE 时仅返回长度为 n、取值为 1:k 的整数聚类向量。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "If cluster.only is false (as by default), an object of class \"clara\" representing the clustering."
+              },
+              {
+                "section": "value",
+                "quote": "If cluster.only is true, the result is the \"clustering\", an integer vector of length n with entries from 1:k ."
+              },
+              {
+                "section": "arguments",
+                "quote": "cluster.only logical;"
+              },
+              {
+                "section": "arguments",
+                "quote": "if true, only the clustering will be computed and returned, see details."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "rngR=TRUE 时使用 R 的随机数生成器，每次调用结果不同；默认使用 Fortran 内置的确定性采样方案。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "rngR logical indicating if R's random number generator should be used instead of the primitive clara()-builtin one."
+              },
+              {
+                "section": "arguments",
+                "quote": "If true, this also means that each call to clara() returns a different result -- though only slightly different in good situations."
+              },
+              {
+                "section": "note",
+                "quote": "By default, the random sampling is implemented with a very simple scheme (with period 2^ 16 = 65536 ) inside the Fortran code, independently of R's random number generation, and as a matter of fact, deterministically."
+              },
+              {
+                "section": "note",
+                "quote": "Alternatively, we recommend setting rngR = TRUE which uses R's random number generators."
+              }
+            ]
+          },
+          {
+            "category": "failure",
+            "statement": "当 x 中存在 NA 时，correct.d 控制是否使用修正后的距离公式；因新公式不向后兼容，此时会发出警告，除非用户显式指定 correct.d。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "correct.d logical or integer indicating that---only in the case of NA s present in x ---the correct distance computation should be used instead of the wrong formula which has been present in the original Fortran code and been in use up to early 2016."
+              },
+              {
+                "section": "arguments",
+                "quote": "Because the new correct formula is not back compatible, for the time being, a warning is signalled in this case, unless the user explicitly specifies correct.d ."
+              }
+            ]
+          },
+          {
+            "category": "assumption",
+            "statement": "clara 通过固定大小子样本近似，使时间和存储需求随 n 线性增长而非二次增长，适合处理远大于 pam 的数据集。",
+            "evidence": [
+              {
+                "section": "details",
+                "quote": "Compared to other partitioning methods such as pam , it can deal with much larger datasets."
+              },
+              {
+                "section": "details",
+                "quote": "Internally, this is achieved by considering sub-datasets of fixed size ( sampsize ) such that the time and storage requirements become linear in n rather than quadratic."
+              },
+              {
+                "section": "note",
+                "quote": "The storage requirement of clara computation (for small k ) is about O(n p) + O(j^2) O(n * p) + O(j^2) where j = sampsize , and (n,p) = dim(x) ."
+              },
+              {
+                "section": "note",
+                "quote": "The CPU computing time (again assuming small k ) is about O(n p j^2 N) O(n * p * j^2 * N) , where N = samples ."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "keep.data=FALSE 可节省内存但会禁用结果的 clusplot() 绘图；medoids.x=FALSE 可进一步节省内存，此时 keep.data 也必须为 FALSE。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "keep.data logical indicating if the ( scaled if stand is true) data should be kept in the result."
+              },
+              {
+                "section": "arguments",
+                "quote": "Setting this to FALSE saves memory (and hence time), but disables clusplot () ing of the result."
+              },
+              {
+                "section": "arguments",
+                "quote": "Use medoids.x = FALSE to save even more memory."
+              },
+              {
+                "section": "arguments",
+                "quote": "If FALSE , keep.data must be false as well, and the medoid indices, i.e., row numbers of the medoids will still be returned ( i.med component), and the algorithm saves space by needing one copy less of x ."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "文档未说明该函数对任何特定用户数据集的适用性或研究设计是否成立。",
+          "文档未规定样本量阈值、正态性或独立性等推断性假设要求。",
+          "文档未说明 jaccard 度量下对输入数据的具体要求（如是否需为二元数据）。"
+        ]
+      }
+    },
+    {
+      "name": "initial_review",
+      "status": "completed",
+      "error": null,
+      "seconds": 10.335445000091568,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 1955,
+        "output_tokens": 594,
+        "tokens": 4597,
+        "cache_read_input_tokens": 2048,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "795b5a3124fe67f3400532fb2fc2f670d0636f80c9287e49d4ff0e7cedc3f3b8",
+          "response_sha256": "603279c3637d9dd0ec0102a61cada1ec53d8dde5114bed1bd62b94fe93723e08",
+          "seconds": 10.332148699788377,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "accepted": false,
+        "issues": [
+          "claim 'rngR=TRUE 时使用 R 的随机数生成器，每次调用结果不同；默认使用 Fortran 内置的确定性采样方案' 中，'每次调用结果不同' 的表述过于绝对。原文为 'If true, this also means that each call to clara() returns a different result -- though only slightly different in good situations.'，即仅在良好情形下略有不同，且该差异并非必然每次不同，应保留 'though only slightly different in good situations' 这一限定，避免断言每次调用必然产生不同结果。",
+          "claim '当 x 中存在 NA 时，correct.d 控制是否使用修正后的距离公式；因新公式不向后兼容，此时会发出警告，除非用户显式指定 correct.d' 存在因果/条件表述偏差。原文 'a warning is signalled in this case, unless the user explicitly specifies correct.d' 中的 'this case' 指使用新正确公式（即 correct.d 生效）的情形，而非泛指 'x 中存在 NA' 即必然警告。应明确警告是在采用新正确公式（correct.d 为真）且存在 NA 时发出，而非只要存在 NA 就警告。",
+          "claim 'clara 通过固定大小子样本近似，使时间和存储需求随 n 线性增长而非二次增长' 的表述不完整且可能误导。原文 'the time and storage requirements become linear in n rather than quadratic' 是相对 pam 的二次增长而言，且 note 中明确存储为 O(n*p)+O(j^2)、时间为 O(n*p*j^2*N)，并非单纯随 n 线性。应补充说明线性是相对 n 而言（j、N 固定时），并保留 O(j^2) 与 O(n*p*j^2*N) 的完整复杂度表述，避免读者误以为总复杂度仅随 n 线性。"
+        ],
+        "explanation": "草稿大部分内容与官方文档一致，但存在三处实质性偏差：rngR 的 '每次调用结果不同' 遗漏了 '仅在良好情形下略有不同' 的限定；correct.d 的警告条件被泛化为 '存在 NA 即警告'，而原文警告仅在使用新正确公式（correct.d 为真）且存在 NA 时发出；线性复杂度表述未保留 O(j^2) 与 O(n*p*j^2*N) 的完整复杂度，可能误导读者认为总复杂度仅随 n 线性。需修正后再审。"
+      }
+    },
+    {
+      "name": "correction_extraction",
+      "status": "completed",
+      "error": null,
+      "seconds": 15.903583799954504,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 515,
+        "output_tokens": 1091,
+        "tokens": 6598,
+        "cache_read_input_tokens": 4992,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "8f4e49cd1aeac2a61722d5ccb712d059d480aefe64a457dc6015b11b2f6aee08",
+          "response_sha256": "709bfd636470458a212b4483ff2aac023b5636a87117c315f7b94f8e33128919",
+          "seconds": 15.902337800012901,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "task_types": [
+          "clustering"
+        ],
+        "suitability_text": "clara 用于将大型数据集划分为 k 个簇（分区聚类）。输入为数值或逻辑型矩阵/数据框，行是观测、列是变量，允许缺失值。需指定簇数 k（0<k<n），可选欧氏、曼哈顿或 jaccard 距离，并可用 stand 按列标准化。通过固定大小子样本近似，适合比 pam 更大的数据；输出为 clara 对象或（cluster.only=TRUE 时）聚类标签向量。",
+        "claims": [
+          {
+            "category": "input",
+            "statement": "x 为数据矩阵或数据框，每行对应一个观测，每列对应一个变量。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "x data matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable."
+              }
+            ]
+          },
+          {
+            "category": "input",
+            "statement": "所有变量必须是数值型（或逻辑型），缺失值（NA）是允许的。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "All variables must be numeric (or logical)."
+              },
+              {
+                "section": "arguments",
+                "quote": "Missing values (NAs) are allowed."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "k 为簇数，要求 0 < k < n，其中 n = nrow(x)。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "k integer, the number of clusters."
+              },
+              {
+                "section": "arguments",
+                "quote": "It is required that 0 < k < n where n is the number of observations (i.e., n = nrow(x) )."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "metric 指定计算观测间相异度的度量，可选 \"euclidean\"、\"manhattan\" 或 \"jaccard\"；欧氏距离为差值平方和的平方根，曼哈顿距离为绝对差之和。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations."
+              },
+              {
+                "section": "arguments",
+                "quote": "The currently available options are \"euclidean\", \"manhattan\", \"jaccard\"."
+              },
+              {
+                "section": "arguments",
+                "quote": "Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences."
+              }
+            ]
+          },
+          {
+            "category": "preprocessing",
+            "statement": "stand=TRUE 时，在计算相异度前对每列变量标准化，即减去该变量均值并除以该变量的平均绝对偏差。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "stand logical, indicating if the measurements in x are standardized before calculating the dissimilarities."
+              },
+              {
+                "section": "arguments",
+                "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "sampsize 为每个样本中的观测数，应大于簇数 k 且至多为观测总数 n；samples 为从数据集中抽取的样本数，默认 N=5 偏小，文档建议将其设大一个数量级。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "samples integer, say N , the number of samples to be drawn from the dataset."
+              },
+              {
+                "section": "arguments",
+                "quote": "The default, N = 5 , is rather small for historical (and now back compatibility) reasons and we recommend to set samples an order of magnitude larger ."
+              },
+              {
+                "section": "arguments",
+                "quote": "sampsize integer, say j , the number of observations in each sample."
+              },
+              {
+                "section": "arguments",
+                "quote": "sampsize should be higher than the number of clusters ( k ) and at most the number of observations ( n = nrow(x) )."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "rngR=TRUE 时使用 R 的随机数生成器而非 clara 内置的原始方案，此时每次调用返回的结果可能不同（在良好情形下仅略有不同）；默认采样方案在 Fortran 代码内实现，独立于 R 的随机数生成，且是确定性的。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "rngR logical indicating if R's random number generator should be used instead of the primitive clara()-builtin one."
+              },
+              {
+                "section": "arguments",
+                "quote": "If true, this also means that each call to clara() returns a different result -- though only slightly different in good situations."
+              },
+              {
+                "section": "note",
+                "quote": "By default, the random sampling is implemented with a very simple scheme (with period 2^ 16 = 65536 ) inside the Fortran code, independently of R's random number generation, and as a matter of fact, deterministically."
+              },
+              {
+                "section": "note",
+                "quote": "Alternatively, we recommend setting rngR = TRUE which uses R's random number generators."
+              }
+            ]
+          },
+          {
+            "category": "parameter",
+            "statement": "当 x 中存在 NA 时，correct.d 控制是否使用修正后的距离公式；因新公式不向后兼容，在采用新正确公式且存在 NA 的情形下会发出警告，除非用户显式指定 correct.d。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "correct.d logical or integer indicating that---only in the case of NA s present in x ---the correct distance computation should be used instead of the wrong formula which has been present in the original Fortran code and been in use up to early 2016."
+              },
+              {
+                "section": "arguments",
+                "quote": "Because the new correct formula is not back compatible, for the time being, a warning is signalled in this case, unless the user explicitly specifies correct.d ."
+              }
+            ]
+          },
+          {
+            "category": "output",
+            "statement": "cluster.only=FALSE（默认）时返回类 \"clara\" 的对象；cluster.only=TRUE 时返回长度为 n、取值为 1:k 的整数聚类标签向量。",
+            "evidence": [
+              {
+                "section": "value",
+                "quote": "If cluster.only is false (as by default), an object of class \"clara\" representing the clustering."
+              },
+              {
+                "section": "value",
+                "quote": "If cluster.only is true, the result is the \"clustering\", an integer vector of length n with entries from 1:k ."
+              },
+              {
+                "section": "details",
+                "quote": "When cluster.only is true, the result is simply a (possibly named) integer vector specifying the clustering, i.e., clara(x,k, cluster.only=TRUE) is the same as clara(x,k)$clustering but computed more efficiently."
+              }
+            ]
+          },
+          {
+            "category": "assumption",
+            "statement": "clara 通过固定大小（sampsize）的子数据集近似，使时间与存储需求相对 n 呈线性而非二次增长；存储约为 O(n*p)+O(j^2)，CPU 时间约为 O(n*p*j^2*N)，其中 j=sampsize、N=samples。",
+            "evidence": [
+              {
+                "section": "details",
+                "quote": "Internally, this is achieved by considering sub-datasets of fixed size ( sampsize ) such that the time and storage requirements become linear in n rather than quadratic."
+              },
+              {
+                "section": "note",
+                "quote": "The storage requirement of clara computation (for small k ) is about O(n p) + O(j^2) O(n * p) + O(j^2) where j = sampsize , and (n,p) = dim(x) ."
+              },
+              {
+                "section": "note",
+                "quote": "The CPU computing time (again assuming small k ) is about O(n p j^2 N) O(n * p * j^2 * N) , where N = samples ."
+              }
+            ]
+          },
+          {
+            "category": "failure",
+            "statement": "keep.data=FALSE 可节省内存（和时间），但会禁用对结果的 clusplot() 绘图；medoids.x=FALSE 时 keep.data 也必须为 FALSE，此时仍返回 medoid 索引（i.med 分量）。",
+            "evidence": [
+              {
+                "section": "arguments",
+                "quote": "If FALSE , keep.data must be false as well, and the medoid indices, i.e., row numbers of the medoids will still be returned ( i.med component), and the algorithm saves space by needing one copy less of x ."
+              },
+              {
+                "section": "arguments",
+                "quote": "keep.data logical indicating if the ( scaled if stand is true) data should be kept in the result."
+              },
+              {
+                "section": "arguments",
+                "quote": "Setting this to FALSE saves memory (and hence time), but disables clusplot () ing of the result."
+              },
+              {
+                "section": "arguments",
+                "quote": "Use medoids.x = FALSE to save even more memory."
+              }
+            ]
+          }
+        ],
+        "unknowns": [
+          "文档未说明该函数对任何特定用户数据集的适用性，也未给出样本量阈值或分布假设（如正态性、独立性）要求。",
+          "文档未说明 jaccard 度量下 clara 的算法细节是否与欧氏/曼哈顿情形完全一致（details 仅明确提及 euclidean 和 manhattan）。",
+          "文档未说明当存在 NA 时各度量下距离计算的具体处理方式（除 correct.d 控制修正公式外）。"
+        ]
+      }
+    },
+    {
+      "name": "final_review",
+      "status": "completed",
+      "error": null,
+      "seconds": 9.176822900073603,
+      "usage": {
+        "api_calls": 1,
+        "llm_calls": 1,
+        "input_tokens": 2033,
+        "output_tokens": 541,
+        "tokens": 4622,
+        "cache_read_input_tokens": 2048,
+        "retries": 0
+      },
+      "receipts": [
+        {
+          "requested_model": "deepseek-v4-pro",
+          "returned_model": "deepseek-v4-pro",
+          "request_sha256": "386b6d2629cfc44bd044e9ff4c26cb65ad47480209fe15f4d3024ec73e8db85a",
+          "response_sha256": "d1f397f66dbeef118abf097d836490ca4960c6796809dda836be813e23fd3406",
+          "seconds": 9.173483000136912,
+          "stop_reason": "tool_use"
+        }
+      ],
+      "output": {
+        "accepted": false,
+        "issues": [
+          "claim「当 x 中存在 NA 时，correct.d 控制是否使用修正后的距离公式；因新公式不向后兼容，在采用新正确公式且存在 NA 的情形下会发出警告，除非用户显式指定 correct.d」的表述有误。原文为：correct.d 指示在 x 存在 NA 时使用正确距离计算而非错误公式；由于新正确公式不向后兼容，目前在此情形下会发出警告，除非用户显式指定 correct.d。即警告是在「存在 NA 且未显式指定 correct.d」时发出，而非「采用新正确公式且存在 NA」时发出。请修正为：当 x 中存在 NA 时，默认（未显式指定 correct.d）会发出警告，除非用户显式指定 correct.d 以采用修正后的距离公式。",
+          "claim「rngR=TRUE 时使用 R 的随机数生成器而非 clara 内置的原始方案，此时每次调用返回的结果可能不同（在良好情形下仅略有不同）」中「在良好情形下仅略有不同」的限定语被省略，原文为 'though only slightly different in good situations'，该限定语改变了含义，应保留。",
+          "claim「sampsize 为每个样本中的观测数，应大于簇数 k 且至多为观测总数 n」中「应大于」的表述不准确，原文为 'sampsize should be higher than the number of clusters ( k )'，即「应高于 k」，与「大于 k」含义一致，但需注意原文未说明是否允许等于 k，建议保留原文措辞「应高于簇数 k」以避免歧义。"
+        ],
+        "explanation": "草稿大部分内容与官方文档一致，但 correct.d 相关 claim 对警告触发条件的表述存在实质性错误：原文警告是在「存在 NA 且未显式指定 correct.d」时发出，而非「采用新正确公式且存在 NA」时发出。此外 rngR claim 省略了 'only slightly different in good situations' 这一限定语，改变了含义。sampsize 的「应大于」措辞虽与原文 'higher than' 基本等价，但为保守起见建议保留原文措辞。其余 claims 与文档相符。"
+      }
+    }
+  ],
+  "single": {
+    "status": "structurally_valid",
+    "semantic": {
+      "task_types": [
+        "clustering"
+      ],
+      "suitability_text": "该函数用于对大型数据集进行划分式聚类（k-medoids 类），将观测划分为 k 个簇。输入须为数值或逻辑型矩阵/数据框，允许缺失值；需指定簇数 k（0<k<n）。支持欧氏、曼哈顿、jaccard 三种距离度量，可选按列标准化。通过抽取固定大小的子样本近似计算，适合样本量大、内存受限的场景；小数据集建议改用 pam。",
+      "claims": [
+        {
+          "category": "input",
+          "statement": "输入 x 为数据矩阵或数据框，每行对应一个观测，每列对应一个变量。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "x data matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "所有变量必须是数值型（或逻辑型），且允许存在缺失值（NA）。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "All variables must be numeric (or logical)."
+            },
+            {
+              "section": "arguments",
+              "quote": "Missing values (NAs) are allowed."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "k 为簇数，要求 0 < k < n，其中 n = nrow(x)。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "k integer, the number of clusters."
+            },
+            {
+              "section": "arguments",
+              "quote": "It is required that 0 < k < n where n is the number of observations (i.e., n = nrow(x) )."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "metric 指定距离度量，可选 \"euclidean\"、\"manhattan\" 或 \"jaccard\"；欧氏距离为差值平方和的平方根，曼哈顿距离为绝对差之和。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations."
+            },
+            {
+              "section": "arguments",
+              "quote": "The currently available options are \"euclidean\", \"manhattan\", \"jaccard\"."
+            },
+            {
+              "section": "arguments",
+              "quote": "Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences."
+            }
+          ]
+        },
+        {
+          "category": "preprocessing",
+          "statement": "stand=TRUE 时，在计算相异度前对每列标准化，即减去该列均值并除以该列平均绝对偏差。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "stand logical, indicating if the measurements in x are standardized before calculating the dissimilarities."
+            },
+            {
+              "section": "arguments",
+              "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "sampsize 为每个样本的观测数，应大于簇数 k 且不超过观测总数 n；计算量与其平方成正比。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "sampsize integer, say j , the number of observations in each sample."
+            },
+            {
+              "section": "arguments",
+              "quote": "sampsize should be higher than the number of clusters ( k ) and at most the number of observations ( n = nrow(x) )."
+            },
+            {
+              "section": "arguments",
+              "quote": "While computational effort is proportional to j^2 , see note below, it may still be advisable to set j = sampsize to a larger value than the (historical) default."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "samples 为抽取的样本数，默认 N=5 偏小，文档建议将其设大一个数量级。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "samples integer, say N , the number of samples to be drawn from the dataset."
+            },
+            {
+              "section": "arguments",
+              "quote": "The default, N = 5 , is rather small for historical (and now back compatibility) reasons and we recommend to set samples an order of magnitude larger ."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "默认返回类 \"clara\" 的对象；cluster.only=TRUE 时仅返回长度为 n、取值为 1:k 的整数聚类向量。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "If cluster.only is false (as by default), an object of class \"clara\" representing the clustering."
+            },
+            {
+              "section": "value",
+              "quote": "If cluster.only is true, the result is the \"clustering\", an integer vector of length n with entries from 1:k ."
+            },
+            {
+              "section": "arguments",
+              "quote": "cluster.only logical;"
+            },
+            {
+              "section": "arguments",
+              "quote": "if true, only the clustering will be computed and returned, see details."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "rngR=TRUE 时使用 R 的随机数生成器，每次调用结果不同；默认使用 Fortran 内置的确定性采样方案。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "rngR logical indicating if R's random number generator should be used instead of the primitive clara()-builtin one."
+            },
+            {
+              "section": "arguments",
+              "quote": "If true, this also means that each call to clara() returns a different result -- though only slightly different in good situations."
+            },
+            {
+              "section": "note",
+              "quote": "By default, the random sampling is implemented with a very simple scheme (with period 2^ 16 = 65536 ) inside the Fortran code, independently of R's random number generation, and as a matter of fact, deterministically."
+            },
+            {
+              "section": "note",
+              "quote": "Alternatively, we recommend setting rngR = TRUE which uses R's random number generators."
+            }
+          ]
+        },
+        {
+          "category": "failure",
+          "statement": "当 x 中存在 NA 时，correct.d 控制是否使用修正后的距离公式；因新公式不向后兼容，此时会发出警告，除非用户显式指定 correct.d。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "correct.d logical or integer indicating that---only in the case of NA s present in x ---the correct distance computation should be used instead of the wrong formula which has been present in the original Fortran code and been in use up to early 2016."
+            },
+            {
+              "section": "arguments",
+              "quote": "Because the new correct formula is not back compatible, for the time being, a warning is signalled in this case, unless the user explicitly specifies correct.d ."
+            }
+          ]
+        },
+        {
+          "category": "assumption",
+          "statement": "clara 通过固定大小子样本近似，使时间和存储需求随 n 线性增长而非二次增长，适合处理远大于 pam 的数据集。",
+          "evidence": [
+            {
+              "section": "details",
+              "quote": "Compared to other partitioning methods such as pam , it can deal with much larger datasets."
+            },
+            {
+              "section": "details",
+              "quote": "Internally, this is achieved by considering sub-datasets of fixed size ( sampsize ) such that the time and storage requirements become linear in n rather than quadratic."
+            },
+            {
+              "section": "note",
+              "quote": "The storage requirement of clara computation (for small k ) is about O(n p) + O(j^2) O(n * p) + O(j^2) where j = sampsize , and (n,p) = dim(x) ."
+            },
+            {
+              "section": "note",
+              "quote": "The CPU computing time (again assuming small k ) is about O(n p j^2 N) O(n * p * j^2 * N) , where N = samples ."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "keep.data=FALSE 可节省内存但会禁用结果的 clusplot() 绘图；medoids.x=FALSE 可进一步节省内存，此时 keep.data 也必须为 FALSE。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "keep.data logical indicating if the ( scaled if stand is true) data should be kept in the result."
+            },
+            {
+              "section": "arguments",
+              "quote": "Setting this to FALSE saves memory (and hence time), but disables clusplot () ing of the result."
+            },
+            {
+              "section": "arguments",
+              "quote": "Use medoids.x = FALSE to save even more memory."
+            },
+            {
+              "section": "arguments",
+              "quote": "If FALSE , keep.data must be false as well, and the medoid indices, i.e., row numbers of the medoids will still be returned ( i.med component), and the algorithm saves space by needing one copy less of x ."
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "文档未说明该函数对任何特定用户数据集的适用性或研究设计是否成立。",
+        "文档未规定样本量阈值、正态性或独立性等推断性假设要求。",
+        "文档未说明 jaccard 度量下对输入数据的具体要求（如是否需为二元数据）。"
+      ]
+    },
+    "structural_issues": [],
+    "semantic_review": "not_performed"
+  },
+  "cooperative": {
+    "status": "needs_review",
+    "semantic": {
+      "task_types": [
+        "clustering"
+      ],
+      "suitability_text": "clara 用于将大型数据集划分为 k 个簇（分区聚类）。输入为数值或逻辑型矩阵/数据框，行是观测、列是变量，允许缺失值。需指定簇数 k（0<k<n），可选欧氏、曼哈顿或 jaccard 距离，并可用 stand 按列标准化。通过固定大小子样本近似，适合比 pam 更大的数据；输出为 clara 对象或（cluster.only=TRUE 时）聚类标签向量。",
+      "claims": [
+        {
+          "category": "input",
+          "statement": "x 为数据矩阵或数据框，每行对应一个观测，每列对应一个变量。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "x data matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable."
+            }
+          ]
+        },
+        {
+          "category": "input",
+          "statement": "所有变量必须是数值型（或逻辑型），缺失值（NA）是允许的。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "All variables must be numeric (or logical)."
+            },
+            {
+              "section": "arguments",
+              "quote": "Missing values (NAs) are allowed."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "k 为簇数，要求 0 < k < n，其中 n = nrow(x)。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "k integer, the number of clusters."
+            },
+            {
+              "section": "arguments",
+              "quote": "It is required that 0 < k < n where n is the number of observations (i.e., n = nrow(x) )."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "metric 指定计算观测间相异度的度量，可选 \"euclidean\"、\"manhattan\" 或 \"jaccard\"；欧氏距离为差值平方和的平方根，曼哈顿距离为绝对差之和。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "metric character string specifying the metric to be used for calculating dissimilarities between observations."
+            },
+            {
+              "section": "arguments",
+              "quote": "The currently available options are \"euclidean\", \"manhattan\", \"jaccard\"."
+            },
+            {
+              "section": "arguments",
+              "quote": "Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences."
+            }
+          ]
+        },
+        {
+          "category": "preprocessing",
+          "statement": "stand=TRUE 时，在计算相异度前对每列变量标准化，即减去该变量均值并除以该变量的平均绝对偏差。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "stand logical, indicating if the measurements in x are standardized before calculating the dissimilarities."
+            },
+            {
+              "section": "arguments",
+              "quote": "Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "sampsize 为每个样本中的观测数，应大于簇数 k 且至多为观测总数 n；samples 为从数据集中抽取的样本数，默认 N=5 偏小，文档建议将其设大一个数量级。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "samples integer, say N , the number of samples to be drawn from the dataset."
+            },
+            {
+              "section": "arguments",
+              "quote": "The default, N = 5 , is rather small for historical (and now back compatibility) reasons and we recommend to set samples an order of magnitude larger ."
+            },
+            {
+              "section": "arguments",
+              "quote": "sampsize integer, say j , the number of observations in each sample."
+            },
+            {
+              "section": "arguments",
+              "quote": "sampsize should be higher than the number of clusters ( k ) and at most the number of observations ( n = nrow(x) )."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "rngR=TRUE 时使用 R 的随机数生成器而非 clara 内置的原始方案，此时每次调用返回的结果可能不同（在良好情形下仅略有不同）；默认采样方案在 Fortran 代码内实现，独立于 R 的随机数生成，且是确定性的。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "rngR logical indicating if R's random number generator should be used instead of the primitive clara()-builtin one."
+            },
+            {
+              "section": "arguments",
+              "quote": "If true, this also means that each call to clara() returns a different result -- though only slightly different in good situations."
+            },
+            {
+              "section": "note",
+              "quote": "By default, the random sampling is implemented with a very simple scheme (with period 2^ 16 = 65536 ) inside the Fortran code, independently of R's random number generation, and as a matter of fact, deterministically."
+            },
+            {
+              "section": "note",
+              "quote": "Alternatively, we recommend setting rngR = TRUE which uses R's random number generators."
+            }
+          ]
+        },
+        {
+          "category": "parameter",
+          "statement": "当 x 中存在 NA 时，correct.d 控制是否使用修正后的距离公式；因新公式不向后兼容，在采用新正确公式且存在 NA 的情形下会发出警告，除非用户显式指定 correct.d。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "correct.d logical or integer indicating that---only in the case of NA s present in x ---the correct distance computation should be used instead of the wrong formula which has been present in the original Fortran code and been in use up to early 2016."
+            },
+            {
+              "section": "arguments",
+              "quote": "Because the new correct formula is not back compatible, for the time being, a warning is signalled in this case, unless the user explicitly specifies correct.d ."
+            }
+          ]
+        },
+        {
+          "category": "output",
+          "statement": "cluster.only=FALSE（默认）时返回类 \"clara\" 的对象；cluster.only=TRUE 时返回长度为 n、取值为 1:k 的整数聚类标签向量。",
+          "evidence": [
+            {
+              "section": "value",
+              "quote": "If cluster.only is false (as by default), an object of class \"clara\" representing the clustering."
+            },
+            {
+              "section": "value",
+              "quote": "If cluster.only is true, the result is the \"clustering\", an integer vector of length n with entries from 1:k ."
+            },
+            {
+              "section": "details",
+              "quote": "When cluster.only is true, the result is simply a (possibly named) integer vector specifying the clustering, i.e., clara(x,k, cluster.only=TRUE) is the same as clara(x,k)$clustering but computed more efficiently."
+            }
+          ]
+        },
+        {
+          "category": "assumption",
+          "statement": "clara 通过固定大小（sampsize）的子数据集近似，使时间与存储需求相对 n 呈线性而非二次增长；存储约为 O(n*p)+O(j^2)，CPU 时间约为 O(n*p*j^2*N)，其中 j=sampsize、N=samples。",
+          "evidence": [
+            {
+              "section": "details",
+              "quote": "Internally, this is achieved by considering sub-datasets of fixed size ( sampsize ) such that the time and storage requirements become linear in n rather than quadratic."
+            },
+            {
+              "section": "note",
+              "quote": "The storage requirement of clara computation (for small k ) is about O(n p) + O(j^2) O(n * p) + O(j^2) where j = sampsize , and (n,p) = dim(x) ."
+            },
+            {
+              "section": "note",
+              "quote": "The CPU computing time (again assuming small k ) is about O(n p j^2 N) O(n * p * j^2 * N) , where N = samples ."
+            }
+          ]
+        },
+        {
+          "category": "failure",
+          "statement": "keep.data=FALSE 可节省内存（和时间），但会禁用对结果的 clusplot() 绘图；medoids.x=FALSE 时 keep.data 也必须为 FALSE，此时仍返回 medoid 索引（i.med 分量）。",
+          "evidence": [
+            {
+              "section": "arguments",
+              "quote": "If FALSE , keep.data must be false as well, and the medoid indices, i.e., row numbers of the medoids will still be returned ( i.med component), and the algorithm saves space by needing one copy less of x ."
+            },
+            {
+              "section": "arguments",
+              "quote": "keep.data logical indicating if the ( scaled if stand is true) data should be kept in the result."
+            },
+            {
+              "section": "arguments",
+              "quote": "Setting this to FALSE saves memory (and hence time), but disables clusplot () ing of the result."
+            },
+            {
+              "section": "arguments",
+              "quote": "Use medoids.x = FALSE to save even more memory."
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "文档未说明该函数对任何特定用户数据集的适用性，也未给出样本量阈值或分布假设（如正态性、独立性）要求。",
+        "文档未说明 jaccard 度量下 clara 的算法细节是否与欧氏/曼哈顿情形完全一致（details 仅明确提及 euclidean 和 manhattan）。",
+        "文档未说明当存在 NA 时各度量下距离计算的具体处理方式（除 correct.d 控制修正公式外）。"
+      ]
+    },
+    "structural_issues": [],
+    "semantic_review": "same_model_review_not_independent",
+    "review": {
+      "accepted": false,
+      "issues": [
+        "claim「当 x 中存在 NA 时，correct.d 控制是否使用修正后的距离公式；因新公式不向后兼容，在采用新正确公式且存在 NA 的情形下会发出警告，除非用户显式指定 correct.d」的表述有误。原文为：correct.d 指示在 x 存在 NA 时使用正确距离计算而非错误公式；由于新正确公式不向后兼容，目前在此情形下会发出警告，除非用户显式指定 correct.d。即警告是在「存在 NA 且未显式指定 correct.d」时发出，而非「采用新正确公式且存在 NA」时发出。请修正为：当 x 中存在 NA 时，默认（未显式指定 correct.d）会发出警告，除非用户显式指定 correct.d 以采用修正后的距离公式。",
+        "claim「rngR=TRUE 时使用 R 的随机数生成器而非 clara 内置的原始方案，此时每次调用返回的结果可能不同（在良好情形下仅略有不同）」中「在良好情形下仅略有不同」的限定语被省略，原文为 'though only slightly different in good situations'，该限定语改变了含义，应保留。",
+        "claim「sampsize 为每个样本中的观测数，应大于簇数 k 且至多为观测总数 n」中「应大于」的表述不准确，原文为 'sampsize should be higher than the number of clusters ( k )'，即「应高于 k」，与「大于 k」含义一致，但需注意原文未说明是否允许等于 k，建议保留原文措辞「应高于簇数 k」以避免歧义。"
+      ],
+      "explanation": "草稿大部分内容与官方文档一致，但 correct.d 相关 claim 对警告触发条件的表述存在实质性错误：原文警告是在「存在 NA 且未显式指定 correct.d」时发出，而非「采用新正确公式且存在 NA」时发出。此外 rngR claim 省略了 'only slightly different in good situations' 这一限定语，改变了含义。sampsize 的「应大于」措辞虽与原文 'higher than' 基本等价，但为保守起见建议保留原文措辞。其余 claims 与文档相符。"
+    }
+  },
+  "record_sha256": "4f96bc159d85b0f3b5b31b91f0ccce57ae5f25dad619802ba714f0842668cb95"
+}

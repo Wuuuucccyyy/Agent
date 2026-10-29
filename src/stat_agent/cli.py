@@ -13,7 +13,7 @@ def main(argv=None) -> int:
     if arguments and arguments[0] == 'kb':
         from .kb_cli import main as knowledge_main
         return knowledge_main(arguments[1:])
-    parser = argparse.ArgumentParser(description="多模态统计分析 Agent v0.5：表格画像、CRAN 条件检索与独立复核工作流")
+    parser = argparse.ArgumentParser(description="多模态统计分析 Agent v0.6：数据画像、CRAN 检索、独立复核与画像对照实验")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser('kb', help='Collect CRAN references, build/restore/index/search the knowledge database')
     profile = commands.add_parser('profile', help='Generate a local dataset profile without method selection or execution')

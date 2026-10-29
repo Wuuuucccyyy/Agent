@@ -1,0 +1,645 @@
+{
+  "MASS::lda": {
+    "function_id": "MASS::lda",
+    "package": "MASS",
+    "package_version": "7.3-66",
+    "function_name": "lda",
+    "license": "GPL-2 | GPL-3",
+    "source_url": "https://cran.r-project.org/src/contrib/MASS_7.3-66.tar.gz",
+    "package_sha256": "59c619c70bfca653f1c74aef880e69405daefd0134e716a1862ecc5334b4e155",
+    "rd_path": "MASS/man/lda.Rd",
+    "rd_sha256": "c3b3311368b575a80803713fd61f758b47f7fdaf0a6dd0385191a9e81143f27e",
+    "collected_at": "2026-10-25T14:33:27.380145+00:00",
+    "parser_version": "rd-static-3",
+    "aliases": [
+      "lda",
+      "lda.default",
+      "lda.data.frame",
+      "lda.formula",
+      "lda.matrix",
+      "model.frame.lda",
+      "print.lda",
+      "coef.lda"
+    ],
+    "usage_rd": "\nlda(x, \\dots)\n\n\\method{lda}{formula}(formula, data, \\dots, subset, na.action)\n\n\\method{lda}{default}(x, grouping, prior = proportions, tol = 1.0e-4,\n    method, CV = FALSE, nu, \\dots)\n\n\\method{lda}{data.frame}(x, \\dots)\n\n\\method{lda}{matrix}(x, grouping, \\dots, subset, na.action)\n",
+    "parameters": [
+      {
+        "name": "formula",
+        "description": "A formula of the form groups ~ x1 + x2 + ... That is, the response is the grouping factor and the right hand side specifies the (non-factor) discriminators."
+      },
+      {
+        "name": "data",
+        "description": "An optional data frame, list or environment from which variables specified in formula are preferentially to be taken."
+      },
+      {
+        "name": "x",
+        "description": "(required if no formula is given as the principal argument.) a matrix or data frame or Matrix containing the explanatory variables."
+      },
+      {
+        "name": "grouping",
+        "description": "(required if no formula principal argument is given.) a factor specifying the class for each observation."
+      },
+      {
+        "name": "prior",
+        "description": "the prior probabilities of class membership. If unspecified, the class proportions for the training set are used. If present, the probabilities should be specified in the order of the factor levels."
+      },
+      {
+        "name": "tol",
+        "description": "A tolerance to decide if a matrix is singular; it will reject variables and linear combinations of unit-variance variables whose variance is less than tol^2 ."
+      },
+      {
+        "name": "subset",
+        "description": "An index vector specifying the cases to be used in the training sample. (NOTE: If given, this argument must be named.)"
+      },
+      {
+        "name": "na.action",
+        "description": "A function to specify the action to be taken if NA s are found. The default action is for the procedure to fail. An alternative is na.omit , which leads to rejection of cases with missing values on any required variable. (NOTE: If given, this argument must be named.)"
+      },
+      {
+        "name": "method",
+        "description": "\"moment\" for standard estimators of the mean and variance, \"mle\" for MLEs, \"mve\" to use cov.mve , or \"t\" for robust estimates based on a t distribution."
+      },
+      {
+        "name": "CV",
+        "description": "If true, returns results (classes and posterior probabilities) for leave-one-out cross-validation. Note that if the prior is estimated, the proportions in the whole dataset are used."
+      },
+      {
+        "name": "nu",
+        "description": "degrees of freedom for method = \"t\" ."
+      },
+      {
+        "name": "...",
+        "description": "arguments passed to or from other methods."
+      }
+    ],
+    "sections": {
+      "title": "Linear Discriminant Analysis",
+      "description": "Linear discriminant analysis.",
+      "usage": "lda(x, ...) lda.formula(formula, data, ..., subset, na.action) lda.default(x, grouping, prior = proportions, tol = 1.0e-4, method, CV = FALSE, nu, ...) lda.data.frame(x, ...) lda.matrix(x, grouping, ..., subset, na.action)",
+      "arguments": "formula A formula of the form groups ~ x1 + x2 + ... That is, the response is the grouping factor and the right hand side specifies the (non-factor) discriminators. data An optional data frame, list or environment from which variables specified in formula are preferentially to be taken. x (required if no formula is given as the principal argument.) a matrix or data frame or Matrix containing the explanatory variables. grouping (required if no formula principal argument is given.) a factor specifying the class for each observation. prior the prior probabilities of class membership. If unspecified, the class proportions for the training set are used. If present, the probabilities should be specified in the order of the factor levels. tol A tolerance to decide if a matrix is singular; it will reject variables and linear combinations of unit-variance variables whose variance is less than tol^2 . subset An index vector specifying the cases to be used in the training sample. (NOTE: If given, this argument must be named.) na.action A function to specify the action to be taken if NA s are found. The default action is for the procedure to fail. An alternative is na.omit , which leads to rejection of cases with missing values on any required variable. (NOTE: If given, this argument must be named.) method \"moment\" for standard estimators of the mean and variance, \"mle\" for MLEs, \"mve\" to use cov.mve , or \"t\" for robust estimates based on a t distribution. CV If true, returns results (classes and posterior probabilities) for leave-one-out cross-validation. Note that if the prior is estimated, the proportions in the whole dataset are used. nu degrees of freedom for method = \"t\" . ... arguments passed to or from other methods.",
+      "details": "The function tries hard to detect if the within-class covariance matrix is singular. If any variable has within-group variance less than tol^2 it will stop and report the variable as constant. This could result from poor scaling of the problem, but is more likely to result from constant variables. Specifying the prior will affect the classification unless over-ridden in predict.lda . Unlike in most statistical packages, it will also affect the rotation of the linear discriminants within their space, as a weighted between-groups covariance matrix is used. Thus the first few linear discriminants emphasize the differences between groups with the weights given by the prior, which may differ from their prevalence in the dataset. If one or more groups is missing in the supplied data, they are dropped with a warning, but the classifications produced are with respect to the original set of levels.",
+      "value": "If CV = TRUE the return value is a list with components class , the MAP classification (a factor), and posterior , posterior probabilities for the classes. Otherwise it is an object of class \"lda\" containing the following components: prior the prior probabilities used. means the group means. scaling a matrix which transforms observations to discriminant functions, normalized so that within groups covariance matrix is spherical. svd the singular values, which give the ratio of the between- and within-group standard deviations on the linear discriminant variables. Their squares are the canonical F-statistics. N The number of observations used. call The (matched) function call.",
+      "note": "This function may be called giving either a formula and optional data frame, or a matrix and grouping factor as the first two arguments. All other arguments are optional, but subset= and na.action= , if required, must be fully named. If a formula is given as the principal argument the object may be modified using update() in the usual way.",
+      "seealso": "predict.lda , qda , predict.qda"
+    },
+    "parser_warnings": [
+      "Static Rd subset renderer; original usage retained; no R code or examples executed."
+    ]
+  },
+  "MASS::lm.ridge": {
+    "function_id": "MASS::lm.ridge",
+    "package": "MASS",
+    "package_version": "7.3-66",
+    "function_name": "lm.ridge",
+    "license": "GPL-2 | GPL-3",
+    "source_url": "https://cran.r-project.org/src/contrib/MASS_7.3-66.tar.gz",
+    "package_sha256": "59c619c70bfca653f1c74aef880e69405daefd0134e716a1862ecc5334b4e155",
+    "rd_path": "MASS/man/lm.ridge.Rd",
+    "rd_sha256": "45a6e84256ee24be378fc1b741134969deca94cd428f9bb05578d35eadff5229",
+    "collected_at": "2026-10-25T14:33:27.380145+00:00",
+    "parser_version": "rd-static-3",
+    "aliases": [
+      "lm.ridge",
+      "plot.ridgelm",
+      "print.ridgelm",
+      "select",
+      "select.ridgelm"
+    ],
+    "usage_rd": "\nlm.ridge(formula, data, subset, na.action, lambda = 0, model = FALSE,\n         x = FALSE, y = FALSE, contrasts = NULL, \\dots)\nselect(obj)\n",
+    "parameters": [
+      {
+        "name": "formula",
+        "description": "a formula expression as for regression models, of the form response ~ predictors . See the documentation of formula for other details. offset terms are allowed."
+      },
+      {
+        "name": "data",
+        "description": "an optional data frame, list or environment in which to interpret the variables occurring in formula ."
+      },
+      {
+        "name": "subset",
+        "description": "expression saying which subset of the rows of the data should be used in the fit. All observations are included by default."
+      },
+      {
+        "name": "na.action",
+        "description": "a function to filter missing data."
+      },
+      {
+        "name": "lambda",
+        "description": "A scalar or vector of ridge constants."
+      },
+      {
+        "name": "model",
+        "description": "should the model frame be returned? Not implemented."
+      },
+      {
+        "name": "x",
+        "description": "should the design matrix be returned? Not implemented."
+      },
+      {
+        "name": "y",
+        "description": "should the response be returned? Not implemented."
+      },
+      {
+        "name": "contrasts",
+        "description": "a list of contrasts to be used for some or all of factor terms in the formula. See the contrasts.arg of model.matrix.default ."
+      },
+      {
+        "name": "...",
+        "description": "additional arguments to lm.fit ."
+      },
+      {
+        "name": "obj",
+        "description": "an R object, such as an \"lm.ridge\" fit."
+      }
+    ],
+    "sections": {
+      "title": "Ridge Regression",
+      "description": "Fit a linear model by ridge regression.",
+      "usage": "lm.ridge(formula, data, subset, na.action, lambda = 0, model = FALSE, x = FALSE, y = FALSE, contrasts = NULL, ...) select(obj)",
+      "arguments": "formula a formula expression as for regression models, of the form response ~ predictors . See the documentation of formula for other details. offset terms are allowed. data an optional data frame, list or environment in which to interpret the variables occurring in formula . subset expression saying which subset of the rows of the data should be used in the fit. All observations are included by default. na.action a function to filter missing data. lambda A scalar or vector of ridge constants. model should the model frame be returned? Not implemented. x should the design matrix be returned? Not implemented. y should the response be returned? Not implemented. contrasts a list of contrasts to be used for some or all of factor terms in the formula. See the contrasts.arg of model.matrix.default . ... additional arguments to lm.fit . obj an R object, such as an \"lm.ridge\" fit.",
+      "details": "If an intercept is present in the model, its coefficient is not penalized. (If you want to penalize an intercept, put in your own constant term and remove the intercept.)",
+      "value": "A list with components coef matrix of coefficients, one row for each value of lambda . Note that these are not on the original scale and are for use by the coef method. scales scalings used on the X matrix. Inter was intercept included? lambda vector of lambda values ym mean of y xm column means of x matrix GCV vector of GCV values kHKB HKB estimate of the ridge constant. kLW L-W estimate of the ridge constant.",
+      "seealso": "lm"
+    },
+    "parser_warnings": [
+      "Static Rd subset renderer; original usage retained; no R code or examples executed."
+    ]
+  },
+  "MASS::qda": {
+    "function_id": "MASS::qda",
+    "package": "MASS",
+    "package_version": "7.3-66",
+    "function_name": "qda",
+    "license": "GPL-2 | GPL-3",
+    "source_url": "https://cran.r-project.org/src/contrib/MASS_7.3-66.tar.gz",
+    "package_sha256": "59c619c70bfca653f1c74aef880e69405daefd0134e716a1862ecc5334b4e155",
+    "rd_path": "MASS/man/qda.Rd",
+    "rd_sha256": "59579f504ebbe9e1e9bf28a3e82f9339791c29636e0690497f7489b338d560a3",
+    "collected_at": "2026-10-25T14:33:27.380145+00:00",
+    "parser_version": "rd-static-3",
+    "aliases": [
+      "qda",
+      "qda.data.frame",
+      "qda.default",
+      "qda.formula",
+      "qda.matrix",
+      "model.frame.qda",
+      "print.qda"
+    ],
+    "usage_rd": "\nqda(x, \\dots)\n\n\\method{qda}{formula}(formula, data, \\dots, subset, na.action)\n\n\\method{qda}{default}(x, grouping, prior = proportions,\n    method, CV = FALSE, nu, \\dots)\n\n\\method{qda}{data.frame}(x, \\dots)\n\n\\method{qda}{matrix}(x, grouping, \\dots, subset, na.action)\n",
+    "parameters": [
+      {
+        "name": "formula",
+        "description": "A formula of the form groups ~ x1 + x2 + ... That is, the response is the grouping factor and the right hand side specifies the (non-factor) discriminators."
+      },
+      {
+        "name": "data",
+        "description": "An optional data frame, list or environment from which variables specified in formula are preferentially to be taken."
+      },
+      {
+        "name": "x",
+        "description": "(required if no formula is given as the principal argument.) a matrix or data frame or Matrix containing the explanatory variables."
+      },
+      {
+        "name": "grouping",
+        "description": "(required if no formula principal argument is given.) a factor specifying the class for each observation."
+      },
+      {
+        "name": "prior",
+        "description": "the prior probabilities of class membership. If unspecified, the class proportions for the training set are used. If specified, the probabilities should be specified in the order of the factor levels."
+      },
+      {
+        "name": "subset",
+        "description": "An index vector specifying the cases to be used in the training sample. (NOTE: If given, this argument must be named.)"
+      },
+      {
+        "name": "na.action",
+        "description": "A function to specify the action to be taken if NA s are found. The default action is for the procedure to fail. An alternative is na.omit, which leads to rejection of cases with missing values on any required variable. (NOTE: If given, this argument must be named.)"
+      },
+      {
+        "name": "method",
+        "description": "\"moment\" for standard estimators of the mean and variance, \"mle\" for MLEs, \"mve\" to use cov.mve , or \"t\" for robust estimates based on a t distribution."
+      },
+      {
+        "name": "CV",
+        "description": "If true, returns results (classes and posterior probabilities) for leave-out-out cross-validation. Note that if the prior is estimated, the proportions in the whole dataset are used."
+      },
+      {
+        "name": "nu",
+        "description": "degrees of freedom for method = \"t\" ."
+      },
+      {
+        "name": "...",
+        "description": "arguments passed to or from other methods."
+      }
+    ],
+    "sections": {
+      "title": "Quadratic Discriminant Analysis",
+      "description": "Quadratic discriminant analysis.",
+      "usage": "qda(x, ...) qda.formula(formula, data, ..., subset, na.action) qda.default(x, grouping, prior = proportions, method, CV = FALSE, nu, ...) qda.data.frame(x, ...) qda.matrix(x, grouping, ..., subset, na.action)",
+      "arguments": "formula A formula of the form groups ~ x1 + x2 + ... That is, the response is the grouping factor and the right hand side specifies the (non-factor) discriminators. data An optional data frame, list or environment from which variables specified in formula are preferentially to be taken. x (required if no formula is given as the principal argument.) a matrix or data frame or Matrix containing the explanatory variables. grouping (required if no formula principal argument is given.) a factor specifying the class for each observation. prior the prior probabilities of class membership. If unspecified, the class proportions for the training set are used. If specified, the probabilities should be specified in the order of the factor levels. subset An index vector specifying the cases to be used in the training sample. (NOTE: If given, this argument must be named.) na.action A function to specify the action to be taken if NA s are found. The default action is for the procedure to fail. An alternative is na.omit, which leads to rejection of cases with missing values on any required variable. (NOTE: If given, this argument must be named.) method \"moment\" for standard estimators of the mean and variance, \"mle\" for MLEs, \"mve\" to use cov.mve , or \"t\" for robust estimates based on a t distribution. CV If true, returns results (classes and posterior probabilities) for leave-out-out cross-validation. Note that if the prior is estimated, the proportions in the whole dataset are used. nu degrees of freedom for method = \"t\" . ... arguments passed to or from other methods.",
+      "details": "Uses a QR decomposition which will give an error message if the within-group variance is singular for any group.",
+      "value": "an object of class \"qda\" containing the following components: prior the prior probabilities used. means the group means. scaling for each group i , scaling[,,i] is an array which transforms observations so that within-groups covariance matrix is spherical. ldet a vector of half log determinants of the dispersion matrix. lev the levels of the grouping factor. terms (if formula is a formula) an object of mode expression and class term summarizing the formula. call the (matched) function call. unless CV=TRUE , when the return value is a list with components: class The MAP classification (a factor) posterior posterior probabilities for the classes",
+      "seealso": "predict.qda , lda"
+    },
+    "parser_warnings": [
+      "Static Rd subset renderer; original usage retained; no R code or examples executed."
+    ]
+  },
+  "cluster::diana": {
+    "function_id": "cluster::diana",
+    "package": "cluster",
+    "package_version": "2.1.8.3",
+    "function_name": "diana",
+    "license": "GPL (>= 2)",
+    "source_url": "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz",
+    "package_sha256": "e240bebe2aa85f9d9f674cd7addc3dc9023f9e4c3f462eca94e582e22a5ce2e9",
+    "rd_path": "cluster/man/diana.Rd",
+    "rd_sha256": "0bf0ba3ed417b73ceed0b4cd1ba55d12c384f98cbf5432299c3d1ce3e975812d",
+    "collected_at": "2026-10-25T14:33:27.380145+00:00",
+    "parser_version": "rd-static-3",
+    "aliases": [
+      "diana",
+      "diana.object"
+    ],
+    "usage_rd": "\ndiana(x, diss = inherits(x, \"dist\"), metric = \"euclidean\", stand = FALSE,\n      stop.at.k = FALSE,\n      keep.diss = n < 100, keep.data = !diss, trace.lev = 0)\n",
+    "parameters": [
+      {
+        "name": "x",
+        "description": "data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument. In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric. Missing values ( NA s) are allowed. In case of a dissimilarity matrix, x is typically the output of daisy or dist . Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions. Missing values (NAs) are not allowed."
+      },
+      {
+        "name": "diss",
+        "description": "logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix. If FALSE, then x will be considered as a matrix of observations by variables."
+      },
+      {
+        "name": "metric",
+        "description": "character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\" and \"manhattan\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. If x is already a dissimilarity matrix, then this argument will be ignored."
+      },
+      {
+        "name": "stand",
+        "description": "logical; if true, the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. If x is already a dissimilarity matrix, then this argument will be ignored."
+      },
+      {
+        "name": "stop.at.k",
+        "description": "logical or integer, FALSE by default. Otherwise must be integer, say k , in \\ 1,2,..,n\\ , specifying that the diana algorithm should stop early. Non-default NOT YET IMPLEMENTED."
+      },
+      {
+        "name": "keep.diss, keep.data",
+        "description": "logicals indicating if the dissimilarities and/or input data x should be kept in the result. Setting these to FALSE can give much smaller results and hence even save memory allocation time ."
+      },
+      {
+        "name": "trace.lev",
+        "description": "integer specifying a trace level for printing diagnostics during the algorithm. Default 0 does not print anything; higher values print increasingly more."
+      }
+    ],
+    "sections": {
+      "title": "DIvisive ANAlysis Clustering",
+      "description": "Computes a divisive hierarchical clustering of the dataset returning an object of class diana .",
+      "usage": "diana(x, diss = inherits(x, \"dist\"), metric = \"euclidean\", stand = FALSE, stop.at.k = FALSE, keep.diss = n < 100, keep.data = !diss, trace.lev = 0)",
+      "arguments": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument. In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric. Missing values ( NA s) are allowed. In case of a dissimilarity matrix, x is typically the output of daisy or dist . Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions. Missing values (NAs) are not allowed. diss logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix. If FALSE, then x will be considered as a matrix of observations by variables. metric character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\" and \"manhattan\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. If x is already a dissimilarity matrix, then this argument will be ignored. stand logical; if true, the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. If x is already a dissimilarity matrix, then this argument will be ignored. stop.at.k logical or integer, FALSE by default. Otherwise must be integer, say k , in \\ 1,2,..,n\\ , specifying that the diana algorithm should stop early. Non-default NOT YET IMPLEMENTED. keep.diss, keep.data logicals indicating if the dissimilarities and/or input data x should be kept in the result. Setting these to FALSE can give much smaller results and hence even save memory allocation time . trace.lev integer specifying a trace level for printing diagnostics during the algorithm. Default 0 does not print anything; higher values print increasingly more.",
+      "details": "diana is fully described in chapter 6 of Kaufman and Rousseeuw (1990). It is probably unique in computing a divisive hierarchy, whereas most other software for hierarchical clustering is agglomerative. Moreover, diana provides (a) the divisive coefficient (see diana.object ) which measures the amount of clustering structure found; and (b) the banner, a novel graphical display (see plot.diana ). The diana -algorithm constructs a hierarchy of clusterings, starting with one large cluster containing all n observations. Clusters are divided until each cluster contains only a single observation. At each stage, the cluster with the largest diameter is selected. (The diameter of a cluster is the largest dissimilarity between any two of its observations.) To divide the selected cluster, the algorithm first looks for its most disparate observation (i.e., which has the largest average dissimilarity to the other observations of the selected cluster). This observation initiates the \"splinter group\". In subsequent steps, the algorithm reassigns observations that are closer to the \"splinter group\" than to the \"old party\". The result is a division of the selected cluster into two new clusters.",
+      "value": "an object of class \"diana\" representing the clustering; this class has methods for the following generic functions: print , summary , plot . Further, the class \"diana\" inherits from \"twins\" . Therefore, the generic function pltree can be used on a diana object, and as.hclust and as.dendrogram methods are available. A legitimate diana object is a list with the following components: order a vector giving a permutation of the original observations to allow for plotting, in the sense that the branches of a clustering tree will not cross. order.lab a vector similar to order , but containing observation labels instead of observation numbers. This component is only available if the original observations were labelled. height a vector with the diameters of the clusters prior to splitting. dc the divisive coefficient, measuring the clustering structure of the dataset. For each observation i, denote by d(i) the diameter of the last cluster to which it belongs (before being split off as a single observation), divided by the diameter of the whole dataset. The dc is the average of all 1 - d(i) . It can also be seen as the average width (or the percentage filled) of the banner plot. Because dc grows with the number of observations, this measure should not be used to compare datasets of very different sizes. merge an (n-1) by 2 matrix, where n is the number of observations. Row i of merge describes the split at step n-i of the clustering. If a number j in row r is negative, then the single observation |j| is split off at stage n-r. If j is positive, then the cluster that will be splitted at stage n-j (described by row j), is split off at stage n-r. diss an object of class \"dissimilarity\" , representing the total dissimilarity matrix of the dataset. data a matrix containing the original or standardized measurements, depending on the stand option of the function agnes . If a dissimilarity matrix was given as input structure, then this component is not available.",
+      "seealso": "agnes also for background and references; cutree (and as.hclust ) for grouping extraction; daisy , dist , plot.diana , twins.object ."
+    },
+    "parser_warnings": [
+      "Static Rd subset renderer; original usage retained; no R code or examples executed."
+    ]
+  },
+  "cluster::agnes": {
+    "function_id": "cluster::agnes",
+    "package": "cluster",
+    "package_version": "2.1.8.3",
+    "function_name": "agnes",
+    "license": "GPL (>= 2)",
+    "source_url": "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz",
+    "package_sha256": "e240bebe2aa85f9d9f674cd7addc3dc9023f9e4c3f462eca94e582e22a5ce2e9",
+    "rd_path": "cluster/man/agnes.Rd",
+    "rd_sha256": "958ff549f380aed8fbd2f51ce05f723469d22a922432ec2913789d850f49b1d5",
+    "collected_at": "2026-10-25T14:33:27.380145+00:00",
+    "parser_version": "rd-static-3",
+    "aliases": [
+      "agnes"
+    ],
+    "usage_rd": "\nagnes(x, diss = inherits(x, \"dist\"), metric = \"euclidean\",\n      stand = FALSE, method = \"average\", par.method,\n      keep.diss = n < 100, keep.data = !diss, trace.lev = 0)\n",
+    "parameters": [
+      {
+        "name": "x",
+        "description": "data matrix or data frame, or dissimilarity matrix, depending on the value of the diss argument. In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric. Missing values (NAs) are allowed. In case of a dissimilarity matrix, x is typically the output of daisy or dist . Also a vector with length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions. Missing values (NAs) are not allowed."
+      },
+      {
+        "name": "diss",
+        "description": "logical flag: if TRUE (default for dist or dissimilarity objects), then x is assumed to be a dissimilarity matrix. If FALSE, then x is treated as a matrix of observations by variables."
+      },
+      {
+        "name": "metric",
+        "description": "character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\" and \"manhattan\" . Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. If x is already a dissimilarity matrix, then this argument will be ignored."
+      },
+      {
+        "name": "stand",
+        "description": "logical flag: if TRUE, then the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. If x is already a dissimilarity matrix, then this argument will be ignored."
+      },
+      {
+        "name": "method",
+        "description": "character string defining the clustering method. The six methods implemented are \"average\" ([unweighted pair-]group [arithMetic] average method, aka UPGMA ), \"single\" (single linkage), \"complete\" (complete linkage), \"ward\" (Ward's method), \"weighted\" (weighted average linkage, aka WPGMA ), its generalization \"flexible\" which uses (a constant version of) the Lance-Williams formula and the par.method argument, and \"gaverage\" a generalized \"average\" aka flexible UPGMA method also using the Lance-Williams formula and par.method . The default is \"average\" ."
+      },
+      {
+        "name": "par.method",
+        "description": "If method is \"flexible\" or \"gaverage\" , a numeric vector of length 1, 3, or 4, (with a default for \"gaverage\" ), see in the details section."
+      },
+      {
+        "name": "keep.diss, keep.data",
+        "description": "logicals indicating if the dissimilarities and/or input data x should be kept in the result. Setting these to FALSE can give much smaller results and hence even save memory allocation time ."
+      },
+      {
+        "name": "trace.lev",
+        "description": "integer specifying a trace level for printing diagnostics during the algorithm. Default 0 does not print anything; higher values print increasingly more."
+      }
+    ],
+    "sections": {
+      "title": "Agglomerative Nesting (Hierarchical Clustering)",
+      "description": "Computes agglomerative hierarchical clustering of the dataset.",
+      "usage": "agnes(x, diss = inherits(x, \"dist\"), metric = \"euclidean\", stand = FALSE, method = \"average\", par.method, keep.diss = n < 100, keep.data = !diss, trace.lev = 0)",
+      "arguments": "x data matrix or data frame, or dissimilarity matrix, depending on the value of the diss argument. In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric. Missing values (NAs) are allowed. In case of a dissimilarity matrix, x is typically the output of daisy or dist . Also a vector with length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions. Missing values (NAs) are not allowed. diss logical flag: if TRUE (default for dist or dissimilarity objects), then x is assumed to be a dissimilarity matrix. If FALSE, then x is treated as a matrix of observations by variables. metric character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\" and \"manhattan\" . Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. If x is already a dissimilarity matrix, then this argument will be ignored. stand logical flag: if TRUE, then the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. If x is already a dissimilarity matrix, then this argument will be ignored. method character string defining the clustering method. The six methods implemented are \"average\" ([unweighted pair-]group [arithMetic] average method, aka UPGMA ), \"single\" (single linkage), \"complete\" (complete linkage), \"ward\" (Ward's method), \"weighted\" (weighted average linkage, aka WPGMA ), its generalization \"flexible\" which uses (a constant version of) the Lance-Williams formula and the par.method argument, and \"gaverage\" a generalized \"average\" aka flexible UPGMA method also using the Lance-Williams formula and par.method . The default is \"average\" . par.method If method is \"flexible\" or \"gaverage\" , a numeric vector of length 1, 3, or 4, (with a default for \"gaverage\" ), see in the details section. keep.diss, keep.data logicals indicating if the dissimilarities and/or input data x should be kept in the result. Setting these to FALSE can give much smaller results and hence even save memory allocation time . trace.lev integer specifying a trace level for printing diagnostics during the algorithm. Default 0 does not print anything; higher values print increasingly more.",
+      "details": "agnes is fully described in chapter 5 of Kaufman and Rousseeuw (1990). Compared to other agglomerative clustering methods such as hclust , agnes has the following features: (a) it yields the agglomerative coefficient (see agnes.object ) which measures the amount of clustering structure found; and (b) apart from the usual tree it also provides the banner, a novel graphical display (see plot.agnes ). The agnes -algorithm constructs a hierarchy of clusterings. At first, each observation is a small cluster by itself. Clusters are merged until only one large cluster remains which contains all the observations. At each stage the two nearest clusters are combined to form one larger cluster. For method=\"average\" , the distance between two clusters is the average of the dissimilarities between the points in one cluster and the points in the other cluster. In method=\"single\" , we use the smallest dissimilarity between a point in the first cluster and a point in the second cluster (nearest neighbor method). When method=\"complete\" , we use the largest dissimilarity between a point in the first cluster and a point in the second cluster (furthest neighbor method). The method = \"flexible\" allows (and requires) more details: The Lance-Williams formula specifies how dissimilarities are computed when clusters are agglomerated (equation (32) in K&R(1990), p.237). If clusters C_1 and C_2 are agglomerated into a new cluster, the dissimilarity between their union and another cluster Q is given by D(C_1 C_2, Q) = _1 * D(C_1, Q) + _2 * D(C_2, Q) + * D(C_1,C_2) + * |D(C_1, Q) - D(C_2, Q)|, where the four coefficients ( _1, _2, , ) are specified by the vector par.method , either directly as vector of length 4, or (more conveniently) if par.method is of length 1, say = , par.method is extended to give the Flexible Strategy (K&R(1990), p.236 f) with Lance-Williams coefficients ( _1 = _2 = , = 1 - 2 , =0) . Also, if length(par.method) == 3 , = 0 is set. Care and expertise is probably needed when using method = \"flexible\" particularly for the case when par.method is specified of longer length than one. Since cluster version 2.0, choices leading to invalid merge structures now signal an error (from the C code already). The weighted average ( method=\"weighted\" ) is the same as method=\"flexible\", par.method = 0.5 . Further, method= \"single\" is equivalent to method=\"flexible\", par.method = c(.5,.5,0,-.5) , and method=\"complete\" is equivalent to method=\"flexible\", par.method = c(.5,.5,0,+.5) . The method = \"gaverage\" is a generalization of \"average\" , aka flexible UPGMA method, and is (a generalization of the approach) detailed in Belbin et al. (1992). As \"flexible\" , it uses the Lance-Williams formula above for dissimilarity updating, but with _1 and _2 not constant, but proportional to the sizes n_1 and n_2 of the clusters C_1 and C_2 respectively, i.e, _j = '_j n_1 n_1+n_2 , _j = '_j * n_1/(n_1 + n_2), where '_1 , '_2 are determined from par.method , either directly as ( _1, _2, , ) or ( _1, _2, ) with = 0 , or (less flexibly, but more conveniently) as follows: Belbin et al proposed flexible beta , i.e. the user would only specify (as par.method ), sensibly in -1 < 1, -1 < 1, and determines '_1 and '_2 as '_j = 1 - , and = 0 . This may be specified by par.method (as length 1 vector), and if par.method is not specified, a default value of -0.1 is used, as Belbin et al recommend taking a value around -0.1 as a general agglomerative hierarchical clustering strategy. Note that method = \"gaverage\", par.method = 0 (or par.method = c(1,1,0,0) ) is equivalent to the agnes() default method \"average\" .",
+      "value": "an object of class \"agnes\" (which extends \"twins\" ) representing the clustering. See agnes.object for details, and methods applicable.",
+      "seealso": "agnes.object , daisy , diana , dist , hclust , plot.agnes , twins.object ."
+    },
+    "parser_warnings": [
+      "Static Rd subset renderer; original usage retained; no R code or examples executed."
+    ]
+  },
+  "cluster::pam": {
+    "function_id": "cluster::pam",
+    "package": "cluster",
+    "package_version": "2.1.8.3",
+    "function_name": "pam",
+    "license": "GPL (>= 2)",
+    "source_url": "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz",
+    "package_sha256": "e240bebe2aa85f9d9f674cd7addc3dc9023f9e4c3f462eca94e582e22a5ce2e9",
+    "rd_path": "cluster/man/pam.Rd",
+    "rd_sha256": "7d3e8c696a846ad8cb3bb25deec235b95bcc6f48c325d1086f9237b3e982823c",
+    "collected_at": "2026-10-25T14:33:27.380145+00:00",
+    "parser_version": "rd-static-3",
+    "aliases": [
+      "pam"
+    ],
+    "usage_rd": "\npam(x, k, diss = inherits(x, \"dist\"),\n    metric = c(\"euclidean\", \"manhattan\"), %% FIXME: add \"jaccard\"\n    medoids = if(is.numeric(nstart)) \"random\",\n    nstart = if(variant == \"faster\") 1 else NA,\n    stand = FALSE, cluster.only = FALSE,\n    do.swap = TRUE,\n    keep.diss = !diss && !cluster.only && n < 100,\n    keep.data = !diss && !cluster.only,\n    variant = c(\"original\", \"o_1\", \"o_2\", \"f_3\", \"f_4\", \"f_5\", \"faster\"),\n    pamonce = FALSE, trace.lev = 0)\n",
+    "parameters": [
+      {
+        "name": "x",
+        "description": "data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument. In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric (or logical). Missing values ( NA s) are allowed---as long as every pair of observations has at least one case not missing. In case of a dissimilarity matrix, x is typically the output of daisy or dist . Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions. Missing values ( NA s) are not allowed."
+      },
+      {
+        "name": "k",
+        "description": "positive integer specifying the number of clusters, less than the number of observations."
+      },
+      {
+        "name": "diss",
+        "description": "logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix. If FALSE, then x will be considered as a matrix of observations by variables."
+      },
+      {
+        "name": "metric",
+        "description": "character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\" and \"manhattan\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. If x is already a dissimilarity matrix, then this argument will be ignored."
+      },
+      {
+        "name": "medoids",
+        "description": "NULL (default) or length- k vector of integer indices (in 1:n ) specifying initial medoids instead of using the build algorithm."
+      },
+      {
+        "name": "nstart",
+        "description": "used only when medoids = \"random\" : specifies the number of random starts ; this argument corresponds to the one of kmeans () (from R's package stats )."
+      },
+      {
+        "name": "stand",
+        "description": "logical; if true, the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. If x is already a dissimilarity matrix, then this argument will be ignored."
+      },
+      {
+        "name": "cluster.only",
+        "description": "logical; if true, only the clustering will be computed and returned, see details."
+      },
+      {
+        "name": "do.swap",
+        "description": "logical indicating if the swap phase should happen. The default, TRUE , correspond to the original algorithm. On the other hand, the swap phase is much more computer intensive than the build one for large n , so can be skipped by do.swap = FALSE ."
+      },
+      {
+        "name": "keep.diss, keep.data",
+        "description": "logicals indicating if the dissimilarities and/or input data x should be kept in the result. Setting these to FALSE can give much smaller results and hence even save memory allocation time ."
+      },
+      {
+        "name": "pamonce",
+        "description": "logical or integer in 0:6 specifying algorithmic short cuts as proposed by Reynolds et al. (2006), and Schubert and Rousseeuw (2019, 2021) see below."
+      },
+      {
+        "name": "variant",
+        "description": "a character string denoting the variant of PAM algorithm to use; a more self-documenting version of pamonce which should be used preferably; note that \"faster\" not only uses pamonce = 6 but also nstart = 1 and hence medoids = \"random\" by default."
+      },
+      {
+        "name": "trace.lev",
+        "description": "integer specifying a trace level for printing diagnostics during the build and swap phase of the algorithm. Default 0 does not print anything; higher values print increasingly more."
+      }
+    ],
+    "sections": {
+      "title": "Partitioning Around Medoids",
+      "description": "Partitioning (clustering) of the data into k clusters around medoids , a more robust version of K-means.",
+      "usage": "pam(x, k, diss = inherits(x, \"dist\"), metric = c(\"euclidean\", \"manhattan\"), medoids = if(is.numeric(nstart)) \"random\", nstart = if(variant == \"faster\") 1 else NA, stand = FALSE, cluster.only = FALSE, do.swap = TRUE, keep.diss = !diss && !cluster.only && n < 100, keep.data = !diss && !cluster.only, variant = c(\"original\", \"o_1\", \"o_2\", \"f_3\", \"f_4\", \"f_5\", \"faster\"), pamonce = FALSE, trace.lev = 0)",
+      "arguments": "x data matrix or data frame, or dissimilarity matrix or object, depending on the value of the diss argument. In case of a matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric (or logical). Missing values ( NA s) are allowed---as long as every pair of observations has at least one case not missing. In case of a dissimilarity matrix, x is typically the output of daisy or dist . Also a vector of length n*(n-1)/2 is allowed (where n is the number of observations), and will be interpreted in the same way as the output of the above-mentioned functions. Missing values ( NA s) are not allowed. k positive integer specifying the number of clusters, less than the number of observations. diss logical flag: if TRUE (default for dist or dissimilarity objects), then x will be considered as a dissimilarity matrix. If FALSE, then x will be considered as a matrix of observations by variables. metric character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\" and \"manhattan\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. If x is already a dissimilarity matrix, then this argument will be ignored. medoids NULL (default) or length- k vector of integer indices (in 1:n ) specifying initial medoids instead of using the build algorithm. nstart used only when medoids = \"random\" : specifies the number of random starts ; this argument corresponds to the one of kmeans () (from R's package stats ). stand logical; if true, the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. If x is already a dissimilarity matrix, then this argument will be ignored. cluster.only logical; if true, only the clustering will be computed and returned, see details. do.swap logical indicating if the swap phase should happen. The default, TRUE , correspond to the original algorithm. On the other hand, the swap phase is much more computer intensive than the build one for large n , so can be skipped by do.swap = FALSE . keep.diss, keep.data logicals indicating if the dissimilarities and/or input data x should be kept in the result. Setting these to FALSE can give much smaller results and hence even save memory allocation time . pamonce logical or integer in 0:6 specifying algorithmic short cuts as proposed by Reynolds et al. (2006), and Schubert and Rousseeuw (2019, 2021) see below. variant a character string denoting the variant of PAM algorithm to use; a more self-documenting version of pamonce which should be used preferably; note that \"faster\" not only uses pamonce = 6 but also nstart = 1 and hence medoids = \"random\" by default. trace.lev integer specifying a trace level for printing diagnostics during the build and swap phase of the algorithm. Default 0 does not print anything; higher values print increasingly more.",
+      "details": "The basic pam algorithm is fully described in chapter 2 of Kaufman and Rousseeuw(1990). Compared to the k-means approach in kmeans , the function pam has the following features: (a) it also accepts a dissimilarity matrix; (b) it is more robust because it minimizes a sum of dissimilarities instead of a sum of squared euclidean distances; (c) it provides a novel graphical display, the silhouette plot (see plot.partition ) (d) it allows to select the number of clusters using mean( silhouette (pr)[, \"sil_width\"]) on the result pr <- pam(..) , or directly its component pr$silinfo$avg.width , see also pam.object . When cluster.only is true, the result is simply a (possibly named) integer vector specifying the clustering, i.e., pam(x,k, cluster.only=TRUE) is the same as pam(x,k)$clustering but computed more efficiently. The pam -algorithm is based on the search for k representative objects or medoids among the observations of the dataset. These observations should represent the structure of the data. After finding a set of k medoids, k clusters are constructed by assigning each observation to the nearest medoid. The goal is to find k representative objects which minimize the sum of the dissimilarities of the observations to their closest representative object. By default, when medoids are not specified, the algorithm first looks for a good initial set of medoids (this is called the build phase). Then it finds a local minimum for the objective function, that is, a solution such that there is no single switch of an observation with a medoid (i.e. a swap ) that will decrease the objective (this is called the swap phase). When the medoids are specified (or randomly generated), their order does not matter; in general, the algorithms have been designed to not depend on the order of the observations. The pamonce option, new in cluster 1.14.2 (Jan. 2012), has been proposed by Matthias Studer, University of Geneva, based on the findings by Reynolds et al. (2006) and was extended by Erich Schubert, TU Dortmund, with the FastPAM optimizations. The default FALSE (or integer 0 ) corresponds to the original swap algorithm, whereas pamonce = 1 (or TRUE ), corresponds to the first proposal .... and pamonce = 2 additionally implements the second proposal as well. The key ideas of FastPAM (Schubert and Rousseeuw, 2019) are implemented except for the linear approximate build as follows: pamonce = 3 : reduces the runtime by a factor of O(k) by exploiting that points cannot be closest to all current medoids at the same time. pamonce = 4 : additionally allows executing multiple swaps per iteration, usually reducing the number of iterations. pamonce = 5 : adds minor optimizations copied from the pamonce = 2 approach, and is expected to be the fastest of the FastPam variants included. FasterPAM (Schubert and Rousseeuw, 2021) is implemented via pamonce = 6 : execute each swap which improves results immediately, and hence typically multiple swaps per iteration; this swapping algorithm runs in O(n^2) rather than O(n(n-k)k) time which is much faster for all but small k . In addition, FasterPAM uses random initialization of the medoids (instead of the build phase) to avoid the O(n^2 k) initialization cost of the build algorithm. In particular for large k, this yields a much faster algorithm, while preserving a similar result quality. One may decide to use repeated random initialization by setting nstart > 1 .",
+      "value": "an object of class \"pam\" representing the clustering. See ? pam.object for details.",
+      "note": "For large datasets, pam may need too much memory or too much computation time since both are O(n^2) . Then, clara () is preferable, see its documentation. There is hard limit currently, n 65536 n <= 65536 , at 2^ 16 because for larger n , n(n-1)/2 is larger than the maximal integer ( .Machine $integer.max = 2^ 31 - 1 ).",
+      "seealso": "agnes for background and references; pam.object , clara , daisy , partition.object , plot.partition , dist ."
+    },
+    "parser_warnings": [
+      "Static Rd subset renderer; original usage retained; no R code or examples executed."
+    ]
+  },
+  "cluster::clara": {
+    "function_id": "cluster::clara",
+    "package": "cluster",
+    "package_version": "2.1.8.3",
+    "function_name": "clara",
+    "license": "GPL (>= 2)",
+    "source_url": "https://cran.r-project.org/src/contrib/cluster_2.1.8.3.tar.gz",
+    "package_sha256": "e240bebe2aa85f9d9f674cd7addc3dc9023f9e4c3f462eca94e582e22a5ce2e9",
+    "rd_path": "cluster/man/clara.Rd",
+    "rd_sha256": "b18b27063c8cf1c9d78ed87c9194a502281a363df12e053c527c3fa89f1f8ef2",
+    "collected_at": "2026-10-25T14:33:27.380145+00:00",
+    "parser_version": "rd-static-3",
+    "aliases": [
+      "clara"
+    ],
+    "usage_rd": "\nclara(x, k, metric = c(\"euclidean\", \"manhattan\", \"jaccard\"),\n      stand = FALSE, cluster.only = FALSE, samples = 5,\n      sampsize = min(n, 40 + 2 * k), trace = 0, medoids.x = TRUE,\n      keep.data = medoids.x, rngR = FALSE, pamLike = FALSE, correct.d = TRUE)\n",
+    "parameters": [
+      {
+        "name": "x",
+        "description": "data matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric (or logical). Missing values (NAs) are allowed."
+      },
+      {
+        "name": "k",
+        "description": "integer, the number of clusters. It is required that 0 < k < n where n is the number of observations (i.e., n = nrow(x) )."
+      },
+      {
+        "name": "metric",
+        "description": "character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\", \"manhattan\", \"jaccard\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences."
+      },
+      {
+        "name": "stand",
+        "description": "logical, indicating if the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation."
+      },
+      {
+        "name": "cluster.only",
+        "description": "logical; if true, only the clustering will be computed and returned, see details."
+      },
+      {
+        "name": "samples",
+        "description": "integer, say N , the number of samples to be drawn from the dataset. The default, N = 5 , is rather small for historical (and now back compatibility) reasons and we recommend to set samples an order of magnitude larger ."
+      },
+      {
+        "name": "sampsize",
+        "description": "integer, say j , the number of observations in each sample. sampsize should be higher than the number of clusters ( k ) and at most the number of observations ( n = nrow(x) ). While computational effort is proportional to j^2 , see note below, it may still be advisable to set j = sampsize to a larger value than the (historical) default."
+      },
+      {
+        "name": "trace",
+        "description": "integer indicating a trace level for diagnostic output during the algorithm."
+      },
+      {
+        "name": "medoids.x",
+        "description": "logical indicating if the medoids should be returned, identically to some rows of the input data x . If FALSE , keep.data must be false as well, and the medoid indices, i.e., row numbers of the medoids will still be returned ( i.med component), and the algorithm saves space by needing one copy less of x ."
+      },
+      {
+        "name": "keep.data",
+        "description": "logical indicating if the ( scaled if stand is true) data should be kept in the result. Setting this to FALSE saves memory (and hence time), but disables clusplot () ing of the result. Use medoids.x = FALSE to save even more memory."
+      },
+      {
+        "name": "rngR",
+        "description": "logical indicating if R's random number generator should be used instead of the primitive clara()-builtin one. If true, this also means that each call to clara() returns a different result -- though only slightly different in good situations."
+      },
+      {
+        "name": "pamLike",
+        "description": "logical indicating if the swap phase (see pam , in C code) should use the same algorithm as pam () . Note that from Kaufman and Rousseeuw's description this should have been true always, but as the original Fortran code and the subsequent port to C has always contained a small one-letter change (a typo according to Martin Maechler) with respect to PAM, the default, pamLike = FALSE has been chosen to remain back compatible rather than PAM compatible ."
+      },
+      {
+        "name": "correct.d",
+        "description": "logical or integer indicating that---only in the case of NA s present in x ---the correct distance computation should be used instead of the wrong formula which has been present in the original Fortran code and been in use up to early 2016. Because the new correct formula is not back compatible, for the time being, a warning is signalled in this case, unless the user explicitly specifies correct.d ."
+      }
+    ],
+    "sections": {
+      "title": "Clustering Large Applications",
+      "description": "Computes a \"clara\" object, a list representing a clustering of the data into k clusters.",
+      "usage": "clara(x, k, metric = c(\"euclidean\", \"manhattan\", \"jaccard\"), stand = FALSE, cluster.only = FALSE, samples = 5, sampsize = min(n, 40 + 2 * k), trace = 0, medoids.x = TRUE, keep.data = medoids.x, rngR = FALSE, pamLike = FALSE, correct.d = TRUE)",
+      "arguments": "x data matrix or data frame, each row corresponds to an observation, and each column corresponds to a variable. All variables must be numeric (or logical). Missing values (NAs) are allowed. k integer, the number of clusters. It is required that 0 < k < n where n is the number of observations (i.e., n = nrow(x) ). metric character string specifying the metric to be used for calculating dissimilarities between observations. The currently available options are \"euclidean\", \"manhattan\", \"jaccard\". Euclidean distances are root sum-of-squares of differences, and manhattan distances are the sum of absolute differences. stand logical, indicating if the measurements in x are standardized before calculating the dissimilarities. Measurements are standardized for each variable (column), by subtracting the variable's mean value and dividing by the variable's mean absolute deviation. cluster.only logical; if true, only the clustering will be computed and returned, see details. samples integer, say N , the number of samples to be drawn from the dataset. The default, N = 5 , is rather small for historical (and now back compatibility) reasons and we recommend to set samples an order of magnitude larger . sampsize integer, say j , the number of observations in each sample. sampsize should be higher than the number of clusters ( k ) and at most the number of observations ( n = nrow(x) ). While computational effort is proportional to j^2 , see note below, it may still be advisable to set j = sampsize to a larger value than the (historical) default. trace integer indicating a trace level for diagnostic output during the algorithm. medoids.x logical indicating if the medoids should be returned, identically to some rows of the input data x . If FALSE , keep.data must be false as well, and the medoid indices, i.e., row numbers of the medoids will still be returned ( i.med component), and the algorithm saves space by needing one copy less of x . keep.data logical indicating if the ( scaled if stand is true) data should be kept in the result. Setting this to FALSE saves memory (and hence time), but disables clusplot () ing of the result. Use medoids.x = FALSE to save even more memory. rngR logical indicating if R's random number generator should be used instead of the primitive clara()-builtin one. If true, this also means that each call to clara() returns a different result -- though only slightly different in good situations. pamLike logical indicating if the swap phase (see pam , in C code) should use the same algorithm as pam () . Note that from Kaufman and Rousseeuw's description this should have been true always, but as the original Fortran code and the subsequent port to C has always contained a small one-letter change (a typo according to Martin Maechler) with respect to PAM, the default, pamLike = FALSE has been chosen to remain back compatible rather than PAM compatible . correct.d logical or integer indicating that---only in the case of NA s present in x ---the correct distance computation should be used instead of the wrong formula which has been present in the original Fortran code and been in use up to early 2016. Because the new correct formula is not back compatible, for the time being, a warning is signalled in this case, unless the user explicitly specifies correct.d .",
+      "details": "clara (for \"euclidean\" and \"manhattan\") is fully described in chapter 3 of Kaufman and Rousseeuw (1990). Compared to other partitioning methods such as pam , it can deal with much larger datasets. Internally, this is achieved by considering sub-datasets of fixed size ( sampsize ) such that the time and storage requirements become linear in n rather than quadratic. Each sub-dataset is partitioned into k clusters using the same algorithm as in pam . Once k representative objects have been selected from the sub-dataset, each observation of the entire dataset is assigned to the nearest medoid. The mean (equivalent to the sum) of the dissimilarities of the observations to their closest medoid is used as a measure of the quality of the clustering. The sub-dataset for which the mean (or sum) is minimal, is retained. A further analysis is carried out on the final partition. Each sub-dataset is forced to contain the medoids obtained from the best sub-dataset until then. Randomly drawn observations are added to this set until sampsize has been reached. When cluster.only is true, the result is simply a (possibly named) integer vector specifying the clustering, i.e., clara(x,k, cluster.only=TRUE) is the same as clara(x,k)$clustering but computed more efficiently.",
+      "value": "If cluster.only is false (as by default), an object of class \"clara\" representing the clustering. See clara.object for details. If cluster.only is true, the result is the \"clustering\", an integer vector of length n with entries from 1:k .",
+      "note": "By default, the random sampling is implemented with a very simple scheme (with period 2^ 16 = 65536 ) inside the Fortran code, independently of R's random number generation, and as a matter of fact, deterministically. Alternatively, we recommend setting rngR = TRUE which uses R's random number generators. Then, clara() results are made reproducible typically by using set.seed () before calling clara . The storage requirement of clara computation (for small k ) is about O(n p) + O(j^2) O(n * p) + O(j^2) where j = sampsize , and (n,p) = dim(x) . The CPU computing time (again assuming small k ) is about O(n p j^2 N) O(n * p * j^2 * N) , where N = samples . For small datasets, the function pam can be used directly. What can be considered small , is really a function of available computing power, both memory (RAM) and speed. Originally (1990), small meant less than 100 observations; in 1997, the authors said small (say with fewer than 200 observations) ; as of 2006, you can use pam with several thousand observations.",
+      "seealso": "agnes for background and references; clara.object , pam , partition.object , plot.partition ."
+    },
+    "parser_warnings": [
+      "Static Rd subset renderer; original usage retained; no R code or examples executed."
+    ]
+  },
+  "psych::principal": {
+    "function_id": "psych::principal",
+    "package": "psych",
+    "package_version": "2.6.9",
+    "function_name": "principal",
+    "license": "GPL (>= 2)",
+    "source_url": "https://cran.r-project.org/src/contrib/psych_2.6.9.tar.gz",
+    "package_sha256": "81cfacc5254b139323275a35cf0238dbefd23783b6deb3f4e01a40b0f2b2147f",
+    "rd_path": "psych/man/principal.Rd",
+    "rd_sha256": "82ed8581c7ae7622e9d2b5e535748a3f0801ab6aece05450603db80732994d1c",
+    "collected_at": "2026-10-25T14:33:27.380145+00:00",
+    "parser_version": "rd-static-3",
+    "aliases": [
+      "principal",
+      "pca"
+    ],
+    "usage_rd": "\nprincipal(r, nfactors = 1, residuals = FALSE,rotate=\"varimax\",n.obs=NA, covar=FALSE,\n scores=TRUE,missing=FALSE,impute=\"median\",oblique.scores=TRUE,method=\"regression\",\n use =\"pairwise\",cor=\"cor\",correct=.5,weight=NULL,n.rotations=1,\nhyper=.15,...)\n",
+    "parameters": [
+      {
+        "name": "r",
+        "description": "a correlation matrix. If a raw data matrix is used, the correlations will be found using pairwise deletions for missing values."
+      },
+      {
+        "name": "nfactors",
+        "description": "Number of components to extract"
+      },
+      {
+        "name": "residuals",
+        "description": "FALSE, do not show residuals, TRUE, report residuals"
+      },
+      {
+        "name": "rotate",
+        "description": "\"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution. See fa for all rotations avaiable."
+      },
+      {
+        "name": "n.obs",
+        "description": "Number of observations used to find the correlation matrix if using a correlation matrix. Used for finding the goodness of fit statistics."
+      },
+      {
+        "name": "covar",
+        "description": "If false, find the correlation matrix from the raw data or convert to a correlation matrix if given a square matrix as input."
+      },
+      {
+        "name": "scores",
+        "description": "If TRUE, find component scores"
+      },
+      {
+        "name": "missing",
+        "description": "if scores are TRUE, and missing=TRUE, then impute missing values using either the median or the mean"
+      },
+      {
+        "name": "impute",
+        "description": "\"median\" or \"mean\" values are used to replace missing values"
+      },
+      {
+        "name": "oblique.scores",
+        "description": "If TRUE (default), then the component scores are based upon the structure matrix. If FALSE, upon the pattern matrix."
+      },
+      {
+        "name": "method",
+        "description": "Which way of finding component scores should be used. The default is \"regression\""
+      },
+      {
+        "name": "weight",
+        "description": "If not NULL, a vector of length n.obs that contains weights for each observation. The NULL case is equivalent to all cases being weighted 1."
+      },
+      {
+        "name": "use",
+        "description": "How to treat missing data, use=\"pairwise\" is the default\". See cor for other options."
+      },
+      {
+        "name": "cor",
+        "description": "How to find the correlations: \"cor\" is Pearson\", \"cov\" is covariance, \"tet\" is tetrachoric, \"poly\" is polychoric, \"mixed\" uses mixedCor for a mixture of tetrachorics, polychorics, Pearsons, biserials, and polyserials, Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients as appropriate"
+      },
+      {
+        "name": "correct",
+        "description": "When doing tetrachoric, polycoric, or mixed cor, how should we treat empty cells. (See the discussion in the help for tetrachoric.)"
+      },
+      {
+        "name": "n.rotations",
+        "description": "Number of random restarts for rotations"
+      },
+      {
+        "name": "hyper",
+        "description": "Count number of (absolute) loadings less than hyper."
+      },
+      {
+        "name": "...",
+        "description": "other parameters to pass to functions such as factor.scores or the various rotation functions."
+      }
+    ],
+    "sections": {
+      "title": "Principal components analysis (PCA)",
+      "description": "Does an eigen value decomposition and returns eigen values, loadings, and degree of fit for a specified number of components. Basically it is just doing a principal components analysis (PCA) for n principal components of either a correlation or covariance matrix. Can show the residual correlations as well. The quality of reduction in the squared correlations is reported by comparing residual correlations to original correlations. Unlike princomp, this returns a subset of just the best nfactors. The eigen vectors are rescaled by the sqrt of the eigen values to produce the component loadings more typical in factor analysis.",
+      "usage": "principal(r, nfactors = 1, residuals = FALSE,rotate=\"varimax\",n.obs=NA, covar=FALSE, scores=TRUE,missing=FALSE,impute=\"median\",oblique.scores=TRUE,method=\"regression\", use =\"pairwise\",cor=\"cor\",correct=.5,weight=NULL,n.rotations=1, hyper=.15,...)",
+      "arguments": "r a correlation matrix. If a raw data matrix is used, the correlations will be found using pairwise deletions for missing values. nfactors Number of components to extract residuals FALSE, do not show residuals, TRUE, report residuals rotate \"none\", \"varimax\", \"quartimax\", \"promax\", \"oblimin\", \"simplimax\", and \"cluster\" are possible rotations/transformations of the solution. See fa for all rotations avaiable. n.obs Number of observations used to find the correlation matrix if using a correlation matrix. Used for finding the goodness of fit statistics. covar If false, find the correlation matrix from the raw data or convert to a correlation matrix if given a square matrix as input. scores If TRUE, find component scores missing if scores are TRUE, and missing=TRUE, then impute missing values using either the median or the mean impute \"median\" or \"mean\" values are used to replace missing values oblique.scores If TRUE (default), then the component scores are based upon the structure matrix. If FALSE, upon the pattern matrix. method Which way of finding component scores should be used. The default is \"regression\" weight If not NULL, a vector of length n.obs that contains weights for each observation. The NULL case is equivalent to all cases being weighted 1. use How to treat missing data, use=\"pairwise\" is the default\". See cor for other options. cor How to find the correlations: \"cor\" is Pearson\", \"cov\" is covariance, \"tet\" is tetrachoric, \"poly\" is polychoric, \"mixed\" uses mixedCor for a mixture of tetrachorics, polychorics, Pearsons, biserials, and polyserials, Yuleb is Yulebonett, Yuleq and YuleY are the obvious Yule coefficients as appropriate correct When doing tetrachoric, polycoric, or mixed cor, how should we treat empty cells. (See the discussion in the help for tetrachoric.) n.rotations Number of random restarts for rotations hyper Count number of (absolute) loadings less than hyper. ... other parameters to pass to functions such as factor.scores or the various rotation functions.",
+      "details": "Useful for those cases where the correlation matrix is improper (perhaps because of SAPA techniques). There are a number of data reduction techniques including principal components analysis (PCA) and factor analysis (EFA). Both PC and FA attempt to approximate a given correlation or covariance matrix of rank n with matrix of lower rank (p). _nR_n _ n F_ kk F_n'+ U^2 nRn = nFk kFn' + U2 where k is much less than n. For principal components, the item uniqueness is assumed to be zero and all elements of the correlation or covariance matrix are fitted. That is, _nR_n _ n F_ kk F_n' nRn = nFk kFn' The primary empirical difference between a components versus a factor model is the treatment of the variances for each item. Philosophically, components are weighted composites of observed variables while in the factor model, variables are weighted composites of the factors. As the number of items increases, the difference between the two models gets smaller. Factor loadings are the asymptotic component loadings as the number of items gets larger. For a n x n correlation matrix, the n principal components completely reproduce the correlation matrix. However, if just the first k principal components are extracted, this is the best k dimensional approximation of the matrix. It is important to recognize that rotated principal components are not principal components (the axes associated with the eigen value decomposition) but are merely components. To point this out, unrotated principal components are labelled as PCi, while rotated PCs are now labeled as RCi (for rotated components) and obliquely transformed components as TCi (for transformed components). (Thanks to Ulrike Gromping for this suggestion.) Rotations and transformations are either part of psych (Promax and cluster), of base R (varimax), or of GPArotation (simplimax, quartimax, oblimin, etc.). Of the various rotation/transformation options, varimax, Varimax, quartimax, bentlerT, geominT, and bifactor do orthogonal rotations. Promax transforms obliquely with a target matix equal to the varimax solution. oblimin, quartimin, simplimax, bentlerQ, geominQ and biquartimin are oblique transformations. Most of these are just calls to the GPArotation package. The ``cluster'' option does a targeted rotation to a structure defined by the cluster representation of a varimax solution. With the optional \"keys\" parameter, the \"target\" option will rotate to a target supplied as a keys matrix. (See target.rot .) The rotation matrix (rot.mat) is returned from all of these options. This is the inverse of the Th (theta?) object returned by the GPArotation package. The correlations of the factors may be found by = ' Phi = Th' Th Some of the statistics reported are more appropriate for (maximum likelihood) factor analysis rather than principal components analysis, and are reported to allow comparisons with these other models. Although for items, it is typical to find component scores by scoring the salient items (using, e.g., scoreItems ) component scores are found by regression where the regression weights are R^ -1 R^(-1) lambda where lambda is the matrix of component loadings. The regression approach is done to be parallel with the factor analysis function fa . The regression weights are found from the inverse of the correlation matrix times the component loadings. This has the result that the component scores are standard scores (mean=0, sd = 1) of the standardized input. A comparison to the scores from princomp shows this difference. princomp does not, by default, standardize the data matrix, nor are the components themselves standardized. The regression weights are found from the Structure matrix, not the Pattern matrix. If the scores are found with the covar option = TRUE, then the scores are not standardized but are just mean centered. Jolliffe (2002) discusses why the interpretation of rotated components is complicated. Rencher (1992) discourages the use of rotated components. The approach used here is consistent with the factor analytic tradition. The correlations of the items with the component scores closely matches (as it should) the component loadings (as reported in the structure matrix). The output from the print.psych function displays the component loadings (from the pattern matrix), the h2 (communalities) the u2 (the uniquenesses), com (the complexity of the component loadings for that variable (see below). In the case of an orthogonal solution, h2 is merely the row sum of the squared component loadings. But for an oblique solution, it is the row sum of the (squared) orthogonal component loadings (remember, that rotations or transformations do not change the communality). This information is returned (invisibly) from the print function as the object Vaccounted.",
+      "value": "values Eigen Values of all components -- useful for a scree plot rotation which rotation was requested? n.obs number of observations specified or found communality Communality estimates for each item. These are merely the sum of squared factor loadings for that item. complexity Hoffman's index of complexity for each item. This is just ( a_i^2)^2 a_i^4 ( a_i^2)^2 / a_i^4 where a_i is the factor loading on the ith factor. From Hofmann (1978), MBR. See also Pettersson and Turkheimer (2010). loadings A standard loading matrix of class ``loadings\" fit Fit of the model to the correlation matrix fit.off how well are the off diagonal elements reproduced? residual Residual matrix -- if requested dof Degrees of Freedom for this model. This is the number of observed correlations minus the number of independent parameters (number of items * number of factors - nf*(nf-1)/2. That is, dof = niI * (ni-1)/2 - ni * nf + nf*(nf-1)/2. objective value of the function that is minimized by maximum likelihood procedures. This is reported for comparison purposes and as a way to estimate chi square goodness of fit. The objective function is f = (trace ((FF'+U2)^ -1 R) - log(|(FF'+U2)^ -1 R|) - n.items log(trace ((FF'+U2)^ -1 R) - log(|(FF'+U2)^-1 R|) - n.items . Because components do not minimize the off diagonal, this fit will be not as good as for factor analysis. It is included merely for comparison purposes. STATISTIC If the number of observations is specified or found, this is a chi square based upon the objective function, f. Using the formula from factanal : ^2 = (n.obs - 1 - (2 * p + 5)/6 - (2 * factors)/3)) * f chi^2 = (n.obs - 1 - (2 * p + 5)/6 - (2 * factors)/3)) * f PVAL If n.obs > 0, then what is the probability of observing a chisquare this large or larger? Phi If oblique rotations (using oblimin from the GPArotation package) are requested, what is the interfactor correlation. scores If scores=TRUE, then estimates of the factor scores are reported weights The beta weights to find the principal components from the data R2 The multiple R square between the factors and factor score estimates, if they were to be found. (From Grice, 2001) For components, these are of course 1.0. valid The correlations of the component score estimates with the components, if they were to be found and unit weights were used. (So called course coding). r.scores The correlation of the component scores. (Since components are just weighted linear sums of the items, this is the same as Phi). rot.mat The rotation matrix used to produce the rotated component loadings.",
+      "note": "By default, the accuracy of the varimax rotation function seems to be less than the Varimax function. This can be enhanced by specifying eps=1e-14 in the call to principal if using varimax rotation. Furthermore, note that Varimax by default does not apply the Kaiser normalization, but varimax does. Gottfried Helms compared these two rotations with those produced by SPSS and found identical values if using the appropriate options. (See the last two examples.) The ability to use different kinds of correlations was added in version 1.9.12.31 to be compatible with the options in fa. The ability to do random restarts for rotations or transformations was added in 2.6.4. See the discussion in fa about why restarts are important.",
+      "seealso": "VSS (to test for the number of components or factors to extract), VSS.scree and fa.parallel to show a scree plot and compare it with random resamplings of the data), factor2cluster (for course coding keys), fa (for factor analysis), factor.congruence (to compare solutions), predict.psych to find factor/component scores for a new data set based upon the weights from an original data set."
+    },
+    "parser_warnings": [
+      "Static Rd subset renderer; original usage retained; no R code or examples executed."
+    ]
+  }
+}
